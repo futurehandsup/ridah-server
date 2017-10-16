@@ -18,7 +18,6 @@ var UserSchema = new Schema({
         }, 'Password should be longer'
       ]
     },
-
     salt : {                                         // 암호를 해시하기 위한 salt 속성
         type : String
     },
