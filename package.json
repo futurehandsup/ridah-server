@@ -1,0 +1,21 @@
+{
+  "name": "ridah-server",
+  "version": "1.0.0",
+  "description": "ridah-server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "futurehandsup",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.1",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {}
+}
