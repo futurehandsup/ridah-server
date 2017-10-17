@@ -2,6 +2,9 @@ var express = require('express'),
     morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    cookieParser = require('cookie-parser'),
     methodOverride = require('method-override'),
     config = require('./config'),              //세션 사용
     session = require('express-session')       //세션 사용
@@ -21,9 +24,12 @@ module.exports = function() {
     app.use(bodyParser.urlencoded({
         extended : true
     }));
+    // uncomment after placing your favicon in /public
+    //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
     app.use(bodyParser.json());
     app.use(methodOverride());
+    app.use(cookieParser());
 
     app.use(session({                        // 세션 사용
         saveUninitialized : true,         //초기화되지 않은 세션정보도 저장되는지
@@ -31,17 +37,40 @@ module.exports = function() {
         secret : config.sessionSecret     //비밀키 설정.
     }));
 
-    app.set('views', './app/views');           // ejs 사용
+    // view engine setup
+    app.set('views', path.resolve(__dirname, '../views'));
     app.set('view engine', 'ejs');
 
     app.use(flash());
     app.use(passport.initialize());    // 추가
     app.use(passport.session());       // 추가
 
-    require('../app/routes/index.server.routes.js')(app);
-    require('../app/routes/users.server.routes.js')(app);
+    var index = require('../routes/index');
+    var users = require('../routes/users');
 
-    app.use(express.static('./static'));        // 정적 폴더 설정
+    app.use('/', index);
+    app.use('/users', users);
+
+    //app.use(express.static('./static'));        // 정적 폴더 설정
+    app.use(express.static(path.resolve(__dirname, '../public')));
+
+    // catch 404 and forward to error handler
+    app.use(function(req, res, next) {
+      var err = new Error('Not Found');
+      err.status = 404;
+      next(err);
+    });
+
+    // error handler
+    app.use(function(err, req, res, next) {
+      // set locals, only providing error in development
+      res.locals.message = err.message;
+      res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+      // render the error page
+      res.status(err.status || 500);
+      res.render('error');
+    });
 
     return app;
 }
