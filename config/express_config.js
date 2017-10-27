@@ -47,9 +47,11 @@ module.exports = function() {
 
     var index = require('../routes/index');
     var users = require('../routes/users');
+    var stores = require('../routes/stores');
 
     app.use('/', index);
     app.use('/users', users);
+    app.use('/stores', stores);
 
     //app.use(express.static('./static'));        // 정적 폴더 설정
     app.use(express.static(path.resolve(__dirname, '../public')));
