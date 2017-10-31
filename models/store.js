@@ -50,6 +50,10 @@ var StoreSchema = new Schema({
       type : String,
       default: ""
     },
+    telephone : {
+      type : String,
+      default : ""
+    },
     owner : {
       type : Schema.ObjectId,
       ref : 'User'

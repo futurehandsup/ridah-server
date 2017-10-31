@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var stores = require('../controllers/stores');
+var common = require('../controllers/common');
     //passport = require('passport');
 
 
@@ -10,15 +11,27 @@ router.get('/', function(req, res, next) {
    res.send('respond with a resource');
 });
 
-router.get('/list', stores.renderList);
+//RESTful api
+router.get('/getList', stores.getList, common.setResponse);
+router.get('/getStore/:storeId', common.setResponse);
+router.post('/update/:storeId', stores.update, common.setResponse);
 
+// render 될 페이지 모음
+router.get('/list', stores.getList, common.renderPage);
+router.get('/detail/:storeId', common.renderPage);
+router.get('/update/:storeId', stores.update, common.renderPage);
+
+
+
+
+// 정리중
 router.get('/registerStore', stores.registerStore);
 router.post('/registerStore', stores.registerStore);
 
-router.get('/detail/:storeId', stores.renderDetail);
 
-router.get('/update/:storeId', stores.update);
-router.post('/update/:storeId', stores.update);
+
+// router.get('/update/:storeId', stores.update);
+// router.post('/update/:storeId', stores.update);
 //router.post('/users/delete/:storeId', stores.delete);
 
 router.param('storeId', stores.findStore);

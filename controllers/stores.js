@@ -21,6 +21,7 @@ var getErrorMessage = function(err) {
   }
   return message;
 };
+
 exports.findStore = function(req, res, next, id) {
   Store.findOne({
     _id: id
@@ -28,25 +29,56 @@ exports.findStore = function(req, res, next, id) {
     if (err) {
       return next(err);
     } else {
-      req.store = store;
+      var result = {
+        title : "Store List",
+        page : 'stores/detail',
+        success : true,
+        messages : req.flash('error'),
+        store : store
+      }
+      req.result = result;
+
       return next();
     }
   })
 }
-exports.renderList = function(req, res, next) {
+exports.getList = function(req, res, next){
   Store.find(function(err, stores) {
     if (err) {
       return next(err);
     } else {
-      res.json(stores);
-      // res.render('stores/list', {
-      //   title: 'Store List',
-      //   messages: req.flash('error'),
-      //   stores: stores
-      // });
+      var result = {
+        title : "승마장 현황",
+        page : 'stores/list',
+        success : true,
+        messages : req.flash('error'),
+        stores : stores
+      }
+      req.result = result;
+      next();
     }
   })
+}
+
+exports.update = function(req, res, next) {
+  Store.findByIdAndUpdate(req.store.id, req.body, function(err, store) {
+    if (err) {
+      return next(err);
+    } else {
+      store.updated_at = Date.now();
+      var result = {
+        title : "Store Update",
+        success : true,
+        messages : req.flash('error'),
+        store : store
+      }
+      req.result = result;
+      next();
+      //return res.redirect('/stores/detail/'+req.store.id);
+    }
+  });
 };
+
 
 // 임시로 생성
 exports.registerStore = function(req, res, next) {
