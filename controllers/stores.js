@@ -1,4 +1,5 @@
 var Store = require('mongoose').model('Store');
+var User = require('mongoose').model('User');
 //passport = require('passport');
 
 var getErrorMessage = function(err) {
@@ -22,26 +23,6 @@ var getErrorMessage = function(err) {
   return message;
 };
 
-exports.findStore = function(req, res, next, id) {
-  Store.findOne({
-    _id: id
-  }, function(err, store) {
-    if (err) {
-      return next(err);
-    } else {
-      var result = {
-        title : "Store List",
-        page : 'stores/detail',
-        success : true,
-        messages : req.flash('error'),
-        store : store
-      }
-      req.result = result;
-
-      return next();
-    }
-  })
-}
 exports.getList = function(req, res, next){
   Store.find(function(err, stores) {
     if (err) {
@@ -49,7 +30,7 @@ exports.getList = function(req, res, next){
     } else {
       var result = {
         title : "승마장 현황",
-        page : 'stores/list',
+        //page : 'stores/list',
         success : true,
         messages : req.flash('error'),
         stores : stores
@@ -59,9 +40,33 @@ exports.getList = function(req, res, next){
     }
   })
 }
+// 임시로 생성
+exports.registerOne = function(req, res, next) {
+  //  if (req.body=="") {
+  var store = new Store({
+    storename: "승마장 " + Math.random() % 100
+  });
+  var message = null;
 
-exports.update = function(req, res, next) {
-  Store.findByIdAndUpdate(req.store.id, req.body, function(err, store) {
+  store.save(function(err) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "사용자 현황",
+        //page : 'stores/list2',
+        success : true,
+        messages : req.flash('error'),
+        store : store
+      }
+      req.result = result;
+      next();
+      //return res.redirect('/stores/list');
+    }
+  });
+};
+exports.updateOne = function(req, res, next) {
+  Store.findByIdAndUpdate(req.result.store.id, req.body, function(err, store) {
     if (err) {
       return next(err);
     } else {
@@ -78,118 +83,61 @@ exports.update = function(req, res, next) {
     }
   });
 };
-
-
-// 임시로 생성
-exports.registerStore = function(req, res, next) {
-  //  if (req.body=="") {
-  var store = new Store({
-    storename: "승마장 " + Math.random() % 100
-  });
-  var message = null;
-
-  //store.provider = 'local';
-
-  store.save(function(err) {
+exports.getOne = function(req, res, next, id) {
+  Store.findOne({
+    _id: id
+  }, function(err, store) {
     if (err) {
       return next(err);
     } else {
-      res.json(store);
-      next();
-      //return res.redirect('/stores/list');
+      var result = {
+        title : "Store List",
+        //page : 'stores/detail',
+        success : true,
+        messages : req.flash('error'),
+        store : store
+      }
+      req.result = result;
+
+      return next();
     }
-  });
-
-  //  } else {
-  //      return res.redirect('/stores/list');
-  //  }
-};
-exports.renderDetail = function(req, res, next) {
-  res.render('stores/detail', {
-    title: 'Store List',
-    messages: req.flash('error'),
-    store: req.store
-  });
-};
-exports.update = function(req, res, next) {
-  Store.findByIdAndUpdate(req.store.id, req.body, function(err, store) {
+  })
+}
+exports.deleteOne = function(req, res, next) {
+  var date = Date.now();
+  Store.findByIdAndUpdate(req.result.store.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, store) {
     if (err) {
       return next(err);
     } else {
-      store.updated_at = Date.now();
-      res.json(store);
+      store.updated_at = date;
+      var result = {
+        title : "Store Delete",
+        success : true,
+        messages : req.flash('error'),
+        store : store
+      }
+      req.result = result;
+      next();
       //return res.redirect('/stores/detail/'+req.store.id);
     }
   });
 };
-//
-// exports.renderSignup = function(req,res,next) {
-//     if (!req.store) {
-//         res.render('stores/signup', {
-//             title : 'Sign-up Form',
-//             messages : req.flash('error')
-//         });
-//     } else {
-//         return res.redirect('/');
-//     }
-// };
-//
 
-//
-// exports.signout = function(req,res) {
-//     req.logout();
-//     res.redirect('/');
-// };
-// var Store = require('mongoose').model('Store');
-// exports.create = function(req,res,next) {
-//   var store = new Store(req.body);
-//   store.save(function(err){
-//     if(err) {
-//       return next(err);
-//     } else {
-//       res.json(store);
-//     }
-//   });
-// };
-// exports.list = function(req,res,next) {
-//     Store.find(function(err,stores) {
-//         if(err) {
-//             return next(err);
-//         }else{
-//             res.json(stores)
-//         }
-//     })
-// };
-// exports.read = function(req,res) {
-//     res.json(req.store);
-// };
-// exports.storeByID = function(req,res,next,id) {
-//     Store.findOne({
-//         _id : id
-//     }, function(err, store) {
-//         if(err) {
-//             return next(err);
-//         }else{
-//             req.store = store;
-//             next();
-//         }
-//     })
-// };
-// exports.update = function(req,res,next) {
-//     Store.findByIdAndUpdate(req.store.id, req.body, function(err, store) {
-//         if(err) {
-//             return next(err);
-//         }else{
-//             res.json(store);
-//         }
-//     });
-// };
-// exports.delete = function(req,res,next) {
-//     req.store.remove(function(err) {
-//         if(err) {
-//             return next(err);
-//         }else{
-//             res.json(req.store);
-//         }
-//     })
-// };
+// 임시
+exports.getList2 = function(req, res, next){
+  User.find(function(err, users) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "사용자 현황",
+        //page : 'stores/list2',
+        success : true,
+        messages : req.flash('error'),
+        users : users
+      }
+      req.result = result;
+      next();
+    }
+  })
+}

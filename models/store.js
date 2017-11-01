@@ -76,10 +76,14 @@ var StoreSchema = new Schema({
     updated_at : {
       type : Date,
       default : Date.now
+    },
+    deleted : {
+      is_deleted : Boolean,
+      deleted_at : Date
     }
 });
-StoreSchema.pre('update', function() {
-  this.update({},{ $set: { updated_at: new Date() } });
+StoreSchema.post('update', function(result) {
+  this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });
 
 // StoreSchema.virtual('idpass').get(function() {     // 가상 속성, StoreSchema 의 set 옵션에 virtuals 옵션을 true 로 설정해야 작동

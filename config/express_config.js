@@ -48,11 +48,16 @@ module.exports = function() {
     var index = require('../routes/index');
     var users = require('../routes/users');
     var stores = require('../routes/stores');
+    var admin = require('../routes/admin'); // 관리자 페이지
 
     app.use('/', index);
+    //API Route : view 없음.
     app.use('/users', users);
     app.use('/stores', stores);
 
+    //admin Route : /views/admin/* view 사용
+    app.use('/admin', admin);
+    
     //app.use(express.static('./static'));        // 정적 폴더 설정
     app.use(express.static(path.resolve(__dirname, '../public')));
 

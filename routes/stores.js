@@ -5,35 +5,29 @@ var stores = require('../controllers/stores');
 var common = require('../controllers/common');
     //passport = require('passport');
 
+//RESTful API
+router.route('/')
+.all(function(req, res, next) {
+  // runs for all HTTP verbs first
+  // think of it as route specific middleware!
+  next();
+})
+.get(stores.getList, common.setResponse)        // 승마장 리스트 출력
+.post(stores.registerOne, common.setResponse)   // 승마장 등록
+.put(common.notImplementedError)
+.delete(common.notImplementedError);
 
-/* GET stores listing. */
-router.get('/', function(req, res, next) {
-   res.send('respond with a resource');
-});
+router.route('/:storeId')
+.all(function(req, res, next) {
+  // runs for all HTTP verbs first
+  // think of it as route specific middleware!
+  next();
+})
+.get(common.setResponse)                          //승마장 정보 출력
+.put(stores.updateOne, common.setResponse)        //승마장 정보 가져오기
+.delete(stores.deleteOne, common.setResponse)     //승마장 삭제
+.post(common.notImplementedError);
 
-//RESTful api
-router.get('/getList', stores.getList, common.setResponse);
-router.get('/getStore/:storeId', common.setResponse);
-router.post('/update/:storeId', stores.update, common.setResponse);
-
-// render 될 페이지 모음
-router.get('/list', stores.getList, common.renderPage);
-router.get('/detail/:storeId', common.renderPage);
-router.get('/update/:storeId', stores.update, common.renderPage);
-
-
-
-
-// 정리중
-router.get('/registerStore', stores.registerStore);
-router.post('/registerStore', stores.registerStore);
-
-
-
-// router.get('/update/:storeId', stores.update);
-// router.post('/update/:storeId', stores.update);
-//router.post('/users/delete/:storeId', stores.delete);
-
-router.param('storeId', stores.findStore);
+router.param('storeId', stores.getOne);
 
 module.exports = router;
