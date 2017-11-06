@@ -23,6 +23,19 @@ var getErrorMessage = function(err) {
   return message;
 };
 
+exports.getSchemas = function(req, res, next){
+  var schema = Store.schema;
+  var result = {
+    title : "승마장 현황",
+    //page : 'stores/list',
+    success : true,
+    messages : req.flash('error'),
+    schema : schema
+  }
+  req.result = result;
+  next();
+}
+
 exports.getList = function(req, res, next){
   Store.find(function(err, stores) {
     if (err) {
@@ -43,9 +56,7 @@ exports.getList = function(req, res, next){
 // 임시로 생성
 exports.registerOne = function(req, res, next) {
   //  if (req.body=="") {
-  var store = new Store({
-    storename: "승마장 " + Math.random() % 100
-  });
+  var store = new Store(req.body);
   var message = null;
 
   store.save(function(err) {
