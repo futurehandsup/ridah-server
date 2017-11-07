@@ -40,7 +40,7 @@ exports.getList = function(req, res, next){
 //사용자 등록
 exports.registerOne = function(req, res, next) {
   if (!req.user) {
-    var user = new User(req.body);
+    var user = new User(req.body.user);
     var message = null;
 
     user.provider = 'local';
@@ -50,6 +50,7 @@ exports.registerOne = function(req, res, next) {
       if(err) {
         message = getErrorMessage(err);
         req.flash('error', message);
+        return next(err);
       }
       else{
         var result = {
@@ -126,16 +127,26 @@ exports.deleteOne = function(req, res, next) {
 };
 
 //로그인
-exports.login = function(req, res){
-  req.login(user, function(err) {
-    if (err){
-      return next(err);
+exports.login = function(req, res, next) {
+  var user = req.body.user;
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) {
+      req.flash("user 없음 ")
     }
-    else{
+    req.login(user, function(err) {
+      if (err) { return next(err); }
+      var result = {
+        title : "User Delete",
+        success : true,
+        messages : req.flash('error'),
+        user : user
+      }
+      req.result = result;
       next();
-    }
-  });
-}
+    });
+  })(req, res, next);
+};
 //로그아웃
 exports.signout = function(req,res) {
   req.logout();
@@ -174,7 +185,7 @@ exports.signout = function(req,res) {
 // };
 
 exports.renderSignin = function(req, res, next) {
-    if(!req.user) {
+    if(!req.body.user) {
         res.render('users/signin', {
             title : 'Sign-in Form',
             messages : req.flash('error') || req.flash('info')
@@ -185,7 +196,7 @@ exports.renderSignin = function(req, res, next) {
 };
 
 exports.renderSignup = function(req,res,next) {
-    if (!req.user) {
+    if (!req.body.user) {
         res.render('users/signup', {
             title : 'Sign-up Form',
             messages : req.flash('error')

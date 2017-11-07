@@ -8,7 +8,7 @@ var UserSchema = new Schema({
       type : String ,
       trim : true ,     //자동으로 앞뒤공백 제거
       unique : true,     // primary key로 지정
-      required : 'Username is required'   // 검증
+      required : 'User ID is required'   // 검증
     },
     password : {
       type : String ,
@@ -52,7 +52,8 @@ var UserSchema = new Schema({
     },
     role : {
       type : String ,
-      enum : ['Admin', 'Owner', 'User']
+      enum : ['Admin', 'Owner', 'User'],
+      default: 'User'
     },
     created_at : {
       type : Date,
@@ -66,7 +67,7 @@ var UserSchema = new Schema({
       is_deleted : Boolean,
       deleted_at : Date
     }
-});
+}, {id: true});
 
 // UserSchema.virtual('idpass').get(function() {     // 가상 속성, UserSchema 의 set 옵션에 virtuals 옵션을 true 로 설정해야 작동
 //     return this.userid + ' ' + this.password;

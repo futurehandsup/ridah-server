@@ -14,6 +14,7 @@ var isAuthenticated = function (req, res, next) {
 
 // render 될 페이지 모음
 router.get('/', isAuthenticated);
+router.get('/login', common.renderPage('admin/login'));
 
 // stores
 router.get('/stores/list', stores.getList, common.renderPage('admin/stores/list'));

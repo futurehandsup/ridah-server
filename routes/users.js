@@ -17,23 +17,32 @@ router.route('/')
 .put(common.notImplementedError)
 .delete(common.notImplementedError);
 
+router.route('/token')
+.all(function(req, res, next) {
+  // runs for all HTTP verbs first
+  // think of it as route specific middleware!
+  next();
+})
+.post(users.login, common.setResponse)
+.get(common.notImplementedError)
+.delete(common.notImplementedError)
+.put(common.notImplementedError);
+
 router.route('/:userId')
 .all(function(req, res, next) {
   // runs for all HTTP verbs first
   // think of it as route specific middleware!
   next();
 })
-.get(common.setResponse)                         //승마장 정보 출력
-.put(users.updateOne, common.setResponse)        //승마장 정보 가져오기
-.delete(users.deleteOne, common.setResponse)     //승마장 삭제
+.get(common.setResponse)                         //사용자 정보 출력
+.put(users.updateOne, common.setResponse)        //사용자 정보 가져오기
+.delete(users.deleteOne, common.setResponse)     //사용자 삭제
 .post(common.notImplementedError);
 
 router.param('userId', users.getOne);
 
 
 /////////////////////////////
-
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -42,16 +51,16 @@ router.get('/', function(req, res, next) {
 router.get('/signup', users.renderSignup);
 
 router.get('/signin', users.renderSignin);
-router.post('/signin',passport.authenticate('local', {
-  /*
-  successRedirect : 이 속성은 패스포트에게 성공적으로 사용자를 인증한 다음에 요청을 전환할 위치를 알려준다.
-  failureRedirect : 이 속성은 패스포트에게 사용자가 인증에 실해한 다음에 요청을 전환 할 위치를 알려준다.
-  failureFlash : 이 속성은 패스포트에게 flash 메시지를 사용할 지 말지를 알려준다.
-  */
-  successRedirect : '/',
-  failureRedirect : '/signin',
-  failureFlash : true
-}));
+router.post('/signin', passport.authenticate('local', {
+    /*
+    successRedirect : 이 속성은 패스포트에게 성공적으로 사용자를 인증한 다음에 요청을 전환할 위치를 알려준다.
+    failureRedirect : 이 속성은 패스포트에게 사용자가 인증에 실해한 다음에 요청을 전환 할 위치를 알려준다.
+    failureFlash : 이 속성은 패스포트에게 flash 메시지를 사용할 지 말지를 알려준다.
+    */
+    //successRedirect : '/',
+    //failureRedirect : '/signin',
+    failureFlash : true
+  }));
 
 router.get('/signout', users.signout);
 

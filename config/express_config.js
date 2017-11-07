@@ -57,7 +57,7 @@ module.exports = function() {
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);
-    
+
     //app.use(express.static('./static'));        // 정적 폴더 설정
     app.use(express.static(path.resolve(__dirname, '../public')));
 

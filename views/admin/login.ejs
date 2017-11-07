@@ -1,19 +1,58 @@
-<% include ../templates/header.ejs %>
-<div class="container">
+<% include ./templates/header.ejs %>
+<div class="container" style="max-width: 500px; padding: 100px 0; margin-bottom: 200px;">
 
   <form class="form-signin">
-    <h2 class="form-signin-heading">Please sign in</h2>
+    <h2 class="form-signin-heading">관리자 로그인</h2>
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <input type="text" name="userid" class="form-control" placeholder="아이디" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <div class="checkbox">
+    <input type="password" name="password" class="form-control" placeholder="비밀번호" required>
+    <!--<div class="checkbox">
       <label>
         <input type="checkbox" value="remember-me"> Remember me
       </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </div>-->
+    <button id="loginButton" class="btn btn-lg btn-primary btn-fill btn-block" type="button">로그인</button>
+    <!-- <button id="signinButton" class="btn btn-lg btn-primary btn-block" type="button">회원가입</button> -->
   </form>
 
 </div> <!-- /container -->
-<% include ../templates/bottom.ejs %>
+<% include ./templates/bottom.ejs %>
+<script>
+$('#loginButton').click(function(){
+  var user =  $('.form-signin').serializeObject();
+
+  $.ajax({
+    type:"POST",
+    url:'/users/token',
+    data:user,
+    success:function(args){
+      alert("성공했습니다.");
+      location.href="/admin/stores/list";
+    },
+    error:function(e){
+        alert(e.responseText);
+    }
+  });
+});
+$('#signinButton').click(function(){
+  var user =  $('.form-signin').serializeObject();
+  user.role = "Admin";
+  user.username ="관리자";
+
+  $.ajax({
+    type:"POST",
+    url:'/users',
+    data:{
+      user: user
+    },
+    success:function(args){
+      alert("성공했습니다.");
+      location.href="/admin/stores/list";
+    },
+    error:function(e){
+      alert(e.responseText);
+    }
+  });
+});
+</script>
