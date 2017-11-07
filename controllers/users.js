@@ -3,24 +3,175 @@ var User = require('mongoose').model('User'),
 
 var getErrorMessage = function(err) {
     var message = '';
-
     if(err.code) {
-        switch (err.code) {
-            case 11000:
-            case 11001:
-                message = 'UserID already exists';
-                break;
-            default:
-                message = 'Something went Wrong';
-        }
+      switch (err.code) {
+        case 11000:
+        case 11001:
+          message = 'UserID already exists';
+          break;
+        default:
+          message = 'Something went Wrong';
+      }
     } else {
-        for (var errName in err.errors) {
-            if(err.errors[errName].message) message = err.errors[errName].
-               message;
-        }
+      for (var errName in err.errors) {
+        if(err.errors[errName].message) message = err.errors[errName].message;
+      }
     }
     return message;
 };
+
+//사용자 리스트 불러오기
+exports.getList = function(req, res, next){
+  User.find(function(err, users) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "사용자 현황",
+        success : true,
+        messages : req.flash('error'),
+        users : users
+      }
+      req.result = result;
+      next();
+    }
+  });
+}
+//사용자 등록
+exports.registerOne = function(req, res, next) {
+  if (!req.user) {
+    var user = new User(req.body);
+    var message = null;
+
+    user.provider = 'local';
+
+    user.save(function(err) {
+      console.log('save');
+      if(err) {
+        message = getErrorMessage(err);
+        req.flash('error', message);
+      }
+      else{
+        var result = {
+          title : "사용자 등록",
+          //page : 'users/list2',
+          success : true,
+          messages : req.flash('error'),
+          user : user
+        }
+        req.result = result;
+        next();
+      }
+    });
+  }
+};
+exports.updateOne = function(req, res, next) {
+  User.findByIdAndUpdate(req.result.user.id, req.body, function(err, user) {
+    if (err) {
+      return next(err);
+    } else {
+      user.updated_at = Date.now();
+      var result = {
+        title : "User Update",
+        success : true,
+        messages : req.flash('error'),
+        user : user
+      }
+      req.result = result;
+      next();
+      //return res.redirect('/users/detail/'+req.user.id);
+    }
+  });
+};
+//사용자 불러오기 -- 관리자용
+exports.getOne = function(req, res, next, id) {
+  User.findOne({
+    _id: id
+  }, function(err, user) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "User List",
+        //page : 'users/detail',
+        success : true,
+        messages : req.flash('error'),
+        user : user
+      }
+      req.result = result;
+
+      return next();
+    }
+  })
+}
+//사용자 삭제
+exports.deleteOne = function(req, res, next) {
+  var date = Date.now();
+  User.findByIdAndUpdate(req.result.user.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, user) {
+    if (err) {
+      return next(err);
+    } else {
+      user.updated_at = date;
+      var result = {
+        title : "User Delete",
+        success : true,
+        messages : req.flash('error'),
+        user : user
+      }
+      req.result = result;
+      next();
+      //return res.redirect('/users/detail/'+req.user.id);
+    }
+  });
+};
+
+//로그인
+exports.login = function(req, res){
+  req.login(user, function(err) {
+    if (err){
+      return next(err);
+    }
+    else{
+      next();
+    }
+  });
+}
+//로그아웃
+exports.signout = function(req,res) {
+  req.logout();
+  next();
+};
+
+
+//회원가입 -- 안씀
+// exports.signup = function(req,res,next) {
+//     if (!req.user) {
+//         var user = new User(req.body);
+//         var message = null;
+//
+//         user.provider = 'local';
+//
+//         user.save(function(err) {
+//             console.log('save');
+//             if(err) {
+//                 message = getErrorMessage(err);
+//
+//                 req.flash('error', message);
+//                 return res.redirect('/signup');
+//             }
+//             req.login(user, function(err) {
+//                 if (err) return next(err);
+//                 return res.redirect('/');
+//             });
+//         });
+//     } else {
+//         return res.redirect('/');
+//     }
+// };
+// exports.signout = function(req,res) {
+//     req.logout();
+//     res.redirect('/');
+// };
 
 exports.renderSignin = function(req, res, next) {
     if(!req.user) {
@@ -42,36 +193,6 @@ exports.renderSignup = function(req,res,next) {
     } else {
         return res.redirect('/');
     }
-};
-
-exports.signup = function(req,res,next) {
-    if (!req.user) {
-        var user = new User(req.body);
-        var message = null;
-
-        user.provider = 'local';
-
-        user.save(function(err) {
-            console.log('save');
-            if(err) {
-                message = getErrorMessage(err);
-
-                req.flash('error', message);
-                return res.redirect('/signup');
-            }
-            req.login(user, function(err) {
-                if (err) return next(err);
-                return res.redirect('/');
-            });
-        });
-    } else {
-        return res.redirect('/');
-    }
-};
-
-exports.signout = function(req,res) {
-    req.logout();
-    res.redirect('/');
 };
 // var User = require('mongoose').model('User');
 // exports.create = function(req,res,next) {

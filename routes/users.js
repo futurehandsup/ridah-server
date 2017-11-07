@@ -1,15 +1,44 @@
 var express = require('express');
 var router = express.Router();
 
+var common = require('../controllers/common');
 var users = require('../controllers/users'),
     passport = require('passport');
+
+//RESTful API
+router.route('/')
+.all(function(req, res, next) {
+  // runs for all HTTP verbs first
+  // think of it as route specific middleware!
+  next();
+})
+.get(users.getList, common.setResponse)        // 사용자 리스트 출력
+.post(users.registerOne, common.setResponse)   // 사용자 등록
+.put(common.notImplementedError)
+.delete(common.notImplementedError);
+
+router.route('/:userId')
+.all(function(req, res, next) {
+  // runs for all HTTP verbs first
+  // think of it as route specific middleware!
+  next();
+})
+.get(common.setResponse)                         //승마장 정보 출력
+.put(users.updateOne, common.setResponse)        //승마장 정보 가져오기
+.delete(users.deleteOne, common.setResponse)     //승마장 삭제
+.post(common.notImplementedError);
+
+router.param('userId', users.getOne);
+
+
+/////////////////////////////
 
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-router.post('/signup', users.signup);
+//router.post('/signup', users.signup);
 router.get('/signup', users.renderSignup);
 
 router.get('/signin', users.renderSignin);

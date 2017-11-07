@@ -43,7 +43,6 @@ exports.getList = function(req, res, next){
     } else {
       var result = {
         title : "승마장 현황",
-        //page : 'stores/list',
         success : true,
         messages : req.flash('error'),
         stores : stores
@@ -53,9 +52,7 @@ exports.getList = function(req, res, next){
     }
   })
 }
-// 임시로 생성
 exports.registerOne = function(req, res, next) {
-  //  if (req.body=="") {
   var store = new Store(req.body);
   var message = null;
 
@@ -133,22 +130,3 @@ exports.deleteOne = function(req, res, next) {
     }
   });
 };
-
-// 임시
-exports.getList2 = function(req, res, next){
-  User.find(function(err, users) {
-    if (err) {
-      return next(err);
-    } else {
-      var result = {
-        title : "사용자 현황",
-        //page : 'stores/list2',
-        success : true,
-        messages : req.flash('error'),
-        users : users
-      }
-      req.result = result;
-      next();
-    }
-  })
-}

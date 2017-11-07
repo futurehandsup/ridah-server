@@ -57,6 +57,14 @@ var UserSchema = new Schema({
     created_at : {
       type : Date,
       default : Date.now
+    },
+    updated_at : {
+      type : Date,
+      default : Date.now
+    },
+    deleted : {
+      is_deleted : Boolean,
+      deleted_at : Date
     }
 });
 
