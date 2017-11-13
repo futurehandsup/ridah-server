@@ -24,15 +24,9 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = Store.schema;
-  var result = {
-    title : "승마장 현황",
-    //page : 'stores/list',
-    success : true,
-    messages : req.flash('error'),
-    schema : schema
-  }
-  req.result = result;
+  var schema = Store.schema.paths;
+
+  req.result.schema = schema;
   next();
 }
 

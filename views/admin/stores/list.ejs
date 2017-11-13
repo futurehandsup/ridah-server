@@ -23,7 +23,7 @@
                   <div class="content">
                     <form id="createForm" action="/stores" method="POST">
                       <div class="row">
-                        <% var keys = Object.keys(stores[1]._doc);
+                        <% var keys = Object.keys(schema);
 
                        for(var j=0; j< keys.length; j++){
                          if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") ) continue;%>
@@ -51,16 +51,12 @@
             <table class="table table-hover table-striped">
               <thead>
                 <th>ID</th>
-                <% var keys = Object.keys(stores[1]._doc);
+                <% var keys = Object.keys(schema);
                 %>
                 <% for(var i=0; i< keys.length; i++){
                   if(keys[i]=="__v" || keys[i]=="_id"/* || keys[i] == "deleted" || keys[i].includes("_at") */) continue;%>
                 <th><%=keys[i]%></th>
                 <%} %>
-                <!-- <th>주소</th>
-                <th>홈페이지</th>
-                <th>전화번호</th>
-                <th>설명</th> -->
                 <th>작업</th>
 
               </thead>

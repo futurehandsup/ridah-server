@@ -17,16 +17,16 @@ router.get('/', isAuthenticated);
 router.get('/login', common.renderPage('admin/login'));
 
 // stores
-router.get('/stores/list', stores.getList, common.renderPage('admin/stores/list'));
-router.get('/stores/edit', stores.getList, common.renderPage('admin/stores/edit')); // 필요없음
-router.get('/stores/edit/:storeId', common.renderPage('admin/stores/edit'));
+router.get('/stores/list', stores.getList, stores.getSchemas, common.renderPage('admin/stores/list'));
+router.get('/stores/edit', stores.getList, stores.getSchemas, common.renderPage('admin/stores/edit')); // 필요없음
+router.get('/stores/edit/:storeId', stores.getSchemas, common.renderPage('admin/stores/edit'));
 
 router.param('storeId', stores.getOne);
 
 //users
-router.get('/users/list', users.getList, common.renderPage('admin/users/list'));
-router.get('/users/edit', users.getList, common.renderPage('admin/users/edit')); // 필요없음
-router.get('/users/edit/:userId', common.renderPage('admin/users/edit'));
+router.get('/users/list', users.getList, users.getSchemas, common.renderPage('admin/users/list'));
+router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('admin/users/edit')); // 필요없음
+router.get('/users/edit/:userId', users.getSchemas, common.renderPage('admin/users/edit'));
 router.param('userId', users.getOne);
 
 

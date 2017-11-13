@@ -19,6 +19,12 @@ var getErrorMessage = function(err) {
     }
     return message;
 };
+exports.getSchemas = function(req, res, next){
+  var schema = User.schema.paths;
+
+  req.result.schema = schema;
+  next();
+}
 
 //사용자 리스트 불러오기
 exports.getList = function(req, res, next){
