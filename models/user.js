@@ -10,6 +10,35 @@ var UserSchema = new Schema({
       unique : true,     // primary key로 지정
       required : 'User ID is required'   // 검증
     },
+    email : {
+      type : String ,
+      index : true,         // 보조 index
+      match : [/.+\@.+\..+/, "pleas fill a valid e-mail address"]  // 형식 검증
+    },
+    // website : {
+    //   type : String ,
+    //   /*
+    //    기존에 website 속성이 없는 데이터들:
+    //    get 방식으로 website 속성을 기존 데이터를 질의하는 시점에 강제적으로 website 필드를 붙여서 결과가 나오도록
+    //    website 가 존재하는 데이터는 website 를 포함해서 나오고, 아니라면 website 필드가 나오지 않는대
+    //   */
+    //   get : function(url) {
+    //     if(!url) {
+    //       return url;
+    //     } else {
+    //       if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+    //         url = 'http://' + url;
+    //       }
+    //       return url;
+    //     }
+    //   }
+    // },
+    role : {
+      type : String ,
+      enum : ['Admin', 'Owner', 'User'],
+      default: 'User'
+    },
+    // 비밀번호 암호화 및 인증을 위해 필요한 부분
     password : {
       type : String ,
       validate : [
@@ -27,34 +56,7 @@ var UserSchema = new Schema({
     },
     providerId : String ,                            // 인증전략을 위한 사용자 식별자를 지시
     providerData : {} ,                              //OAuth 공급자로부터 인출한 사용자 객체를 저장하기 위해 나중에 사용 할 providerData 속성
-    email : {
-      type : String ,
-      index : true,         // 보조 index
-      match : [/.+\@.+\..+/, "pleas fill a valid e-mail address"]  // 형식 검증
-    },
-    website : {
-      type : String ,
-      /*
-       기존에 website 속성이 없는 데이터들:
-       get 방식으로 website 속성을 기존 데이터를 질의하는 시점에 강제적으로 website 필드를 붙여서 결과가 나오도록
-       website 가 존재하는 데이터는 website 를 포함해서 나오고, 아니라면 website 필드가 나오지 않는대
-      */
-      get : function(url) {
-        if(!url) {
-          return url;
-        } else {
-          if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
-            url = 'http://' + url;
-          }
-          return url;
-        }
-      }
-    },
-    role : {
-      type : String ,
-      enum : ['Admin', 'Owner', 'User'],
-      default: 'User'
-    },
+    // 비밀번호 암호화 및 인증을 위해 필요한 부분 
     created_at : {
       type : Date,
       default : Date.now

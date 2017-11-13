@@ -42,6 +42,10 @@ var StoreSchema = new Schema({
         }
       }
     },
+    telephone : {
+      type : String,
+      default : ""
+    },
     introduction : {
       type : String,
       default: ""
@@ -49,10 +53,6 @@ var StoreSchema = new Schema({
     gps : {
       type : String,
       default: ""
-    },
-    telephone : {
-      type : String,
-      default : ""
     },
     owner : {
       type : Schema.ObjectId,
