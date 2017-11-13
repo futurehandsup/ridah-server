@@ -54,10 +54,10 @@ var StoreSchema = new Schema({
       type : String,
       default: ""
     },
-    owner : {
-      type : Schema.ObjectId,
-      ref : 'User'
-    },
+    // owner : {
+    //   type : Schema.ObjectId,
+    //   ref : 'User'
+    // },
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.
     하지만 DBRef 는 실제 값이 들어간 것이 아니고 외래키 형식으로 해당 값을 참조하는 것이다.
