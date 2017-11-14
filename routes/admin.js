@@ -4,6 +4,7 @@ var router = express.Router();
 var common = require('../controllers/common');
 var stores = require('../controllers/stores');
 var users = require('../controllers/users');
+var reviews = require('../controllers/reviews');
   //passport = require('passport');
 
 var isAuthenticated = function (req, res, next) {
@@ -22,6 +23,13 @@ router.get('/stores/edit', stores.getList, stores.getSchemas, common.renderPage(
 router.get('/stores/edit/:storeId', stores.getSchemas, common.renderPage('admin/stores/edit'));
 
 router.param('storeId', stores.getOne);
+
+// review
+router.get('/reviews/list', reviews.getList, reviews.getSchemas, common.renderPage('admin/reviews/list'));
+router.get('/reviews/edit', reviews.getList, reviews.getSchemas, common.renderPage('admin/reviews/edit')); // 필요없음
+router.get('/reviews/edit/:reviewId', reviews.getSchemas, common.renderPage('admin/reviews/edit'));
+
+router.param('reviewId', reviews.getOne);
 
 //users
 router.get('/users/list', users.getList, users.getSchemas, common.renderPage('admin/users/list'));

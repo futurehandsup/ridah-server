@@ -9,7 +9,7 @@ var ReviewSchema = new Schema({
     },
     reviewText : {
       type : String,
-      default : ""
+      default : "",
       required : 'reviewText is required'
     },
     reviewWriter : {

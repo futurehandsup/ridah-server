@@ -48,12 +48,14 @@ module.exports = function() {
     var index = require('../routes/index');
     var users = require('../routes/users');
     var stores = require('../routes/stores');
+    var reviews = require('../routes/reviews');
     var admin = require('../routes/admin'); // 관리자 페이지
 
     app.use('/', index);
     //API Route : view 없음.
     app.use('/users', users);
     app.use('/stores', stores);
+    app.use('/reviews', reviews);
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);

@@ -6,5 +6,6 @@ module.exports = function() {
 
    require('../models/user.js');
    require('../models/store.js');
+   require('../models/review.js');
    return db;
 }
