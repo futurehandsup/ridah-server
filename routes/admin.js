@@ -5,16 +5,10 @@ var common = require('../controllers/common');
 var stores = require('../controllers/stores');
 var users = require('../controllers/users');
 var reviews = require('../controllers/reviews');
-  //passport = require('passport');
-
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-  res.redirect('/admin/login');
-};
+//passport = require('passport');
 
 // render 될 페이지 모음
-router.get('/', isAuthenticated);
+router.get('/', common.isAuthenticated, common.redirect('admin/stores/list'));
 router.get('/login', common.renderPage('admin/login'));
 
 // stores
