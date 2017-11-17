@@ -31,6 +31,13 @@ router.get('/reviews/edit/:reviewId', reviews.getSchemas, common.renderPage('adm
 
 router.param('reviewId', reviews.getOne);
 
+// qna
+router.get('/qnas/list', qnas.getList, qnas.getSchemas, common.renderPage('admin/qnas/list'));
+router.get('/qnas/edit', qnas.getList, qnas.getSchemas, common.renderPage('admin/qnas/edit')); // 필요없음
+router.get('/qnas/edit/:qnaId', qnas.getSchemas, common.renderPage('admin/qnas/edit'));
+
+router.param('qnaId', qnas.getOne);
+
 //users
 router.get('/users/list', users.getList, users.getSchemas, common.renderPage('admin/users/list'));
 router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('admin/users/edit')); // 필요없음

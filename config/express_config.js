@@ -49,6 +49,7 @@ module.exports = function() {
     var users = require('../routes/users');
     var stores = require('../routes/stores');
     var reviews = require('../routes/reviews');
+    var qnas = require('../routes/qnas');
     var admin = require('../routes/admin'); // 관리자 페이지
 
     app.use('/', index);
@@ -56,6 +57,7 @@ module.exports = function() {
     app.use('/users', users);
     app.use('/stores', stores);
     app.use('/reviews', reviews);
+    app.use('/qnas', qnas);
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);
