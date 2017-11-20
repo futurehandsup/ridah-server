@@ -52,7 +52,7 @@ module.exports = function() {
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
-    // 업주용 페이지 -->개발 예정
+    var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
 
     app.use('/', index);
     //API Route : view 없음.
@@ -64,6 +64,8 @@ module.exports = function() {
     app.use('/admin', admin);
     //customers Route : /views/customers/* view 사용
     app.use('/customers', customers);
+    //owners Route : /views/customers/* view 사용
+    app.use('/owners', owners);
 
     //app.use(express.static('./static'));        // 정적 폴더 설정
     app.use(express.static(path.resolve(__dirname, '../public')));
