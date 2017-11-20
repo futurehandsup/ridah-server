@@ -50,7 +50,9 @@ module.exports = function() {
     var stores = require('../routes/stores');
     var reviews = require('../routes/reviews');
     var qnas = require('../routes/qnas');
-    
+    var programs = require('../routes/programs');
+    var reservations = require('../routes/reservations');
+
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
     var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
@@ -61,6 +63,8 @@ module.exports = function() {
     app.use('/stores', stores);
     app.use('/reviews', reviews);
     app.use('/qnas', qnas);
+    app.use('/programs', programs);
+    app.use('/reservations', reservations);
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);

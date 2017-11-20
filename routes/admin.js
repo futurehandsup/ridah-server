@@ -5,6 +5,7 @@ var common = require('../controllers/common');
 var stores = require('../controllers/stores');
 var users = require('../controllers/users');
 var reviews = require('../controllers/reviews');
+var qnas = require('../controllers/qnas');
 //passport = require('passport');
 
 // render 될 페이지 모음
