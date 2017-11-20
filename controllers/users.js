@@ -143,7 +143,7 @@ exports.login = function(req, res, next) {
     req.login(user, function(err) {
       if (err) { return next(err); }
       var result = {
-        title : "User Delete",
+        title : "User login",
         success : true,
         messages : req.flash('error'),
         user : user

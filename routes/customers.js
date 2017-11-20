@@ -8,11 +8,11 @@ var reviews = require('../controllers/reviews');
 //passport = require('passport');
 
 // render 될 페이지 모음
-router.get('/', common.isAuthenticated, common.redirect('admin/stores/list'));
+router.get('/', stores.getList, common.renderPage('customers/index'));
 router.get('/login', common.renderPage('admin/login'));
 
 // stores
-router.get('/stores/list', stores.getList, stores.getSchemas, common.renderPage('admin/stores/list'));
+router.get('/stores/:storeId', common.renderPage('customers/stores/detail'));
 router.get('/stores/edit', stores.getList, stores.getSchemas, common.renderPage('admin/stores/edit')); // 필요없음
 router.get('/stores/edit/:storeId', stores.getSchemas, common.renderPage('admin/stores/edit'));
 
@@ -24,13 +24,6 @@ router.get('/reviews/edit', reviews.getList, reviews.getSchemas, common.renderPa
 router.get('/reviews/edit/:reviewId', reviews.getSchemas, common.renderPage('admin/reviews/edit'));
 
 router.param('reviewId', reviews.getOne);
-
-// qna
-router.get('/qnas/list', qnas.getList, qnas.getSchemas, common.renderPage('admin/qnas/list'));
-router.get('/qnas/edit', qnas.getList, qnas.getSchemas, common.renderPage('admin/qnas/edit')); // 필요없음
-router.get('/qnas/edit/:qnaId', qnas.getSchemas, common.renderPage('admin/qnas/edit'));
-
-router.param('qnaId', qnas.getOne);
 
 //users
 router.get('/users/list', users.getList, users.getSchemas, common.renderPage('admin/users/list'));
