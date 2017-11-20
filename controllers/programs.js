@@ -31,9 +31,9 @@ exports.getSchemas = function(req, res, next){
 }
 
 exports.getList = function(req, res, next){
-  var params = null;
-  if(result.store != undefined){
-    params.store = result.store.id
+  var params = {};
+  if(req.result != undefined && req.result.store != undefined){
+    params.store = req.result.store.id
   }
   Program.find(params, function(err, programs) {
     if (err) {

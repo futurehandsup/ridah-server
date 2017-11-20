@@ -7,9 +7,9 @@ var ReservationSchema = new Schema({
       index: true,
       ref : 'Store'
     },
-    course : {
+    Program : {
       type : Schema.ObjectId,
-      ref : 'Course'
+      ref : 'Program'
     },
     reservationDate : {
       type : Date,

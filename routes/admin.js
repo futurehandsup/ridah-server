@@ -6,6 +6,8 @@ var stores = require('../controllers/stores');
 var users = require('../controllers/users');
 var reviews = require('../controllers/reviews');
 var qnas = require('../controllers/qnas');
+var reservations = require('../controllers/reservations');
+var programs = require('../controllers/programs');
 //passport = require('passport');
 
 // render 될 페이지 모음
@@ -38,6 +40,20 @@ router.get('/users/list', users.getList, users.getSchemas, common.renderPage('ad
 router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('admin/users/edit')); // 필요없음
 router.get('/users/edit/:userId', users.getSchemas, common.renderPage('admin/users/edit'));
 router.param('userId', users.getOne);
+
+// reservations
+router.get('/reservations/list', reservations.getList, reservations.getSchemas, common.renderPage('admin/reservations/list'));
+router.get('/reservations/edit', reservations.getList, reservations.getSchemas, common.renderPage('admin/reservations/edit')); // 필요없음
+router.get('/reservations/edit/:reservationId', reservations.getSchemas, common.renderPage('admin/reservations/edit'));
+
+router.param('reservationId', reservations.getOne);
+
+// program
+router.get('/programs/list', programs.getList, programs.getSchemas, common.renderPage('admin/programs/list'));
+router.get('/programs/edit', programs.getList, programs.getSchemas, common.renderPage('admin/programs/edit')); // 필요없음
+router.get('/programs/edit/:programId', programs.getSchemas, common.renderPage('admin/programs/edit'));
+
+router.param('programId', programs.getOne);
 
 
 
