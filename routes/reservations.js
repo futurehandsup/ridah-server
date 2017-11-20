@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var stores = require('../controllers/stores');
+var reservations = require('../controllers/reservations');
 var common = require('../controllers/common');
     //passport = require('passport');
 
@@ -12,28 +12,22 @@ router.route('/')
   // think of it as route specific middleware!
   next();
 })
-.get(stores.getList, common.setResponse)        // 승마장 리스트 출력
-.post(stores.registerOne, common.setResponse)   // 승마장 등록
+.get(reservations.getList, common.setResponse)        // 승마장 리스트 출력
+.post(reservations.registerOne, common.setResponse)   // 승마장 등록
 .put(common.notImplementedError)
 .delete(common.notImplementedError);
 
-router.route('/:storeId')
+router.route('/:reservationId')
 .all(function(req, res, next) {
   // runs for all HTTP verbs first
   // think of it as route specific middleware!
   next();
 })
 .get(common.setResponse)                          //승마장 정보 출력
-.put(stores.updateOne, common.setResponse)        //승마장 정보 가져오기
-.delete(stores.deleteOne, common.setResponse)     //승마장 삭제
+.put(reservations.updateOne, common.setResponse)        //승마장 정보 가져오기
+.delete(reservations.deleteOne, common.setResponse)     //승마장 삭제
 .post(common.notImplementedError);
 
-router.param('storeId', stores.getOne);
-
-var reservations = require('./reservations');
-router.use('/:storeId/reservations', reservations);
-
-var programs = require('./programs');
-router.use('/:storeId/programs', programs);
+router.param('reservationId', reservations.getOne);
 
 module.exports = router;

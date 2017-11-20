@@ -1,40 +1,54 @@
 var mongoose = require('mongoose'),
      Schema = mongoose.Schema;
-
-var ReservationSchema = new Schema({
+/*
+  table program
+  타입: 체험 / 자유
+  프로그램명, 승마장명, 타입, 이용시간(45분), 시작시간및 끝시간
+*/
+var ProgramSchema = new Schema({
+    programname : {
+      type: String,
+      //index : true,         // 보조 index
+      //unique : true,     // primary key로 지정
+      required : 'program name is required'   // 검증
+    },
     store : {
       type : Schema.ObjectId,
-      index: true,
-      ref : 'Store'
+      ref : 'Store',
+      //index : true
     },
-    course : {
-      type : Schema.ObjectId,
-      ref : 'Course'
-    },
-    reservationDate : {
-      type : Date,
-      min : Date.now
-    },
-    owner : { // 예약자
-      type : Schema.ObjectId,
-      index : true,
-      ref : 'User'
-    },
-    email : {
-      type : String ,
-      match : [/.+\@.+\..+/, "pleas fill a valid e-mail address"],  // 형식 검증
-      default: ""
-    },
-    telephone : {
+    programType : {
+      // 체험 / 자유
       type : String,
-      default : ""
+      enum : ['체험일반', '체험고급', '자유기승'],
+      default: '체험일반'
     },
-    howMany : {
-      type: Number,
-      min: 1,
-      default: 1,
-      max: 4  //한번에 4명까지???
+    time : {
+      start: {
+        hours: {
+          type: Number,
+          min: 0,
+          max : 23
+        },
+        minutes: {
+          type: Number,
+          min: 0,
+          max: 59
+        }/*,
+        get : function(start){
+          return start.hours + ":" + start.minutes;
+        }*/
+      },
+      howLong : {
+        type: Number,
+        default: 45
+      }
     },
+    /*
+    // 예약한 코스 정보, 예약 인원 등등
+    options : {
+
+    },*/
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.
     하지만 DBRef 는 실제 값이 들어간 것이 아니고 외래키 형식으로 해당 값을 참조하는 것이다.
@@ -60,14 +74,14 @@ var ReservationSchema = new Schema({
     }
     // 추가로 결제정보도. 언제 뭘로 결제했는지.
 });
-ReservationSchema.post('update', function(result) {
+ProgramSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });
 
-// ReservationSchema.virtual('idpass').get(function() {     // 가상 속성, ReservationSchema 의 set 옵션에 virtuals 옵션을 true 로 설정해야 작동
+// ProgramSchema.virtual('idpass').get(function() {     // 가상 속성, ProgramSchema 의 set 옵션에 virtuals 옵션을 true 로 설정해야 작동
 //     return this.userid + ' ' + this.password;
 // });
-// ReservationSchema.pre('save', function(next){
+// ProgramSchema.pre('save', function(next){
 //   /*
 //   사용자의 비밀번호를 해시하기 위해 pre-save 미들웨어를 생성했다.
 //   pre 미들웨어는 해당요청이 실행되기전에 먼저 실행되는 메소드를 지정할 수 있다.  예를 들어 기존에 만들었던
@@ -82,7 +96,7 @@ ReservationSchema.post('update', function(result) {
 //   next();
 // });
 //
-// ReservationSchema.methods.hashPassword = function(password) {
+// ProgramSchema.methods.hashPassword = function(password) {
 //     /*
 //     hashPassword() 메소드는 노드의 crypto 모듈을 활용해 비밀번호를 암호화 하기 위해 사용되며 ,
 //     authenticate() 메소드는 문자열 인수를 받아들여 암호화하고 현재 사용자의 비밀번호와 비교한다.
@@ -91,12 +105,12 @@ ReservationSchema.post('update', function(result) {
 //     toString('base64');
 // };
 //
-// ReservationSchema.methods.authenticate = function(password) {
+// ProgramSchema.methods.authenticate = function(password) {
 //   //authenticate() 메소드는 문자열 인수를 받아들여 암호화하고 현재 사용자의 비밀번호와 비교한다.
 //   return this.password === this.hashPassword(password);
 // };
 //
-// ReservationSchema.statics.findUniqueReservationid = function(userid, suffix, callback) {
+// ProgramSchema.statics.findUniqueProgramid = function(userid, suffix, callback) {
 //     /*
 //     새로운 사용자가 선택 가능한 유일한 이름을 찾기 위해 쓰이는 findUniqueUserId() 정적 메소드를 추가 하였다.
 //     니중에 OAuth (트위터, 페이스북 연동 로그인) 인증을 다룰 때, 이 메소드를 사용할 것
@@ -119,8 +133,8 @@ ReservationSchema.post('update', function(result) {
 //     });
 // };
 
-ReservationSchema.set('toJSON',{ getters : true , virtuals : true});
+ProgramSchema.set('toJSON',{ getters : true , virtuals : true});
 /*res.json() 을 사용하여 다큐먼트 데이터를 출력 할 때 get 옵션으로 정의한 값이 JSON에 포함되게 할 것이다.
 위 코드를 적지 않으면 JSON으로 데이터를 표현할 때 get 옵션을 무시하게 될 것 이다.
 출처: http://alexband.tistory.com/23 [Front-end Rider] */
-mongoose.model('Reservation', ReservationSchema);
+mongoose.model('Program', ProgramSchema);

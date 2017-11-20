@@ -8,5 +8,7 @@ module.exports = function() {
    require('../models/store.js');
    require('../models/review.js');
    require('../models/qna.js');
+   require('../models/program.js');
+   require('../models/reservation.js');
    return db;
 }
