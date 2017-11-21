@@ -71,7 +71,7 @@
         </li>
       </ul>
 
-      <table class="table">
+      <table class="table table-bordered">
         <% var dates = ["일", "월", "화", "수", "목", "금", "토"]%>
         <thead class="thead-light">
           <tr>
@@ -102,7 +102,7 @@
             <% } %>
           </td>
           <% if(i==calendar.schedules.length-1){
-              for(var j=m; j < 7; j++){
+              for(var j=m; j < 6; j++){
           %>
               <td></td>
               <% } %>
