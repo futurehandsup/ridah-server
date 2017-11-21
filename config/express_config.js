@@ -53,7 +53,7 @@ module.exports = function() {
     var programs = require('../routes/programs');
     var reservations = require('../routes/reservations');
     var coupons = require('../routes/coupons');
-    var couponPurchaseLogs = require('../routes/var reservations = require('../routes/reservations');');
+    var couponPurchaseLogs = require('../routes/couponPurchaseLogs');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
