@@ -52,6 +52,8 @@ module.exports = function() {
     var qnas = require('../routes/qnas');
     var programs = require('../routes/programs');
     var reservations = require('../routes/reservations');
+    var coupons = require('../routes/coupons');
+    var couponPurchaseLogs = require('../routes/var reservations = require('../routes/reservations');');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
@@ -65,6 +67,8 @@ module.exports = function() {
     app.use('/qnas', qnas);
     app.use('/programs', programs);
     app.use('/reservations', reservations);
+    app.use('/coupons', coupons);
+    app.use('/couponPurchaseLogs', couponPurchaseLogs);
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);
