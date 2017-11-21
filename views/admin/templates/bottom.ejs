@@ -29,7 +29,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+  $('.sidebar-wrapper .nav .active').removeClass('active');
+  var path= location.pathname.split('/')[2] ;
+  $('#'+path).addClass('active');
 demo.initChartist();
 
 $.notify({

@@ -8,6 +8,8 @@ var reviews = require('../controllers/reviews');
 var qnas = require('../controllers/qnas');
 var reservations = require('../controllers/reservations');
 var programs = require('../controllers/programs');
+var coupons = require('../controllers/coupons');
+var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
 //passport = require('passport');
 
 // render 될 페이지 모음
@@ -55,6 +57,19 @@ router.get('/programs/edit/:programId', programs.getSchemas, common.renderPage('
 
 router.param('programId', programs.getOne);
 
+// coupon
+router.get('/coupons/list', coupons.getList, coupons.getSchemas, common.renderPage('admin/coupons/list'));
+router.get('/coupons/edit', coupons.getList, coupons.getSchemas, common.renderPage('admin/coupons/edit')); // 필요없음
+router.get('/coupons/edit/:couponId', coupons.getSchemas, common.renderPage('admin/coupons/edit'));
+
+router.param('couponId', coupons.getOne);
+
+// couponPurchaseLog
+router.get('/couponPurchaseLogs/list', couponPurchaseLogs.getList, couponPurchaseLogs.getSchemas, common.renderPage('admin/couponPurchaseLogs/list'));
+router.get('/couponPurchaseLogs/edit', couponPurchaseLogs.getList, couponPurchaseLogs.getSchemas, common.renderPage('admin/couponPurchaseLogs/edit')); // 필요없음
+router.get('/couponPurchaseLogs/edit/:couponPurchaseLogId', couponPurchaseLogs.getSchemas, common.renderPage('admin/couponPurchaseLogs/edit'));
+
+router.param('couponPurchaseLogId', couponPurchaseLogs.getOne);
 
 
 //밑에는 임시
