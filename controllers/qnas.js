@@ -38,7 +38,7 @@ exports.getList = function(req, res, next){
       return next(err);
     } else {
       var result = {
-        title : "승마장 현황",
+        title : "사용자 문의",
         success : true,
         messages : req.flash('error'),
         qnas : qnas
@@ -57,7 +57,7 @@ exports.registerOne = function(req, res, next) {
       return next(err);
     } else {
       var result = {
-        title : "사용자 현황",
+        title : "사용자 문의",
         //page : 'stores/list2',
         success : true,
         messages : req.flash('error'),
