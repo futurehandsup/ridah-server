@@ -37,7 +37,7 @@ exports.getList = function(req, res, next){
       return next(err);
     } else {
       var result = {
-        title : "승마장 현황",
+        title : "사용자 후기",
         success : true,
         messages : req.flash('error'),
         reviews : reviews
@@ -56,7 +56,7 @@ exports.registerOne = function(req, res, next) {
       return next(err);
     } else {
       var result = {
-        title : "사용자 현황",
+        title : "사용자 후기",
         //page : 'stores/list2',
         success : true,
         messages : req.flash('error'),

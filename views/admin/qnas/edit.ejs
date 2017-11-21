@@ -17,7 +17,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label><%=keys[j]%></label>
-                    <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="<%=review[keys[j]]%>">
+                    <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="<%=qna[keys[j]]%>">
                   </div>
                 </div>
 
@@ -66,12 +66,12 @@
 <script>
 $(document).ready(function(){
   $('#editButton').click(function(){
-    var review =  $('#editForm').serializeObject();
+    var qna =  $('#editForm').serializeObject();
 
     $.ajax({
       type:"PUT",
-      url:'/reviews/<%=review.id%>',
-      data:review,
+      url:'/qnas/<%=qna.id%>',
+      data:qna,
       success:function(args){
         alert("성공했습니다.");
         location.reload();
