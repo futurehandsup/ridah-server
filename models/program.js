@@ -34,16 +34,16 @@ var ProgramSchema = new Schema({
           type: Number,
           min: 0,
           max: 59
-        }/*,
-        get : function(start){
-          return start.hours + ":" + start.minutes;
-        }*/
+        }
       },
       howLong : {
         type: Number,
         default: 45
       }
     },
+    reservations: [
+      {type : Schema.ObjectId, ref: 'Reservation'}
+    ],
     /*
     // 예약한 코스 정보, 예약 인원 등등
     options : {
@@ -73,6 +73,23 @@ var ProgramSchema = new Schema({
       deleted_at : Date
     }
     // 추가로 결제정보도. 언제 뭘로 결제했는지.
+});
+ProgramSchema.virtual('time.start_at').get(function(){
+  var h, m;
+  var s = this.time.start;
+  if(s.hours < 10){
+    h = "0"+s.hours.toString();
+  }
+  else{
+    h = s.hours.toString();
+  }
+  if(s.minutes < 10){
+    m = "0"+s.minutes.toString();
+  }
+  else{
+    m = s.minutes.toString();
+  }
+  return (h + ":" + m);
 });
 ProgramSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });

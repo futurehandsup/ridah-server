@@ -1,4 +1,5 @@
 var Reservation = require('mongoose').model('Reservation');
+var Program = require('mongoose').model('Program');
 var User = require('mongoose').model('User');
 //passport = require('passport');
 
@@ -61,6 +62,12 @@ exports.registerOne = function(req, res, next) {
     if (err) {
       return next(err);
     } else {
+      Program.findById(reservation.program, function (err, program){
+        if(err) return next(err);
+
+        program.reservations.push(reservation);
+        program.save();
+      });
       var result = {
         title : "사용자 현황",
         //page : 'reservations/list2',

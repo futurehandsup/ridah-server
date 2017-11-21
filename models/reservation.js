@@ -7,7 +7,7 @@ var ReservationSchema = new Schema({
       index: true,
       ref : 'Store'
     },
-    Program : {
+    program : {
       type : Schema.ObjectId,
       ref : 'Program'
     },

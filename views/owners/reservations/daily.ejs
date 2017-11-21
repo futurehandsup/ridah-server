@@ -46,49 +46,46 @@
       </div>
     </nav>
     <div class="container" style="padding-top: 80px;">
-      <h2>어서오세요</h2>
-      <div class="row">
-        <div class="col-sm-3">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">예약</h4>
-              <h6 class="card-subtitle mb-2 text-muted">예약 내역 확인합니다</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="/owners/reservations" class="card-link">바로가기</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">승마장 정보 확인</h4>
-              <h6 class="card-subtitle mb-2 text-muted">내 승마장 정보 확인합니다</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="/owners/stores" class="card-link">바로가기</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">문의 내역 확인</h4>
-              <h6 class="card-subtitle mb-2 text-muted">문의 내역 확인합니다</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="/owners/qnas" class="card-link">바로가기</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">예약</h4>
-              <h6 class="card-subtitle mb-2 text-muted">예약 내역 확인합니다</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="/owners/reservations" class="card-link">바로가기</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h2><%=calendar.date.getFullYear()%>년 <%=calendar.date.getMonth()+1%>월 </h2>
+      <table class="table">
+        <% var dates = ["일", "월", "화", "수", "목", "금", "토"]%>
+        <thead class="thead-light">
+          <tr>
+          <% for(date in dates){%>
+            <th scope="col"><%=dates[date]%></th>
+          <%}%>
+          </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i < calendar.schedules.length; i++){ %>
+          <%
+          var schedule = calendar.schedules[i];
+          var m = schedule.date.getDay();
+          %>
+          <% if(i==0){ %>
+            <tr>
+              <%for(var j=0; j<m; j++){ %>
+              <td></td>
+              <% } %>
+          <% } else if(m%7 == 0){%><tr><%}%>
+          <td>
+            <%=schedule.date.getDate()%><br>
+            <%for (var j=0; j < schedule.programs.length; j++){%>
+            <% var program = schedule.programs[j];%>
+              <%if(program.isReserved){%><span class="badge badge-primary">예</span><%} else {%><span class="badge badge-success">가</span><%}%>
+              <strong><%=program.time.start_at%></strong> <%=program.programname%> <br>
+            <% } %>
+          </td>
+          <% if(i==calendar.schedules.length-1){
+              for(var j=m; j < 7; j++){
+          %>
+              <td></td>
+              <% } %>
+            </tr>
+          <% } else if(m%7 == 6){%> </tr> <%}%>
+        <% } %>
+        </tbody>
+      </table>
     </div>
 
     <!-- Optional JavaScript -->

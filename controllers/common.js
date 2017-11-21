@@ -3,7 +3,7 @@ exports.setResponse = function(req, res, next){
 }
 exports.redirect = function(page){
   return function(req, res, next){
-    res.render(page);
+    res.redirect(page);
   }
 }
 exports.renderPage = function(page){
