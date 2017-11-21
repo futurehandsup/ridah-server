@@ -71,7 +71,7 @@ exports.getList = function(req, res, next){
 exports.getReservationsList = function(req, res, next){
   var params = {};
   if(req.result != undefined && req.result.store != undefined){
-    params.store = req.result.store.id
+    params.store = req.result.store.id;
   }
   var type = (req.query.type != undefined) ? req.query.type : "daily";
   var date = (req.query.date != undefined) ? new Date(req.query.date) : new Date(); //오늘로
@@ -119,27 +119,31 @@ exports.getReservationsList = function(req, res, next){
         $gte : date_start,
         $lte : date_end
       };
+      console.log(params);
       Reservation.aggregate([
         {
-          $match : { reservationDate : {
-            $gte : date_start,
-            $lte : date_end
-          } }
-        },
-        {
           $group: {
-            _id : { $dateToString: { format: "%Y-%m-%d", date: "$reservationDate" } },
+            _id : { date: {$dateToString: { format: "%Y-%m-%d", date: "$reservationDate" }} , store: '$store' },
+            store : {$first : "$store"},
             reservationDate : { $first : "$reservationDate"},
-            reservations : {$push: "$$ROOT"},
+            //reservations : {$push: "$$ROOT"},
             programs: { $push : "$program" }
           }
         },
-        { $sort: { _id: 1 } }
+        { $sort: { _id: 1 } },
+        {
+          $match : {
+            $and : [
+              { reservationDate : { $gte : date_start,$lte : date_end } },
+              { store : require('mongoose').Types.ObjectId(params.store) }
+            ]
+          }
+        }
       ])
       .exec(function(err, results){
-
         var reservations = results;
         reservations = reservations.slice(0);
+        var reservation;
         if(reservations.length != 0){
           reservation = reservations.pop();
         }
@@ -165,6 +169,7 @@ exports.getReservationsList = function(req, res, next){
           title : "예약 현황",
           success : true,
           messages : req.flash('error'),
+          store : req.result.store,
           reservations : results,
           calendar : calendar
         }
