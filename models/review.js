@@ -20,7 +20,21 @@ var ReviewSchema = new Schema({
        type : Schema.ObjectId,
        ref : 'Store'
      },
-
+    reviewType : {
+      type : String,
+      default : 'review',
+      enum : ['review', 'reply']
+    },
+    replies : [
+      {
+        type: Schema.ObjectId,
+        ref: 'Review'
+      }
+    ],
+    parent : {
+      type : Schema.ObjectId,
+      ref: 'Review'
+    },
     created_at : {
       type : Date,
       default : Date.now
@@ -33,6 +47,15 @@ var ReviewSchema = new Schema({
       is_deleted : Boolean,
       deleted_at : Date
     }
+});
+ReviewSchema.post('save', function(result){
+  if(result.reviewType =="reply"){
+    mongoose.model('Review').findById(result.parent, function(err, review){
+      //console.log(result.id);
+      review.replies.push(result.id);
+      review.save();
+    });
+  }
 });
 ReviewSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });

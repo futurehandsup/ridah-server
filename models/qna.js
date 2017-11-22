@@ -20,9 +20,20 @@ var QnaSchema = new Schema({
        type : Schema.ObjectId,
        ref : 'Store'
      },
-    qnaResponse : {
-        type : String,
-        default : "",
+     qnaType : {
+       type : String,
+       default : 'qna',
+       enum : ['qna', 'reply']
+     },
+     replies : [
+       {
+         type: Schema.ObjectId,
+         ref: 'Qna'
+       }
+     ],
+     parent : {
+       type : Schema.ObjectId,
+       ref: 'Qna'
      },
     created_at : {
       type : Date,
@@ -36,6 +47,15 @@ var QnaSchema = new Schema({
       is_deleted : Boolean,
       deleted_at : Date
     }
+});
+QnaSchema.post('save', function(result){
+  if(result.qnaType =="reply"){
+    mongoose.model('Qna').findById(result.parent, function(err, qna){
+      //console.log(result.id);
+      qna.replies.push(result.id);
+      qna.save();
+    });
+  }
 });
 QnaSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });

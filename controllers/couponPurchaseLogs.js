@@ -1,4 +1,5 @@
 var CouponPurchaseLog = require('mongoose').model('CouponPurchaseLog');
+var Coupon = require('mongoose').model('Coupon');
 var User = require('mongoose').model('User');
 //passport = require('passport');
 
@@ -49,21 +50,47 @@ exports.getList = function(req, res, next){
 exports.registerOne = function(req, res, next) {
   var couponPurchaseLog = new CouponPurchaseLog(req.body);
   var message = null;
-
-  couponPurchaseLog.save(function(err) {
+  var today = new Date();
+  couponPurchaseLog.save(function(err, cpl) {
     if (err) {
       return next(err);
     } else {
-      var result = {
-        title : "이용권 현황",
-        //page : 'couponPurchaseLogs/list2',
-        success : true,
-        messages : req.flash('error'),
-        couponPurchaseLog : couponPurchaseLog
-      }
-      req.result = result;
-      next();
-      //return res.redirect('/couponPurchaseLogs/list');
+      CouponPurchaseLog.findById(cpl.id)
+      .populate('coupon')
+      .exec(function(err, log){
+        if(err){return next(err);}
+        else{
+          console.log(log.coupon);
+          console.log(log.coupon['validFor']);
+          today.setDate(today.getDate()+parseInt(log.coupon.validFor));
+          console.log(today);
+          var query = {
+            $push : {
+              coupons : {
+                coupon : log.coupon.id,
+                availableCount: log.coupon.availableCount,
+                expireAt :today
+              }
+            }
+          }
+          User.findByIdAndUpdate(couponPurchaseLog.user, query, function(err, user){
+            if(err){
+                return next(err);
+            } else {
+              var result = {
+                title : "이용권 현황",
+                //page : 'couponPurchaseLogs/list2',
+                success : true,
+                messages : req.flash('error'),
+                couponPurchaseLog : couponPurchaseLog
+              }
+              req.result = result;
+              next();
+              //return res.redirect('/couponPurchaseLogs/list');
+            }
+          });
+        }
+      });
     }
   });
 };

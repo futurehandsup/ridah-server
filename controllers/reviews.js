@@ -32,7 +32,23 @@ exports.getSchemas = function(req, res, next){
 }
 
 exports.getList = function(req, res, next){
-  Review.find(function(err, reviews) {
+  var params = {};
+  if(req.result != undefined && req.result.store != undefined){
+    params.reviewStore = req.result.store.id
+  }
+  if(req.query.reviewType != undefined && req.query.reviewType != "all"){
+    params.reviewType = req.query.reviewType;
+  }
+  Review.find(params)
+  .populate({
+    path: 'replies',
+    populate : {
+      path: 'reviewWriter',
+      model: 'User'
+    }
+  })
+  .populate('reviewWriter')
+  .exec(function(err, reviews) {
     if (err) {
       return next(err);
     } else {
@@ -42,7 +58,12 @@ exports.getList = function(req, res, next){
         messages : req.flash('error'),
         reviews : reviews
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
     }
   })
@@ -50,11 +71,11 @@ exports.getList = function(req, res, next){
 exports.registerOne = function(req, res, next) {
   var review = new Review(req.body);
   var message = null;
-
   review.save(function(err) {
     if (err) {
       return next(err);
     } else {
+        console.log('aa');
       var result = {
         title : "사용자 후기",
         //page : 'stores/list2',
@@ -62,7 +83,12 @@ exports.registerOne = function(req, res, next) {
         messages : req.flash('error'),
         review : review
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/stores/list');
     }
@@ -80,7 +106,12 @@ exports.updateOne = function(req, res, next) {
         messages : req.flash('error'),
         review : review
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/stores/detail/'+req.store.id);
     }
@@ -100,7 +131,12 @@ exports.getOne = function(req, res, next, id) {
         messages : req.flash('error'),
         review : review
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
 
       return next();
     }
@@ -119,7 +155,12 @@ exports.deleteOne = function(req, res, next) {
         messages : req.flash('error'),
         review : review
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/stores/detail/'+req.store.id);
     }

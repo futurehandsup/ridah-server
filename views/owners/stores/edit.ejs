@@ -1,0 +1,56 @@
+<% include ../templates/head.ejs %>
+<section style="padding-top: 80px;">
+  <div class="container">
+    <h2>승마장 정보 수정</h2>
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-body">
+        <form id="editForm">
+          <div class="form-group">
+            <label for="storename">승마장 이름</label>
+            <input type="text" class="form-control" id="storename" name="storename" placeholder="승마장 이름" value="<%=store.storename%>">
+          </div>
+          <div class="form-group">
+            <label for="introduction">승마장 설명</label>
+            <textarea class="form-control" id="introduction" name="introduction" placeholder="승마장 설명"><%=store.introduction%></textarea>
+          </div>
+          <div class="form-group">
+            <label for="website">홈페이지</label>
+            <input type="url" class="form-control" id="website" name="website" placeholder="승마장 이름" value="<%=store.website%>">
+          </div>
+          <div class="form-group">
+            <label for="telephone">전화번호</label>
+            <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="전화번호" value="<%=store.telephone%>">
+          </div>
+          <div class="form-group">
+            <label for="address">주소</label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="주소" value="<%=store.address%>">
+          </div>
+
+          <button id="editButton" type="button" class="btn btn-primary">저장</button>
+          <a href="./detail" class="btn btn-outline-primary">이전으로</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#editButton').click(function(){
+    var store =  $('#editForm').serializeObject();
+
+    $.ajax({
+      type:"PUT",
+      url:'/stores/<%=store.id%>',
+      data:store,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

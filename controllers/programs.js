@@ -49,6 +49,7 @@ exports.getList = function(req, res, next){
   }
 
   Program.find(params)
+  .sort({'time' : 1})
   .populate({
     path: 'reservations',
     match: { reservationDate : populateParams},
@@ -58,12 +59,17 @@ exports.getList = function(req, res, next){
       return next(err);
     } else {
       var result = {
-        title : "예약 현황",
+        title : "프로그램 현황",
         success : true,
         messages : req.flash('error'),
         programs : programs
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
     }
   });
@@ -111,6 +117,7 @@ exports.getReservationsList = function(req, res, next){
     schedules : new Array()
   }
   Program.find(params)
+  .sort({'time' : 1})
   .exec(function(err, programs) {
     if (err) {
       return next(err);
@@ -119,7 +126,7 @@ exports.getReservationsList = function(req, res, next){
         $gte : date_start,
         $lte : date_end
       };
-      console.log(params);
+      //console.log(params);
       Reservation.aggregate([
         {
           $group: {
@@ -130,7 +137,7 @@ exports.getReservationsList = function(req, res, next){
             programs: { $push : "$program" }
           }
         },
-        { $sort: { _id: 1 } },
+        { $sort: { _id: -1 } },
         {
           $match : {
             $and : [
@@ -173,7 +180,12 @@ exports.getReservationsList = function(req, res, next){
           reservations : results,
           calendar : calendar
         }
-        req.result = result;
+        if(req.result == undefined){
+          req.result = result;
+        }
+        else{
+          req.result = Object.assign(req.result, result);
+        }
         next();
       });
     }
@@ -194,9 +206,14 @@ exports.registerOne = function(req, res, next) {
         //page : 'programs/list2',
         success : true,
         messages : req.flash('error'),
-        program : program
+        program : program,
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/programs/list');
     }
@@ -214,7 +231,12 @@ exports.updateOne = function(req, res, next) {
         messages : req.flash('error'),
         program : program
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/programs/detail/'+req.program.id);
     }
@@ -234,8 +256,12 @@ exports.getOne = function(req, res, next, id) {
         messages : req.flash('error'),
         program : program
       }
-      req.result = result;
-
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       return next();
     }
   })
@@ -251,9 +277,15 @@ exports.deleteOne = function(req, res, next) {
         title : "Program Delete",
         success : true,
         messages : req.flash('error'),
+        store : req.result.store,
         program : program
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/programs/detail/'+req.program.id);
     }

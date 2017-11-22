@@ -24,7 +24,7 @@ var CouponSchema = new Schema({
       type : Number,
       min : 0
     },
-    vaildFor:{
+    validFor:{
       type : Number,
       default : 90
     },

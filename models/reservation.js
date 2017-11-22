@@ -65,6 +65,40 @@ var ReservationSchema = new Schema({
     }
     // 추가로 결제정보도. 언제 뭘로 결제했는지.
 });
+ReservationSchema.pre('save', function(next){
+  //console.log(this);
+  mongoose.model('Reservation').find({reservationDate : this.reservationDate, program: this.program}, function(err, reservations){
+    if(err) return Next(err);
+    if(reservations.length > 0){
+      var err = new Error('이미 예약이 존재하여 예약 불가능합니다.');
+      return next(err);
+    }
+  });
+  this.populate('program').populate('coupon', function(error, reservation){
+    if(reservation.program.programType != reservation.coupon.couponType){
+      var err = new Error('이용권 사용 불가');
+      return next(err);
+    }
+    else{
+      next();
+    }
+  });
+});
+ReservationSchema.post('save', function(reservation){
+  mongoose.model('User').update({
+      _id : reservation.owner,
+      'coupons.coupon' : reservation.coupon
+    },
+    {
+      '$dec': { 'coupons.$.coupon.availableCount' : 1 },
+      '$push': { 'coupons.$.coupon.reservation' : reservation }
+    },
+    function(err, user){
+      if(!err)// return next(err);
+      console.log(user.coupons);
+    //  user.save();
+    });
+});
 ReservationSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });

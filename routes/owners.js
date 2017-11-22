@@ -5,6 +5,7 @@ var common = require('../controllers/common');
 var stores = require('../controllers/stores');
 var users = require('../controllers/users');
 var reviews = require('../controllers/reviews');
+var qnas = require('../controllers/qnas');
 var programs = require('../controllers/programs');
 var reservations = require('../controllers/reservations');
 //passport = require('passport');
@@ -17,14 +18,14 @@ router.get('/', common.renderPage('owners/index'));
 router.get('/login', common.renderPage('owners/login'));
 
 // 예약 내역
-router.get('/reservations', programs.getReservationsList, common.setResponse);
+router.get('/reservations', programs.getReservationsList, reviews.getList, common.setResponse);
 router.get('/reservations/daily', programs.getReservationsList, common.renderPage('owners/reservations/daily'));
 router.get('/reservations/weekly', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/weekly'));
 router.get('/reservations/monthly', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/monthly'));
 
 // stores
-router.get('/stores/:storeId', common.renderPage('owners/stores/detail'));
-router.get('/stores/edit', stores.getList, stores.getSchemas, common.renderPage('owners/stores/edit')); // 필요없음
+router.get('/stores/detail', programs.getReservationsList, reviews.getList, qnas.getList, common.renderPage('owners/stores/detail'));
+router.get('/stores/edit', common.renderPage('owners/stores/edit')); // 필요없음
 router.get('/stores/edit/:storeId', stores.getSchemas, common.renderPage('owners/stores/edit'));
 
 router.param('storeId', stores.getOne);
@@ -36,11 +37,20 @@ router.get('/reviews/edit/:reviewId', reviews.getSchemas, common.renderPage('own
 
 router.param('reviewId', reviews.getOne);
 
+// review
+router.get('/qnas/list', qnas.getList, qnas.getSchemas, common.renderPage('owners/qnas/list'));
+router.get('/qnas/edit', qnas.getList, qnas.getSchemas, common.renderPage('owners/qnas/edit')); // 필요없음
+router.get('/qnas/edit/:qnaId', qnas.getSchemas, common.renderPage('owners/qnas/edit'));
+
+router.param('qnaId', qnas.getOne);
+
+
 //users
-router.get('/reservations/list', users.getList, users.getSchemas, common.renderPage('owners/users/list'));
-router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('owners/users/edit')); // 필요없음
-router.get('/users/edit/:userId', users.getSchemas, common.renderPage('owners/users/edit'));
-router.param('userId', users.getOne);
+router.get('/programs', programs.getList, common.setResponse);
+router.get('/programs/list', programs.getList, programs.getSchemas, common.renderPage('owners/programs/list'));
+router.get('/programs/edit', programs.getList, programs.getSchemas, common.renderPage('owners/programs/edit')); // 필요없음
+router.get('/programs/edit/:programId', programs.getSchemas, common.renderPage('owners/progrmas/edit'));
+router.param('programId', programs.getOne);
 
 
 
