@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var stores = require('../controllers/stores');
+var programs = require('../controllers/programs');
+var reviews = require('../controllers/reviews');
 var common = require('../controllers/common');
     //passport = require('passport');
 
@@ -28,12 +30,14 @@ router.route('/:storeId')
 .delete(stores.deleteOne, common.setResponse)     //승마장 삭제
 .post(common.notImplementedError);
 
+router.route('/:storeId/details').get(reviews.getList, programs.getReservationsList, common.setResponse);
+
 router.param('storeId', stores.getOne);
 
-var reservations = require('./reservations');
-router.use('/:storeId/reservations', reservations);
+var reservationRouter = require('./reservations');
+router.use('/:storeId/reservations', reservationRouter);
 
-var programs = require('./programs');
-router.use('/:storeId/programs', programs);
+var programRouter = require('./programs');
+router.use('/:storeId/programs', programRouter);
 
 module.exports = router;

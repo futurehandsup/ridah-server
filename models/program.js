@@ -12,6 +12,9 @@ var ProgramSchema = new Schema({
       //unique : true,     // primary key로 지정
       required : 'program name is required'   // 검증
     },
+    introduction:{
+      type: String
+    },
     store : {
       type : Schema.ObjectId,
       ref : 'Store',
