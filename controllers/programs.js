@@ -176,7 +176,7 @@ exports.getReservationsList = function(req, res, next){
           title : "예약 현황",
           success : true,
           messages : req.flash('error'),
-          store : req.result.store,
+          //store : req.result.store,
           reservations : results,
           calendar : calendar
         }

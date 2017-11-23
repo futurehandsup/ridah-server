@@ -113,7 +113,7 @@ exports.getOne = function(req, res, next, id) {
       return next(err);
     } else {
       var result = {
-        title : "Store List",
+        title : "Store",
         //page : 'stores/detail',
         success : true,
         messages : req.flash('error'),

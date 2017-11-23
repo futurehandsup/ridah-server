@@ -1,0 +1,27 @@
+<% include ../../templates/head.ejs %>
+<section style="padding-top: 60px; background-color: #fafafa;">
+<div class="container pb-5">
+  <h2 class="my-3">내 이용권</h2>
+  <div class="card">
+    <div class="card-header">
+      <%=user.coupons.length%>개의 이용권이 있습니다.
+    </div>
+    <ul class="list-group list-group-flush">
+      <% for(var i=0; i<user.coupons.length; i++){
+        var coupon = user.coupons[i];
+      %>
+        <li class="list-group-item">
+          <div class="media">
+            <div class="media-body">
+              <small class="float-right"><%=coupon.expireAt.getFullYear()%>년 <%=(coupon.expireAt.getMonth()+1)%>월 <%=coupon.expireAt.getDate()%>일</small>
+              <h5 class="mt-0"><%=coupon.coupon.couponname%></h5>
+              <p>사용 가능 횟수 <%=coupon.availableCount%>회 남음<p>
+            </div>
+          </div>
+        </li>
+      <% }%>
+    </ul>
+  </div>
+</div>
+</section>
+<% include ../../templates/bottom.ejs %>

@@ -8,7 +8,7 @@
   <div class="container">
     <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
-        정보 <a href="/owners/stores/edit" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
+        정보 <a href="/owners/stores/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
       </div>
       <div class="card-body">
         <h4 class="card-title"><%=store.storename%></h4>
@@ -22,8 +22,8 @@
       <div class="card-header">
         <%var date=calendar.schedules[0].date;%>
         <%=date.getFullYear()%>년 <%=(date.getMonth()+1)%>월 <%=date.getDate()%>일 프로그램
-        <a href="/owners/programs/edit" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
-        <a href="/owners/reservations/calendar" class="card-link float-right pr-3"><span class="fa fa-cog"></span> 예약 관리</a>
+        <a href="/owners/programs/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
+        <a href="/owners/reservations/calendar?storeId=<%=store.id%>" class="card-link float-right pr-3"><span class="fa fa-cog"></span> 예약 관리</a>
       </div>
       <ul class="list-group list-group-flush">
         <% for(var i=0; i<calendar.schedules[0].programs.length; i++){%>
@@ -44,7 +44,7 @@
     <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
         리뷰 <%=reviews.length%>개
-        <a href="/owners/reviews/list" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
+        <a href="/owners/reviews/list?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
       </div>
       <ul class="list-group list-group-flush">
         <%if(reviews.length == 0){%>
@@ -66,7 +66,7 @@
     <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
         문의 <%=qnas.length%>개
-        <a href="/owners/qnas/list" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
+        <a href="/owners/qnas/list?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
       </div>
       <ul class="list-group list-group-flush">
         <%if(qnas.length == 0){%>

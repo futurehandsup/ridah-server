@@ -56,6 +56,8 @@ router.param('reviewId', reviews.getOne);
 
 //users
 router.get('/users/mypage', reservations.getList, common.renderPage('customers/users/mypage'));
+router.get('/users/reservations/list', reservations.getList, common.renderPage('customers/users/reservations/list'));
+router.get('/users/coupons/list', coupons.getList, common.renderPage('customers/users/coupons/list'));
 
 router.get('/users/list', users.getList, users.getSchemas, common.renderPage('customers/users/list'));
 router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('customers/users/edit')); // 필요없음
