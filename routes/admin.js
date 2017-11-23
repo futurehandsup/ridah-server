@@ -13,7 +13,7 @@ var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
 //passport = require('passport');
 
 // render 될 페이지 모음
-router.get('/', common.isAuthenticated, common.redirect('admin/stores/list'));
+router.get('/', /*common.isAuthenticated, */common.redirect('admin/stores/list'));
 router.get('/login', common.renderPage('admin/login'));
 
 // stores
