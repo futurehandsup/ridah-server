@@ -11,7 +11,7 @@ var reservations = require('../controllers/reservations');
 //passport = require('passport');
 
 router.all('*', function(req, res, next){
-  return stores.getOne(req, res, next, "59f170c855d4f2874f14dbe5");
+  return stores.getOne(req, res, next);
 });
 // render 될 페이지 모음
 router.get('/', common.renderPage('owners/index'));

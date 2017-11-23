@@ -101,9 +101,14 @@ exports.updateOne = function(req, res, next) {
   });
 };
 exports.getOne = function(req, res, next, id) {
-  Store.findOne({
-    _id: id
-  }, function(err, store) {
+  // 데모용 코드
+  var params = {};
+  if(id != undefined){
+    params = {
+      _id : id
+    }
+  };
+  Store.findOne(params, function(err, store) {
     if (err) {
       return next(err);
     } else {
