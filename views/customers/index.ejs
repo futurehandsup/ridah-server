@@ -11,7 +11,9 @@
           <div class="card-body">
             <h4 class="card-title"><%=store.storename%></h4>
             <p class="card-text"><%=store.address%></p>
-            <a href="/customers/stores/<%=store.id%>?userId=<%=user.id%>" class="btn btn-primary">자세히 보기</a>
+            <%var date = new Date();%>
+            <%var dateString = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()%>
+            <a href="/customers/stores/<%=store.id%>?userId=<%=user.id%>&date=<%=dateString%>" class="btn btn-primary">자세히 보기</a>
           </div>
         </div>
       </div>

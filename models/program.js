@@ -13,7 +13,8 @@ var ProgramSchema = new Schema({
       required : 'program name is required'   // 검증
     },
     introduction:{
-      type: String
+      type: String,
+      default : ""
     },
     store : {
       type : Schema.ObjectId,
