@@ -11,10 +11,12 @@ var reservations = require('../controllers/reservations');
 //passport = require('passport');
 
 router.all('*', function(req, res, next){
+  // 데모용, 임시 페이지
   return stores.getOne(req, res, next);
 });
 // render 될 페이지 모음
-router.get('/', common.renderPage('owners/index'));
+router.get('/', common.redirect('/owners/reservations/daily?type=monthly'));
+// 로그인 아직 덜 만듬
 router.get('/login', common.renderPage('owners/login'));
 
 // 예약 내역
