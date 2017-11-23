@@ -1,0 +1,119 @@
+<% include ../templates/head.ejs %>
+<section style="background-color: #fafafa; padding-top: 70px;">
+  <div class="container">
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-body text-center">
+        <h4 class="card-title"><%=program.store.storename%></h4>
+        <h6 class="card-text"><%=program.programname%></h6>
+        <p class="card-text text-secondary">
+          <%=program.introduction%>
+        </p>
+        <p class="card-text">
+          예약 일시 :
+          <%var date = new Date(query.date)%>
+          <%var days = ["일", "월", "화", "수", "목", "금", "토"]%>
+          <%var dateString = date.getFullYear()+"년 "+(date.getMonth()+1)+"월 "+date.getDate()+"일 "+days[date.getDay()]+"요일"%>
+          <%=dateString%>
+          <%=program.time.start_at%>
+        </p>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-header">
+        프로그램 정보
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          기본 레슨 및 기본 장비 대여 포함<br>
+          1인 이상 4인까지 그룹 레슨 및 기승 실시
+        </p>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-header">
+        예약자 정보 입력
+      </div>
+      <div class="card-body">
+        <form id="createForm">
+          <div class="form-group">
+            <label for="ownerName">예약자</label>
+            <input type="text" class="form-control" id="ownerName" name="ownerName" value="<%=user.username%>">
+            <input type="hidden" name="owner" value="<%=user.id%>">
+          </div>
+          <div class="form-group">
+            <label for="howMany">인원</label>
+            <input type="number" class="form-control" id="howMany" name="howMany" placeholder="인원" value="1" min="1" max="4">
+          </div>
+          <div class="form-group">
+            <label for="telephone">전화번호</label>
+            <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="전화번호" value="<%=user.telephone%>">
+          </div>
+          <div class="form-group">
+            <label for="reservationDate">예약일시</label>
+            <br><%=dateString%> <%=program.time.start_at%>
+            <input type="hidden" class="form-control" id="reservationDate" name="reservationDate" value="<%=query.date%>">
+          </div>
+          <%if(user.coupons.length == 0){ %>
+            <a class="btn btn-primary" href="/customers/coupons/list?userId=<%=user.id%>">쿠폰 구매하기</a>
+          <%} else {%>
+            <label for="coupon">사용할 쿠폰 </label>
+            <div class="form-group">
+              <%for(var i=0; i < user.coupons.length; i++){%>
+                <%var coupon = user.coupons[i];%>
+                <label for="coupon_<%=i%>">
+                  <input type="radio" id="coupon_<%=i%>" name="coupon" value="<%=coupon.coupon.id%>">
+                  <%=coupon.coupon.couponname%>
+                </label>
+              <%}%>
+            </div>
+          <%}%>
+        </form>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-header">
+        예약시 주의사항
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">예약 안내</h5>
+        <p class="card-text">
+          모든 프로그램은 예약 후 소비자의 변심으로 인한 예약취소 시 환불 수수료가 발생할 수 있습니다.<br>
+          프로그램 시작 10분 전까지 오셔야 정상적으로 이용하실 수 있습니다
+        </p>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input">
+            위 주의사항을 읽었고 이에 동의합니다.
+          </label>
+        </div>
+        <%if(user.coupons.length != 0){ %>
+        <button id="createButton" type="button" class="btn btn-primary">저장</button>
+        <%}%>
+      </div>
+    </div>
+
+  </div>
+</section>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#createButton').click(function(){
+    var form = $('#createForm');
+    var reservation =  form.serializeObject();
+    reservation.program="<%=program.id%>";
+    reservation.store="<%=program.store.id%>";
+    $.ajax({
+      type:"POST",
+      url:'/reservations',
+      data:reservation,
+      success:function(args){
+        alert("성공했습니다.");
+        location.href="/customers/reservations/detail"+args.reservation.id+"?userId=<%=query.userId%>";
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

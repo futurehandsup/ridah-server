@@ -42,7 +42,12 @@ exports.getList = function(req, res, next){
         messages : req.flash('error'),
         couponPurchaseLogs : couponPurchaseLogs
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
     }
   })
@@ -84,7 +89,12 @@ exports.registerOne = function(req, res, next) {
                 messages : req.flash('error'),
                 couponPurchaseLog : couponPurchaseLog
               }
-              req.result = result;
+              if(req.result == undefined){
+                req.result = result;
+              }
+              else{
+                req.result = Object.assign(req.result, result);
+              }
               next();
               //return res.redirect('/couponPurchaseLogs/list');
             }
@@ -106,7 +116,12 @@ exports.updateOne = function(req, res, next) {
         messages : req.flash('error'),
         couponPurchaseLog : couponPurchaseLog
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/couponPurchaseLogs/detail/'+req.couponPurchaseLog.id);
     }
@@ -126,7 +141,12 @@ exports.getOne = function(req, res, next, id) {
         messages : req.flash('error'),
         couponPurchaseLog : couponPurchaseLog
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
 
       return next();
     }
@@ -145,7 +165,12 @@ exports.deleteOne = function(req, res, next) {
         messages : req.flash('error'),
         couponPurchaseLog : couponPurchaseLog
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/couponPurchaseLogs/detail/'+req.couponPurchaseLog.id);
     }

@@ -15,6 +15,9 @@ var UserSchema = new Schema({
       index : true,         // 보조 index
       match : [/.+\@.+\..+/, "pleas fill a valid e-mail address"]  // 형식 검증
     },
+    telephone : {
+      type : String
+    },
     // website : {
     //   type : String ,
     //   /*

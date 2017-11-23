@@ -22,7 +22,10 @@ var CouponSchema = new Schema({
     },
     price : {
       type : Number,
-      min : 0
+      min : 0,
+      get : function(number){
+        return Intl.NumberFormat().format(number);
+      }
     },
     validFor:{
       type : Number,

@@ -66,7 +66,12 @@ exports.registerOne = function(req, res, next) {
           messages : req.flash('error'),
           user : user
         }
-        req.result = result;
+        if(req.result == undefined){
+          req.result = result;
+        }
+        else{
+          req.result = Object.assign(req.result, result);
+        }
         next();
       }
     });
@@ -84,7 +89,12 @@ exports.updateOne = function(req, res, next) {
         messages : req.flash('error'),
         user : user
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/users/detail/'+req.user.id);
     }
@@ -92,9 +102,17 @@ exports.updateOne = function(req, res, next) {
 };
 //사용자 불러오기 -- 관리자용
 exports.getOne = function(req, res, next, id) {
-  User.findOne({
-    _id: id
-  }, function(err, user) {
+  var params = {};
+  if(id != undefined){
+    params = {
+      _id : id
+    }
+  };
+  User.findOne(params)
+  .populate({
+    path: 'coupons.coupon'
+  })
+  .exec(function(err, user) {
     if (err) {
       return next(err);
     } else {
@@ -105,7 +123,12 @@ exports.getOne = function(req, res, next, id) {
         messages : req.flash('error'),
         user : user
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
 
       return next();
     }
@@ -125,7 +148,12 @@ exports.deleteOne = function(req, res, next) {
         messages : req.flash('error'),
         user : user
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/users/detail/'+req.user.id);
     }
@@ -148,7 +176,12 @@ exports.login = function(req, res, next) {
         messages : req.flash('error'),
         user : user
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
     });
   })(req, res, next);

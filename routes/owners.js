@@ -12,7 +12,19 @@ var reservations = require('../controllers/reservations');
 
 router.all('*', function(req, res, next){
   // 데모용, 임시 페이지
-  return stores.getOne(req, res, next);
+  if(req.query.storeId != undefined){
+    return stores.getOne(req, res, next, req.query.storeId);
+  }
+  else{
+    return stores.getOne(req, res, next);
+  }
+}, function(req, res, next){
+  if(req.query.userId != undefined){
+    return users.getOne(req, res, next, req.query.userId);
+  }
+  else{
+    return users.getOne(req, res, next);
+  }
 });
 // render 될 페이지 모음
 router.get('/', common.redirect('/owners/reservations/daily?type=monthly'));

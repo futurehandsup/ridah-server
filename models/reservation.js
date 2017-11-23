@@ -25,10 +25,8 @@ var ReservationSchema = new Schema({
       index: true,
       ref : 'Coupon'
     },
-    email : {
+    ownerName : {
       type : String ,
-      match : [/.+\@.+\..+/, "pleas fill a valid e-mail address"],  // 형식 검증
-      default: ""
     },
     telephone : {
       type : String,
@@ -74,7 +72,9 @@ ReservationSchema.pre('save', function(next){
       return next(err);
     }
   });
+  console.log(this);
   this.populate('program').populate('coupon', function(error, reservation){
+    console.log(reservation);
     if(reservation.program.programType != reservation.coupon.couponType){
       var err = new Error('이용권 사용 불가');
       return next(err);

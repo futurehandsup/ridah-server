@@ -1,4 +1,5 @@
 exports.setResponse = function(req, res, next){
+  req.result.query = req.query;
   res.json(req.result);
 }
 exports.redirect = function(page){
@@ -8,6 +9,7 @@ exports.redirect = function(page){
 }
 exports.renderPage = function(page){
   return function(req, res, next){
+    req.result.query = req.query;
     res.render(page, req.result);
   }
 }
@@ -23,7 +25,12 @@ exports.isAuthenticated = function (req, res, next) {
       success : false,
       messages : "Not Authenticated Error. Please Log in or Sign up."
     }
-    req.result = result;
+    if(req.result == undefined){
+      req.result = result;
+    }
+    else{
+      req.result = Object.assign(req.result, result);
+    }
     res.json(req.result);
   }
 };

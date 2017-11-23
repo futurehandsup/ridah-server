@@ -41,7 +41,12 @@ exports.getList = function(req, res, next){
         messages : req.flash('error'),
         coupons : coupons
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
     }
   })
@@ -61,7 +66,12 @@ exports.registerOne = function(req, res, next) {
         messages : req.flash('error'),
         coupon : coupon
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/coupons/list');
     }
@@ -79,7 +89,12 @@ exports.updateOne = function(req, res, next) {
         messages : req.flash('error'),
         coupon : coupon
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/coupons/detail/'+req.coupon.id);
     }
@@ -99,7 +114,12 @@ exports.getOne = function(req, res, next, id) {
         messages : req.flash('error'),
         coupon : coupon
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
 
       return next();
     }
@@ -118,7 +138,12 @@ exports.deleteOne = function(req, res, next) {
         messages : req.flash('error'),
         coupon : coupon
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/coupons/detail/'+req.coupon.id);
     }

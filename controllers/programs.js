@@ -245,7 +245,9 @@ exports.updateOne = function(req, res, next) {
 exports.getOne = function(req, res, next, id) {
   Program.findOne({
     _id: id
-  }, function(err, program) {
+  })
+  .populate('store')
+  .exec(function(err, program) {
     if (err) {
       return next(err);
     } else {

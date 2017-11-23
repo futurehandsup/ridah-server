@@ -39,7 +39,10 @@ exports.getList = function(req, res, next){
   if(req.result != undefined && req.result.store != undefined){
     params.store = req.result.store.id
   }
-  Reservation.find(params, function(err, reservations) {
+  Reservation.find(params)
+  .populate('store')
+  .populate('program')
+  .exec(function(err, reservations) {
     if (err) {
       return next(err);
     } else {
@@ -49,7 +52,12 @@ exports.getList = function(req, res, next){
         messages : req.flash('error'),
         reservations : reservations
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
     }
   })
@@ -75,7 +83,12 @@ exports.registerOne = function(req, res, next) {
         messages : req.flash('error'),
         reservation : reservation
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/reservations/list');
     }
@@ -93,7 +106,12 @@ exports.updateOne = function(req, res, next) {
         messages : req.flash('error'),
         reservation : reservation
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/reservations/detail/'+req.reservation.id);
     }
@@ -113,7 +131,12 @@ exports.getOne = function(req, res, next, id) {
         messages : req.flash('error'),
         reservation : reservation
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
 
       return next();
     }
@@ -132,7 +155,12 @@ exports.deleteOne = function(req, res, next) {
         messages : req.flash('error'),
         reservation : reservation
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
       //return res.redirect('/reservations/detail/'+req.reservation.id);
     }
