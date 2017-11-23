@@ -9,7 +9,7 @@
       <% for(var i=0; i<reviews.length; i++){
         var review = reviews[i];
       %>
-        <li class="list-group-item">
+        <li class="list-group-item bg-light">
           <div class="media">
             <div class="media-body">
               <small class="float-right"><%=review.reviewWriter.username%>님, <%=review.created_at.getFullYear()%>년 <%=(review.created_at.getMonth()+1)%>월 <%=review.created_at.getDate()%>일</small>
@@ -31,7 +31,7 @@
         </li>
         <% for(var j=0; j<review.replies.length; j++){%>
         <% var reply = review.replies[j];%>
-          <li class="list-group-item bg-light">
+          <li class="list-group-item">
             <div class="media">
               <small class="mr-3">댓글</small>
               <div class="media-body">
