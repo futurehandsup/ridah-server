@@ -1,47 +1,23 @@
 <% include ./templates/head.ejs %>
-<div class="container" style="padding-top: 80px;">
-  <h2>안녕하세요, 사장님!</h2>
+<section style="padding-top: 70px;">
+<div class="container">
+  <h2 class="my-4 text-center">로그인</h2>
   <div class="row">
-    <div class="col-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">예약</h4>
-          <h6 class="card-subtitle mb-2 text-muted">예약 내역 확인합니다</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="/owners/reservations" class="card-link">바로가기</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">승마장 정보 확인</h4>
-          <h6 class="card-subtitle mb-2 text-muted">내 승마장 정보 확인합니다</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="/owners/stores" class="card-link">바로가기</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">문의 내역 확인</h4>
-          <h6 class="card-subtitle mb-2 text-muted">문의 내역 확인합니다</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="/owners/qnas" class="card-link">바로가기</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">예약</h4>
-          <h6 class="card-subtitle mb-2 text-muted">예약 내역 확인합니다</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="/owners/reservations" class="card-link">바로가기</a>
-        </div>
-      </div>
+    <div class="card mx-auto " style="margin-bottom: 20px; min-width: 20rem;">
+      <ul class="list-group list-group-flush">
+        <% for(var i=0; i<stores.length; i++){%>
+          <% var store = stores[i]; %>
+          <li class="list-group-item text-center">
+            <div class="d-flex w-100 text-center">
+              <a href="/owners/reservations/daily?type=monthly&storeId=<%=store.id%>" class="card-link">
+                <%=store.storename%>
+              </a>
+            </div>
+          </li>
+        <%}%>
+      </ul>
     </div>
   </div>
 </div>
+</section>
 <% include ./templates/bottom.ejs %>

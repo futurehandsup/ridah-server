@@ -1,0 +1,31 @@
+<% include ../templates/head.ejs %>
+<section style="background-color: #fafafa; padding-top: 70px;">
+<div class="container">
+  <p class="text-center"><span class="fa fa-map-marker text-primary"></span> 서울시 마포구 대흥동</p>
+  <div class="row">
+      <% for(var i=0; i<stores.length; i++){
+      var store = stores[i];
+      %>
+      <div class="col-sm-3">
+        <div class="card" style="margin-bottom: 20px;">
+          <img class="card-img-top" src="<%=store.image%>" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title"><%=store.storename%></h4>
+            <p class="card-text"><%=store.address%>
+              <br>
+              <small class="text-success">
+                <span class="fa fa-location-arrow "></span> 1.3km
+              </small>
+            </p>
+
+            <%var date = new Date();%>
+            <%var dateString = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()%>
+            <a href="/customers/stores/<%=store.id%>?userId=<%=user.id%>&date=<%=dateString%>" class="btn btn-primary">자세히 보기</a>
+          </div>
+        </div>
+      </div>
+    <% }%>
+  </div>
+</div>
+</section>
+<% include ../templates/bottom.ejs %>

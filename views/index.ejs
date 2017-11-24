@@ -1,19 +1,47 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <title>
-    <%= title %>
-  </title>
-</head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>손님용 페이지</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
+  </head>
   <body>
-    <% if (username) { %>
-    <h2>Hello <%=username %></h2>
-    <a href="/users/signout">Sign out</a>
-    <% } else { %>
-      <a href="/users/signup">Signup</a>
-      <a href="/users/signin">Signin</a>
-    <% } %>
-    <br />
-    <img src="images/background.jpg" alt="logo" />
-  </body>
-</html>
+<div class="container">
+  <h1 class="my-4">Ride High</h1>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card text-center bg-primary text-white py-5">
+        <div class="card-body">
+          <h4 class="card-title">사용자 페이지</h4>
+          <a href="/customers" class="card-link text-white">바로가기</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card text-center bg-danger text-white py-5">
+        <div class="card-body">
+          <h4 class="card-title">가맹점주 페이지</h4>
+          <a href="/owners" class="card-link text-white">바로가기</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card text-center bg-warning text-white py-5">
+        <div class="card-body">
+          <h4 class="card-title">관리자 페이지</h4>
+          <a href="/customers" class="card-link text-white">바로가기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ./customers/templates/bottom.ejs %>

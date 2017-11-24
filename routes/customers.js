@@ -22,10 +22,11 @@ router.all('*', function(req, res, next){
 });
 
 // render 될 페이지 모음
-router.get('/', stores.getList, common.renderPage('customers/index'));
+router.get('/', users.getList, stores.getList, common.renderPage('customers/index'));
 router.get('/login', common.renderPage('customers/login'));
 
 // stores
+router.get('/stores/list', stores.getList,  common.renderPage('customers/stores/list'));
 router.get('/stores/:storeId',  programs.getReservationsList, reviews.getList, qnas.getList,  common.renderPage('customers/stores/detail'));
 router.get('/stores/:storeId/reviews/list', reviews.getList, reviews.getSchemas, common.renderPage('customers/reviews/list'));
 router.get('/stores/:storeId/qnas/list', qnas.getList, reviews.getSchemas, common.renderPage('customers/qnas/list'));
