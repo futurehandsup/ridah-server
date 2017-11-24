@@ -108,7 +108,7 @@ $(document).ready(function(){
       data:reservation,
       success:function(args){
         alert("성공했습니다.");
-        location.href="/customers/reservations/detail"+args.reservation.id+"?userId=<%=query.userId%>";
+        location.href="/customers/users/reservations/list?userId=<%=query.userId%>";
       },
       error:function(e){
           alert(e.responseText);
