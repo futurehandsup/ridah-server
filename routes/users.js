@@ -3,6 +3,7 @@ var router = express.Router();
 
 var common = require('../controllers/common');
 var users = require('../controllers/users'),
+    auth = require('../controllers/auth'),
     passport = require('passport');
 
 //RESTful API
@@ -17,14 +18,20 @@ router.route('/')
 .put(common.notImplementedError)
 .delete(common.notImplementedError);
 
+router.route('/token/:userRole')
+.post(auth.login(), common.setResponse) //토큰 획득
+.get(auth.check(), common.setResponse)  //로그인 여부 체크
+.delete(common.notImplementedError)
+.put(common.notImplementedError);
+
 router.route('/token')
 .all(function(req, res, next) {
   // runs for all HTTP verbs first
   // think of it as route specific middleware!
   next();
 })
-.post(users.login, common.setResponse)
-.get(common.notImplementedError)
+.post(auth.login(), common.setResponse) //토큰 획득
+.get(auth.check(), common.setResponse)  //로그인 여부 체크
 .delete(common.notImplementedError)
 .put(common.notImplementedError);
 

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+var auth = require('../controllers/auth');
 var common = require('../controllers/common');
 var stores = require('../controllers/stores');
 var users = require('../controllers/users');
@@ -12,9 +13,18 @@ var coupons = require('../controllers/coupons');
 var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
 //passport = require('passport');
 
+
+router.get('/login', auth.check(), common.renderPage('admin/login'));
+router.get('/logout', auth.logout, common.redirect('admin'));
+
 // render 될 페이지 모음
+router.get('*', common.setAuthHeaders, auth.check(), function(req, res, next){
+  if(req.result.success) return next();
+  else {
+    res.redirect('/admin/login');
+  }
+});
 router.get('/', /*common.isAuthenticated, */common.redirect('/admin/stores/list'));
-router.get('/login', common.renderPage('admin/login'));
 
 // stores
 router.get('/stores/list', stores.getList, stores.getSchemas, common.renderPage('admin/stores/list'));

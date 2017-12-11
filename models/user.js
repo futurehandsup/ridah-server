@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     crypto = require('crypto'),
      Schema = mongoose.Schema;
+var uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new Schema({
     username : String ,
@@ -8,7 +9,7 @@ var UserSchema = new Schema({
       type : String ,
       trim : true ,     //자동으로 앞뒤공백 제거
       unique : true,     // primary key로 지정
-      required : 'User ID is required'   // 검증
+      required : 'User ID is required',   // 검증
     },
     email : {
       type : String ,
@@ -97,6 +98,11 @@ var UserSchema = new Schema({
 // UserSchema.virtual('idpass').get(function() {     // 가상 속성, UserSchema 의 set 옵션에 virtuals 옵션을 true 로 설정해야 작동
 //     return this.userid + ' ' + this.password;
 // });
+UserSchema.plugin(uniqueValidator);
+UserSchema.virtual('admin').get(function(){
+  if(this.role=="Admin") return true;
+  else return false;
+});
 UserSchema.pre('save', function(next){
   /*
   사용자의 비밀번호를 해시하기 위해 pre-save 미들웨어를 생성했다.
@@ -111,7 +117,13 @@ UserSchema.pre('save', function(next){
   }
   next();
 });
-
+UserSchema.post('save', function(error, user, next){
+  if (error.name === 'MongoError' && error.code === 11000) {
+   next(new Error('email must be unique'));
+ } else {
+   next(error);
+ }
+});
 UserSchema.methods.hashPassword = function(password) {
     /*
     hashPassword() 메소드는 노드의 crypto 모듈을 활용해 비밀번호를 암호화 하기 위해 사용되며 ,
@@ -148,6 +160,11 @@ UserSchema.statics.findUniqueUserid = function(userid, suffix, callback) {
         }
     });
 };
+UserSchema.statics.findOneByUsername = function(username) {
+    return this.findOne({
+        userid : username
+    }).exec();
+}
 
 UserSchema.set('toJSON',{ getters : true , virtuals : true});
 /*res.json() 을 사용하여 다큐먼트 데이터를 출력 할 때 get 옵션으로 정의한 값이 JSON에 포함되게 할 것이다.
