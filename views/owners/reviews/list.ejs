@@ -15,7 +15,7 @@
               <div class="media-body">
                 <h5 class="mt-0"><%=review.reviewTitle%></h5>
                 <p><%=review.reviewText%><p>
-                <small class="float-right"><%=review.reviewWriter.username%>님, <%=review.created_at.getFullYear()%>년 <%=(review.created_at.getMonth()+1)%>월 <%=review.created_at.getDate()%>일</small>
+                <small class="float-right"><%=(review.reviewWriter!=undefined) ? (review.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=review.created_at.getFullYear()%>년 <%=(review.created_at.getMonth()+1)%>월 <%=review.created_at.getDate()%>일</small>
               </div>
             </div>
           </li>
@@ -38,7 +38,7 @@
                 <div class="media-body">
                   <h5 class="mt-0"><%=reply.reviewTitle%></h5>
                   <p><%=reply.reviewText%><p>
-                  <small class="float-right"><%=reply.reviewWriter.username%>님, <%=reply.created_at.getFullYear()%>년 <%=(reply.created_at.getMonth()+1)%>월 <%=reply.created_at.getDate()%>일</small>
+                  <small class="float-right"><%=(reply.reviewWriter!=undefined) ? (reply.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=reply.created_at.getFullYear()%>년 <%=(reply.created_at.getMonth()+1)%>월 <%=reply.created_at.getDate()%>일</small>
                 </div>
               </div>
             </li>
