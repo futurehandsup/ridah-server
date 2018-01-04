@@ -1,0 +1,51 @@
+<% include ../templates/head.ejs %>
+<section style="background-color: #fafafa; padding-top: 70px;">
+  <div class="container">
+    <h2>이용권 구매</h2>
+    <div class="row">
+      <% for(var i=0; i<coupons.length; i++){
+        var coupon = coupons[i];
+        %>
+        <div class="col-sm-4">
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-body">
+              <h4 class="card-title"><%=coupon.couponname%></h4>
+              <p class="card-text py-0 my-0">₩<%=coupon.price%></p>
+              <p class="card-text text-secondary">
+                <small class="card-text">구매일로부터 <%=coupon.validFor%>일간 유효</small><br>
+                <small class="card-text"><span class="text-success"><%=coupon.couponType%></span> 프로그램에 한하여 <%=coupon.availableCount%>회 사용가능</small>
+              </p>
+              <button type="button" class="btn btn-primary createButton" data-couponid="<%=coupon.id%>" data-price="<%=coupon.price%>">구매하기</a>
+            </div>
+          </div>
+        </div>
+      <% }%>
+    </div>
+  </div>
+</section>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('.createButton').click(function(){
+    var  couponPurchaseLog = {};
+    couponPurchaseLog = {
+      user : '<%=user.id%>',
+      coupon : $(this).data('couponid'),
+      price : $(this).data('price').replace(",", "")
+    }
+
+    $.ajax({
+      type:"POST",
+      url:'/couponPurchaseLogs',
+      data:couponPurchaseLog,
+      success:function(args){
+        alert("성공했습니다.");
+        location.href="/customers/users/mypage?userId=<%=query.userId%>";
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
