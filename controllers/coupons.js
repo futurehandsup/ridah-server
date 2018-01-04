@@ -1,4 +1,4 @@
-var Store = require('mongoose').model('Store');
+var Coupon = require('mongoose').model('Coupon');
 var User = require('mongoose').model('User');
 //passport = require('passport');
 
@@ -9,7 +9,7 @@ var getErrorMessage = function(err) {
     switch (err.code) {
       case 11000:
       case 11001:
-        message = 'StoreID already exists';
+        message = 'CouponID already exists';
         break;
       default:
         message = 'Something went Wrong';
@@ -24,22 +24,22 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = Store.schema.paths;
+  var schema = Coupon.schema.paths;
 
   req.result.schema = schema;
   next();
 }
 
 exports.getList = function(req, res, next){
-  Store.find(function(err, stores) {
+  Coupon.find(function(err, coupons) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "승마장 현황",
+        title : "이용권 현황",
         success : true,
         messages : req.flash('error'),
-        stores : stores
+        coupons : coupons
       }
       if(req.result == undefined){
         req.result = result;
@@ -52,19 +52,19 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
-  var store = new Store(req.body);
+  var coupon = new Coupon(req.body);
   var message = null;
 
-  store.save(function(err) {
+  coupon.save(function(err) {
     if (err) {
       return next(err);
     } else {
       var result = {
         title : "사용자 현황",
-        //page : 'stores/list2',
+        //page : 'coupons/list2',
         success : true,
         messages : req.flash('error'),
-        store : store
+        coupon : coupon
       }
       if(req.result == undefined){
         req.result = result;
@@ -73,21 +73,21 @@ exports.registerOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/list');
+      //return res.redirect('/coupons/list');
     }
   });
 };
 exports.updateOne = function(req, res, next) {
-  Store.findByIdAndUpdate(req.result.store.id, req.body, function(err, store) {
+  Coupon.findByIdAndUpdate(req.result.coupon.id, req.body, function(err, coupon) {
     if (err) {
       return next(err);
     } else {
-      store.updated_at = Date.now();
+      coupon.updated_at = Date.now();
       var result = {
-        title : "Store Update",
+        title : "Coupon Update",
         success : true,
         messages : req.flash('error'),
-        store : store
+        coupon : coupon
       }
       if(req.result == undefined){
         req.result = result;
@@ -96,28 +96,23 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/coupons/detail/'+req.coupon.id);
     }
   });
 };
 exports.getOne = function(req, res, next, id) {
-  // 데모용 코드
-  var params = {};
-  if(id != undefined){
-    params = {
-      _id : id
-    }
-  };
-  Store.findOne(params, function(err, store) {
+  Coupon.findOne({
+    _id: id
+  }, function(err, coupon) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "Store List",
-        //page : 'stores/detail',
+        title : "Coupon List",
+        //page : 'coupons/detail',
         success : true,
         messages : req.flash('error'),
-        store : store
+        coupon : coupon
       }
       if(req.result == undefined){
         req.result = result;
@@ -125,22 +120,23 @@ exports.getOne = function(req, res, next, id) {
       else{
         req.result = Object.assign(req.result, result);
       }
+
       return next();
     }
   })
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Store.findByIdAndUpdate(req.result.store.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, store) {
+  Coupon.findByIdAndUpdate(req.result.coupon.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, coupon) {
     if (err) {
       return next(err);
     } else {
-      store.updated_at = date;
+      coupon.updated_at = date;
       var result = {
-        title : "Store Delete",
+        title : "Coupon Delete",
         success : true,
         messages : req.flash('error'),
-        store : store
+        coupon : coupon
       }
       if(req.result == undefined){
         req.result = result;
@@ -149,7 +145,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/coupons/detail/'+req.coupon.id);
     }
   });
 };

@@ -1,4 +1,5 @@
-var Store = require('mongoose').model('Store');
+var Reservation = require('mongoose').model('Reservation');
+var Program = require('mongoose').model('Program');
 var User = require('mongoose').model('User');
 //passport = require('passport');
 
@@ -9,7 +10,7 @@ var getErrorMessage = function(err) {
     switch (err.code) {
       case 11000:
       case 11001:
-        message = 'StoreID already exists';
+        message = 'ReservationID already exists';
         break;
       default:
         message = 'Something went Wrong';
@@ -24,22 +25,32 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = Store.schema.paths;
+  var schema = Reservation.schema.paths;
 
   req.result.schema = schema;
   next();
 }
 
 exports.getList = function(req, res, next){
-  Store.find(function(err, stores) {
+  var params = {};
+  if(req.result != undefined && req.result.user != undefined){
+    params.owner = req.result.user.id
+  }
+  if(req.result != undefined && req.result.store != undefined){
+    params.store = req.result.store.id
+  }
+  Reservation.find(params)
+  .populate('store')
+  .populate('program')
+  .exec(function(err, reservations) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "승마장 현황",
+        title : "예약 현황",
         success : true,
         messages : req.flash('error'),
-        stores : stores
+        reservations : reservations
       }
       if(req.result == undefined){
         req.result = result;
@@ -52,19 +63,25 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
-  var store = new Store(req.body);
+  var reservation = new Reservation(req.body);
   var message = null;
 
-  store.save(function(err) {
+  reservation.save(function(err) {
     if (err) {
       return next(err);
     } else {
+      Program.findById(reservation.program, function (err, program){
+        if(err) return next(err);
+
+        program.reservations.push(reservation);
+        program.save();
+      });
       var result = {
         title : "사용자 현황",
-        //page : 'stores/list2',
+        //page : 'reservations/list2',
         success : true,
         messages : req.flash('error'),
-        store : store
+        reservation : reservation
       }
       if(req.result == undefined){
         req.result = result;
@@ -73,21 +90,21 @@ exports.registerOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/list');
+      //return res.redirect('/reservations/list');
     }
   });
 };
 exports.updateOne = function(req, res, next) {
-  Store.findByIdAndUpdate(req.result.store.id, req.body, function(err, store) {
+  Reservation.findByIdAndUpdate(req.result.reservation.id, req.body, function(err, reservation) {
     if (err) {
       return next(err);
     } else {
-      store.updated_at = Date.now();
+      reservation.updated_at = Date.now();
       var result = {
-        title : "Store Update",
+        title : "Reservation Update",
         success : true,
         messages : req.flash('error'),
-        store : store
+        reservation : reservation
       }
       if(req.result == undefined){
         req.result = result;
@@ -96,28 +113,23 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/reservations/detail/'+req.reservation.id);
     }
   });
 };
 exports.getOne = function(req, res, next, id) {
-  // 데모용 코드
-  var params = {};
-  if(id != undefined){
-    params = {
-      _id : id
-    }
-  };
-  Store.findOne(params, function(err, store) {
+  Reservation.findOne({
+    _id: id
+  }, function(err, reservation) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "Store List",
-        //page : 'stores/detail',
+        title : "Reservation List",
+        //page : 'reservations/detail',
         success : true,
         messages : req.flash('error'),
-        store : store
+        reservation : reservation
       }
       if(req.result == undefined){
         req.result = result;
@@ -125,22 +137,23 @@ exports.getOne = function(req, res, next, id) {
       else{
         req.result = Object.assign(req.result, result);
       }
+
       return next();
     }
   })
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Store.findByIdAndUpdate(req.result.store.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, store) {
+  Reservation.findByIdAndUpdate(req.result.reservation.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, reservation) {
     if (err) {
       return next(err);
     } else {
-      store.updated_at = date;
+      reservation.updated_at = date;
       var result = {
-        title : "Store Delete",
+        title : "Reservation Delete",
         success : true,
         messages : req.flash('error'),
-        store : store
+        reservation : reservation
       }
       if(req.result == undefined){
         req.result = result;
@@ -149,7 +162,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/reservations/detail/'+req.reservation.id);
     }
   });
 };

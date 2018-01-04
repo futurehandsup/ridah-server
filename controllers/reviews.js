@@ -1,3 +1,4 @@
+var Review = require('mongoose').model('Review');
 var Store = require('mongoose').model('Store');
 var User = require('mongoose').model('User');
 //passport = require('passport');
@@ -24,22 +25,38 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = Store.schema.paths;
+  var schema = Review.schema.paths;
 
   req.result.schema = schema;
   next();
 }
 
 exports.getList = function(req, res, next){
-  Store.find(function(err, stores) {
+  var params = {};
+  if(req.result != undefined && req.result.store != undefined){
+    params.reviewStore = req.result.store.id
+  }
+  if(req.query.reviewType != undefined && req.query.reviewType != "all"){
+    params.reviewType = req.query.reviewType;
+  }
+  Review.find(params)
+  .populate({
+    path: 'replies',
+    populate : {
+      path: 'reviewWriter',
+      model: 'User'
+    }
+  })
+  .populate('reviewWriter')
+  .exec(function(err, reviews) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "승마장 현황",
+        title : "사용자 후기",
         success : true,
         messages : req.flash('error'),
-        stores : stores
+        reviews : reviews
       }
       if(req.result == undefined){
         req.result = result;
@@ -52,19 +69,19 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
-  var store = new Store(req.body);
+  var review = new Review(req.body);
   var message = null;
-
-  store.save(function(err) {
+  review.save(function(err) {
     if (err) {
       return next(err);
     } else {
+        console.log('aa');
       var result = {
-        title : "사용자 현황",
+        title : "사용자 후기",
         //page : 'stores/list2',
         success : true,
         messages : req.flash('error'),
-        store : store
+        review : review
       }
       if(req.result == undefined){
         req.result = result;
@@ -78,16 +95,16 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Store.findByIdAndUpdate(req.result.store.id, req.body, function(err, store) {
+  Review.findByIdAndUpdate(req.result.review.id, req.body, function(err, review) {
     if (err) {
       return next(err);
     } else {
-      store.updated_at = Date.now();
+      review.updated_at = Date.now();
       var result = {
-        title : "Store Update",
+        title : "Review Update",
         success : true,
         messages : req.flash('error'),
-        store : store
+        review : review
       }
       if(req.result == undefined){
         req.result = result;
@@ -101,23 +118,18 @@ exports.updateOne = function(req, res, next) {
   });
 };
 exports.getOne = function(req, res, next, id) {
-  // 데모용 코드
-  var params = {};
-  if(id != undefined){
-    params = {
-      _id : id
-    }
-  };
-  Store.findOne(params, function(err, store) {
+  Review.findOne({
+    _id: id
+  }, function(err, review) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "Store List",
+        title : "Review List",
         //page : 'stores/detail',
         success : true,
         messages : req.flash('error'),
-        store : store
+        review : review
       }
       if(req.result == undefined){
         req.result = result;
@@ -125,22 +137,23 @@ exports.getOne = function(req, res, next, id) {
       else{
         req.result = Object.assign(req.result, result);
       }
+
       return next();
     }
   })
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Store.findByIdAndUpdate(req.result.store.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, store) {
+  Review.findByIdAndUpdate(req.result.review.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, review) {
     if (err) {
       return next(err);
     } else {
-      store.updated_at = date;
+      review.updated_at = date;
       var result = {
-        title : "Store Delete",
+        title : "Review Delete",
         success : true,
         messages : req.flash('error'),
-        store : store
+        review : review
       }
       if(req.result == undefined){
         req.result = result;

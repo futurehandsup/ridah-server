@@ -41,6 +41,8 @@ router.route('/:userId')
 
 router.param('userId', users.getOne);
 
+var reservations = require('./reservations');
+router.use('/:userId/reservations', reservations);
 
 /////////////////////////////
 /* GET users listing. */

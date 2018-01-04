@@ -48,15 +48,34 @@ module.exports = function() {
     var index = require('../routes/index');
     var users = require('../routes/users');
     var stores = require('../routes/stores');
+    var reviews = require('../routes/reviews');
+    var qnas = require('../routes/qnas');
+    var programs = require('../routes/programs');
+    var reservations = require('../routes/reservations');
+    var coupons = require('../routes/coupons');
+    var couponPurchaseLogs = require('../routes/couponPurchaseLogs');
+
     var admin = require('../routes/admin'); // 관리자 페이지
+    var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
+    var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
 
     app.use('/', index);
     //API Route : view 없음.
     app.use('/users', users);
     app.use('/stores', stores);
+    app.use('/reviews', reviews);
+    app.use('/qnas', qnas);
+    app.use('/programs', programs);
+    app.use('/reservations', reservations);
+    app.use('/coupons', coupons);
+    app.use('/couponPurchaseLogs', couponPurchaseLogs);
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);
+    //customers Route : /views/customers/* view 사용
+    app.use('/customers', customers);
+    //owners Route : /views/customers/* view 사용
+    app.use('/owners', owners);
 
     //app.use(express.static('./static'));        // 정적 폴더 설정
     app.use(express.static(path.resolve(__dirname, '../public')));

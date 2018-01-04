@@ -17,16 +17,16 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">승마장 등록</h4>
+                  <h4 class="modal-title" id="myModalLabel">예약 등록</h4>
                 </div>
                 <div class="modal-body">
                   <div class="content">
-                    <form id="createForm" action="/users" method="POST">
+                    <form id="createForm" action="/programs" method="POST">
                       <div class="row">
                         <% var keys = Object.keys(schema);
 
                        for(var j=0; j< keys.length; j++){
-                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at")  ) continue;%>
+                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label><%=keys[j]%></label>
@@ -57,27 +57,23 @@
                   if(keys[i]=="__v" || keys[i]=="_id"/* || keys[i] == "deleted" || keys[i].includes("_at") */) continue;%>
                 <th><%=keys[i]%></th>
                 <%} %>
-                <!-- <th>주소</th>
-                <th>홈페이지</th>
-                <th>전화번호</th>
-                <th>설명</th> -->
                 <th>작업</th>
 
               </thead>
               <tbody>
                 <% %>
-                <% for(var i=0; i<users.length; i++){
-                  var user = users[i];
+                <% for(var i=0; i<programs.length; i++){
+                  var program = programs[i];
                   %>
                   <tr>
                     <td><%=i%></td>
                     <% for(var j=0; j< keys.length; j++){
                        if(keys[j]=="__v" || keys[j]=="_id"/* || keys[j] == "deleted" || keys[j].includes("_at") */) continue;%>
-                    <td><%=user[keys[j]]%></td>
+                    <td><%=program[keys[j]]%></td>
                     <% } %>
                     <td>
-                      <button data-item="<%=user.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-                      <a href="edit/<%=user.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+                      <button data-item="<%=program.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
+                      <a href="edit/<%=program.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
                     </td>
                   </tr>
                 <% }%>
@@ -93,11 +89,11 @@
 <script>
 $(document).ready(function(){
   $('#createButton').click(function(){
-    var user =  $('#createForm').serializeObject();
+    var program =  $('#createForm').serializeObject();
     $.ajax({
       type:"POST",
-      url:'/users',
-      data:user,
+      url:'/programs',
+      data:program,
       success:function(args){
         alert("성공했습니다.");
         location.reload();
@@ -108,10 +104,10 @@ $(document).ready(function(){
     });
   });
   $('.deleteButton').click(function(){
-    var userId = $(this).data("item");
+    var programId = $(this).data("item");
     $.ajax({
       type:"DELETE",
-      url:'/users/'+userId,
+      url:'/programs/'+programId,
 
       success:function(args){
         alert("성공했습니다.");

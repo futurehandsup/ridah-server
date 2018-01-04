@@ -2,34 +2,41 @@ var mongoose = require('mongoose'),
      Schema = mongoose.Schema;
 
 var ReservationSchema = new Schema({
-    reservationname : {
-      type: String,
-      index : true,         // 보조 index
-      unique : true,     // primary key로 지정
-      required : 'reservation name is required'   // 검증
-    },
     store : {
-      type : Scema.ObjectId,
+      type : Schema.ObjectId,
+      index: true,
       ref : 'Store'
     },
-    owner : {
+    program : {
       type : Schema.ObjectId,
+      ref : 'Program'
+    },
+    reservationDate : {
+      type : Date,
+      min : Date.now
+    },
+    owner : { // 예약자
+      type : Schema.ObjectId,
+      index : true,
       ref : 'User'
     },
-    /*
-    // 예약한 코스 정보, 예약 인원 등등
-    options : {
-
-    },*/
-
-    email : {
+    coupon : {
+      type : Schema.ObjectId,
+      index: true,
+      ref : 'Coupon'
+    },
+    ownerName : {
       type : String ,
-      match : [/.+\@.+\..+/, "pleas fill a valid e-mail address"],  // 형식 검증
-      default: ""
     },
     telephone : {
       type : String,
       default : ""
+    },
+    howMany : {
+      type: Number,
+      min: 1,
+      default: 1,
+      max: 4  //한번에 4명까지???
     },
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.
@@ -55,6 +62,42 @@ var ReservationSchema = new Schema({
       deleted_at : Date
     }
     // 추가로 결제정보도. 언제 뭘로 결제했는지.
+});
+ReservationSchema.pre('save', function(next){
+  //console.log(this);
+  mongoose.model('Reservation').find({reservationDate : this.reservationDate, program: this.program}, function(err, reservations){
+    if(err) return Next(err);
+    if(reservations.length > 0){
+      var err = new Error('이미 예약이 존재하여 예약 불가능합니다.');
+      return next(err);
+    }
+  });
+  console.log(this);
+  this.populate('program').populate('coupon', function(error, reservation){
+    console.log(reservation);
+    if(reservation.program.programType != reservation.coupon.couponType){
+      var err = new Error('이용권 사용 불가');
+      return next(err);
+    }
+    else{
+      next();
+    }
+  });
+});
+ReservationSchema.post('save', function(reservation){
+  mongoose.model('User').update({
+      _id : reservation.owner,
+      'coupons.coupon' : reservation.coupon
+    },
+    {
+      '$dec': { 'coupons.$.coupon.availableCount' : 1 },
+      '$push': { 'coupons.$.coupon.reservation' : reservation }
+    },
+    function(err, user){
+      if(!err)// return next(err);
+      console.log(user.coupons);
+    //  user.save();
+    });
 });
 ReservationSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
