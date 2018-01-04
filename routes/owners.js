@@ -27,7 +27,7 @@ router.all('*', function(req, res, next){
   }
 });
 // render 될 페이지 모음
-router.get('/', common.redirect('/owners/reservations/daily?type=monthly'));
+router.get('/', stores.getList, common.renderPage('owners/index'));
 // 로그인 아직 덜 만듬
 router.get('/login', common.renderPage('owners/login'));
 

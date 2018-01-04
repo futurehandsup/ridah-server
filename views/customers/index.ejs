@@ -1,21 +1,22 @@
 <% include ./templates/head.ejs %>
 <section style="background-color: #fafafa; padding-top: 70px;">
 <div class="container">
+  <h2 class="my-4 text-center">로그인</h2>
   <div class="row">
-    <% for(var i=0; i<stores.length; i++){
-      var store = stores[i];
-      %>
-      <div class="col-sm-3">
-        <div class="card" style="margin-bottom: 20px;">
-          <img class="card-img-top" src="<%=store.image%>" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title"><%=store.storename%></h4>
-            <p class="card-text"><%=store.address%></p>
-            <a href="/customers/stores/<%=store.id%>?userId=<%=user.id%>" class="btn btn-primary">자세히 보기</a>
-          </div>
-        </div>
-      </div>
-    <% }%>
+    <div class="card mx-auto " style="margin-bottom: 20px; min-width: 20rem;">
+      <ul class="list-group list-group-flush">
+        <% for(var i=0; i<users.length; i++){%>
+          <% var user = users[i]; %>
+          <li class="list-group-item text-center">
+            <div class="d-flex w-100 text-center">
+              <a href="/customers/stores/list?userId=<%=user.id%>" class="card-link">
+                <%=user.username%>
+              </a>
+            </div>
+          </li>
+        <%}%>
+      </ul>
+    </div>
   </div>
 </div>
 </section>

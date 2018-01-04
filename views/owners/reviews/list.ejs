@@ -1,52 +1,54 @@
 <% include ../templates/head.ejs %>
-<div class="container" style="padding-top: 60px;">
-  <h2 class="my-3">후기 관리</h2>
-  <div class="card">
-    <div class="card-header">
-      <%=reviews.length%>개의 후기가 있습니다.
-    </div>
-    <ul class="list-group list-group-flush">
-      <% for(var i=0; i<reviews.length; i++){
-        var review = reviews[i];
-      %>
-        <li class="list-group-item">
-          <div class="media">
-            <div class="media-body">
-              <small class="float-right"><%=review.reviewWriter.username%>님, <%=review.created_at.getFullYear()%>년 <%=(review.created_at.getMonth()+1)%>월 <%=review.created_at.getDate()%>일</small>
-              <h5 class="mt-0"><%=review.reviewTitle%></h5>
-              <p><%=review.reviewText%><p>
-            </div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <form>
-            <div class="form-group">
-              <label for="reviewTitle">댓글 달기</label>
-              <input type="text" class="form-control" id="reviewTitle" name="reviewTitle" placeholder="댓글 제목">
-              <textarea class="form-control" id="reviewText" name="reviewText" placeholder="댓글 내용"></textarea>
-            </div>
-            <input type="hidden" name="parent" value="<%=review.id%>">
-            <button class="replyButton" type="button" class="btn btn-primary">작성</button>
-          </form>
-        </li>
-        <% for(var j=0; j<review.replies.length; j++){%>
-        <% var reply = review.replies[j];%>
+<section style="background-color: #fafafa; padding-top: 70px;">
+  <div class="container">
+    <h2 class="my-3">후기 관리</h2>
+    <div class="card">
+      <div class="card-header">
+        <%=reviews.length%>개의 후기가 있습니다.
+      </div>
+      <ul class="list-group list-group-flush">
+        <% for(var i=0; i<reviews.length; i++){
+          var review = reviews[i];
+        %>
           <li class="list-group-item bg-light">
             <div class="media">
-              <small class="mr-3">댓글</small>
               <div class="media-body">
-                <small class="float-right"><%=reply.reviewWriter.username%>님, <%=reply.created_at.getFullYear()%>년 <%=(reply.created_at.getMonth()+1)%>월 <%=reply.created_at.getDate()%>일</small>
-                <h5 class="mt-0"><%=reply.reviewTitle%></h5>
-                <p><%=reply.reviewText%><p>
+                <h5 class="mt-0"><%=review.reviewTitle%></h5>
+                <p><%=review.reviewText%><p>
+                <small class="float-right"><%=(review.reviewWriter!=undefined) ? (review.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=review.created_at.getFullYear()%>년 <%=(review.created_at.getMonth()+1)%>월 <%=review.created_at.getDate()%>일</small>
               </div>
             </div>
           </li>
-        <% }%>
+          <li class="list-group-item">
+            <form>
+              <div class="form-group">
+                <label for="reviewTitle">댓글 달기</label>
+                <input type="text" class="form-control" id="reviewTitle" name="reviewTitle" placeholder="댓글 제목">
+                <textarea class="form-control" id="reviewText" name="reviewText" placeholder="댓글 내용"></textarea>
+              </div>
+              <input type="hidden" name="parent" value="<%=review.id%>">
+              <button class="replyButton" type="button" class="btn btn-primary">작성</button>
+            </form>
+          </li>
+          <% for(var j=0; j<review.replies.length; j++){%>
+          <% var reply = review.replies[j];%>
+            <li class="list-group-item">
+              <div class="media">
+                <small class="mr-3">댓글</small>
+                <div class="media-body">
+                  <h5 class="mt-0"><%=reply.reviewTitle%></h5>
+                  <p><%=reply.reviewText%><p>
+                  <small class="float-right"><%=(reply.reviewWriter!=undefined) ? (reply.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=reply.created_at.getFullYear()%>년 <%=(reply.created_at.getMonth()+1)%>월 <%=reply.created_at.getDate()%>일</small>
+                </div>
+              </div>
+            </li>
+          <% }%>
 
-      <% }%>
-    </ul>
+        <% }%>
+      </ul>
+    </div>
   </div>
-</div>
+</section>
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){

@@ -12,7 +12,7 @@
               <div class="row">
               <% var keys = Object.keys(user._doc);
                for(var j=0; j< keys.length; j++){
-                if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") ) continue;%>
+                if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") || keys[j].includes("salt") || keys[j].includes("provider") || keys[j].includes("password") ) continue;%>
 
                 <div class="col-md-4">
                   <div class="form-group">

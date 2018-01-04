@@ -1,5 +1,8 @@
+
 exports.setResponse = function(req, res, next){
-  req.result.query = req.query;
+  if(req.query != undefined){
+    req.result.query =  req.query;
+  }
   res.json(req.result);
 }
 exports.redirect = function(page){
@@ -9,14 +12,27 @@ exports.redirect = function(page){
 }
 exports.renderPage = function(page){
   return function(req, res, next){
-    req.result.query = req.query;
+    if(req.query != undefined){
+      req.result.query =  req.query;
+    }
     res.render(page, req.result);
   }
 }
 exports.notImplementedError = function(req, res, next) {
   next(new Error('not implemented'));
 }
+exports.setAuthHeaders = function(req, res, next){
+  if(req.cookies != undefined  && req.cookies.authToken != undefined){
+    const authToken = req.cookies.authToken;
+    if(authToken != undefined){
+      req.headers['x-access-token'] = authToken;
+    }
+  }
+  return next();
+}
+
 exports.isAuthenticated = function (req, res, next) {
+
   if (req.isAuthenticated()){
     return next();
   }

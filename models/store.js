@@ -8,6 +8,10 @@ var StoreSchema = new Schema({
       unique : true,     // primary key로 지정
       required : 'store name is required'   // 검증
     },
+    owner : {
+      type : Schema.ObjectId,
+      ref : 'User'
+    },
     /*storeid : {
       type : String ,
       trim : true ,     //자동으로 앞뒤공백 제거

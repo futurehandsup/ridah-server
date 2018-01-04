@@ -23,7 +23,11 @@
       <div class="card-header">
         <%var date=calendar.schedules[0].date;%>
         <%=date.getFullYear()%>년 <%=(date.getMonth()+1)%>월 <%=date.getDate()%>일 프로그램
-        <a href="" class="card-link float-right">날짜 변경</a>
+        <a class="card-link float-right" onclick="$('#datepicker').datepicker('show');">
+          <input type="text" id="datepicker" style="visibility: hidden; position:absolute;" value="<%=query.date%>">
+          날짜 변경
+        </a>
+
       </div>
       <ul class="list-group list-group-flush">
         <% for(var i=0; i<calendar.schedules[0].programs.length; i++){%>
@@ -58,9 +62,9 @@
           <li class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1"><%=review.reviewTitle%></h5>
-              <small><%=review.reviewWriter.username%>님, <%=review.created_at.getFullYear()%>년 <%=(review.created_at.getMonth()+1)%>월 <%=review.created_at.getDate()%>일</small>
             </div>
             <p class="mb-1"><%=review.reviewText%></p>
+            <small><%=(review.reviewWriter!=undefined) ? (review.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=review.created_at.getFullYear()%>년 <%=(review.created_at.getMonth()+1)%>월 <%=review.created_at.getDate()%>일</small>
           </li>
         <%} %>
       </ul>
@@ -80,10 +84,9 @@
           <li class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1"><%=qna.qnaTitle%></h5>
-              <small><%=qna.qnaWriter.username%>님, <%=qna.created_at.getFullYear()%>년 <%=(qna.created_at.getMonth()+1)%>월 <%=qna.created_at.getDate()%>일</small>
             </div>
             <p class="mb-1"><%=qna.qnaText%></p>
-            <small><%=qna.qnaWriter.username%>님</small>
+            <small><%=(qna.qnaWriter!=undefined) ? (qna.qnaWriter.username) : "탈퇴한 사용자"%>님, <%=qna.created_at.getFullYear()%>년 <%=(qna.created_at.getMonth()+1)%>월 <%=qna.created_at.getDate()%>일</small>
           </li>
         <%} %>
       </ul>
@@ -91,3 +94,20 @@
   </div>
 </section>
 <% include ../templates/bottom.ejs %>
+<script>
+$( function() {
+    $( "#datepicker" ).datepicker({
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear: true,
+    monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+    dayNamesMin:['일','월','화','수','목','금','토'],
+    showMonthAfterYear:true, // 년 뒤에 월표시
+    nextText: '다음 달',
+    prevText: '이전 달',
+    onSelect:function(dateText, inst) {
+      location.href="/customers/stores/<%=store.id%>?userId=<%=query.userId%>&date="+dateText;
+    }
+  });
+  } );
+</script>

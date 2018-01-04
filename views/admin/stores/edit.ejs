@@ -10,7 +10,7 @@
           <div class="content">
             <form id="editForm">
               <div class="row">
-              <% var keys = Object.keys(store._doc);
+              <% var keys = Object.keys(schema);
                for(var j=0; j< keys.length; j++){
                 if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") ) continue;%>
 

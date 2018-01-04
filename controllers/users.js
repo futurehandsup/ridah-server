@@ -38,7 +38,12 @@ exports.getList = function(req, res, next){
         messages : req.flash('error'),
         users : users
       }
-      req.result = result;
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
       next();
     }
   });

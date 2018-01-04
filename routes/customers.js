@@ -22,10 +22,11 @@ router.all('*', function(req, res, next){
 });
 
 // render 될 페이지 모음
-router.get('/', stores.getList, common.renderPage('customers/index'));
+router.get('/', users.getList, stores.getList, common.renderPage('customers/index'));
 router.get('/login', common.renderPage('customers/login'));
 
 // stores
+router.get('/stores/list', stores.getList,  common.renderPage('customers/stores/list'));
 router.get('/stores/:storeId',  programs.getReservationsList, reviews.getList, qnas.getList,  common.renderPage('customers/stores/detail'));
 router.get('/stores/:storeId/reviews/list', reviews.getList, reviews.getSchemas, common.renderPage('customers/reviews/list'));
 router.get('/stores/:storeId/qnas/list', qnas.getList, reviews.getSchemas, common.renderPage('customers/qnas/list'));
@@ -56,6 +57,8 @@ router.param('reviewId', reviews.getOne);
 
 //users
 router.get('/users/mypage', reservations.getList, common.renderPage('customers/users/mypage'));
+router.get('/users/reservations/list', reservations.getList, common.renderPage('customers/users/reservations/list'));
+router.get('/users/coupons/list', coupons.getList, common.renderPage('customers/users/coupons/list'));
 
 router.get('/users/list', users.getList, users.getSchemas, common.renderPage('customers/users/list'));
 router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('customers/users/edit')); // 필요없음

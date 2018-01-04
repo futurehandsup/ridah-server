@@ -41,6 +41,8 @@ module.exports = function() {
     app.set('views', path.resolve(__dirname, '../views'));
     app.set('view engine', 'ejs');
 
+    app.set('jwt-secret', config.sessionSecret);
+
     app.use(flash());
     app.use(passport.initialize());    // 추가
     app.use(passport.session());       // 추가
