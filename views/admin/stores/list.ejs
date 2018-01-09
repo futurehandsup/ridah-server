@@ -26,15 +26,41 @@
                         <% var keys = Object.keys(schema);
 
                        for(var j=0; j< keys.length; j++){
-                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
+                         
+                         if(keys[j]=="_id") continue;%>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label><%=keys[j]%></label>
+                            <label>ID</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                         if(keys[j]=="STORENAME") continue;%>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>승마장명</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                         if(keys[j]=="OWNER") continue;%>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>점주명</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                         if(keys[j]=="E-MAIL") continue;%>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>이메일주소</label>
                             <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
                           </div>
                         </div>
 
                       <% } %>
+
                       </div>
                       <div class="clearfix"></div>
                     </form>
