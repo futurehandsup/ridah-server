@@ -26,15 +26,81 @@
                         <% var keys = Object.keys(schema);
 
                        for(var j=0; j< keys.length; j++){
-                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
+                        if(keys[j]=="storename")
+                          %>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label><%=keys[j]%></label>
+                            <label>승마장명</label>
                             <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
                           </div>
                         </div>
 
-                      <% } %>
+                        if(keys[j]=="owner")
+                          %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>대표자</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                        if(keys[j]=="email")
+                          %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>이메일</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                        if(keys[j]=="address")
+                          %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>주소</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                        if(keys[j]=="website")
+                          %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>사이트</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                        if(keys[j]=="telephone")
+                          %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>전화</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                        if(keys[j]=="introduction")
+                          %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>소개글</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                        if(keys[j]=="image")
+                          %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>이미지</label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                      <% else
+                            continue;
+                            } %>
                       </div>
                       <div class="clearfix"></div>
                     </form>
