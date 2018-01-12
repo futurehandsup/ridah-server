@@ -23,18 +23,68 @@
                   <div class="content">
                     <form id="createForm" action="/reservations" method="POST">
                       <div class="row">
-                        <% var keys = Object.keys(schema);
+                        <% var keys = Object.keys(schema);%>
 
-                       for(var j=0; j< keys.length; j++){
-                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label><%=keys[j]%></label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <label>승마장명</label>
+                            <input name="storename" type="text" class="form-control" placeholder="승마장명" value="">
                           </div>
                         </div>
 
-                      <% } %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>프로그램명</label>
+                            <input name="program" type="text" class="form-control" placeholder="프로그램명" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>예약날짜</label>
+                            <input name="reservationDate" type="text" class="form-control" placeholder="yyyy-mm-dd" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>예약ID</label>
+                            <input name="owner" type="text" class="form-control" placeholder="예약ID" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>예약자</label>
+                            <input name="ownerName" type="text" class="form-control" placeholder="예약자" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>연락처</label>
+                            <input name="telephone" type="text" class="form-control" placeholder="연락처" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>예약인원</label>
+                            <input name="howMany" type="text" class="form-control" placeholder="예약인원" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="coupon">쿠폰</label><br>
+                            <select name="coupon" id="coupon">
+                             
+                             <!-- for()문으로 현재 보유하고 있는 쿠폰 가지고 오기 -->
+
+                            </select>                      
+                          </div>
+                        </div>
+
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -51,12 +101,17 @@
             <table class="table table-hover table-striped">
               <thead>
                 <th>ID</th>
-                <% var keys = Object.keys(schema);
-                %>
-                <% for(var i=0; i< keys.length; i++){
-                  if(keys[i]=="__v" || keys[i]=="_id"/* || keys[i] == "deleted" || keys[i].includes("_at") */) continue;%>
-                <th><%=keys[i]%></th>
-                <%} %>
+                <% var keys = Object.keys(schema); %>
+                
+                <th>승마장명</th>
+                <th>프로그램명</th>
+                <th>예약날짜</th>
+                <th>예약ID</th>
+                <th>예약자</th>
+                <th>연락처</th>
+                <th>예약인원</th>
+                <th>쿠폰</th>
+
                 <th>작업</th>
 
               </thead>
@@ -67,10 +122,16 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                    <% for(var j=0; j< keys.length; j++){
-                       if(keys[j]=="__v" || keys[j]=="_id"/* || keys[j] == "deleted" || keys[j].includes("_at") */) continue;%>
-                    <td><%=reservation[keys[j]]%></td>
-                    <% } %>
+                    
+                    <td><%=reservation['store']%></td>
+                    <td><%=reservation['program']%></td>
+                    <td><%=reservation['reservationDate']%></td>
+                    <td><%=reservation['owner']%></td>
+                    <td><%=reservation['owenername']%></td>
+                    <td><%=reservation['telephone']%></td>
+                    <td><%=reservation['howMany']%></td>
+                    <td><%=reservation['coupon']%></td>
+                    
                     <td>
                       <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=reservation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>

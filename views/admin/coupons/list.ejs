@@ -23,18 +23,45 @@
                   <div class="content">
                     <form id="createForm" action="/coupons" method="POST">
                       <div class="row">
-                        <% var keys = Object.keys(schema);
-
-                       for(var j=0; j< keys.length; j++){
-                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
+                        <% var keys = Object.keys(schema); %>
+                       
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label><%=keys[j]%></label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <label>쿠폰명</label>
+                            <input name="couponname" type="text" class="form-control" placeholder="쿠폰명" value="">
                           </div>
                         </div>
 
-                      <% } %>
+                        <div class="col-md-4">
+                            <label for="programType">타입</label><br>
+                            <select name="programType" id="programType">
+                              <option value="체험일반">체험일반</option>
+                              <option value="체험고급">체험고급</option>
+                              <option value="자유기승">자유기승</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>가격</label>
+                            <input name="price" type="text" class="form-control" placeholder="가격" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>유효기한</label>
+                            <input name="validFor" type="text" class="form-control" placeholder="days" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>사용가능 횟수</label>
+                            <input name="availableCount" type="text" class="form-control" placeholder="사용가능 횟수" value="">
+                          </div>
+                        </div>
+                      
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -51,12 +78,14 @@
             <table class="table table-hover table-striped">
               <thead>
                 <th>ID</th>
-                <% var keys = Object.keys(schema);
-                %>
-                <% for(var i=0; i< keys.length; i++){
-                  if(keys[i]=="__v" || keys[i]=="_id"/* || keys[i] == "deleted" || keys[i].includes("_at") */) continue;%>
-                <th><%=keys[i]%></th>
-                <%} %>
+                <% var keys = Object.keys(schema); %>
+                
+                <th>쿠폰명</th>
+                <th>타입</th>
+                <th>가격</th>
+                <th>유효기한</th>
+                <th>사용가능 횟수</th>
+              
                 <th>작업</th>
 
               </thead>
@@ -67,10 +96,13 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                    <% for(var j=0; j< keys.length; j++){
-                       if(keys[j]=="__v" || keys[j]=="_id"/* || keys[j] == "deleted" || keys[j].includes("_at") */) continue;%>
-                    <td><%=coupon[keys[j]]%></td>
-                    <% } %>
+
+                    <td><%=coupon['couponname']%></td>
+                    <td><%=coupon['couponType']%></td>
+                    <td><%=coupon['price']%></td>
+                    <td><%=coupon['validFor']%></td>
+                    <td><%=coupon['availableCount']%></td>
+                   
                     <td>
                       <button data-item="<%=coupon.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=coupon.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>

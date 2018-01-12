@@ -17,24 +17,62 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">승마장 등록</h4>
+                  <h4 class="modal-title" id="myModalLabel">사용자 등록</h4>
                 </div>
                 <div class="modal-body">
                   <div class="content">
                     <form id="createForm" action="/users" method="POST">
                       <div class="row">
-                        <% var keys = Object.keys(schema);
+                        <% var keys = Object.keys(schema); %>
 
-                       for(var j=0; j< keys.length; j++){
-                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at")  || keys[j].includes("salt") || keys[j].includes("provider")  ) continue;%>
                         <div class="col-md-4">
-                          <div class="form-group">
-                            <label><%=keys[j]%></label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          <div>
+                            <label>분류</label>
+                            <br>
+                            <input name="role" type="radio" value="Admin" id="admin"><label for="admin">관리자</label> &nbsp;&nbsp;&nbsp;
+                            <input name="role" type="radio" value="Owner" id="owner"><label for="owner">가맹점주</label> &nbsp;&nbsp;&nbsp;
+                            <input name="role" type="radio" value="User" id="user"><label for="user">사용자</label>
+                            <br><br>
                           </div>
                         </div>
 
-                      <% } %>
+
+                         <div class="col-md-4">
+                          <div class="form-group">
+                            <label>사용자명</label>
+                            <input name="username" type="text" class="form-control" placeholder="사용자명" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>사용자ID</label>
+                            <input name="userid" type="text" class="form-control" placeholder="사용자ID" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>이메일</label>
+                            <input name="email" type="text" class="form-control" placeholder="이메일" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>연락처</label>
+                            <input name="telephone" type="text" class="form-control" placeholder="연락처" value="">
+                          </div>
+                        </div>
+
+                        
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>비밀번호</label>
+                            <input name="password" type="text" class="form-control" placeholder="비밀번호" value="">
+                          </div>
+                        </div>
+
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -51,16 +89,15 @@
             <table class="table table-hover table-striped">
               <thead>
                 <th>ID</th>
-                <% var keys = Object.keys(schema);
-                %>
-                <% for(var i=0; i< keys.length; i++){
-                  if(keys[i]=="__v" || keys[i]=="_id" || keys[i].includes("salt") || keys[i].includes("provider") /* || keys[i] == "deleted" || keys[i].includes("_at") */) continue;%>
-                <th><%=keys[i]%></th>
-                <%} %>
-                <!-- <th>주소</th>
-                <th>홈페이지</th>
-                <th>전화번호</th>
-                <th>설명</th> -->
+                <% var keys = Object.keys(schema); %>
+                
+                <th>이름</th>
+                <th>아이디</th>
+                <th>이메일</th>
+                <th>연락처</th>
+                <th>분류</th>
+                <th>쿠폰</th>
+
                 <th>작업</th>
 
               </thead>
@@ -71,10 +108,14 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                    <% for(var j=0; j< keys.length; j++){
-                       if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("salt") || keys[j].includes("provider") /* || keys[j] == "deleted" || keys[j].includes("_at") */) continue;%>
-                    <td><%=user[keys[j]]%></td>
-                    <% } %>
+                    
+                    <td><%=user['username']%></td>
+                    <td><%=user['userid']%></td>
+                    <td><%=user['email']%></td>
+                    <td><%=user['telephone']%></td>
+                    <td><%=user['role']%></td>
+                    <td><%=user['coupon']%></td>
+                    
                     <td>
                       <button data-item="<%=user.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=user.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>

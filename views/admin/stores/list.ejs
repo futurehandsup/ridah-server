@@ -23,84 +23,63 @@
                   <div class="content">
                     <form id="createForm" action="/stores" method="POST">
                       <div class="row">
-                        <% var keys = Object.keys(schema);
-
-                       for(var j=0; j< keys.length; j++){
-                        if(keys[j]=="storename")
-                          %>
+                        <% var keys = Object.keys(schema); %>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>승마장명</label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <input name="storename" type="text" class="form-control" placeholder="승마장명" value="">
                           </div>
                         </div>
 
-                        <% else if(keys[j]=="owner")
-                          %>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>대표자</label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <input name="owner" type="text" class="form-control" placeholder="대표자" value="">
                           </div>
                         </div>
 
-                        <% else if(keys[j]=="email")
-                          %>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>이메일</label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <input name="email" type="text" class="form-control" placeholder="이메일" value="">
                           </div>
                         </div>
 
-                        <% else if(keys[j]=="address")
-                          %>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>주소</label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <input name="address" type="text" class="form-control" placeholder="주소" value="">
                           </div>
                         </div>
 
-                        <% else if(keys[j]=="website")
-                          %>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>사이트</label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <input name="website" type="text" class="form-control" placeholder="사이트" value="">
                           </div>
                         </div>
 
-                        <% else if(keys[j]=="telephone")
-                          %>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>전화</label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <input name="telephone" type="text" class="form-control" placeholder="전화" value="">
                           </div>
                         </div>
 
-                        <% else if(keys[j]=="introduction")
-                          %>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>소개글</label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <input name="introduction" type="text" class="form-control" placeholder="소개글" value="">
                           </div>
                         </div>
 
-                        <% else if(keys[j]=="image")
-                          %>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>이미지</label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <input name="image" type="text" class="form-control" placeholder="이미지" value="">
                           </div>
                         </div>
 
-                      <% else
-                            continue;
-                            } %>
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -117,12 +96,17 @@
             <table class="table table-hover table-striped">
               <thead>
                 <th>ID</th>
-                <% var keys = Object.keys(schema);
-                %>
-                <% for(var i=0; i< keys.length; i++){
-                  if(keys[i]=="__v" || keys[i]=="_id"/* || keys[i] == "deleted" || keys[i].includes("_at") */) continue;%>
-                <th><%=keys[i]%></th>
-                <%} %>
+                <% var keys = Object.keys(schema); %>
+
+                <th>승마장명</th>
+                <th>대표자</th>
+                <th>이메일</th>
+                <th>주소</th>
+                <th>사이트</th>
+                <th>연락처</th>
+                <th>소개글</th>
+                <th>이미지</th>
+                
                 <th>작업</th>
 
               </thead>
@@ -133,10 +117,16 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                    <% for(var j=0; j< keys.length; j++){
-                       if(keys[j]=="__v" || keys[j]=="_id"/* || keys[j] == "deleted" || keys[j].includes("_at") */) continue;%>
-                    <td><%=store[keys[j]]%></td>
-                    <% } %>
+                    
+                    <td><%=store['storename']%></td>
+                    <td><%=store['owner']%></td>
+                    <td><%=store['email']%></td>
+                    <td><%=store['address']%></td>
+                    <td><%=store['website']%></td>
+                    <td><%=store['telephone']%></td>
+                    <td><%=store['introduction']%></td>
+                    <td><%=store['image']%></td>
+
                     <td>
                       <button data-item="<%=store.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=store.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>

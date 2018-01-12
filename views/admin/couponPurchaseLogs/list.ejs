@@ -17,24 +17,42 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">승마장 등록</h4>
+                  <h4 class="modal-title" id="myModalLabel">이용권 구매</h4>
                 </div>
                 <div class="modal-body">
                   <div class="content">
                     <form id="createForm" action="/couponPurchaseLogs" method="POST">
                       <div class="row">
-                        <% var keys = Object.keys(schema);
+                        <% var keys = Object.keys(schema); %>
 
-                       for(var j=0; j< keys.length; j++){
-                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label><%=keys[j]%></label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <label>사용자</label>
+                            <input name="user" type="text" class="form-control" placeholder="사용자" value="">
                           </div>
                         </div>
 
-                      <% } %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>쿠폰</label>
+                            <input name="coupon" type="text" class="form-control" placeholder="쿠폰" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>가격</label>
+                            <input name="price" type="text" class="form-control" placeholder="가격" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Payment</label>
+                            <input name="payment" type="text" class="form-control" placeholder="Payment" value="">
+                          </div>
+                        </div>
+
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -51,12 +69,14 @@
             <table class="table table-hover table-striped">
               <thead>
                 <th>ID</th>
-                <% var keys = Object.keys(schema);
-                %>
-                <% for(var i=0; i< keys.length; i++){
-                  if(keys[i]=="__v" || keys[i]=="_id"/* || keys[i] == "deleted" || keys[i].includes("_at") */) continue;%>
-                <th><%=keys[i]%></th>
-                <%} %>
+                <% var keys = Object.keys(schema); %>
+                
+                <th>사용자</th>
+                <th>쿠폰</th>
+                <th>가격</th>
+                <th>payment</th>
+                <th>구매날짜</th>
+                
                 <th>작업</th>
 
               </thead>
@@ -67,11 +87,14 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                    <% for(var j=0; j< keys.length; j++){
-                       if(keys[j]=="__v" || keys[j]=="_id"/* || keys[j] == "deleted" || keys[j].includes("_at") */) continue;%>
-                    <td><%=couponPurchaseLog[keys[j]]%></td>
-                    <% } %>
-                    <td>
+                    
+                    <td><%=couponPurcahseLog['user']%></td>  
+                    <td><%=couponPurcahseLog['coupon']%></td>
+                    <td><%=couponPurcahseLog['price']%></td>
+                    <td><%=couponPurcahseLog['payment']%></td>
+                    <td><%=couponPurcahseLog['created_at']%></td>
+
+
                       <button data-item="<%=couponPurchaseLog.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=couponPurchaseLog.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
                     </td>
