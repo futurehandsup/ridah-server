@@ -72,13 +72,13 @@
                   <tr>
                     <td><%=i%></td>
                    
-                    <td><%=qna['qnastore']%></td>
-                    <td><%=qna['qnatitle']%></td>
-                    <td><%=qna['qnawriter']%></td>
-                    <td><%=qna['qnatext']%></td>
-                    <td><%=qna['qnareplies']%></td>
+                    <td><%=qna['qnaStore']%></td>
+                    <td><%=qna['qnaTitle']%></td>
+                    <td><%=qna['qnaWriter'].username%></td>
+                    <td><%=qna['qnaText']%></td>
                     <td><%=qna['replies']%></td>
                     <td><%=qna['created_at']%></td>
+                    <td><%=qna['updated_at']%></td>
                     
                     <td>
                       <button data-item="<%=qna.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
