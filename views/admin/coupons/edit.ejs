@@ -5,24 +5,51 @@
       <div class="col-md-8">
         <div class="card">
           <div class="header">
-            <h4 class="title">승마장 정보 수정</h4>
+            <h4 class="title">이용권 관리 수정</h4>
           </div>
           <div class="content">
             <form id="editForm">
               <div class="row">
-              <% var keys = Object.keys(coupon._doc);
-               for(var j=0; j< keys.length; j++){
-                if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") ) continue;%>
+              <% var keys = Object.keys(coupon._doc); %>
 
                 <div class="col-md-4">
+                            <label for="programType">타입</label><br>
+                            <select name="programType" id="programType" class="form-control">
+                              <option value="체험일반">체험일반</option>
+                              <option value="체험고급">체험고급</option>
+                              <option value="자유기승">자유기승</option>
+                            </select>
+                </div><br>
+
+                 <div class="col-md-4">
                   <div class="form-group">
-                    <label><%=keys[j]%></label>
-                    <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="<%=coupon[keys[j]]%>">
+                    <label>유효기간</label>
+                    <input name="validFor" type="text" class="form-control" placeholder="validFor" value="<%=coupon['validFor']%>">
                   </div>
                 </div>
 
-              <% } %>
-              </div>
+                 <div class="col-md-4">
+                  <div class="form-group">
+                    <label>사용가능 횟수</label>
+                    <input name="availablecount" type="text" class="form-control" placeholder="availablecount" value="<%=coupon['availablecount']%>">
+                  </div>
+                </div>
+
+                 <div class="col-md-4">
+                  <div class="form-group">
+                    <label>가격</label>
+                    <input name="price" type="text" class="form-control" placeholder="price" value="<%=coupon['price']%>">
+                  </div>
+                </div>
+
+                 <div class="col-md-4">
+                  <div class="form-group">
+                    <label>쿠폰명</label>
+                    <input name="couponname" type="text" class="form-control" placeholder="couponname" value="<%=coupon['couponname']%>">
+                  </div>
+                </div>
+
+               </div>
 
               <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
               <a href="../list" type="button" class="btn btn-info pull-right">이전으로</a>

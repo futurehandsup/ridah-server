@@ -5,23 +5,41 @@
       <div class="col-md-8">
         <div class="card">
           <div class="header">
-            <h4 class="title">승마장 정보 수정</h4>
+            <h4 class="title">사용자 정보 수정</h4>
           </div>
           <div class="content">
             <form id="editForm">
               <div class="row">
-              <% var keys = Object.keys(user._doc);
-               for(var j=0; j< keys.length; j++){
-                if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") || keys[j].includes("salt") || keys[j].includes("provider") || keys[j].includes("password") ) continue;%>
+              <% var keys = Object.keys(user._doc); %>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label><%=keys[j]%></label>
-                    <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="<%=user[keys[j]]%>">
+                    <label>사용자 분류</label>
+                    <input name="role" type="text" class="form-control" placeholder="role" value="<%=user['role']%>">
                   </div>
                 </div>
 
-              <% } %>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>보유 쿠폰</label>
+                    <input name="coupons" type="text" class="form-control" placeholder="coupons" value="<%=user['coupons']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>사용자 이름</label>
+                    <input name="username" type="text" class="form-control" placeholder="username" value="<%=user['username']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>사용자 ID</label>
+                    <input name="userid" type="text" class="form-control" placeholder="userid" value="<%=user['userid']%>">
+                  </div>
+                </div>
+
               </div>
 
               <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>

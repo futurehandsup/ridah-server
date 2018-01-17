@@ -5,23 +5,48 @@
       <div class="col-md-8">
         <div class="card">
           <div class="header">
-            <h4 class="title">승마장 정보 수정</h4>
+            <h4 class="title">이용권 구매 수정</h4>
           </div>
           <div class="content">
             <form id="editForm">
               <div class="row">
-              <% var keys = Object.keys(couponPurchaseLog._doc);
-               for(var j=0; j< keys.length; j++){
-                if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") ) continue;%>
+              <% var keys = Object.keys(couponPurchaseLog._doc); %>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label><%=keys[j]%></label>
-                    <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="<%=couponPurchaseLog[keys[j]]%>">
+                    <label>사용자</label>
+                    <input name="user" type="text" class="form-control" placeholder="user" value="<%=couponPurchaseLog['user']%>">
                   </div>
                 </div>
 
-              <% } %>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>쿠폰</label>
+                    <input name="coupon" type="text" class="form-control" placeholder="coupon" value="<%=couponPurchaseLog['coupon']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>가격</label>
+                    <input name="price" type="text" class="form-control" placeholder="price" value="<%=couponPurchaseLog['price']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>payment</label>
+                    <input name="payment" type="text" class="form-control" placeholder="payment" value="<%=couponPurchaseLog['payment']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>구매날짜</label>
+                    <input name="created_at" type="text" class="form-control" placeholder="created_at" value="<%=couponPurchaseLog['created_at']%>">
+                  </div>
+                </div>
+
               </div>
 
               <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>

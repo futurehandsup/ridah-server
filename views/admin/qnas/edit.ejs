@@ -5,23 +5,55 @@
       <div class="col-md-8">
         <div class="card">
           <div class="header">
-            <h4 class="title">승마장 정보 수정</h4>
+            <h4 class="title">사용자 문의 수정</h4>
           </div>
           <div class="content">
             <form id="editForm">
               <div class="row">
-              <% var keys = Object.keys(schema);
-               for(var j=0; j< keys.length; j++){
-                if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") ) continue;%>
+              <% var keys = Object.keys(schema); %>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label><%=keys[j]%></label>
-                    <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="<%=qna[keys[j]]%>">
+                    <label>승마장명</label>
+                    <input name="qnaStore" type="text" class="form-control" placeholder="qnaStore" value="<%=qna['qnaStore']%>">
                   </div>
                 </div>
 
-              <% } %>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>제목</label>
+                    <input name="qnaTitle" type="text" class="form-control" placeholder="qnaTitle" value="<%=qna['qnaTitle']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>작성자</label>
+                    <input name="qnaWriter" type="text" class="form-control" placeholder="qnaWriter" value="<%=qna['qnaWriter']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>내용</label>
+                    <input name="qnaText" type="text" class="form-control" placeholder="qnaText" value="<%=qna['qnaText']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>답변</label>
+                    <input name="replies" type="text" class="form-control" placeholder="replies" value="<%=qna['replies']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>수정일</label>
+                    <input name="updated_at" type="text" class="form-control" placeholder="updated_at" value="<%=qna['updated_at']%>">
+                  </div>
+                </div>
+
               </div>
 
               <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>

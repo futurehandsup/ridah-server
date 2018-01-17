@@ -10,18 +10,64 @@
           <div class="content">
             <form id="editForm">
               <div class="row">
-              <% var keys = Object.keys(schema);
-               for(var j=0; j< keys.length; j++){
-                if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") ) continue;%>
+              <% var keys = Object.keys(schema); %>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label><%=keys[j]%></label>
-                    <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="<%=store[keys[j]]%>">
+                    <label>승마장명</label>
+                    <input name="storename" type="text" class="form-control" placeholder="storename" value="<%=store['storename']%>">
                   </div>
                 </div>
 
-              <% } %>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>대표자</label>
+                    <input name="owner" type="text" class="form-control" placeholder="owner" value="<%=store['owner']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>이메일</label>
+                    <input name="email" type="text" class="form-control" placeholder="email" value="<%=store['email']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>주소</label>
+                    <input name="address" type="text" class="form-control" placeholder="address" value="<%=store['address']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>사이트</label>
+                    <input name="address" type="text" class="form-control" placeholder="address" value="<%=store['address']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>연락처</label>
+                    <input name="telephone" type="text" class="form-control" placeholder="telephone" value="<%=store['telephone']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>소개글</label>
+                    <input name="introduction" type="text" class="form-control" placeholder="introduction" value="<%=store['introduction']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>이미지</label>
+                    <input name="image" type="text" class="form-control" placeholder="image" value="<%=store['image']%>">
+                  </div>
+                </div>
+
               </div>
 
               <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>

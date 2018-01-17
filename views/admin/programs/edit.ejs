@@ -5,23 +5,63 @@
       <div class="col-md-8">
         <div class="card">
           <div class="header">
-            <h4 class="title">예약 정보 수정</h4>
+            <h4 class="title">프로그램 수정</h4>
           </div>
           <div class="content">
             <form id="editForm">
               <div class="row">
-              <% var keys = Object.keys(schema);
-               for(var j=0; j< keys.length; j++){
-                if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") ) continue;%>
+              <% var keys = Object.keys(schema); %>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label><%=keys[j]%></label>
-                    <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="<%=program[keys[j]]%>">
+                    <label>프로그램명</label>
+                    <input name="programname" type="text" class="form-control" placeholder="programname" value="<%=program['programname']%>">
                   </div>
                 </div>
 
-              <% } %>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>승마장명</label>
+                    <input name="program" type="text" class="form-control" placeholder="program" value="<%=program['program']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>소개</label>
+                    <input name="introduction" type="text" class="form-control" placeholder="introduction" value="<%=program['introduction']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>타입</label>
+                    <input name="programtype" type="text" class="form-control" placeholder="programtype" value="<%=program['programtype']%>">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <label>프로그램 시작시각</label>
+                    <input name="time.start.hours" type="text" class="form-control" placeholder="time.start.hours" value="<%=program['time.start.hours']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>프로그램 진행시간</label>
+                    <input name="time.howlong" type="text" class="form-control" placeholder="time.howlong" value="<%=program['time.howlong']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약</label>
+                    <input name="reservations" type="text" class="form-control" placeholder="reservations" value="<%=program['reservations']%>">
+                  </div>
+                </div>
+                
               </div>
 
               <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>

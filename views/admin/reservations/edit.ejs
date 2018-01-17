@@ -10,19 +10,64 @@
           <div class="content">
             <form id="editForm">
               <div class="row">
-              <% var keys = Object.keys(schema);
-               for(var j=0; j< keys.length; j++){
-                if(keys[j]=="__v" || keys[j]=="_id" || keys[j] == "deleted" || keys[j].includes("_at") ) continue;%>
+              <% var keys = Object.keys(schema); %>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label><%=keys[j]%></label>
-                    <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="<%=review[keys[j]]%>">
+                    <label>승마장명</label>
+                    <input name="store" type="text" class="form-control" placeholder="store" value="<%=reservation['store']%>">
                   </div>
                 </div>
 
-              <% } %>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>프로그램명</label>
+                    <input name="program" type="text" class="form-control" placeholder="program" value="<%=reservation['program']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약날짜</label>
+                    <input name="reservationDate" type="text" class="form-control" placeholder="reservationDate" value="<%=reservation['reservationDate']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약ID</label>
+                    <input name="owner" type="text" class="form-control" placeholder="owner" value="<%=reservation['owner']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약자</label>
+                    <input name="ownername" type="text" class="form-control" placeholder="ownername" value="<%=reservation['ownername']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>연락처</label>
+                    <input name="telephone" type="text" class="form-control" placeholder="telephone" value="<%=reservation['telephone']%>">
+                  </div>
+                </div>
+
+               <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약인원</label>
+                    <input name="howMany" type="text" class="form-control" placeholder="howMany" value="<%=reservation['howMany']%>">
+                  </div>
+                </div>
               </div>
+
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <label>쿠폰</label>
+                    <input name="coupon" type="text" class="form-control" placeholder="coupon" value="<%=reservation['coupon']%>">
+                  </div>
+                </div>
 
               <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
               <a href="../list" type="button" class="btn btn-info pull-right">이전으로</a>
