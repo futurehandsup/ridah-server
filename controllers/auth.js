@@ -54,7 +54,7 @@ exports.login = function(userRole){
                   role: user.role
                 },
                 secret, {
-                  expiresIn: '30s',
+                  expiresIn: '7d',
                   issuer: 'ridehigh.com',
                   subject: 'userInfo'
                 }, (err, token) => {
