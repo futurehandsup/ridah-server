@@ -39,7 +39,7 @@ exports.login = function(userRole){
       const check = (user) => {
         if (!user) {
           // user does not exist
-          //throw new Error('login failed')
+          throw new Error('login failed')
         } else if(roles.indexOf(user.role) < roles.indexOf(userRole)){
           throw new Error('권한이 없습니다.')
         }else {
@@ -54,7 +54,7 @@ exports.login = function(userRole){
                   role: user.role
                 },
                 secret, {
-                  expiresIn: '7d',
+                  expiresIn: '30s',
                   issuer: 'ridehigh.com',
                   subject: 'userInfo'
                 }, (err, token) => {
@@ -143,7 +143,11 @@ exports.check = function(userRole){
     const p = new Promise(
       (resolve, reject) => {
         jwt.verify(token, req.app.get('jwt-secret'), (err, decoded) => {
-          if (err) reject(err)
+          if (err){
+            res.clearCookie('authToken');
+            res.redirect(req.originalUrl);
+            //reject(err)
+          }
           resolve(decoded)
         })
       }
