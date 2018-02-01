@@ -39,7 +39,7 @@ exports.login = function(userRole){
       const check = (user) => {
         if (!user) {
           // user does not exist
-          throw new Error('login failed')
+          throw new Error('아이디가 존재하지 않습니다.')
         } else if(roles.indexOf(user.role) < roles.indexOf(userRole)){
           throw new Error('권한이 없습니다.')
         }else {
