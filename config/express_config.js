@@ -97,8 +97,21 @@ module.exports = function() {
 
       // render the error page
       res.status(err.status || 500);
-      res.render('error');
+      next(err);
     });
 
+    // view ejs 페이지 에러 핸들링
+    app.use(['/admin', '/customers', '/owners'], function(err, req, res, next){
+      res.render('error');
+    })
+
+    // api 에러 핸들링
+    app.use(function(err, req, res, next){
+      res.json({ error: {
+        status : err.status,
+        message: err.message,
+        stack : err.stack
+      } });
+    })
     return app;
 }

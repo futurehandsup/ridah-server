@@ -31,7 +31,32 @@ exports.getSchemas = function(req, res, next){
 }
 
 exports.getList = function(req, res, next){
-  Store.find(function(err, stores) {
+  var params = [];
+  var geoParams = {};
+  var keywordParams = {};
+  var q = Store;
+
+  if(req.query.gps != undefined){
+    let coord = req.query.gps.split(',')
+    geoParams = {
+      $geoNear : {
+        near: { type: "Point", coordinates: [ Number(coord[1]), Number(coord[0]) ] },
+        distanceField: "distance",
+        distanceMultiplier: 0.001,
+        spherical: true
+      }
+    };
+    params.push(geoParams)
+  }
+  if(req.query.keyword != undefined ){
+    keywordParams = { $match : {storename : {$regex : req.query.keyword} }}
+  }
+  else{
+    keywordParams = { $match : {storename : {$regex : ""}}}
+  }
+  params.push(keywordParams)
+
+  q.aggregate(params).exec(function(err, stores) {
     if (err) {
       return next(err);
     } else {
@@ -49,7 +74,7 @@ exports.getList = function(req, res, next){
       }
       next();
     }
-  })
+  });
 }
 exports.registerOne = function(req, res, next) {
   var store = new Store(req.body);
