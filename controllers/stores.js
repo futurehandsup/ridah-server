@@ -34,6 +34,7 @@ exports.getList = function(req, res, next){
   var params = [];
   var geoParams = {};
   var keywordParams = {};
+  var filterParams = {};
   var q = Store;
 
   if(req.query.gps != undefined){
@@ -55,6 +56,18 @@ exports.getList = function(req, res, next){
     keywordParams = { $match : {storename : {$regex : ""}}}
   }
   params.push(keywordParams)
+
+  if(req.query.filter != undefined ){
+    var filter = req.query.filter.split(',')
+    var f = {}
+    filter.map((i)=> (f[i]=true))
+    filterParams = { $match : f }
+    console.log(filterParams)
+  }
+  else{
+    filterParams = { $match : {}}
+  }
+  params.push(filterParams)
 
   q.aggregate(params).exec(function(err, stores) {
     if (err) {

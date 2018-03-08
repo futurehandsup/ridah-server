@@ -65,7 +65,35 @@ var StoreSchema = new Schema({
       },
       coordinates : {
         type: Array
-      }
+      },
+    },
+    type_indoor : {
+      type: Boolean,
+      default: false
+    },
+    type_outdoor : {
+      type: Boolean,
+      default: false
+    },
+    type_mountain : {
+      type: Boolean,
+      default: false
+    },
+    type_beach : {
+      type: Boolean,
+      default: false
+    },
+    type_children : {
+      type: Boolean,
+      default: false
+    },
+    info_parking : {
+      type: Boolean,
+      default: false
+    },
+    info_shuttle : {
+      type: Boolean,
+      default: false
     },
     // owner : {
     //   type : Schema.ObjectId,
