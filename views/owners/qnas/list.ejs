@@ -15,7 +15,7 @@
               <div class="media-body">
                 <h5 class="mt-0"><%=qna.qnaTitle%></h5>
                 <p><%=qna.qnaText%><p>
-                <small class="float-right"><%=qna.qnaWriter.username%>님, <%=qna.created_at.getFullYear()%>년 <%=(qna.created_at.getMonth()+1)%>월 <%=qna.created_at.getDate()%>일</small>
+                <small class="float-right"><%=(qna.qnaWriter!=undefined) ? (qna.qnaWriter.username) : "탈퇴한 사용자"%>님, <%=qna.created_at.getFullYear()%>년 <%=(qna.created_at.getMonth()+1)%>월 <%=qna.created_at.getDate()%>일</small>
               </div>
             </div>
           </li>
