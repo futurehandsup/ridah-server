@@ -1,4 +1,4 @@
-var Qna = require('mongoose').model('Qna');
+var Header = require('mongoose').model('Header');
 var Store = require('mongoose').model('Store');
 var User = require('mongoose').model('User');
 //passport = require('passport');
@@ -25,7 +25,7 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = Qna.schema.paths;
+  var schema = Header.schema.paths;
 
   req.result.schema = schema;
   next();
@@ -34,22 +34,22 @@ exports.getSchemas = function(req, res, next){
 exports.getList = function(req, res, next){
   var params = {};
   if(req.result != undefined && req.result.store != undefined){
-    params.qnaStore = req.result.store.id
+    params.headerStore = req.result.store.id
   }
-  if(req.query.qnaType != undefined && req.query.qnaType != "all"){
-    params.qnaType = req.query.qnaType;
+  if(req.query.headerType != undefined && req.query.headerType != "all"){
+    params.headerType = req.query.headerType;
   }
 
-  Qna.find(params)
+  Header.find(params)
   .populate({
     path: 'replies',
     populate : {
-      path: 'qnaWriter',
+      path: 'headerWriter',
       model: 'User'
     }
   })
-  .populate('qnaWriter')
-  .exec(function(err, qnas) {
+  .populate('headerWriter')
+  .exec(function(err, headers) {
     if (err) {
       return next(err);
     } else {
@@ -57,7 +57,7 @@ exports.getList = function(req, res, next){
         title : "사용자 문의",
         success : true,
         messages : req.flash('error'),
-        qnas : qnas
+        headers : headers
       }
       if(req.result == undefined){
         req.result = result;
@@ -70,10 +70,10 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
-  var qna = new Qna(req.body);
+  var header = new Header(req.body);
   var message = null;
 
-  qna.save(function(err) {
+  header.save(function(err) {
     if (err) {
       return next(err);
     } else {
@@ -82,7 +82,7 @@ exports.registerOne = function(req, res, next) {
         //page : 'stores/list2',
         success : true,
         messages : req.flash('error'),
-        qna : qna
+        header : header
       }
       if(req.result == undefined){
         req.result = result;
@@ -96,16 +96,16 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Qna.findByIdAndUpdate(req.result.qna.id, req.body, function(err, qna) {
+  Header.findByIdAndUpdate(req.result.header.id, req.body, function(err, header) {
     if (err) {
       return next(err);
     } else {
-      qna.updated_at = Date.now();
+      header.updated_at = Date.now();
       var result = {
-        title : "Qna Update",
+        title : "Header Update",
         success : true,
         messages : req.flash('error'),
-        qna : qna
+        header : header
       }
       if(req.result == undefined){
         req.result = result;
@@ -119,18 +119,18 @@ exports.updateOne = function(req, res, next) {
   });
 };
 exports.getOne = function(req, res, next, id) {
-  Qna.findOne({
+  Header.findOne({
     _id: id
-  }, function(err, qna) {
+  }, function(err, header) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "Qna List",
+        title : "Header List",
         //page : 'stores/detail',
         success : true,
         messages : req.flash('error'),
-        qna : qna
+        header : header
       }
       if(req.result == undefined){
         req.result = result;
@@ -145,16 +145,16 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Qna.findByIdAndUpdate(req.result.qna.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, qna) {
+  Header.findByIdAndUpdate(req.result.header.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, header) {
     if (err) {
       return next(err);
     } else {
-      qna.updated_at = date;
+      header.updated_at = date;
       var result = {
-        title : "Qna Delete",
+        title : "Header Delete",
         success : true,
         messages : req.flash('error'),
-        qna : qna
+        header : header
       }
       if(req.result == undefined){
         req.result = result;
