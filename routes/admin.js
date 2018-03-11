@@ -11,6 +11,7 @@ var reservations = require('../controllers/reservations');
 var programs = require('../controllers/programs');
 var coupons = require('../controllers/coupons');
 var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
+var headers = require('../controllers/headers');
 //passport = require('passport');
 
 
@@ -81,7 +82,12 @@ router.get('/couponPurchaseLogs/edit/:couponPurchaseLogId', couponPurchaseLogs.g
 
 router.param('couponPurchaseLogId', couponPurchaseLogs.getOne);
 
-// couponPurchaseLog
+// headers
+router.get('/headers/list', headers.getList, headers.getSchemas, common.renderPage('admin/headers/list'));
+router.get('/headers/edit', headers.getList, headers.getSchemas, common.renderPage('admin/headers/edit')); // 필요없음
+router.get('/headers/edit/:headerId', headers.getSchemas, common.renderPage('admin/headers/edit'));
+
+router.param('headerId', headers.getOne);
 
 //밑에는 임시
 //router.get('/stores/list2', stores.getList2, common.renderPage('admin/stores/list2'));
