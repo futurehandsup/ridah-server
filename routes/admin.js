@@ -82,11 +82,6 @@ router.get('/couponPurchaseLogs/edit/:couponPurchaseLogId', couponPurchaseLogs.g
 router.param('couponPurchaseLogId', couponPurchaseLogs.getOne);
 
 // couponPurchaseLog
-router.get('/header/list', header.getList, header.getSchemas, common.renderPage('admin/header/list'));
-router.get('/header/edit', header.getList, header.getSchemas, common.renderPage('admin/header/edit')); // 필요없음
-router.get('/header/edit/:couponPurchaseLogId', header.getSchemas, common.renderPage('admin/header/edit'));
-
-router.param('couponPurchaseLogId', header.getOne);
 
 //밑에는 임시
 //router.get('/stores/list2', stores.getList2, common.renderPage('admin/stores/list2'));
