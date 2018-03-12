@@ -57,6 +57,8 @@ module.exports = function() {
     var coupons = require('../routes/coupons');
     var couponPurchaseLogs = require('../routes/couponPurchaseLogs');
     var headers = require('../routes/headers');
+    var recommends = require('../routes/recommends');
+    var events = require('../routes/events');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
@@ -73,6 +75,8 @@ module.exports = function() {
     app.use('/coupons', coupons);
     app.use('/couponPurchaseLogs', couponPurchaseLogs);
     app.use('/headers', headers);
+    app.use('/recommends', recommends);
+    app.use('/events', events);
   
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);

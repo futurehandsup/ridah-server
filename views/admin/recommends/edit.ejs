@@ -1,0 +1,117 @@
+<% include ../templates/header.ejs %>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="recommend">
+            <h4 class="title">사용자 문의 수정</h4>
+          </div>
+          <div class="content">
+            <form id="editForm">
+              <div class="row">
+              <% var keys = Object.keys(schema); %>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>승마장명</label>
+                    <input name="recommendStore" type="text" class="form-control" placeholder="recommendStore" value="<%=recommend['recommendStore']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>제목</label>
+                    <input name="recommendTitle" type="text" class="form-control" placeholder="recommendTitle" value="<%=recommend['recommendTitle']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>작성자</label>
+                    <input name="recommendWriter" type="text" class="form-control" placeholder="recommendWriter" value="<%=recommend['recommendWriter']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>내용</label>
+                    <input name="recommendText" type="text" class="form-control" placeholder="recommendText" value="<%=recommend['recommendText']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>답변</label>
+                    <input name="replies" type="text" class="form-control" placeholder="replies" value="<%=recommend['replies']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>수정일</label>
+                    <input name="updated_at" type="text" class="form-control" placeholder="updated_at" value="<%=recommend['updated_at']%>">
+                  </div>
+                </div>
+
+              </div>
+
+              <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+              <a href="../list" type="button" class="btn btn-info pull-right">이전으로</a>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-user">
+          <div class="image">
+            <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
+          </div>
+          <div class="content">
+            <div class="author">
+              <a href="#">
+                              <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
+
+                                <h4 class="title">Mike Andrew<br />
+                                   <small>michael24</small>
+                                </h4>
+                              </a>
+            </div>
+            <p class="description text-center"> "Lamborghini Mercy <br> Your chick she so thirsty <br> I'm in that two seat Lambo"
+            </p>
+          </div>
+          <hr>
+          <div class="text-center">
+            <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
+            <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
+            <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#editButton').click(function(){
+    var recommend =  $('#editForm').serializeObject();
+
+    $.ajax({
+      type:"PUT",
+      url:'/recommends/<%=recommend.id%>',
+      data:recommend,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

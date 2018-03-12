@@ -12,6 +12,8 @@ var programs = require('../controllers/programs');
 var coupons = require('../controllers/coupons');
 var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
 var headers = require('../controllers/headers');
+var recommends = require('../controllers/recommends');
+var events = require('../controllers/events');
 //passport = require('passport');
 
 
@@ -88,6 +90,20 @@ router.get('/headers/edit', headers.getList, headers.getSchemas, common.renderPa
 router.get('/headers/edit/:headerId', headers.getSchemas, common.renderPage('admin/headers/edit'));
 
 router.param('headerId', headers.getOne);
+
+// recommends
+router.get('/recommends/list', recommends.getList, recommends.getSchemas, common.renderPage('admin/recommends/list'));
+router.get('/recommends/edit', recommends.getList, recommends.getSchemas, common.renderPage('admin/recommends/edit')); // 필요없음
+router.get('/recommends/edit/:recommendId', recommends.getSchemas, common.renderPage('admin/recommends/edit'));
+
+router.param('recommendId', recommends.getOne);
+
+// events
+router.get('/events/list', events.getList, events.getSchemas, common.renderPage('admin/events/list'));
+router.get('/events/edit', events.getList, events.getSchemas, common.renderPage('admin/events/edit')); // 필요없음
+router.get('/events/edit/:eventId', events.getSchemas, common.renderPage('admin/events/edit'));
+
+router.param('eventId', events.getOne);
 
 //밑에는 임시
 //router.get('/stores/list2', stores.getList2, common.renderPage('admin/stores/list2'));
