@@ -21,7 +21,7 @@
                 </div>
                 <div class="modal-body">
                   <div class="content">
-                    <form id="createForm" action="/qnas" method="POST">
+                    <form id="createForm" action="/headers" method="POST">
                       <div class="row">
                         <% var keys = Object.keys(schema);
 
@@ -66,23 +66,23 @@
               </thead>
               <tbody>
                 <% %>
-                <% for(var i=0; i<qnas.length; i++){
-                  var qna = qnas[i];
+                <% for(var i=0; i<headers.length; i++){
+                  var header = headers[i];
                   %>
                   <tr>
                     <td><%=i%></td>
                    
-                    <td><%=qna['qnaStore']%></td>
-                    <td><%=qna['qnaTitle']%></td>
-                    <td><%=qna['qnaWriter'].username%></td>
-                    <td><%=qna['qnaText']%></td>
-                    <td><%=qna['replies']%></td>
-                    <td><%=qna['created_at']%></td>
-                    <td><%=qna['updated_at']%></td>
+                    <td><%=header['headerStore']%></td>
+                    <td><%=header['headerTitle']%></td>
+                    <td><%=header['headerWriter'].username%></td>
+                    <td><%=header['headerText']%></td>
+                    <td><%=header['replies']%></td>
+                    <td><%=header['created_at']%></td>
+                    <td><%=header['updated_at']%></td>
                     
                     <td>
-                      <button data-item="<%=qna.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-                      <a href="edit/<%=qna.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+                      <button data-item="<%=header.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
+                      <a href="edit/<%=header.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
                     </td>
                   </tr>
                 <% }%>
@@ -98,11 +98,11 @@
 <script>
 $(document).ready(function(){
   $('#createButton').click(function(){
-    var qna =  $('#createForm').serializeObject();
+    var header =  $('#createForm').serializeObject();
     $.ajax({
       type:"POST",
-      url:'/qnas',
-      data:qna,
+      url:'/headers',
+      data:header,
       success:function(args){
         alert("성공했습니다.");
         location.reload();
@@ -113,10 +113,10 @@ $(document).ready(function(){
     });
   });
   $('.deleteButton').click(function(){
-    var qnaId = $(this).data("item");
+    var headerId = $(this).data("item");
     $.ajax({
       type:"DELETE",
-      url:'/qnas/'+qnaId,
+      url:'/headers/'+headerId,
 
       success:function(args){
         alert("성공했습니다.");

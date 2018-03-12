@@ -1,5 +1,4 @@
 var Header = require('mongoose').model('Header');
-var Store = require('mongoose').model('Store');
 var User = require('mongoose').model('User');
 //passport = require('passport');
 
@@ -10,7 +9,7 @@ var getErrorMessage = function(err) {
     switch (err.code) {
       case 11000:
       case 11001:
-        message = 'StoreID already exists';
+        message = 'HeaderID already exists';
         break;
       default:
         message = 'Something went Wrong';
@@ -32,29 +31,12 @@ exports.getSchemas = function(req, res, next){
 }
 
 exports.getList = function(req, res, next){
-  var params = {};
-  if(req.result != undefined && req.result.store != undefined){
-    params.headerStore = req.result.store.id
-  }
-  if(req.query.headerType != undefined && req.query.headerType != "all"){
-    params.headerType = req.query.headerType;
-  }
-
-  Header.find(params)
-  .populate({
-    path: 'replies',
-    populate : {
-      path: 'headerWriter',
-      model: 'User'
-    }
-  })
-  .populate('headerWriter')
-  .exec(function(err, headers) {
+  Header.find(function(err, headers) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "사용자 문의",
+        title : "메인 헤더",
         success : true,
         messages : req.flash('error'),
         headers : headers
@@ -78,8 +60,8 @@ exports.registerOne = function(req, res, next) {
       return next(err);
     } else {
       var result = {
-        title : "사용자 문의",
-        //page : 'stores/list2',
+        title : "메인 헤더",
+        //page : 'headers/list2',
         success : true,
         messages : req.flash('error'),
         header : header
@@ -91,7 +73,7 @@ exports.registerOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/list');
+      //return res.redirect('/headers/list');
     }
   });
 };
@@ -114,7 +96,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/headers/detail/'+req.header.id);
     }
   });
 };
@@ -127,7 +109,7 @@ exports.getOne = function(req, res, next, id) {
     } else {
       var result = {
         title : "Header List",
-        //page : 'stores/detail',
+        //page : 'headers/detail',
         success : true,
         messages : req.flash('error'),
         header : header
@@ -163,7 +145,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/headers/detail/'+req.header.id);
     }
   });
 };

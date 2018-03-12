@@ -2,39 +2,16 @@ var mongoose = require('mongoose'),
      Schema = mongoose.Schema;
 
 var HeaderSchema = new Schema({
-    headerTitle : {
+    headerImg : {
       type: String,
       index : true,         // 보조 index
       required : 'headerTitle is required'   // 검증
     },
-    headerText : {
+    headerUrl : {
       type : String,
       default : "",
       required : 'headerText is required'
     },
-    headerWriter : {
-       type : Schema.ObjectId,
-       ref : 'User'
-     },
-    headerStore : {
-       type : Schema.ObjectId,
-       ref : 'Store'
-     },
-     headerType : {
-       type : String,
-       default : 'header',
-       enum : ['header', 'reply']
-     },
-     replies : [
-       {
-         type: Schema.ObjectId,
-         ref: 'Header'
-       }
-     ],
-     parent : {
-       type : Schema.ObjectId,
-       ref: 'Header'
-     },
     created_at : {
       type : Date,
       default : Date.now
@@ -47,15 +24,6 @@ var HeaderSchema = new Schema({
       is_deleted : Boolean,
       deleted_at : Date
     }
-});
-HeaderSchema.post('save', function(result){
-  if(result.headerType =="reply"){
-    mongoose.model('Header').findById(result.parent, function(err, header){
-      //console.log(result.id);
-      header.replies.push(result.id);
-      header.save();
-    });
-  }
 });
 HeaderSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });

@@ -15,42 +15,42 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>승마장명</label>
-                    <input name="qnaStore" type="text" class="form-control" placeholder="qnaStore" value="<%=qna['qnaStore']%>">
+                    <input name="headerStore" type="text" class="form-control" placeholder="headerStore" value="<%=header['headerStore']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>제목</label>
-                    <input name="qnaTitle" type="text" class="form-control" placeholder="qnaTitle" value="<%=qna['qnaTitle']%>">
+                    <input name="headerTitle" type="text" class="form-control" placeholder="headerTitle" value="<%=header['headerTitle']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>작성자</label>
-                    <input name="qnaWriter" type="text" class="form-control" placeholder="qnaWriter" value="<%=qna['qnaWriter']%>">
+                    <input name="headerWriter" type="text" class="form-control" placeholder="headerWriter" value="<%=header['headerWriter']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>내용</label>
-                    <input name="qnaText" type="text" class="form-control" placeholder="qnaText" value="<%=qna['qnaText']%>">
+                    <input name="headerText" type="text" class="form-control" placeholder="headerText" value="<%=header['headerText']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>답변</label>
-                    <input name="replies" type="text" class="form-control" placeholder="replies" value="<%=qna['replies']%>">
+                    <input name="replies" type="text" class="form-control" placeholder="replies" value="<%=header['replies']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>수정일</label>
-                    <input name="updated_at" type="text" class="form-control" placeholder="updated_at" value="<%=qna['updated_at']%>">
+                    <input name="updated_at" type="text" class="form-control" placeholder="updated_at" value="<%=header['updated_at']%>">
                   </div>
                 </div>
 
@@ -98,12 +98,12 @@
 <script>
 $(document).ready(function(){
   $('#editButton').click(function(){
-    var qna =  $('#editForm').serializeObject();
+    var header =  $('#editForm').serializeObject();
 
     $.ajax({
       type:"PUT",
-      url:'/qnas/<%=qna.id%>',
-      data:qna,
+      url:'/headers/<%=header.id%>',
+      data:header,
       success:function(args){
         alert("성공했습니다.");
         location.reload();
