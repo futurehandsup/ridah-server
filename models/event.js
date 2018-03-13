@@ -2,10 +2,15 @@ var mongoose = require('mongoose'),
      Schema = mongoose.Schema;
 
 var EventSchema = new Schema({
-    EventID : {
+    eventImg : {
       type: String,
       index : true,         // 보조 index
-      required : 'EventID is required'   // 검증
+      required : 'eventImg is required'   // 검증
+    },
+    eventUrl : {
+      type: String,
+      index : true,         // 보조 index
+      required : 'eventUrl is required'   // 검증
     },
     created_at : {
       type : Date,

@@ -9,7 +9,7 @@
               <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
               만들기
               </button></h4>
-            <p class="caategory">Here is a subtitle for this table</p>
+            <p class="category">Here is a subtitle for this table</p>
           </div>
           <!-- Modal -->
           <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -17,24 +17,20 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">승마장 등록</h4>
+                  <h4 class="modal-title" id="myModalLabel">추천 승마장 등록</h4>
                 </div>
                 <div class="modal-body">
                   <div class="content">
                     <form id="createForm" action="/recommends" method="POST">
                       <div class="row">
-                        <% var keys = Object.keys(schema);
-
-                       for(var j=0; j< keys.length; j++){
-                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
+                        
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label><%=keys[j]%></label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <label>추천 승마장ID</label>
+                            <input name="recommendID" type="text" class="form-control" placeholder="" value="">
                           </div>
                         </div>
-
-                      <% } %>
+                      
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -53,14 +49,11 @@
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
                 
+                <th>승마장ID</th>
+                <th>추천 등록일</th>
                 <th>승마장명</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>내용</th>
-                <th>답변</th>
-                <th>작성일</th>
-                <th>수정일</th>
-                           
+                <th>홈페이지</th>
+                                           
                 <th>작업</th>
 
               </thead>
@@ -72,13 +65,8 @@
                   <tr>
                     <td><%=i%></td>
                    
-                    <td><%=recommend['recommendStore']%></td>
-                    <td><%=recommend['recommendTitle']%></td>
-                    <td><%=recommend['recommendWriter'].username%></td>
-                    <td><%=recommend['recommendText']%></td>
-                    <td><%=recommend['replies']%></td>
+                    <td><%=recommend['recommendID']%></td>
                     <td><%=recommend['created_at']%></td>
-                    <td><%=recommend['updated_at']%></td>
                     
                     <td>
                       <button data-item="<%=recommend.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>

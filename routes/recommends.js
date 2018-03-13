@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var recommends = require('../controllers/recommends');
+var stores = require('../controllers/stores')
 var common = require('../controllers/common');
     //passport = require('passport');
 

@@ -12,48 +12,35 @@
               <div class="row">
               <% var keys = Object.keys(schema); %>
 
+                
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>승마장명</label>
-                    <input name="headerStore" type="text" class="form-control" placeholder="headerStore" value="<%=header['headerStore']%>">
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>제목</label>
+                    <label>헤더 이미지</label>
                     <input name="headerTitle" type="text" class="form-control" placeholder="headerTitle" value="<%=header['headerTitle']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>작성자</label>
+                    <label>헤더 페이지</label>
                     <input name="headerWriter" type="text" class="form-control" placeholder="headerWriter" value="<%=header['headerWriter']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>내용</label>
+                    <label>작성일</label>
                     <input name="headerText" type="text" class="form-control" placeholder="headerText" value="<%=header['headerText']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>답변</label>
+                    <label>수정일</label>
                     <input name="replies" type="text" class="form-control" placeholder="replies" value="<%=header['replies']%>">
                   </div>
                 </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>수정일</label>
-                    <input name="updated_at" type="text" class="form-control" placeholder="updated_at" value="<%=header['updated_at']%>">
-                  </div>
-                </div>
-
+                
               </div>
 
               <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>

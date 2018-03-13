@@ -4,8 +4,8 @@
     <div class="row">
       <div class="col-md-8">
         <div class="card">
-          <div class="event">
-            <h4 class="title">사용자 문의 수정</h4>
+          <div class="header">
+            <h4 class="title">이벤트 수정</h4>
           </div>
           <div class="content">
             <form id="editForm">
@@ -14,36 +14,22 @@
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>승마장명</label>
-                    <input name="eventStore" type="text" class="form-control" placeholder="eventStore" value="<%=event['eventStore']%>">
+                    <label>이벤트 이미지</label>
+                    <input name="eventImg" type="text" class="form-control" placeholder="eventImg" value="<%=event['eventImg']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>제목</label>
-                    <input name="eventTitle" type="text" class="form-control" placeholder="eventTitle" value="<%=event['eventTitle']%>">
+                    <label>이벤트 페이지</label>
+                    <input name="eventUrl" type="text" class="form-control" placeholder="eventUrl" value="<%=event['eventUrl']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>작성자</label>
-                    <input name="eventWriter" type="text" class="form-control" placeholder="eventWriter" value="<%=event['eventWriter']%>">
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>내용</label>
-                    <input name="eventText" type="text" class="form-control" placeholder="eventText" value="<%=event['eventText']%>">
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>답변</label>
-                    <input name="replies" type="text" class="form-control" placeholder="replies" value="<%=event['replies']%>">
+                    <label>등록일</label>
+                    <input name="created_at" type="text" class="form-control" placeholder="created_at" value="<%=event['created_at']%>">
                   </div>
                 </div>
 

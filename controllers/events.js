@@ -84,7 +84,7 @@ exports.updateOne = function(req, res, next) {
     } else {
       event.updated_at = Date.now();
       var result = {
-        title : "Header Update",
+        title : "Event Update",
         success : true,
         messages : req.flash('error'),
         event : event
@@ -108,7 +108,7 @@ exports.getOne = function(req, res, next, id) {
       return next(err);
     } else {
       var result = {
-        title : "Header List",
+        title : "Event List",
         //page : 'events/detail',
         success : true,
         messages : req.flash('error'),
@@ -133,7 +133,7 @@ exports.deleteOne = function(req, res, next) {
     } else {
       event.updated_at = date;
       var result = {
-        title : "Header Delete",
+        title : "Event Delete",
         success : true,
         messages : req.flash('error'),
         event : event
