@@ -92,7 +92,7 @@ router.get('/headers/edit/:headerId', headers.getSchemas, common.renderPage('adm
 router.param('headerId', headers.getOne);
 
 // recommends
-router.get('/recommends/list', recommends.getList, recommends.getSchemas, common.renderPage('admin/recommends/list'));
+router.get('/recommends/list', recommends.getList, recommends.getSchemas, stores.getList/*store 정보 불러오기*/, common.renderPage('admin/recommends/list'));
 router.get('/recommends/edit', recommends.getList, recommends.getSchemas, common.renderPage('admin/recommends/edit')); // 필요없음
 router.get('/recommends/edit/:recommendId', recommends.getSchemas, common.renderPage('admin/recommends/edit'));
 
