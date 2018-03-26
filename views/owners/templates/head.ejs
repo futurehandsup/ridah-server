@@ -13,6 +13,8 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="/stylesheets/owners.style.css" rel="stylesheet"/>
+
     <style>
       section{
         min-height: 100vh;
@@ -20,30 +22,55 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="/"><%=store.storename%></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-          <ul class="navbar-nav">
-            <li id="reservations" class="nav-item active">
-              <a class="nav-link" href="/owners/reservations/daily?type=monthly&storeId=<%=store.id%>">예약 달력 <span class="sr-only">(current)</span></a>
-            </li>
-            <li id="programs" class="nav-item">
-              <a class="nav-link" href="/owners/programs/list?storeId=<%=store.id%>">프로그램</a>
-            </li>
-            <li id="stores" class="nav-item">
-              <a class="nav-link" href="/owners/stores/detail?storeId=<%=store.id%>">승마장 정보</a>
-            </li>
-            <li id="qnas" class="nav-item">
-              <a class="nav-link" href="/owners/qnas/list?storeId=<%=store.id%>">문의</a>
-            </li>
-            <li id="reviews" class="nav-item">
-              <a class="nav-link" href="/owners/reviews/list?storeId=<%=store.id%>">후기</a>
-            </li>
-          </ul>
+    <div class="wrapper">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          말랑 <!-- 로고 이미지 자리 -->
         </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <span>Main</span>
+          </li>
+          <li id="dashboard" class="nav-item">
+            <a class="nav-link" href="">대시보드</a>
+          </li>
+          <li id="reservations" class="nav-item active">
+            <a class="nav-link" href="/owners/reservations/daily?type=monthly&storeId=<%=store.id%>">예약 달력 <span class="sr-only">(current)</span></a>
+          </li>
+          <li id="programs" class="nav-item">
+            <a class="nav-link" href="/owners/programs/list?storeId=<%=store.id%>">프로그램</a>
+          </li>
+          <li id="stores" class="nav-item">
+            <a class="nav-link" href="/owners/stores/detail?storeId=<%=store.id%>">승마장 정보</a>
+          </li>
+          <li id="qnas" class="nav-item">
+            <a class="nav-link" href="/owners/qnas/list?storeId=<%=store.id%>">문의</a>
+          </li>
+          <li id="reviews" class="nav-item">
+            <a class="nav-link" href="/owners/reviews/list?storeId=<%=store.id%>">후기</a>
+          </li>
+          <li id="notice" class="nav-item">
+            <a class="nav-link" href="">공지사항</a>
+          </li>
+        </ul>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <span>Main</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active">대시보드</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">대시보드</a>
+          </li>
+        </ul>
       </div>
-    </nav>
+      <div class="main-panel">
+        <nav class="navbar navbar-expand-lg navbar-light ">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/"><%=store.storename%></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </nav>
