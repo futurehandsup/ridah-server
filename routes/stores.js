@@ -54,6 +54,4 @@ router.use('/:storeId/reservations', reservationRouter);
 var programRouter = require('./programs');
 router.use('/:storeId/programs', programRouter);
 
-
-
 module.exports = router;

@@ -7,9 +7,10 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     methodOverride = require('method-override'),
     config = require('./config'),              //세션 사용
-    session = require('express-session')       //세션 사용
-    passport = require('passport')
-    flash = require('connect-flash')
+    session = require('express-session'),       //세션 사용
+    passport = require('passport'),
+    flash = require('connect-flash'),
+    multer = require('multer')
     ;
 
 module.exports = function() {
@@ -27,7 +28,7 @@ module.exports = function() {
     // uncomment after placing your favicon in /public
     //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-    app.use(bodyParser.json());
+    app.use(bodyParser.json({ limit: '50MB' } ));
     app.use(methodOverride());
     app.use(cookieParser());
 
@@ -64,6 +65,8 @@ module.exports = function() {
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
     var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
 
+    var modules = require('../routes/modules'); // 기타 기능 -- 파일 업로드 등
+
     app.use('/', index);
     //API Route : view 없음.
     app.use('/users', users);
@@ -84,6 +87,9 @@ module.exports = function() {
     app.use('/customers', customers);
     //owners Route : /views/customers/* view 사용
     app.use('/owners', owners);
+
+    //owners Route : /views/customers/* view 사용
+    app.use('/modules', modules);
 
     //app.use(express.static('./static'));        // 정적 폴더 설정
     app.use(express.static(path.resolve(__dirname, '../public')));

@@ -1,0 +1,61 @@
+body{
+  background-color: #eeeeee;
+}
+.wrapper{
+  overflow: hidden;
+}
+.sidebar, .main-panel{
+  float: left;
+}
+.sidebar {
+  width: 216px;
+  display: block;
+  position: absolute;
+  background-color: #2a2d34;
+  height: 100vh;
+  color: #acacac;
+}
+.main-panel{
+  width: 100%;
+  padding-left: 216px;
+}
+.sidebar-header{
+  background-color: #008d87;
+  text-align: center;
+  color: white;
+  height: 70px;
+  padding: .6rem;
+  font-size: 28px;
+}
+.sidebar > .nav{
+   margin-bottom: 60px;
+}
+.sidebar > .nav .nav-item span{
+  padding: 15px;
+  padding-left: 17px;
+  display: block;
+  font-size: 12px;
+}
+.sidebar > .nav .nav-link{
+  padding: 12px;
+  padding-left: 46px;
+  color: #acacac;
+}
+.sidebar > .nav .nav-item.active .nav-link{
+  background-color: #656d7d;
+  color: white;
+}
+.navbar{
+  height: 70px;
+  background-color: white;
+  box-shadow: 1.8369701987210304e-16px 3px 4.7px 0.3px rgba(0, 0, 0, 0.24), 6.123233995736765e-17px 1px 6.86px 0.14px rgba(0, 0, 0, 0.16);
+}
+.container, .container-fluid{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 15px;
+}
+.navbar .container-fluid{
+  padding-top: 0;
+  margin: 0 -15px;
+}
