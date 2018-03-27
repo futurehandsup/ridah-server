@@ -78,10 +78,10 @@
                           <div class="form-group">
                             <label for="coupon">쿠폰</label><br>
                             <select name="coupon" id="coupon">
-                             
+
                              <!-- for()문으로 현재 보유하고 있는 쿠폰 가지고 오기 -->
 
-                            </select>                      
+                            </select>
                           </div>
                         </div>
 
@@ -102,11 +102,11 @@
               <thead>
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
-                
+
                 <th>승마장명</th>
                 <th>프로그램명</th>
                 <th>예약날짜</th>
-                <th>예약ID</th>
+                <th>예약자 ID</th>
                 <th>예약자</th>
                 <th>연락처</th>
                 <th>예약인원</th>
@@ -122,16 +122,16 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                    
-                    <td><%=reservation['store']%></td>
-                    <td><%=reservation['program']%></td>
+
+                    <td><%=reservation['store'].storename%></td>
+                    <td><%=reservation['program'].programname%></td>
                     <td><%=reservation['reservationDate']%></td>
-                    <td><%=reservation['owner']%></td>
-                    <td><%=reservation['owenername']%></td>
+                    <td><%=(reservation.owner != null) ? reservation.owner.userid : reservation.owner %></td>
+                    <td><%=reservation['ownerName']%></td>
                     <td><%=reservation['telephone']%></td>
                     <td><%=reservation['howMany']%></td>
-                    <td><%=reservation['coupon']%></td>
-                    
+                    <td><%=reservation['coupon'].couponname%></td>
+
                     <td>
                       <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=reservation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>

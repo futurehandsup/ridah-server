@@ -37,11 +37,17 @@ var ReviewSchema = new Schema({
     },
     created_at : {
       type : Date,
-      default : Date.now
+      default : Date.now,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
     },
     updated_at : {
       type : Date,
-      default : Date.now
+      default : Date.now,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
     },
     deleted : {
       is_deleted : Boolean,

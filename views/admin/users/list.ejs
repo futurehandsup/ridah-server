@@ -32,8 +32,8 @@
                             <input name="role" type="radio" value="User" id="user"><label for="user">사용자</label>
                             <br>
                           </div>
-  
-                        
+
+
                          <div class="col-md-4">
                           <div class="form-group">
                             <label>이름</label>
@@ -62,7 +62,7 @@
                           </div>
                         </div>
 
-                        
+
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>비밀번호</label>
@@ -87,7 +87,7 @@
               <thead>
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
-                
+
                 <th>이름</th>
                 <th>아이디</th>
                 <th>이메일</th>
@@ -105,14 +105,14 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                    
+
                     <td><%=user['username']%></td>
                     <td><%=user['userid']%></td>
                     <td><%=user['email']%></td>
                     <td><%=user['telephone']%></td>
                     <td><%=user['role']%></td>
                     <td><%=user['coupon']%></td>
-                    
+
                     <td>
                       <button data-item="<%=user.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=user.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>

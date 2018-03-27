@@ -52,15 +52,15 @@
               <thead>
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
-               
+
                 <th>승마장명</th>
                 <th>제목</th>
                 <th>작성자</th>
                 <th>내용</th>
-                <th>답변</th>
+                <!-- <th>답변</th> -->
                 <th>작성일</th>
                 <th>수정일</th>
-                           
+
                 <th>작업</th>
 
               </thead>
@@ -71,12 +71,12 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                    
-                    <td><%=review['reviewStore']%></td>
+
+                    <td><%=(review['reviewStore'] != null) ? review['reviewStore'].storename : review['reviewStore']%></td>
                     <td><%=review['reviewTitle']%></td>
-                    <td><%=review['reviewWriter'].username%></td>
+                    <td><%=(review['reviewWriter'] != null) ? review['reviewWriter'].username : review['reviewWriter']%></td>
                     <td><%=review['reviewText']%></td>
-                    <td><%=review['replies']%></td>
+                    <!-- <td><%=review['replies']%></td> -->
                     <td><%=review['created_at']%></td>
                     <td><%=review['updated_at']%></td>
 

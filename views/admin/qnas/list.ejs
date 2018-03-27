@@ -52,7 +52,7 @@
               <thead>
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
-                
+
                 <th>승마장명</th>
                 <th>제목</th>
                 <th>작성자</th>
@@ -60,7 +60,7 @@
                 <th>답변</th>
                 <th>작성일</th>
                 <th>수정일</th>
-                           
+
                 <th>작업</th>
 
               </thead>
@@ -71,15 +71,15 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                   
-                    <td><%=qna['qnaStore']%></td>
+
+                    <td><%=(qna['qnaStore'] != null) ? qna['qnaStore'].storename : qna['qnaStore']%></td>
                     <td><%=qna['qnaTitle']%></td>
-                    <td><%=qna['qnaWriter'].username%></td>
+                    <td><%=(qna['qnaWriter'] != null) ? qna['qnaWriter'].username : qna['qnaWriter']%></td>
                     <td><%=qna['qnaText']%></td>
                     <td><%=qna['replies']%></td>
                     <td><%=qna['created_at']%></td>
                     <td><%=qna['updated_at']%></td>
-                    
+
                     <td>
                       <button data-item="<%=qna.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=qna.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>

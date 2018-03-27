@@ -14,12 +14,6 @@ var CouponSchema = new Schema({
       //unique : true,     // primary key로 지정
       required : 'coupon name is required'   // 검증
     },
-    couponType : {
-      // 체험 / 자유
-      type : String,
-      enum : ['체험일반', '체험고급', '자유기승'],
-      default: '체험일반'
-    },
     price : {
       type : Number,
       min : 0,
@@ -27,14 +21,15 @@ var CouponSchema = new Schema({
         return Intl.NumberFormat().format(number);
       }
     },
-    validFor:{
-      type : Number,
-      default : 90
-    },
-    availableCount:{
+    carrots:{
       type: Number,
       default: 1
     },
+    validFor:{
+      type : Number,
+      default : 30
+    },
+
     /*
     // 예약한 코스 정보, 예약 인원 등등
     options : {
@@ -53,11 +48,17 @@ var CouponSchema = new Schema({
     */
     created_at : {
       type : Date,
-      default : Date.now
+      default : Date.now,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
     },
     updated_at : {
       type : Date,
-      default : Date.now
+      default : Date.now,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
     },
     deleted : {
       is_deleted : Boolean,

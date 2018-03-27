@@ -22,13 +22,25 @@ var CouponPurchaseLogSchema = new Schema({
     payment : { //결제 관련 정보. 카드결제? 일단 미정
       type : String
     },
+    expireAt: {
+      type : Date,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
+    },
     created_at : {
       type : Date,
-      default : Date.now
+      default : Date.now,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
     },
     updated_at : {
       type : Date,
-      default : Date.now
+      default : Date.now,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
     },
     deleted : {
       is_deleted : Boolean,

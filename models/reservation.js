@@ -51,11 +51,17 @@ var ReservationSchema = new Schema({
     */
     created_at : {
       type : Date,
-      default : Date.now
+      default : Date.now,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
     },
     updated_at : {
       type : Date,
-      default : Date.now
+      default : Date.now,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
     },
     deleted : {
       is_deleted : Boolean,
@@ -66,7 +72,7 @@ var ReservationSchema = new Schema({
 ReservationSchema.pre('save', function(next){
   //console.log(this);
   mongoose.model('Reservation').find({reservationDate : this.reservationDate, program: this.program}, function(err, reservations){
-    if(err) return Next(err);
+    if(err) return next(err);
     if(reservations.length > 0){
       var err = new Error('이미 예약이 존재하여 예약 불가능합니다.');
       return next(err);
