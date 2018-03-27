@@ -2,10 +2,10 @@ var mongoose = require('mongoose'),
      Schema = mongoose.Schema;
 
 var HeaderSchema = new Schema({
-    headerTitle : {
+    headerImg : {
       type: String,
       index : true,         // 보조 index
-      required : 'headerImg is required'   // 검증
+      required : 'headerTitle is required'   // 검증
     },
     headerUrl : {
       type : String,
