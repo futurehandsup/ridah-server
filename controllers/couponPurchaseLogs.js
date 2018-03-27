@@ -32,7 +32,15 @@ exports.getSchemas = function(req, res, next){
 }
 
 exports.getList = function(req, res, next){
-  CouponPurchaseLog.find(function(err, couponPurchaseLogs) {
+  var params = {};
+  if(req.result != undefined && req.result.user != undefined){
+    params.user = req.result.user.id
+  }
+
+  CouponPurchaseLog.find(params)
+  .populate('user')
+  .populate('coupon')
+  .exec(function(err, couponPurchaseLogs) {
     if (err) {
       return next(err);
     } else {
@@ -53,9 +61,15 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
+  var validFor = parseInt(req.body.validFor);
+  req.body.validFor = undefined;
   var couponPurchaseLog = new CouponPurchaseLog(req.body);
   var message = null;
   var today = new Date();
+  today.setDate(today.getDate() + validFor);
+  couponPurchaseLog.expireAt = today;
+  console.log(couponPurchaseLog.expireAt)
+
   couponPurchaseLog.save(function(err, cpl) {
     if (err) {
       return next(err);
@@ -65,17 +79,9 @@ exports.registerOne = function(req, res, next) {
       .exec(function(err, log){
         if(err){return next(err);}
         else{
-          console.log(log.coupon);
-          console.log(log.coupon['validFor']);
-          today.setDate(today.getDate()+parseInt(log.coupon.validFor));
-          console.log(today);
           var query = {
-            $push : {
-              coupons : {
-                coupon : log.coupon.id,
-                availableCount: log.coupon.availableCount,
-                expireAt :today
-              }
+            $inc : {
+              coupons: log.coupon.carrots,
             }
           }
           User.findByIdAndUpdate(couponPurchaseLog.user, query, function(err, user){

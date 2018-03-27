@@ -24,7 +24,7 @@
                     <form id="createForm" action="/coupons" method="POST">
                       <div class="row">
                         <% var keys = Object.keys(schema); %>
-                       
+
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>쿠폰명</label>
@@ -32,14 +32,14 @@
                           </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <label for="programType">타입</label><br>
                             <select name="programType" id="programType" class="form-control">
                               <option value="체험일반">체험일반</option>
                               <option value="체험고급">체험고급</option>
                               <option value="자유기승">자유기승</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="col-md-4">
                           <div class="form-group">
@@ -58,10 +58,10 @@
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>사용가능 횟수</label>
-                            <input name="availableCount" type="text" class="form-control" placeholder="사용가능 횟수" value="">
+                            <input name="carrots" type="text" class="form-control" placeholder="사용가능 횟수" value="">
                           </div>
                         </div>
-                      
+
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -79,13 +79,12 @@
               <thead>
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
-                
+
                 <th>쿠폰명</th>
-                <th>타입</th>
+                <th>캐럿</th>
+                <!-- <th>타입</th> -->
                 <th>가격</th>
-                <th>유효기한</th>
-                <th>사용가능 횟수</th>
-              
+                <th>유효기한(일)</th>
                 <th>작업</th>
 
               </thead>
@@ -98,11 +97,12 @@
                     <td><%=i%></td>
 
                     <td><%=coupon['couponname']%></td>
-                    <td><%=coupon['couponType']%></td>
+                    <td><%=coupon['carrots']%></td>
+                    <!-- <td><%=coupon['couponType']%></td> -->
                     <td><%=coupon['price']%></td>
                     <td><%=coupon['validFor']%></td>
-                    <td><%=coupon['availableCount']%></td>
-                   
+
+
                     <td>
                       <button data-item="<%=coupon.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=coupon.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>

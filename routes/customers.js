@@ -9,6 +9,7 @@ var qnas = require('../controllers/qnas');
 var programs = require('../controllers/programs');
 var reservations = require('../controllers/reservations');
 var coupons = require('../controllers/coupons');
+var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
 //passport = require('passport');
 
 router.all('*', function(req, res, next){
@@ -27,7 +28,7 @@ router.get('/login', common.renderPage('customers/login'));
 
 // stores
 router.get('/stores/list', stores.getList,  common.renderPage('customers/stores/list'));
-router.get('/stores/:storeId',  programs.getReservationsList, reviews.getList, qnas.getList,  common.renderPage('customers/stores/detail'));
+router.get('/stores/:storeId', programs.getReservationsList, reviews.getList, qnas.getList,  common.renderPage('customers/stores/detail'));
 router.get('/stores/:storeId/reviews/list', reviews.getList, reviews.getSchemas, common.renderPage('customers/reviews/list'));
 router.get('/stores/:storeId/qnas/list', qnas.getList, reviews.getSchemas, common.renderPage('customers/qnas/list'));
 router.param('storeId', stores.getOne);
@@ -56,7 +57,7 @@ router.get('/reviews/edit/:reviewId', reviews.getSchemas, common.renderPage('cus
 router.param('reviewId', reviews.getOne);
 
 //users
-router.get('/users/mypage', reservations.getList, common.renderPage('customers/users/mypage'));
+router.get('/users/mypage', reservations.getList, couponPurchaseLogs.getList, common.renderPage('customers/users/mypage'));
 router.get('/users/reservations/list', reservations.getList, common.renderPage('customers/users/reservations/list'));
 router.get('/users/coupons/list', coupons.getList, common.renderPage('customers/users/coupons/list'));
 

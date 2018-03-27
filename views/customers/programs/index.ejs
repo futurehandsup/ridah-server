@@ -53,20 +53,12 @@
             <br><%=dateString%> <%=program.time.start_at%>
             <input type="hidden" class="form-control" id="reservationDate" name="reservationDate" value="<%=query.date%>">
           </div>
-          <%if(user.coupons.length == 0){ %>
-            <a class="btn btn-primary" href="/customers/coupons/list?userId=<%=user.id%>">쿠폰 구매하기</a>
-          <%} else {%>
-            <label for="coupon">사용할 쿠폰 </label>
-            <div class="form-group">
-              <%for(var i=0; i < user.coupons.length; i++){%>
-                <%var coupon = user.coupons[i];%>
-                <label for="coupon_<%=i%>">
-                  <input type="radio" id="coupon_<%=i%>" name="coupon" value="<%=coupon.coupon.id%>">
-                  <%=coupon.coupon.couponname%>
-                </label>
-              <%}%>
-            </div>
-          <%}%>
+          <div class="form-group">
+            <label for="carrots"><%=program.carrots%>캐럿</label>
+            <br>
+            <input type="hidden" class="form-control" id="carrots" name="carrots" value="<%=program.carrots%>">
+          </div>
+
         </form>
       </div>
     </div>
@@ -92,7 +84,7 @@
       </div>
     </div>
 
-  </div>
+  </div>   
 </section>
 <% include ../templates/bottom.ejs %>
 <script>

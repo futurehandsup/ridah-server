@@ -12,18 +12,24 @@ var ReservationSchema = new Schema({
       ref : 'Program'
     },
     reservationDate : {
-      type : Date,
-      min : Date.now
+      type : String,
+      validate : {
+        validator: function(date) {
+          return (new Date(date) > Date.now())
+        },
+        message: "예약할 수 없는 시간입니다."
+      },
+      get: function(date){
+        return new Date(date)
+      }
     },
     owner : { // 예약자
       type : Schema.ObjectId,
       index : true,
       ref : 'User'
     },
-    coupon : {
-      type : Schema.ObjectId,
-      index: true,
-      ref : 'Coupon'
+    carrots : {
+      type : Number,
     },
     ownerName : {
       type : String ,
@@ -81,27 +87,28 @@ ReservationSchema.pre('save', function(next){
   console.log(this);
   this.populate('program').populate('coupon', function(error, reservation){
     console.log(reservation);
-    if(reservation.program.programType != reservation.coupon.couponType){
-      var err = new Error('이용권 사용 불가');
-      return next(err);
-    }
-    else{
-      next();
-    }
+    // if(reservation.program.programType != reservation.coupon.couponType){
+    //   var err = new Error('이용권 사용 불가');
+    //   return next(err);
+    // }
+    // else{
+    //   next();
+    // }
+    if(error) return next(error)
+    else next();
   });
 });
 ReservationSchema.post('save', function(reservation){
   mongoose.model('User').update({
       _id : reservation.owner,
-      'coupons.coupon' : reservation.coupon
     },
     {
-      '$dec': { 'coupons.$.coupon.availableCount' : 1 },
-      '$push': { 'coupons.$.coupon.reservation' : reservation }
+      '$inc': { 'coupons' : -(reservation.carrots) },
+      //'$push': { 'coupons.$.coupon.reservation' : reservation }
     },
     function(err, user){
-      if(!err)// return next(err);
-      console.log(user.coupons);
+      if(err) console.log(err);
+      console.log("hi"+user.coupons);
     //  user.save();
     });
 });

@@ -114,9 +114,6 @@ exports.getOne = function(req, res, next, id) {
     }
   };
   User.findOne(params)
-  .populate({
-    path: 'coupons.coupon'
-  })
   .exec(function(err, user) {
     if (err) {
       return next(err);

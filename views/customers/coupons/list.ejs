@@ -13,7 +13,7 @@
               <p class="card-text py-0 my-0">₩<%=coupon.price%></p>
               <p class="card-text text-secondary">
                 <small class="card-text">구매일로부터 <%=coupon.validFor%>일간 유효</small><br>
-                <small class="card-text"><span class="text-success"><%=coupon.couponType%></span> 프로그램에 한하여 <%=coupon.availableCount%>회 사용가능</small>
+                <small class="card-text"><%=coupon.carrots%>회 사용가능</small>
               </p>
               <button type="button" class="btn btn-primary createButton" data-couponid="<%=coupon.id%>" data-price="<%=coupon.price%>">구매하기</a>
             </div>
@@ -27,11 +27,13 @@
 <script>
 $(document).ready(function(){
   $('.createButton').click(function(){
-    var  couponPurchaseLog = {};
+    var couponPurchaseLog = {};
+
     couponPurchaseLog = {
       user : '<%=user.id%>',
       coupon : $(this).data('couponid'),
-      price : $(this).data('price').replace(",", "")
+      price : $(this).data('price').replace(",", ""),
+      validFor : <%=coupon.validFor%>
     }
 
     $.ajax({

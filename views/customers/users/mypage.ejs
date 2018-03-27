@@ -29,20 +29,28 @@
           <%var reservation = reservations[0]%>
           <h5><%=reservation.store.storename%></h5>
           <%=reservation.program.programname%><br>
-          <%=reservation.reservationDate.getFullYear()%>년 <%=(reservation.reservationDate.getMonth()+1)%>월 <%=reservation.reservationDate.getDate()%>일
+          <%=reservation.reservationDate%>
           <%=reservation.program.time.start_at%>
         <%}%>
       </div>
     </div>
     <div class="card mb-3">
       <div class="card-header">
-        내 이용권
+        내 이용권 구매 내역
       </div>
       <div class="card-body">
-        <%if(user.coupons.length>0){%>
-          <%var coupon = user.coupons[0] %>
-          <%=coupon.coupon.couponname%>
-          <br><small class="text-secondary"><%=coupon.expireAt.getFullYear()%>년 <%=(coupon.expireAt.getMonth()+1)%>월 <%=coupon.expireAt.getDate()%>일에 만료</small>
+        <%=user.coupons%> 캐럿
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        내 이용권 구매 내역
+      </div>
+      <div class="card-body">
+        <%if(couponPurchaseLogs.length > 0){%>
+          <%var coupon = couponPurchaseLogs[0] %>
+          <%= coupon.coupon.couponname %>
+          <br><small class="text-secondary"><%=coupon.expireAt%>에 만료</small>
         <%}%>
       </div>
     </div>

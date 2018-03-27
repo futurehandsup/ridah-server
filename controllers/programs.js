@@ -80,7 +80,8 @@ exports.getReservationsList = function(req, res, next){
     params.store = req.result.store.id;
   }
   var type = (req.query.type != undefined) ? req.query.type : "daily";
-  var date = (req.query.date != undefined) ? new Date(req.query.date) : new Date(); //오늘로
+  var dateStringToday = (new Date()).toLocaleDateString("ko-KR")
+  var date = (req.query.date != undefined) ? new Date(req.query.date) : new Date(dateStringToday) ; //오늘로
 
   var populateParams = {};
   var date_start, date_end;
@@ -90,7 +91,8 @@ exports.getReservationsList = function(req, res, next){
 
   if(type == "daily"){
     //date_start.setDate(date.getDate());
-    //date_end.setDate(date.getDate());
+    date_end.setDate(date_end.getDate()+1)
+    date_end.setTime(date_end.getTime()-1);
   }else if(type=="weekly"){
     n = 7;
     var diff = date.getDay();
@@ -126,12 +128,12 @@ exports.getReservationsList = function(req, res, next){
         $gte : date_start,
         $lte : date_end
       };
-      //console.log(params);
+
       Reservation.aggregate([
         {
           $group: {
-            _id : { date: {$dateToString: { format: "%Y-%m-%d", date: "$reservationDate" }} , store: '$store' },
-            store : {$first : "$store"},
+            _id : { date: "$reservationDate" , store: '$store' },
+            store : { $first : "$store"},
             reservationDate : { $first : "$reservationDate"},
             //reservations : {$push: "$$ROOT"},
             programs: { $push : "$program" }
@@ -141,7 +143,7 @@ exports.getReservationsList = function(req, res, next){
         {
           $match : {
             $and : [
-              { reservationDate : { $gte : date_start,$lte : date_end } },
+              { reservationDate : { $gte : date_start.toLocaleDateString("ko-KR"), $lte : date_end.toLocaleDateString("ko-KR") } },
               { store : require('mongoose').Types.ObjectId(params.store) }
             ]
           }
@@ -150,21 +152,33 @@ exports.getReservationsList = function(req, res, next){
       .exec(function(err, results){
         var reservations = results;
         reservations = reservations.slice(0);
+
         var reservation;
         if(reservations.length != 0){
           reservation = reservations.pop();
+          //console.log(reservations.length)
         }
         for(var i=0; i<n; i++){
           var p = JSON.parse(JSON.stringify( programs ));
           var today = new Date(date_start);
           today.setDate(date_start.getDate()+i);
-          if(reservation!=undefined && reservation.reservationDate.getDate() == today.getDate()){
+          //console.log()
+          //console.log("today: "+today)
+
+          var reservationDate;
+          if(reservation != null) reservationDate = new Date(reservation.reservationDate);
+          //console.log("reservation: "+reservationDate)
+
+          if(reservation!=null && (reservationDate.getDate() == today.getDate())){
             for(var j=0; j<programs.length; j++){
               if(reservation.programs.findIndex(x => x.toString() === p[j]._id.toString()) > -1){
                 p[j].isReserved = true;
+                //console.log(p[j])
               }
             }
-            reservation = reservations.pop();
+            if(reservations.length != 0){
+              reservation = reservations.pop();
+            }
           }
           var schedule = {
             date : today,

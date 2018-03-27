@@ -31,7 +31,7 @@ exports.getSchemas = function(req, res, next){
 }
 
 exports.getList = function(req, res, next){
-  Coupon.find(function(err, coupons) {
+  Coupon.find({deleted: null},function(err, coupons) {
     if (err) {
       return next(err);
     } else {

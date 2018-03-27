@@ -27,6 +27,10 @@ var ProgramSchema = new Schema({
       enum : ['체험일반', '체험고급', '자유기승'],
       default: '체험일반'
     },
+    carrots : {
+      type: Number,
+      min: 0
+    },
     time : {
       start: {
         hours: {

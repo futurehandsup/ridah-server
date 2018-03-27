@@ -61,26 +61,10 @@ var UserSchema = new Schema({
     providerId : String ,                            // 인증전략을 위한 사용자 식별자를 지시
     providerData : {} ,                              //OAuth 공급자로부터 인출한 사용자 객체를 저장하기 위해 나중에 사용 할 providerData 속성
     // 비밀번호 암호화 및 인증을 위해 필요한 부분
-    coupons : [{
-      coupon : {
-        type : Schema.ObjectId,
-        ref: 'Coupon'
-      },
-      availableCount: {
-        type: Number
-      },
-      expireAt : {
-        type : Date
-      },
-      purchaseLog : {
-        type : Schema.ObjectId,
-        ref : 'CouponPurchaseLog'
-      },
-      reservations : [{
-        type : Schema.ObjectId,
-        ref : 'Reservation'
-      }]
-    }],
+    coupons : {
+      type: Number,
+      default: 0
+    },
     created_at : {
       type : Date,
       default : Date.now,
