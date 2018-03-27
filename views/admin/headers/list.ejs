@@ -23,20 +23,20 @@
                   <div class="content">
                     <form id="createForm" action="/headers" method="POST">
                       <div class="row">
-                        
+
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label>헤더 이미지</label>
-                            <input name="headerImg" type="text" class="form-control" placeholder="헤더 이미지" value="">
+                            <label>제목</label>
+                            <input name="headerTitle" type="text" class="form-control" placeholder="이미지 제목" value="">
                           </div>
                         </div>
 
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label>헤더 페이지</label>
-                            <input name="headerUrl" type="text" class="form-control" placeholder="헤더 페이지" value="">
+                            <label>이미지 주소</label>
+                            <input name="headerUrl" type="text" class="form-control" placeholder="이미지 url" value="">
                           </div>
-                        </div>                   
+                        </div>
 
                       </div>
                       <div class="clearfix"></div>
@@ -55,12 +55,12 @@
               <thead>
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
-                
-                <th>헤더 이미지</th>
-                <th>헤더 페이지</th>
+
+                <th>제목</th>
+                <th>이미지 주소</th>
                 <th>작성일</th>
                 <th>수정일</th>
-                                           
+
                 <th>작업</th>
 
               </thead>
@@ -71,12 +71,12 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                   
-                    <td><%=header['headerImg']%></td>
+
+                    <td><%=header['headerTitle']%></td>
                     <td><%=header['headerUrl']%></td>
                     <td><%=header['created_at']%></td>
                     <td><%=header['updated_at']%></td>
-                    
+
                     <td>
                       <button data-item="<%=header.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=header.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
