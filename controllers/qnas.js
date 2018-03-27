@@ -49,6 +49,7 @@ exports.getList = function(req, res, next){
     }
   })
   .populate('qnaWriter')
+  .populate('qnaStore')
   .exec(function(err, qnas) {
     if (err) {
       return next(err);

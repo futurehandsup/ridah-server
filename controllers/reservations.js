@@ -41,6 +41,7 @@ exports.getList = function(req, res, next){
   }
   Reservation.find(params)
   .populate('store')
+  .populate('owner')
   .populate('program')
   .exec(function(err, reservations) {
     if (err) {
@@ -72,7 +73,6 @@ exports.registerOne = function(req, res, next) {
     } else {
       Program.findById(reservation.program, function (err, program){
         if(err) return next(err);
-
         program.reservations.push(reservation);
         program.save();
       });

@@ -47,6 +47,7 @@ exports.getList = function(req, res, next){
       model: 'User'
     }
   })
+  .populate('reviewStore')
   .populate('reviewWriter')
   .exec(function(err, reviews) {
     if (err) {
