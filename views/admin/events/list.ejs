@@ -21,15 +21,24 @@
                 </div>
                 <div class="modal-body">
                   <div class="content">
+                    <!--서버에 이미지 업로드하는 모듈-->
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>이벤트 이미지</label>
+                          <form id='imageForm'>
+                            <input id="imageInput" name="images" type="file" accept="image/*">
+                          </form>
+                          <div id="previewBox" style="display:none;">
+                            <img src="" style="width: 100%; height:auto;" >
+                          </div>
+                          <div id="imageUploadButton"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--서버에 이미지 업로드하는 모듈 끝-->
                     <form id="createForm" action="/events" method="POST">
                       <div class="row">
-
-                       <div class="col-md-4">
-                          <div class="form-group">
-                            <label>이벤트 이미지</label>
-                            <input name="eventImg" type="text" class="form-control" placeholder="이벤트 이미지" value="">
-                          </div>
-                        </div>
 
                         <div class="col-md-4">
                           <div class="form-group">
@@ -55,12 +64,12 @@
               <thead>
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
-                
+
                 <th>이벤트 이미지</th>
                 <th>이벤트 페이지</th>
                 <th>작성일</th>
                 <th>수정일</th>
-                            
+
                 <th>작업</th>
 
               </thead>
@@ -71,12 +80,12 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-                   
-                    <td><%=event['eventImg']%></td>
+
+                    <td><img width="50" src="<%=event['eventImg']%>"/></td>
                     <td><%=event['eventUrl']%></td>
                     <td><%=event['created_at']%></td>
                     <td><%=event['updated_at']%></td>
-                    
+
                     <td>
                       <button data-item="<%=event.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=event.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
@@ -94,8 +103,59 @@
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){
+  var imageUrl = ""
+  $('#imageInput').change(function(){
+    //일단 한장 테스트
+    let files = this.files;
+
+    //for(var i=0;i<files.length;i++){}
+    let file = files[0];
+    var imageType = /image.*/; //이미지 파일일 경우만 뿌려줌.
+    if (!file.type.match(imageType))
+      return false; //continue;
+
+    var img = $('#previewBox').find('img')[0]
+    img.src = window.URL.createObjectURL(file);
+    $('#previewBox').show();
+    $('#imageUploadButton').click();
+
+  })
+  $('#imageUploadButton').click(function(){
+    let files = $('#imageInput')[0].files;
+    if(files.length === 0) return false;
+
+    //let file = files[0];
+    var formData = new FormData($('#imageForm')[0]);
+    //formData.append("images", files, files[0].name);
+
+    console.log(formData.has('images')) // true)
+
+    $.ajax({
+      type:"POST",
+      method: 'POST',
+      url:'/modules/uploadImage',
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success:function(data){
+        alert("성공했습니다.\nurl:"+data.file);
+        imageUrl = data.file;
+        $('#storeImage').attr('src', imageUrl);
+        $('#imageModal').modal('hide')
+      },
+      error:function(e){
+        alert(e.responseText);
+      }
+    });
+
+  })
+
+
   $('#createButton').click(function(){
     var event =  $('#createForm').serializeObject();
+    event.eventImg = imageUrl;
+
     $.ajax({
       type:"POST",
       url:'/events',

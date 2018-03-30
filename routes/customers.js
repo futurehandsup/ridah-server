@@ -10,6 +10,11 @@ var programs = require('../controllers/programs');
 var reservations = require('../controllers/reservations');
 var coupons = require('../controllers/coupons');
 var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
+
+var headers = require('../controllers/headers')
+var events = require('../controllers/events')
+var recommends = require('../controllers/recommends')
+
 //passport = require('passport');
 
 router.all('*', function(req, res, next){
@@ -65,6 +70,10 @@ router.get('/users/list', users.getList, users.getSchemas, common.renderPage('cu
 router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('customers/users/edit')); // 필요없음
 router.get('/users/edit/:userId', users.getSchemas, common.renderPage('customers/users/edit'));
 router.param('userId', users.getOne);
+
+//앱에 필요한 부분
+router.get('/app/homescreen', headers.getList, events.getList, recommends.getList, common.setResponse);
+router.get('/app/mypage', reservations.getList, couponPurchaseLogs.getList, common.setResponse);
 
 //밑에는 임시
 //router.get('/stores/list2', stores.getList2, common.renderPage('customers/stores/list2'));

@@ -27,7 +27,7 @@
           </div>
           <div class="form-group">
             <label for="image">이미지</label><br>
-            <image src="<%=store.image%>"/>
+            <image id="storeImage" src="<%=store.image%>"/>
             <button type="button" data-toggle="modal" data-target="#imageModal" class="btn btn-primary">변경</a>
           </div>
           <button id="editButton" type="button" class="btn btn-primary">저장</button>
@@ -63,6 +63,7 @@
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){
+  var imageUrl = ""
   $('#imageInput').change(function(){
     //일단 한장 테스트
     let files = this.files;
@@ -98,6 +99,9 @@ $(document).ready(function(){
       processData: false,
       success:function(data){
         alert("성공했습니다.\nurl:"+data.file);
+        imageUrl = data.file;
+        $('#storeImage').attr('src', imageUrl);
+        $('#imageModal').modal('hide')
       },
       error:function(e){
         alert(e.responseText);
@@ -107,6 +111,9 @@ $(document).ready(function(){
   })
   $('#editButton').click(function(){
     var store =  $('#editForm').serializeObject();
+    if (imageUrl != ""){
+      store.image = imageUrl;
+    }
 
     $.ajax({
       type:"PUT",

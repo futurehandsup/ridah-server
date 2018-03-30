@@ -1,4 +1,4 @@
-var Header = require('mongoose').model('Header');
+var Event = require('mongoose').model('Event');
 var User = require('mongoose').model('User');
 //passport = require('passport');
 
@@ -9,7 +9,7 @@ var getErrorMessage = function(err) {
     switch (err.code) {
       case 11000:
       case 11001:
-        message = 'HeaderID already exists';
+        message = 'EventID already exists';
         break;
       default:
         message = 'Something went Wrong';
@@ -24,14 +24,14 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = Header.schema.paths;
+  var schema = Event.schema.paths;
 
   req.result.schema = schema;
   next();
 }
 
 exports.getList = function(req, res, next){
-  Header.find(function(err, events) {
+  Event.find(function(err, events) {
     if (err) {
       return next(err);
     } else {
@@ -52,7 +52,7 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
-  var event = new Header(req.body);
+  var event = new Event(req.body);
   var message = null;
 
   event.save(function(err) {
@@ -78,7 +78,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Header.findByIdAndUpdate(req.result.event.id, req.body, function(err, event) {
+  Event.findByIdAndUpdate(req.result.event.id, req.body, function(err, event) {
     if (err) {
       return next(err);
     } else {
@@ -101,7 +101,7 @@ exports.updateOne = function(req, res, next) {
   });
 };
 exports.getOne = function(req, res, next, id) {
-  Header.findOne({
+  Event.findOne({
     _id: id
   }, function(err, event) {
     if (err) {
@@ -127,7 +127,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Header.findByIdAndUpdate(req.result.event.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, event) {
+  Event.findByIdAndUpdate(req.result.event.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, event) {
     if (err) {
       return next(err);
     } else {
