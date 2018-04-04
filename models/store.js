@@ -67,6 +67,53 @@ var StoreSchema = new Schema({
         type: Array
       },
     },
+    //필터 아이템들
+    filter_age: [{
+      type : Number,
+      min: 0
+    }],
+    filter_inout: [{
+      type : Number,
+      min: 0,
+      max: 10,
+    }],
+    filter_program: [{
+      type : Number,
+      min: 0,
+      max: 10,
+    }],
+    filter_difficulty: [{
+      type : Number,
+      min: 0,
+      max: 10,
+    }],
+    filter_lesson: [{
+      type : Number,
+      min: 0,
+      max: 10,
+    }],
+    filter_environment: [{
+      type : Number,
+      min: 0,
+      max: 10,
+    }],
+    filter_horse: [{
+      type : Number,
+      min: 0,
+      max: 10,
+    }],
+    filter_speed: [{
+      type : Number,
+      min: 0,
+      max: 10,
+    }],
+    filter_special: [{
+      type : Number,
+      min: 0,
+      max: 10,
+    }],
+    //필터 끝
+
     type_indoor : {
       type: Boolean,
       default: false

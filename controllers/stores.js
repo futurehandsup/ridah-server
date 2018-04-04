@@ -57,7 +57,18 @@ exports.getList = function(req, res, next){
   }
   params.push(keywordParams)
 
-  if(req.query.filter != undefined ){
+  let filterQueries = Object.keys(req.query).filter((item)=>{
+     return (item.includes('filter_', 0)) ? true : false
+  });
+  if(filterQueries.length > 0){
+    let f = {}
+    for(var item of filterQueries){
+      var filter = req.query[item].split(',').map((x)=>parseInt(x))
+      f[item]= { $in : filter } // filter_age : { $in : [ ]}
+    }
+    filterParams = { $match : f }
+  }
+  else if(req.query.filter != undefined ){
     var filter = req.query.filter.split(',')
     var f = {}
     filter.map((i)=> (f[i]=true))

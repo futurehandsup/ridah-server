@@ -25,6 +25,24 @@
             <label for="address">주소</label>
             <input type="text" class="form-control" id="address" name="address" placeholder="주소" value="<%=store.address%>">
           </div>
+          <% let filters = filterItems.filters%>
+          <% for(var i=0; i<filters.length; i++){
+              var filter = filters[i];
+              var itemName = "filter_"+filter.fieldName;
+          %>
+            <div class="form-group">
+              <div><%=filter.title%></div>
+              <% for (var j=0; j<filter.items.length; j++){
+                  var item = filter.items[j];
+                %>
+                <div class="form-check form-check-inline">
+                  <input type="checkbox" <%=(store[itemName].includes(j)) ? "checked" : null%> id="<%=itemName%>_<%=j%>" name="<%=itemName%>" value="<%=j%>">
+                  <label class="" for="<%=itemName%>_<%=j%>"><%=item%></label>
+                </div>
+              <% }%>
+
+            </div>
+          <% }%>
           <div class="form-group">
             <label for="image">이미지</label><br>
             <image id="storeImage" src="<%=store.image%>"/>

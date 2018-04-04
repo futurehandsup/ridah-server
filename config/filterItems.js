@@ -22,7 +22,6 @@ let filters = [
   { title : "환경",
     fieldName : "environment",
     items : ["초원승마", "해변승마", "산악승마", "트랙승마"],
-    opened: false
   },
   { title : "말",
     fieldName : "horse",

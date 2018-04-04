@@ -48,6 +48,8 @@ module.exports = function() {
     app.use(passport.initialize());    // 추가
     app.use(passport.session());       // 추가
 
+    app.locals.filterItems = require('./filterItems');
+
     var index = require('../routes/index');
     var users = require('../routes/users');
     var stores = require('../routes/stores');
@@ -80,7 +82,7 @@ module.exports = function() {
     app.use('/headers', headers);
     app.use('/recommends', recommends);
     app.use('/events', events);
-  
+
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);
     //customers Route : /views/customers/* view 사용
