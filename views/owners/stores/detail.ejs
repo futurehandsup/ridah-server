@@ -57,7 +57,7 @@
               <h5 class="mb-1"><%=review.reviewTitle%></h5>
             </div>
             <p class="mb-1"><%=review.reviewText%></p>
-            <small><%=(review.reviewWriter!=undefined) ? (review.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=review.created_at.getFullYear()%>년 <%=(review.created_at.getMonth()+1)%>월 <%=review.created_at.getDate()%>일</small>
+            <small><%=(review.reviewWriter!=undefined) ? (review.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=review.created_at%></small>
           </li>
         <%} %>
       </ul>
@@ -79,7 +79,7 @@
               <h5 class="mb-1"><%=qna.qnaTitle%></h5>
             </div>
             <p class="mb-1"><%=qna.qnaText%></p>
-            <small><%=(qna.qnaWriter!=undefined) ? (qna.qnaWriter.username) : "탈퇴한 사용자"%>님, <%=qna.created_at.getFullYear()%>년 <%=(qna.created_at.getMonth()+1)%>월 <%=qna.created_at.getDate()%>일</small>
+            <small><%=(qna.qnaWriter!=undefined) ? (qna.qnaWriter.username) : "탈퇴한 사용자"%>님, <%=qna.created_at%></small>
           </li>
         <%} %>
       </ul>
