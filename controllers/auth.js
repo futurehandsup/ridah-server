@@ -51,6 +51,7 @@ exports.login = function(userRole){
               jwt.sign({
                   _id: user._id,
                   userid: user.userid,
+                  username: user.username,
                   role: user.role
                 },
                 secret, {
