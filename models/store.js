@@ -157,6 +157,10 @@ var StoreSchema = new Schema({
     });
     위 처럼 코드를 작성하면 find 함수를 이용하여 검색할 때 posts 컬렉션에 있는 모든 데이터를 인출해 author 필드를 채워 넣을 것 이다.
     */
+    programs : [{
+      type : Schema.ObjectId,
+      ref : 'Program'
+    }],
     created_at : {
       type : Date,
       default : Date.now,

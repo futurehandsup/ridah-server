@@ -80,23 +80,29 @@ exports.getList = function(req, res, next){
   }
   params.push(filterParams)
 
-  q.aggregate(params).exec(function(err, stores) {
+  q.aggregate(params).exec(function(err, s) {
     if (err) {
       return next(err);
     } else {
-      var result = {
-        title : "승마장 현황",
-        success : true,
-        messages : req.flash('error'),
-        stores : stores
-      }
-      if(req.result == undefined){
-        req.result = result;
-      }
-      else{
-        req.result = Object.assign(req.result, result);
-      }
-      next();
+      Store.populate(s, {path: "programs" }, function(err, stores){
+        if (err) {
+          return next(err);
+        } else {
+          var result = {
+            title : "승마장 현황",
+            success : true,
+            messages : req.flash('error'),
+            stores : stores
+          }
+          if(req.result == undefined){
+            req.result = result;
+          }
+          else{
+            req.result = Object.assign(req.result, result);
+          }
+          next();
+        }
+      });
     }
   });
 }
