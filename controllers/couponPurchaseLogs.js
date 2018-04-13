@@ -68,7 +68,7 @@ exports.registerOne = function(req, res, next) {
   var today = new Date();
   today.setDate(today.getDate() + validFor);
   couponPurchaseLog.expireAt = today;
-  console.log(couponPurchaseLog.expireAt)
+  //console.log(couponPurchaseLog.expireAt)
 
   couponPurchaseLog.save(function(err, cpl) {
     if (err) {

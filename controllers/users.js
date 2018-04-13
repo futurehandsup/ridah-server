@@ -57,7 +57,7 @@ exports.registerOne = function(req, res, next) {
     user.provider = 'local';
 
     user.save(function(err) {
-      console.log('save');
+      //console.log('save');
       if(err) {
         message = getErrorMessage(err);
         req.flash('error', message);
