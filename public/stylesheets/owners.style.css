@@ -1,6 +1,9 @@
 body{
   background-color: #eeeeee;
 }
+.bg-lighter{
+  background-color: #f8f8f8;
+}
 .wrapper{
   overflow: hidden;
 }
@@ -14,6 +17,7 @@ body{
   background-color: #2a2d34;
   height: 100vh;
   color: #acacac;
+  z-index: 2;
 }
 .main-panel{
   width: 100%;
@@ -49,6 +53,7 @@ body{
   height: 70px;
   background-color: white;
   box-shadow: 1.8369701987210304e-16px 3px 4.7px 0.3px rgba(0, 0, 0, 0.24), 6.123233995736765e-17px 1px 6.86px 0.14px rgba(0, 0, 0, 0.16);
+  z-index: 1000;
 }
 .container, .container-fluid{
     padding-left: 50px;
@@ -58,4 +63,103 @@ body{
 .navbar .container-fluid{
   padding-top: 0;
   margin: 0 -15px;
+}
+.table{
+  background-color: transparent;
+  font-size: 13px;
+  border: none;
+}
+.table thead{
+  border-bottom: solid 2px #747474;
+}
+.table tbody tr{
+  border-bottom: solid 2px #747474;
+}
+.table tbody tr:last-child{
+  border: none;
+}
+.table td{
+  border: solid 1px #dddddd;
+  border-bottom: none;
+  border-top: none;
+  padding: 4px 11px;
+  font-weight: bold
+}
+.table tr td:first-child, .table tr td:last-child{
+  border: none;
+}
+.table thead th{
+  background-color: transparent;
+  padding: 0;
+  text-align: right;
+  border: none;
+  font-size: 16px;
+  color: #878787;
+  font-weight: 500;
+}
+.table tbody td > a{
+  color: #878787;
+  font-size: 17px;
+  position: relative;
+  left: -2px;
+  font-weight: normal;
+
+}
+.table thead th:first-child,
+.table tbody tr td:first-child > a{
+  color: #49a9a5;
+}
+.table thead th:last-child
+.table tbody tr td:last-child > a{
+  color: #000000;
+}
+.table td.today{
+  background-color: white;
+}
+.table td.selected{
+  background-color:rgba(0, 141, 135, 0.2);
+}
+.table .program{
+  margin-bottom: 7px;
+}
+.table .timebadge{
+  display: inline-block;
+  font-size: 13px;
+  margin-top: 2px;
+  border-radius: 9px;
+  padding: 0px;
+  width: 46px;
+  text-align: center;
+}
+.timebadge-available{
+  background-color: #49a9a5;
+}
+.timebadge-reserved{
+  background-color: #ff7f7f;
+}
+ul.timeline{
+  padding: 0;
+  margin: 0;
+  margin-top: 30px;
+}
+.timeline > li{
+  border-left: solid 1px #7d7d7d;
+  display: block;
+  padding: 0 20px 50px;
+  list-style: circle;
+  position: relative;
+}
+.timeline .marker{
+  width: 15px;
+  height: 15px;
+  border-radius: 8px;
+  border: solid 1px #7d7d7d;
+  background-color: #eeeeee;
+  display: inline-block;
+  position: absolute;
+  left: -8px;
+}
+.timeline .marker ~ * {
+  position: relative;
+  top: -5px;
 }

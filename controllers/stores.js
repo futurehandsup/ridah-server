@@ -73,7 +73,7 @@ exports.getList = function(req, res, next){
     var f = {}
     filter.map((i)=> (f[i]=true))
     filterParams = { $match : f }
-    console.log(filterParams)
+    //console.log(filterParams)
   }
   else{
     filterParams = { $match : {}}
