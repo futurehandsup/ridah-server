@@ -6,6 +6,7 @@ var programs = require('../controllers/programs');
 var reviews = require('../controllers/reviews');
 var common = require('../controllers/common');
 var users = require('../controllers/users');
+var qnas = require('../controllers/qnas');
     //passport = require('passport');
 
 //RESTful API
@@ -45,7 +46,8 @@ router.route('/:storeId')
 .delete(stores.deleteOne, common.setResponse)     //승마장 삭제
 .post(common.notImplementedError);
 
-router.route('/:storeId/details').get(reviews.getList, programs.getReservationsList, common.setResponse);
+router.route('/:storeId/details').get(reviews.getList, qnas.getList, programs.getReservationsList, common.setResponse);
+router.route('/:storeId/calendar').get(programs.getReservationsList);
 router.param('storeId', stores.getOne);
 
 var reservationRouter = require('./reservations');
@@ -53,5 +55,11 @@ router.use('/:storeId/reservations', reservationRouter);
 
 var programRouter = require('./programs');
 router.use('/:storeId/programs', programRouter);
+
+var reviewRouter = require('./reviews');
+router.use('/:storeId/reviews', reviewRouter);
+
+var qnaRouter = require('./qnas');
+router.use('/:storeId/qnas', qnaRouter);
 
 module.exports = router;

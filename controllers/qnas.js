@@ -40,8 +40,11 @@ exports.getList = function(req, res, next){
     params.qnaType = req.query.qnaType;
   }
 
-  Qna.find(params)
-  .populate({
+  let query = Qna.find(params)
+  if(req.originalUrl.includes("detail")){ //store 요약본에는 최대 3개까지만 출력
+    query.limit(3)
+  }
+  query.populate({
     path: 'replies',
     populate : {
       path: 'qnaWriter',

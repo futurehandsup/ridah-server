@@ -39,8 +39,12 @@ exports.getList = function(req, res, next){
   if(req.query.reviewType != undefined && req.query.reviewType != "all"){
     params.reviewType = req.query.reviewType;
   }
-  Review.find(params)
-  .populate({
+
+  let query = Review.find(params)
+  if(req.originalUrl.includes("detail")){ //store 요약본에는 최대 3개까지만 출력
+    query.limit(3)
+  }
+  query.populate({
     path: 'replies',
     populate : {
       path: 'reviewWriter',
@@ -49,6 +53,7 @@ exports.getList = function(req, res, next){
   })
   .populate('reviewStore')
   .populate('reviewWriter')
+  .sort({created_at : 1}) //최신순
   .exec(function(err, reviews) {
     if (err) {
       return next(err);

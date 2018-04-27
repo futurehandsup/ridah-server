@@ -118,8 +118,9 @@ exports.getReservationsList = function(req, res, next){
     date : date,
     schedules : new Array()
   }
-  Program.find(params)
+  Program.find(params) // Program.find({store: ($StoreID) })
   .sort({'time' : 1})
+  .select('programname time carrots created_at updated_at')
   .exec(function(err, programs) {
     if (err) {
       return next(err);
@@ -151,12 +152,12 @@ exports.getReservationsList = function(req, res, next){
       ])
       .exec(function(err, results){
         var reservations = results;
-        reservations = reservations.slice(0);
+        reservations = reservations.slice(0); //배열의 shallow copy 반환
 
         var reservation;
         if(reservations.length != 0){
           reservation = reservations.pop();
-          //console.log(reservations.length)
+          console.log(reservations.length)
         }
         for(var i=0; i<n; i++){
           var p = JSON.parse(JSON.stringify( programs ));
@@ -171,7 +172,7 @@ exports.getReservationsList = function(req, res, next){
 
           if(reservation!=null && (reservationDate.getDate() == today.getDate())){
             for(var j=0; j<programs.length; j++){
-              if(reservation.programs.findIndex(x => x.toString() === p[j]._id.toString()) > -1){
+              if(reservation.programs.findIndex(x => x.toString() === p[j]._id.toString()) > -1){ //같은 id값 있으면 reserved = true
                 p[j].isReserved = true;
                 //console.log(p[j])
               }
