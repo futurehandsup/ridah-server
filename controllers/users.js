@@ -114,6 +114,7 @@ exports.getOne = function(req, res, next, id) {
     }
   };
   User.findOne(params)
+  .select('-salt -provider -password')
   .exec(function(err, user) {
     if (err) {
       return next(err);
