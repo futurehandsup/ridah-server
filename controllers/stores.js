@@ -88,6 +88,11 @@ exports.getList = function(req, res, next){
         if (err) {
           return next(err);
         } else {
+          if(req.result.user != null){
+            stores.map((item)=>{
+              item.isZzimed = (req.result.user.isZzimed(item._id))
+            });
+          }
           var result = {
             title : "승마장 현황",
             success : true,
@@ -137,7 +142,7 @@ exports.updateOne = function(req, res, next) {
     if (err) {
       return next(err);
     } else {
-      store.updated_at = Date.now();
+      store.updated_at = Date.now(); //?????
       var result = {
         title : "Store Update",
         success : true,
@@ -167,6 +172,11 @@ exports.getOne = function(req, res, next, id) {
     if (err) {
       return next(err);
     } else {
+      if(req.result.user != null && store != null){
+        store = store.toObject();
+        //  store.set({isZzimed : req.result.user.isZzimed(store._id)});
+        store.isZzimed = req.result.user.isZzimed(store._id)
+      }
       var result = {
         title : "Store",
         //page : 'stores/detail',

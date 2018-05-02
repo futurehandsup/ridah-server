@@ -9,6 +9,16 @@ var users = require('../controllers/users');
 var qnas = require('../controllers/qnas');
     //passport = require('passport');
 
+router.use(function(req, res, next) {
+  if(req.query.userId != undefined){
+    return users.getOne(req, res, next, req.query.userId);
+  }
+  else{
+    return users.getOne(req, res, next);
+  }
+  //next();
+});
+
 //RESTful API
 router.route('/')
 .all(function(req, res, next) {

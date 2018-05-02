@@ -19,6 +19,10 @@ var UserSchema = new Schema({
     telephone : {
       type : String
     },
+    zzimStores: [{
+      type: Schema.ObjectId,
+      ref: 'Store'
+    }],
     // website : {
     //   type : String ,
     //   /*
@@ -154,6 +158,22 @@ UserSchema.statics.findOneByUsername = function(username) {
     return this.findOne({
         userid : username
     }).exec();
+}
+
+UserSchema.methods.isZzimed = function(storeid){
+  return (this.zzimStores.indexOf(storeid) > -1)
+}
+UserSchema.methods.zzim = function(storeid){
+  if(!this.isZzimed(storeid)){
+    this.zzimStores.push(storeid);
+    this.save();
+  }
+}
+UserSchema.methods.unzzim = function(storeid){
+  if(this.isZzimed(storeid)){
+    this.zzimStores.splice(this.zzimStores.indexOf(storeid), 1);
+    this.save();
+  }
 }
 
 UserSchema.set('toJSON',{ getters : true , virtuals : true});

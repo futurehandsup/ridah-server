@@ -194,6 +194,53 @@ exports.signout = function(req,res) {
   next();
 };
 
+exports.addZzimStore = function(req, res, next){
+  let user = req.result.user;
+  if(user == null){
+    req.flash("user 없음 ");
+  }
+  else{
+    user.zzim(req.query.zzimStoreId)
+    //user.save()
+    var result = {
+      title : "Zzim store",
+      success : true,
+      messages : req.flash('error'),
+      user : user
+    }
+    if(req.result == undefined){
+      req.result = result;
+    }
+    else{
+      req.result = Object.assign(req.result, result);
+    }
+    next();
+  }
+}
+exports.deleteZzimStore = function(req, res, next){
+  let user = req.result.user;
+  if(user == null){
+    req.flash("user 없음 ");
+  }
+  else{
+    user.unzzim(req.query.zzimStoreId)
+  //  user.save()
+    var result = {
+      title : "Unzzim store",
+      success : true,
+      messages : req.flash('error'),
+      user : user
+    }
+    if(req.result == undefined){
+      req.result = result;
+    }
+    else{
+      req.result = Object.assign(req.result, result);
+    }
+    next();
+  }
+}
+
 
 //회원가입 -- 안씀
 // exports.signup = function(req,res,next) {
