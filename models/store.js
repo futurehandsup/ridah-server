@@ -46,6 +46,10 @@ var StoreSchema = new Schema({
         }
       }
     },
+    score: {
+      type: Number,
+      default: 0
+    },
     telephone : {
       type : String,
       default : ""

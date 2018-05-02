@@ -15,11 +15,18 @@ var ReviewSchema = new Schema({
     reviewWriter : {
        type : Schema.ObjectId,
        ref : 'User'
-     },
+    },
+    reviewScore : {
+      // 평점
+      type : Number,
+      min: 0,
+      max: 10,
+      default : 10
+    },
     reviewStore : {
        type : Schema.ObjectId,
        ref : 'Store'
-     },
+    },
     reviewType : {
       type : String,
       default : 'review',
@@ -55,12 +62,25 @@ var ReviewSchema = new Schema({
     }
 });
 ReviewSchema.post('save', function(result){
-  if(result.reviewType =="reply"){
+  if(result.reviewType == "reply"){
     mongoose.model('Review').findById(result.parent, function(err, review){
       //console.log(result.id);
       review.replies.push(result.id);
       review.save();
     });
+  }
+  else if(result.reviewScore != null){
+    mongoose.model('Review')
+      .aggregate([
+        { $match: { reviewStore : result.reviewStore, reviewType: 'review'}},
+        { $group: { _id : "$reviewStore",avgScore : { $avg: "$reviewScore"} }}
+      ]).exec(function(err, review){
+        console.log(review)
+        mongoose.model('Store').findById(result.reviewStore, function(err, store){
+          store.score = review[0].avgScore;
+          store.save();
+        })
+      })
   }
 });
 ReviewSchema.post('update', function(result) {
