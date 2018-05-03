@@ -202,7 +202,7 @@ exports.addZzimStore = function(req, res, next){
   }
   else{
     user.zzim(req.query.zzimStoreId)
-    //user.save()
+    user.save()
     var result = {
       title : "Zzim store",
       success : true,
@@ -225,7 +225,7 @@ exports.deleteZzimStore = function(req, res, next){
   }
   else{
     user.unzzim(req.query.zzimStoreId)
-  //  user.save()
+    user.save()
     var result = {
       title : "Unzzim store",
       success : true,

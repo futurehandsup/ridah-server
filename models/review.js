@@ -21,7 +21,11 @@ var ReviewSchema = new Schema({
       type : Number,
       min: 0,
       max: 10,
-      default : 10
+      default : 10,
+      get: function(v){
+        //if(typeof v == "Number")
+          return v.toFixed(1)
+      }
     },
     reviewStore : {
        type : Schema.ObjectId,
