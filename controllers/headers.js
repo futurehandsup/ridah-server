@@ -78,7 +78,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Header.findByIdAndUpdate(req.result.header.id, req.body, function(err, header) {
+  Header.findByIdAndUpdate(req.result.header._id, req.body, function(err, header) {
     if (err) {
       return next(err);
     } else {
@@ -96,7 +96,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/headers/detail/'+req.header.id);
+      //return res.redirect('/headers/detail/'+req.header._id);
     }
   });
 };
@@ -127,7 +127,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Header.findByIdAndUpdate(req.result.header.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, header) {
+  Header.findByIdAndUpdate(req.result.header._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, header) {
     if (err) {
       return next(err);
     } else {
@@ -145,7 +145,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/headers/detail/'+req.header.id);
+      //return res.redirect('/headers/detail/'+req.header._id);
     }
   });
 };

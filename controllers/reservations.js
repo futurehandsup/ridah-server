@@ -34,10 +34,10 @@ exports.getSchemas = function(req, res, next){
 exports.getList = function(req, res, next){
   var params = {};
   if(req.result != undefined && req.result.user != undefined){
-    params.owner = req.result.user.id
+    params.owner = req.result.user._id
   }
   if(req.result != undefined && req.result.store != undefined){
-    params.store = req.result.store.id
+    params.store = req.result.store._id
   }
   Reservation.find(params)
   .populate('store')
@@ -95,7 +95,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Reservation.findByIdAndUpdate(req.result.reservation.id, req.body, function(err, reservation) {
+  Reservation.findByIdAndUpdate(req.result.reservation._id, req.body, function(err, reservation) {
     if (err) {
       return next(err);
     } else {
@@ -113,7 +113,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/reservations/detail/'+req.reservation.id);
+      //return res.redirect('/reservations/detail/'+req.reservation._id);
     }
   });
 };
@@ -144,7 +144,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Reservation.findByIdAndUpdate(req.result.reservation.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, reservation) {
+  Reservation.findByIdAndUpdate(req.result.reservation._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, reservation) {
     if (err) {
       return next(err);
     } else {
@@ -162,7 +162,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/reservations/detail/'+req.reservation.id);
+      //return res.redirect('/reservations/detail/'+req.reservation._id);
     }
   });
 };

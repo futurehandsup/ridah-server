@@ -83,7 +83,7 @@ exports.registerOne = function(req, res, next) {
   }
 };
 exports.updateOne = function(req, res, next) {
-  User.findByIdAndUpdate(req.result.user.id, req.body, function(err, user) {
+  User.findByIdAndUpdate(req.result.user._id, req.body, function(err, user) {
     if (err) {
       return next(err);
     } else {
@@ -101,7 +101,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/users/detail/'+req.user.id);
+      //return res.redirect('/users/detail/'+req.user._id);
     }
   });
 };
@@ -140,7 +140,7 @@ exports.getOne = function(req, res, next, id) {
 //사용자 삭제
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  User.findByIdAndUpdate(req.result.user.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, user) {
+  User.findByIdAndUpdate(req.result.user._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, user) {
     if (err) {
       return next(err);
     } else {
@@ -158,7 +158,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/users/detail/'+req.user.id);
+      //return res.redirect('/users/detail/'+req.user._id);
     }
   });
 };
@@ -330,7 +330,7 @@ exports.renderSignup = function(req,res,next) {
 //     })
 // };
 // exports.update = function(req,res,next) {
-//     User.findByIdAndUpdate(req.user.id, req.body, function(err, user) {
+//     User.findByIdAndUpdate(req.user._id, req.body, function(err, user) {
 //         if(err) {
 //             return next(err);
 //         }else{

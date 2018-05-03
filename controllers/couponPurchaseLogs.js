@@ -34,7 +34,7 @@ exports.getSchemas = function(req, res, next){
 exports.getList = function(req, res, next){
   var params = {};
   if(req.result != undefined && req.result.user != undefined){
-    params.user = req.result.user.id
+    params.user = req.result.user._id
   }
 
   CouponPurchaseLog.find(params)
@@ -74,7 +74,7 @@ exports.registerOne = function(req, res, next) {
     if (err) {
       return next(err);
     } else {
-      CouponPurchaseLog.findById(cpl.id)
+      CouponPurchaseLog.findById(cpl._id)
       .populate('coupon')
       .exec(function(err, log){
         if(err){return next(err);}
@@ -111,7 +111,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  CouponPurchaseLog.findByIdAndUpdate(req.result.couponPurchaseLog.id, req.body, function(err, couponPurchaseLog) {
+  CouponPurchaseLog.findByIdAndUpdate(req.result.couponPurchaseLog._id, req.body, function(err, couponPurchaseLog) {
     if (err) {
       return next(err);
     } else {
@@ -129,7 +129,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/couponPurchaseLogs/detail/'+req.couponPurchaseLog.id);
+      //return res.redirect('/couponPurchaseLogs/detail/'+req.couponPurchaseLog._id);
     }
   });
 };
@@ -160,7 +160,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  CouponPurchaseLog.findByIdAndUpdate(req.result.couponPurchaseLog.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, couponPurchaseLog) {
+  CouponPurchaseLog.findByIdAndUpdate(req.result.couponPurchaseLog._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, couponPurchaseLog) {
     if (err) {
       return next(err);
     } else {
@@ -178,7 +178,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/couponPurchaseLogs/detail/'+req.couponPurchaseLog.id);
+      //return res.redirect('/couponPurchaseLogs/detail/'+req.couponPurchaseLog._id);
     }
   });
 };

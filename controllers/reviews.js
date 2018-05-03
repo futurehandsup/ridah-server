@@ -34,7 +34,7 @@ exports.getSchemas = function(req, res, next){
 exports.getList = function(req, res, next){
   var params = {};
   if(req.result != undefined && req.result.store != undefined){
-    params.reviewStore = req.result.store.id
+    params.reviewStore = req.result.store._id
   }
   if(req.query.reviewType != undefined && req.query.reviewType != "all"){
     params.reviewType = req.query.reviewType;
@@ -101,7 +101,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Review.findByIdAndUpdate(req.result.review.id, req.body, function(err, review) {
+  Review.findByIdAndUpdate(req.result.review._id, req.body, function(err, review) {
     if (err) {
       return next(err);
     } else {
@@ -119,7 +119,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/stores/detail/'+req.store._id);
     }
   });
 };
@@ -150,7 +150,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Review.findByIdAndUpdate(req.result.review.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, review) {
+  Review.findByIdAndUpdate(req.result.review._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, review) {
     if (err) {
       return next(err);
     } else {
@@ -168,7 +168,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/stores/detail/'+req.store._id);
     }
   });
 };

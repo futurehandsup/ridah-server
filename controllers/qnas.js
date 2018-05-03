@@ -34,7 +34,7 @@ exports.getSchemas = function(req, res, next){
 exports.getList = function(req, res, next){
   var params = {};
   if(req.result != undefined && req.result.store != undefined){
-    params.qnaStore = req.result.store.id
+    params.qnaStore = req.result.store._id
   }
   if(req.query.qnaType != undefined && req.query.qnaType != "all"){
     params.qnaType = req.query.qnaType;
@@ -100,7 +100,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Qna.findByIdAndUpdate(req.result.qna.id, req.body, function(err, qna) {
+  Qna.findByIdAndUpdate(req.result.qna._id, req.body, function(err, qna) {
     if (err) {
       return next(err);
     } else {
@@ -118,7 +118,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/stores/detail/'+req.store._id);
     }
   });
 };
@@ -149,7 +149,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Qna.findByIdAndUpdate(req.result.qna.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, qna) {
+  Qna.findByIdAndUpdate(req.result.qna._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, qna) {
     if (err) {
       return next(err);
     } else {
@@ -167,7 +167,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/stores/detail/'+req.store._id);
     }
   });
 };

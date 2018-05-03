@@ -138,7 +138,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Store.findByIdAndUpdate(req.result.store.id, req.body, function(err, store) {
+  Store.findByIdAndUpdate(req.result.store._id, req.body, function(err, store) {
     if (err) {
       return next(err);
     } else {
@@ -156,7 +156,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/stores/detail/'+req.store._id);
     }
   });
 };
@@ -196,7 +196,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Store.findByIdAndUpdate(req.result.store.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, store) {
+  Store.findByIdAndUpdate(req.result.store._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, store) {
     if (err) {
       return next(err);
     } else {
@@ -214,7 +214,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/stores/detail/'+req.store.id);
+      //return res.redirect('/stores/detail/'+req.store._id);
     }
   });
 };

@@ -78,7 +78,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Recommend.findByIdAndUpdate(req.result.recommend.id, req.body, function(err, recommend) {
+  Recommend.findByIdAndUpdate(req.result.recommend._id, req.body, function(err, recommend) {
     if (err) {
       return next(err);
     } else {
@@ -96,7 +96,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/recommends/detail/'+req.recommend.id);
+      //return res.redirect('/recommends/detail/'+req.recommend._id);
     }
   });
 };
@@ -127,7 +127,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Recommend.findByIdAndUpdate(req.result.recommend.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, recommend) {
+  Recommend.findByIdAndUpdate(req.result.recommend._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, recommend) {
     if (err) {
       return next(err);
     } else {
@@ -145,7 +145,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/recommends/detail/'+req.recommend.id);
+      //return res.redirect('/recommends/detail/'+req.recommend._id);
     }
   });
 };

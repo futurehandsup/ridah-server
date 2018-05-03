@@ -34,7 +34,7 @@ exports.getSchemas = function(req, res, next){
 exports.getList = function(req, res, next){
   var params = {};
   if(req.result != undefined && req.result.store != undefined){
-    params.store = req.result.store.id
+    params.store = req.result.store._id
   }
   var populateParams = {};
   if(req.query.start != undefined){
@@ -77,7 +77,7 @@ exports.getList = function(req, res, next){
 exports.getReservationsList = function(req, res, next){
   var params = {};
   if(req.result != undefined && req.result.store != undefined){
-    params.store = req.result.store.id;
+    params.store = req.result.store._id;
   }
   var type = (req.query.type != undefined) ? req.query.type : "daily";
   var dateStringToday = (new Date()).toLocaleDateString("ko-KR")
@@ -235,7 +235,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Program.findByIdAndUpdate(req.result.program.id, req.body, function(err, program) {
+  Program.findByIdAndUpdate(req.result.program._id, req.body, function(err, program) {
     if (err) {
       return next(err);
     } else {
@@ -253,7 +253,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/programs/detail/'+req.program.id);
+      //return res.redirect('/programs/detail/'+req.program._id);
     }
   });
 };
@@ -285,7 +285,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Program.findByIdAndUpdate(req.result.program.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, program) {
+  Program.findByIdAndUpdate(req.result.program._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, program) {
     if (err) {
       return next(err);
     } else {
@@ -304,7 +304,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/programs/detail/'+req.program.id);
+      //return res.redirect('/programs/detail/'+req.program._id);
     }
   });
 };

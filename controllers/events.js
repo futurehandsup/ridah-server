@@ -78,7 +78,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Event.findByIdAndUpdate(req.result.event.id, req.body, function(err, event) {
+  Event.findByIdAndUpdate(req.result.event._id, req.body, function(err, event) {
     if (err) {
       return next(err);
     } else {
@@ -96,7 +96,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/events/detail/'+req.event.id);
+      //return res.redirect('/events/detail/'+req.event._id);
     }
   });
 };
@@ -127,7 +127,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Event.findByIdAndUpdate(req.result.event.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, event) {
+  Event.findByIdAndUpdate(req.result.event._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, event) {
     if (err) {
       return next(err);
     } else {
@@ -145,7 +145,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/events/detail/'+req.event.id);
+      //return res.redirect('/events/detail/'+req.event._id);
     }
   });
 };

@@ -78,7 +78,7 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Coupon.findByIdAndUpdate(req.result.coupon.id, req.body, function(err, coupon) {
+  Coupon.findByIdAndUpdate(req.result.coupon._id, req.body, function(err, coupon) {
     if (err) {
       return next(err);
     } else {
@@ -96,7 +96,7 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/coupons/detail/'+req.coupon.id);
+      //return res.redirect('/coupons/detail/'+req.coupon._id);
     }
   });
 };
@@ -127,7 +127,7 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Coupon.findByIdAndUpdate(req.result.coupon.id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, coupon) {
+  Coupon.findByIdAndUpdate(req.result.coupon._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, coupon) {
     if (err) {
       return next(err);
     } else {
@@ -145,7 +145,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/coupons/detail/'+req.coupon.id);
+      //return res.redirect('/coupons/detail/'+req.coupon._id);
     }
   });
 };
