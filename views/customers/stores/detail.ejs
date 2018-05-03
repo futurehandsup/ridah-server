@@ -37,7 +37,7 @@
               <%if(program.isReserved){ %>
               <span class="text-danger pull-right">예약 불가</span>
               <%}else{%>
-                <a href="/customers/programs/<%=program.id%>?date=<%=dateString%>&userId=<%=user.id%>">
+                <a href="/customers/programs/<%=program._id%>?date=<%=dateString%>&userId=<%=user._id%>">
                   <span class="pull-right">예약하기</span>
                 </a>
               <%}%>
@@ -51,7 +51,7 @@
     <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
         리뷰 <%=reviews.length%>개
-        <a href="/customers/stores/<%=store.id%>/reviews/list?userId=<%=user.id%>&reviewType=review" class="card-link float-right">더보기</a>
+        <a href="/customers/stores/<%=store._id%>/reviews/list?userId=<%=user._id%>&reviewType=review" class="card-link float-right">더보기</a>
       </div>
       <ul class="list-group list-group-flush">
         <%if(reviews.length == 0){%>
@@ -73,7 +73,7 @@
     <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
         문의 <%=qnas.length%>개
-        <a href="/customers/stores/<%=store.id%>/qnas/list?userId=<%=user.id%>&qnaType=qna" class="card-link float-right">더보기</a>
+        <a href="/customers/stores/<%=store._id%>/qnas/list?userId=<%=user._id%>&qnaType=qna" class="card-link float-right">더보기</a>
       </div>
       <ul class="list-group list-group-flush">
         <%if(qnas.length == 0){%>
@@ -106,7 +106,7 @@ $( function() {
     nextText: '다음 달',
     prevText: '이전 달',
     onSelect:function(dateText, inst) {
-      location.href="/customers/stores/<%=store.id%>?userId=<%=query.userId%>&date="+dateText;
+      location.href="/customers/stores/<%=store._id%>?userId=<%=query.userId%>&date="+dateText;
     }
   });
   } );

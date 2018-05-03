@@ -36,7 +36,7 @@
                 <input type="text" class="form-control" id="qnaTitle" name="qnaTitle" placeholder="댓글 제목">
                 <textarea class="form-control" id="qnaText" name="qnaText" placeholder="댓글 내용"></textarea>
               </div>
-              <input type="hidden" name="parent" value="<%=qna.id%>">
+              <input type="hidden" name="parent" value="<%=qna._id%>">
               <button class="replyButton" type="button" class="btn btn-primary">작성</button>
             </form>
           </li>
@@ -65,9 +65,9 @@ $(document).ready(function(){
   $('.replyButton').click(function(){
     var form = $(this).closest('form');
     var qna =  form.serializeObject();
-    qna.qnaStore = '<%=store.id%>';
+    qna.qnaStore = '<%=store._id%>';
 
-    qna.qnaWriter = '<%=user.id%>';
+    qna.qnaWriter = '<%=user._id%>';
     if(qna.qnaWriter =='') qna.qnaWriter = '59e46a7acfd9ae07de8d69f0';
     qna.qnaType="reply";
 
@@ -87,9 +87,9 @@ $(document).ready(function(){
   $('#qnaButton').click(function(){
     var form = $(this).closest('form');
     var qna =  form.serializeObject();
-    qna.qnaStore = '<%=store.id%>';
+    qna.qnaStore = '<%=store._id%>';
 
-    qna.qnaWriter = '<%=user.id%>';
+    qna.qnaWriter = '<%=user._id%>';
     if(qna.qnaWriter =='') qna.qnaWriter = '59e46a7acfd9ae07de8d69f0';
     qna.qnaType="qna";
 
