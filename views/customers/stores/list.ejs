@@ -6,27 +6,35 @@
       <% for(var i=0; i<stores.length; i++){
       var store = stores[i];
       %>
-      <div class="col-sm-3">
-        <div class="card" style="margin-bottom: 20px;">
-          <img class="card-img-top" src="<%=store.image%>" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title"><%=store.storename%></h4>
-            <p class="card-text"><%=store.address%>
-              <br>
-              <small class="text-success">
-                <span class="fa fa-location-arrow "></span> 1.3km
-              </small>
-              <br>
-              <small class="text-info">
-                평점 <%=store.score%> 점
-              </small>
-            </p>
-
-            <%var date = new Date();%>
-            <%var dateString = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()%>
-            <a href="/customers/stores/<%=store._id%>?userId=<%=user.id%>&date=<%=dateString%>" class="btn btn-primary">자세히 보기</a>
+      <div class="col-sm-12">
+        <%var date = new Date();%>
+        <%var dateString = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()%>
+        <div class="card mb-3 container-fluid" style="cursor:pointer;" onClick="location.href='/customers/stores/<%=store._id%>?userId=<%=user.id%>&date=<%=dateString%>'">
+          <div class="row">
+            <div class="card-body col-4 pr-0">
+              <div style="height: 100%; background-color:rgba(0,0,0,0.1); background-image: url('<%=store.image%>'); background-position: center; background-size: cover;"></div>
+              <span class="badge badge-secondary" style="position: absolute; top:2rem; right: 1rem;"><%=store.score%></span>
+            </div>
+            <div class="card-body col-8" style="min-height: 200px;">
+              <h4 class="card-title"><%=store.storename%></h4>
+              <p class="card-text mb-5"><%=store.address%>
+                <br>
+                <small class="text-success">
+                  <span class="fa fa-location-arrow "></span> 1.3km <%=store.distance%>
+                </small>
+              </p>
+              <% for(var j=0; j<store.programs.length; j++){
+                if(j > 1) break;
+                var program = store.programs[j];
+              %>
+                <div class="card-text text-right">
+                  <h5 class="card-title"><span class="small text-muted"><%=program.programname %> </span><%=program.carrots%>캐럿</h5>
+                </div>
+              <% }%>
+            </div>
           </div>
         </div>
+        </a>
       </div>
     <% }%>
   </div>

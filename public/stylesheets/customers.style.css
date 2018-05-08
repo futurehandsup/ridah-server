@@ -1,0 +1,29 @@
+/*
+colors
+- main-blue : #008d87;
+- red-pink : #ef255f;
+- yellow : #fccf4d;
+*/
+
+.navbar-nav{
+  width: 100%;
+}
+.navbar-nav .nav-link{
+  text-align: center;
+}
+.navbar-nav .col.active .nav-link{
+  color: #008d87;
+}
+
+
+.btn-primary{
+  background-color: #008d87;
+  border-color: #008d87;
+}
+
+.text-primary{
+  color: #008d87!important;
+}
+.badge-secondary{
+  background-color: #ef255f;
+}

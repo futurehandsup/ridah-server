@@ -31,8 +31,11 @@ router.all('*', function(req, res, next){
 router.get('/', users.getList, stores.getList, common.renderPage('customers/index'));
 router.get('/login', common.renderPage('customers/login'));
 
+// home
+router.get('/home', headers.getList,  common.renderPage('customers/home/index'));
+
 // stores
-router.get('/stores/list', stores.getList,  common.renderPage('customers/stores/list'));
+router.get('/stores/list', stores.getList, common.renderPage('customers/stores/list'));
 router.get('/stores/:storeId', programs.getReservationsList, reviews.getList, qnas.getList,  common.renderPage('customers/stores/detail'));
 router.get('/stores/:storeId/reviews/list', reviews.getList, reviews.getSchemas, common.renderPage('customers/reviews/list'));
 router.get('/stores/:storeId/qnas/list', qnas.getList, reviews.getSchemas, common.renderPage('customers/qnas/list'));

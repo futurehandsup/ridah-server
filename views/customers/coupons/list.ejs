@@ -1,6 +1,15 @@
 <% include ../templates/head.ejs %>
 <section style="background-color: #fafafa; padding-top: 70px;">
   <div class="container">
+    <div class="card mb-3" style="width: 100%;">
+      <div class="card-body">
+        <h5 class="card-title">내가 쓰고있는 쿠폰</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="container">
     <h2>이용권 구매</h2>
     <div class="row">
       <% for(var i=0; i<coupons.length; i++){
@@ -13,7 +22,7 @@
               <p class="card-text py-0 my-0">₩<%=coupon.price%></p>
               <p class="card-text text-secondary">
                 <small class="card-text">구매일로부터 <%=coupon.validFor%>일간 유효</small><br>
-                <small class="card-text"><%=coupon.carrots%>회 사용가능</small>
+                <!--<small class="card-text"><%=coupon.carrots%>회 사용가능</small>-->
               </p>
               <button type="button" class="btn btn-primary createButton" data-couponid="<%=coupon.id%>" data-price="<%=coupon.price%>">구매하기</a>
             </div>

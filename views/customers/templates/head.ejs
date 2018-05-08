@@ -13,6 +13,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="/stylesheets/customers.style.css" rel="stylesheet" />
     <style>
       section{
         min-height: 100vh;
@@ -20,22 +21,24 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white">
-      <a class="navbar-brand" href="/">Ride High</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/customers/stores/list?userId=<%=user.id%>">승마장 <span class="sr-only">(current)</span></a>
+    <nav class="navbar navbar-expand fixed-top navbar-light bg-white">
+      <!-- <a class="navbar-brand" href="/">Ride High</a> -->
+      <div class="container" id="navbarSupportedContent">
+        <ul class="navbar-nav row">
+          <li class="nav-item col">
+            <a class="nav-link" href="/customers/home?userId=<%=user.id%>">홈 <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/customers/coupons/list?userId=<%=user.id%>">이용권 구매</a>
+          <li class="nav-item col active">
+            <a class="nav-link" href="/customers/stores/list?userId=<%=user.id%>">내주변 <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/customers/users/mypage?userId=<%=user.id%>"><%=user.username%>님 마이페이지</a>
+          <li class="nav-item col">
+            <a class="nav-link" href="/customers/coupons/list?userId=<%=user.id%>">검색</a>
+          </li>
+          <li class="nav-item col">
+            <a class="nav-link" href="/customers/coupons/list?userId=<%=user.id%>">이용권</a>
+          </li>
+          <li class="nav-item col">
+            <a class="nav-link" href="/customers/users/mypage?userId=<%=user.id%>">내정보</a>
           </li>
           <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
