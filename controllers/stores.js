@@ -172,7 +172,7 @@ exports.getOne = function(req, res, next, id) {
     if (err) {
       return next(err);
     } else {
-      if(req.result.user != null && store != null){
+      if(req.result != null && req.result.user != null && store != null){
         store = store.toObject();
         //  store.set({isZzimed : req.result.user.isZzimed(store._id)});
         store.isZzimed = req.result.user.isZzimed(store._id)
