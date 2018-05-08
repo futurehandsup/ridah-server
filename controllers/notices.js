@@ -1,4 +1,5 @@
-var Recommend = require('mongoose').model('Recommend');
+var Notice = require('mongoose').model('Notice');
+var Store = require('mongoose').model('Store');
 var User = require('mongoose').model('User');
 //passport = require('passport');
 
@@ -9,7 +10,7 @@ var getErrorMessage = function(err) {
     switch (err.code) {
       case 11000:
       case 11001:
-        message = 'RecommendID already exists';
+        message = 'StoreID already exists';
         break;
       default:
         message = 'Something went Wrong';
@@ -24,24 +25,24 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = Recommend.schema.paths;
+  var schema = Notice.schema.paths;
 
   req.result.schema = schema;
   next();
 }
 
 exports.getList = function(req, res, next){
-  Recommend.find({})
-  .populate('recommendID')
-  .exec(function(err, recommends) {
+  Notice.find()
+  .populate('noticeWriter')
+  .exec(function(err, notices) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "추천 승마장",
+        title : "메인 헤더",
         success : true,
         messages : req.flash('error'),
-        recommends : recommends
+        notices : notices
       }
       if(req.result == undefined){
         req.result = result;
@@ -54,19 +55,19 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
-  var recommend = new Recommend(req.body);
+  var notice = new Notice(req.body);
   var message = null;
 
-  recommend.save(function(err) {
+  notice.save(function(err) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "추천 승마장",
-        //page : 'recommends/list2',
+        title : "사용자 문의",
+        //page : 'stores/list2',
         success : true,
         messages : req.flash('error'),
-        recommend : recommend
+        notice : notice
       }
       if(req.result == undefined){
         req.result = result;
@@ -75,21 +76,21 @@ exports.registerOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/recommends/list');
+      //return res.redirect('/stores/list');
     }
   });
 };
 exports.updateOne = function(req, res, next) {
-  Recommend.findByIdAndUpdate(req.result.recommend._id, req.body, function(err, recommend) {
+  Notice.findByIdAndUpdate(req.result.notice._id, req.body, function(err, notice) {
     if (err) {
       return next(err);
     } else {
-      recommend.updated_at = Date.now();
+      notice.updated_at = Date.now();
       var result = {
-        title : "Recommend Update",
+        title : "Notice Update",
         success : true,
         messages : req.flash('error'),
-        recommend : recommend
+        notice : notice
       }
       if(req.result == undefined){
         req.result = result;
@@ -98,23 +99,23 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/recommends/detail/'+req.recommend._id);
+      //return res.redirect('/stores/detail/'+req.store._id);
     }
   });
 };
 exports.getOne = function(req, res, next, id) {
-  Recommend.findOne({
+  Notice.findOne({
     _id: id
-  }, function(err, recommend) {
+  }, function(err, notice) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "Recommend List",
-        //page : 'recommends/detail',
+        title : "Notice List",
+        //page : 'stores/detail',
         success : true,
         messages : req.flash('error'),
-        recommend : recommend
+        notice : notice
       }
       if(req.result == undefined){
         req.result = result;
@@ -129,16 +130,16 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Recommend.findByIdAndUpdate(req.result.recommend._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, recommend) {
+  Notice.findByIdAndUpdate(req.result.notice._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, notice) {
     if (err) {
       return next(err);
     } else {
-      recommend.updated_at = date;
+      notice.updated_at = date;
       var result = {
-        title : "Recommend Delete",
+        title : "Notice Delete",
         success : true,
         messages : req.flash('error'),
-        recommend : recommend
+        notice : notice
       }
       if(req.result == undefined){
         req.result = result;
@@ -147,7 +148,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/recommends/detail/'+req.recommend._id);
+      //return res.redirect('/stores/detail/'+req.store._id);
     }
   });
 };

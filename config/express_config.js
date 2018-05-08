@@ -59,6 +59,7 @@ module.exports = function() {
     var reservations = require('../routes/reservations');
     var coupons = require('../routes/coupons');
     var couponPurchaseLogs = require('../routes/couponPurchaseLogs');
+    var notices = require('../routes/notices');
     var headers = require('../routes/headers');
     var recommends = require('../routes/recommends');
     var events = require('../routes/events');
@@ -79,6 +80,7 @@ module.exports = function() {
     app.use('/reservations', reservations);
     app.use('/coupons', coupons);
     app.use('/couponPurchaseLogs', couponPurchaseLogs);
+    app.use('/notices',notices);
     app.use('/headers', headers);
     app.use('/recommends', recommends);
     app.use('/events', events);

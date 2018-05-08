@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-8">
         <div class="card">
-          <div class="recommend">
+          <div class="header">
             <h4 class="title">사용자 문의 수정</h4>
           </div>
           <div class="content">
@@ -15,42 +15,42 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>승마장명</label>
-                    <input name="recommendStore" type="text" class="form-control" placeholder="recommendStore" value="<%=recommend['recommendStore']%>">
+                    <input name="qnaStore" type="text" class="form-control" placeholder="qnaStore" value="<%=qna['qnaStore']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>제목</label>
-                    <input name="recommendTitle" type="text" class="form-control" placeholder="recommendTitle" value="<%=recommend['recommendTitle']%>">
+                    <input name="qnaTitle" type="text" class="form-control" placeholder="qnaTitle" value="<%=qna['qnaTitle']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>작성자</label>
-                    <input name="recommendWriter" type="text" class="form-control" placeholder="recommendWriter" value="<%=recommend['recommendWriter']%>">
+                    <input name="qnaWriter" type="text" class="form-control" placeholder="qnaWriter" value="<%=qna['qnaWriter']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>내용</label>
-                    <input name="recommendText" type="text" class="form-control" placeholder="recommendText" value="<%=recommend['recommendText']%>">
+                    <input name="qnaText" type="text" class="form-control" placeholder="qnaText" value="<%=qna['qnaText']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>답변</label>
-                    <input name="replies" type="text" class="form-control" placeholder="replies" value="<%=recommend['replies']%>">
+                    <input name="replies" type="text" class="form-control" placeholder="replies" value="<%=qna['replies']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>수정일</label>
-                    <input name="updated_at" type="text" class="form-control" placeholder="updated_at" value="<%=recommend['updated_at']%>">
+                    <input name="updated_at" type="text" class="form-control" placeholder="updated_at" value="<%=qna['updated_at']%>">
                   </div>
                 </div>
 
@@ -98,12 +98,12 @@
 <script>
 $(document).ready(function(){
   $('#editButton').click(function(){
-    var recommend =  $('#editForm').serializeObject();
+    var qna =  $('#editForm').serializeObject();
 
     $.ajax({
       type:"PUT",
-      url:'/recommends/<%=recommend.id%>',
-      data:recommend,
+      url:'/qnas/<%=qna.id%>',
+      data:qna,
       success:function(args){
         alert("성공했습니다.");
         location.reload();

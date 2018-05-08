@@ -12,6 +12,7 @@ module.exports = function() {
    require('../models/reservation.js');
    require('../models/coupon.js');
    require('../models/couponPurchaseLog.js');
+   require('../models/notice.js');
    require('../models/header.js');
    require('../models/recommend.js');
    require('../models/event.js');
