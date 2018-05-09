@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
         <div class="content">
-          <form id="createForm" action="/programs" method="POST">
+          <form id="createForm" action="/notices" method="POST">
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -61,7 +61,7 @@
   <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
   만들기
   </button>
-  <h2>프로그램 관리</h2>
+  <h2>공지사항</h2>
   <table class="table table-bordered">
     <thead class="thead-light">
       <tr>
@@ -72,8 +72,8 @@
       </tr>
     </thead>
     <tbody>
-      <% for(var i=0; i<programs.length; i++){
-        var program = programs[i];
+      <% for(var i=0; i<notices.length; i++){
+        var program = notices[i];
       %>
       <tr>
         <td><%=program.time.start_at%></td>
@@ -97,7 +97,7 @@ $(document).ready(function(){
 
     $.ajax({
       type:"POST",
-      url:'/programs',
+      url:'/notices',
       data:program,
       success:function(args){
         alert("성공했습니다.");
@@ -112,7 +112,7 @@ $(document).ready(function(){
     var programId = $(this).data("item");
     $.ajax({
       type:"DELETE",
-      url:'/programs/'+programId,
+      url:'/notices/'+programId,
 
       success:function(args){
         alert("성공했습니다.");
