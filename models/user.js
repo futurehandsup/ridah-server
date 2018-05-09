@@ -105,9 +105,9 @@ UserSchema.pre('save', function(next){
   pre 미들웨어를 먼저 실행하고 데이터를 등록할 것 이다.
   */
   if(this.password) {
-      this.salt = new Buffer(crypto.randomBytes(16).toString('base64'),
-      'base64');
-  this.password = this.hashPassword(this.password);
+    this.salt = new Buffer(crypto.randomBytes(16).toString('base64'),
+    'base64');
+    this.password = this.hashPassword(this.password);
   }
   next();
 });
