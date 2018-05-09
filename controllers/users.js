@@ -83,11 +83,12 @@ exports.registerOne = function(req, res, next) {
   }
 };
 exports.updateOne = function(req, res, next) {
-  User.findByIdAndUpdate(req.result.user._id, req.body, function(err, user) {
+  User.findOne(req.result.user._id, function(err, user) {
     if (err) {
       return next(err);
     } else {
       user.updated_at = Date.now();
+      user.save();
       var result = {
         title : "User Update",
         success : true,

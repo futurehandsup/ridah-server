@@ -32,7 +32,7 @@
             <span>Main</span>
           </li>
           <li id="dashboard" class="nav-item">
-            <a class="nav-link" href="">대시보드</a>
+            <a class="nav-link" href="/owners/dashboard">대시보드</a>
           </li>
           <li id="reservations" class="nav-item active">
             <a class="nav-link" href="/owners/reservations/daily?type=monthly&storeId=<%=store.id%>">예약 달력 <span class="sr-only">(current)</span></a>
@@ -49,8 +49,14 @@
           <li id="reviews" class="nav-item">
             <a class="nav-link" href="/owners/reviews/list?storeId=<%=store.id%>">후기</a>
           </li>
-          <li id="notice" class="nav-item">
-            <a class="nav-link" href="">공지사항</a>
+          <li id="notices" class="nav-item">
+            <a class="nav-link" href="/owners/notices/list?storeId=<%=store.id%>">공지사항</a>
+          </li>
+          <li id="statistics" class="nav-item">
+            <a class="nav-link" href="/owners/statistics?storeId=<%=store.id%>">통계</a>
+          </li>
+          <li id="calculations" class="nav-item">
+            <a class="nav-link" href="/owners/calculations?storeId=<%=store.id%>">정산</a>
           </li>
         </ul>
         <ul class="nav flex-column">

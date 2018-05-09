@@ -8,6 +8,7 @@ var reviews = require('../controllers/reviews');
 var qnas = require('../controllers/qnas');
 var programs = require('../controllers/programs');
 var reservations = require('../controllers/reservations');
+var notices = require('../controllers/notices');
 //passport = require('passport');
 
 router.all('*', function(req, res, next){
@@ -30,6 +31,8 @@ router.all('*', function(req, res, next){
 router.get('/', stores.getList, common.renderPage('owners/index'));
 // 로그인 아직 덜 만듬
 router.get('/login', common.renderPage('owners/login'));
+
+router.get('/dashboard', common.renderPage('owners/dashboard/index'));
 
 // 예약 내역
 router.get('/reservations', programs.getReservationsList, reviews.getList, common.setResponse);
@@ -59,13 +62,16 @@ router.get('/qnas/edit/:qnaId', qnas.getSchemas, common.renderPage('owners/qnas/
 router.param('qnaId', qnas.getOne);
 
 
-//users
+// programs
 router.get('/programs', programs.getList, common.setResponse);
 router.get('/programs/list', programs.getList, programs.getSchemas, common.renderPage('owners/programs/list'));
 router.get('/programs/edit', programs.getList, programs.getSchemas, common.renderPage('owners/programs/edit')); // 필요없음
 router.get('/programs/edit/:programId', programs.getSchemas, common.renderPage('owners/progrmas/edit'));
 router.param('programId', programs.getOne);
 
+router.get('/statistics', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/index'));
+router.get('/calculations', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/index'));
+router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPage('owners/notices/list'));
 
 
 //밑에는 임시
