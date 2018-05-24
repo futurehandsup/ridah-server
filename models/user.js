@@ -165,13 +165,13 @@ UserSchema.methods.isZzimed = function(storeid){
 UserSchema.methods.zzim = function(storeid){
   if(!this.isZzimed(storeid)){
     this.zzimStores.push(storeid);
-    this.save();
+    //this.save();
   }
 }
 UserSchema.methods.unzzim = function(storeid){
   if(this.isZzimed(storeid)){
     this.zzimStores.splice(this.zzimStores.indexOf(storeid), 1);
-    this.save();
+  //  this.save();
   }
 }
 

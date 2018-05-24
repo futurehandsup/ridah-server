@@ -203,20 +203,22 @@ exports.addZzimStore = function(req, res, next){
   }
   else{
     user.zzim(req.query.zzimStoreId)
-    user.save()
-    var result = {
-      title : "Zzim store",
-      success : true,
-      messages : req.flash('error'),
-      user : user
-    }
-    if(req.result == undefined){
-      req.result = result;
-    }
-    else{
-      req.result = Object.assign(req.result, result);
-    }
-    next();
+    user.save(function(err, u){
+      if(err) { return next(err); }
+      var result = {
+        title : "Zzim store",
+        success : true,
+        messages : req.flash('error'),
+        user : user
+      }
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
+      next();
+    })
   }
 }
 exports.deleteZzimStore = function(req, res, next){
@@ -226,24 +228,47 @@ exports.deleteZzimStore = function(req, res, next){
   }
   else{
     user.unzzim(req.query.zzimStoreId)
-    user.save()
-    var result = {
-      title : "Unzzim store",
-      success : true,
-      messages : req.flash('error'),
-      user : user
-    }
-    if(req.result == undefined){
-      req.result = result;
-    }
-    else{
-      req.result = Object.assign(req.result, result);
-    }
-    next();
+    user.save(function(err, u){
+      if(err) { return next(err); }
+      var result = {
+        title : "Unzzim store",
+        success : true,
+        messages : req.flash('error'),
+        user : user
+      }
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
+      next();
+    })
   }
 }
-
-
+exports.getZzimStores = function(req, res, next){
+  let user = req.result.user;
+  if(user == null){
+    req.flash("user 없음 ");
+  }
+  else{
+    user.populate({path: 'zzimStores', select: 'storename address created_at updated_at score'}, function(err, u){
+      var result = {
+        title : "zzim list",
+        success : true,
+        messages : req.flash('error'),
+        zzimStores : u.zzimStores
+      }
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
+      next();
+    })
+  }
+}
 //회원가입 -- 안씀
 // exports.signup = function(req,res,next) {
 //     if (!req.user) {

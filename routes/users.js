@@ -51,7 +51,13 @@ router.param('userId', users.getOne);
 var reservations = require('./reservations');
 router.use('/:userId/reservations', reservations);
 
-router.route('/:userId/zzimStore/:zzimStoreId')
+router.route('/:userId/zzimStores')
+.get(users.getZzimStores, common.setResponse)                         //사용자 정보 출력
+.put(common.notImplementedError)        //사용자 정보 가져오기
+.delete(common.notImplementedError)     //사용자 삭제
+.post(common.notImplementedError);
+
+router.route('/:userId/zzimStores/:zzimStoreId')
 .get(common.notImplementedError)                         //사용자 정보 출력
 .put(users.addZzimStore, common.setResponse)        //사용자 정보 가져오기
 .delete(users.deleteZzimStore, common.setResponse)     //사용자 삭제
