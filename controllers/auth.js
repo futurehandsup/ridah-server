@@ -2,7 +2,7 @@ var User = require('mongoose').model('User'),
   jwt = require('jsonwebtoken'),
   passport = require('passport');
 
-var roles = ['User', 'Owner', 'Admin'];
+var roles = ['Guest', 'User', 'Owner', 'Admin'];
 
 var getErrorMessage = function(err) {
   var message = '';
@@ -22,6 +22,7 @@ var getErrorMessage = function(err) {
   }
   return message;
 };
+//아이디, 비밀번호로 로그인 - 토큰 받음
 exports.login = function(userRole){
   return function(req, res, next) {
       if(userRole == "" || userRole == undefined || userRole==null){
@@ -89,7 +90,6 @@ exports.login = function(userRole){
         }
         return next();
       }
-
       // error occured
       const onError = (error) => {
         return next(error);
@@ -116,6 +116,7 @@ exports.login = function(userRole){
   }
 }
 
+//토큰 체크
 exports.check = function(userRole){
   return function(req, res, next){// read the token from header or url
     if(userRole == "" || userRole == undefined || userRole==null){
@@ -146,7 +147,8 @@ exports.check = function(userRole){
         jwt.verify(token, req.app.get('jwt-secret'), (err, decoded) => {
           if (err){
             res.clearCookie('authToken');
-            res.redirect(req.originalUrl);
+            throw new Error('토큰 검증 실패')
+            //res.redirect(req.originalUrl);
             //reject(err)
           }
           resolve(decoded)
@@ -179,24 +181,63 @@ exports.check = function(userRole){
     // error occured
     const onError = (error) => {
       return next(error);
-      // var result = {
-      //   title : "로그인 실패",
-      //   //page : 'users/detail',
-      //   success : false,
-      //   messages : error.message,
-      // }
-      // if(req.result == undefined){
-      //   req.result = result;
-      // }
-      // else{
-      //   req.result = Object.assign(req.result, result);
-      // }
-      // return next();
     }
 
     // process the promise
     p.then(respond).catch(onError)
   }
+}
+
+// 토큰 유효성 체크 middleware
+exports.authenticate = (req, res, next) => {
+  let result = {
+    title : "인증",
+    //page : 'users/detail',
+    success : true,
+    messages : '사용자 인증 절차',
+    info : null
+  }
+  //3) 권한 체크는 각 컨트롤러에서, 컨트롤러에 인증값 전달
+  const respond = (token) => {
+    result.info = token;
+
+    if(req.result == undefined){
+      req.result = result;
+    }
+    else{
+      req.result = Object.assign(req.result, result);
+    }
+    return next();
+  }
+  const onError = (error) => {
+    return next(error);
+  }
+
+  //1) Header에 x-access-token 검사
+  const token = req.headers['x-access-token'] || req.query.token
+
+  if(token == null || token == undefined || token == "null" || token == "undefined"){ //(1)토큰이 없으면 guest로 설정
+    return respond(null)
+  }
+
+  // 2) token verify
+  const verifyToken = new Promise(
+    (resolve, reject) => {
+      jwt.verify(token, req.app.get('jwt-secret'), (err, decoded) => {
+        if (err){
+          // (1) 실패: 에러
+          res.clearCookie('authToken');
+          throw new Error('토큰 검증 실패 : ' + err.message)
+        }
+        //(2) 성공 : 권한 체크 후 기능 실행
+        resolve(decoded)
+      })
+    }
+  )
+
+  //실행
+  verifyToken.then(respond).catch(onError);
+
 }
 
 exports.logout = (req, res, next) =>{

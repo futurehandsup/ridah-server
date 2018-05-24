@@ -63,12 +63,19 @@ module.exports = function() {
     var headers = require('../routes/headers');
     var recommends = require('../routes/recommends');
     var events = require('../routes/events');
+    var apps = require('../routes/apps');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
     var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
 
     var modules = require('../routes/modules'); // 기타 기능 -- 파일 업로드 등
+
+    var authController = require('../controllers/auth')
+
+    // 권한 체크 및 검증
+    app.use(['/users','/stores','/reviews','/qnas','/programs','/reservations','/coupons','/couponPurchaseLogs','/notices','/headers','/recommends','/events', '/apps']
+            , authController.authenticate)
 
     app.use('/', index);
     //API Route : view 없음.
@@ -84,6 +91,7 @@ module.exports = function() {
     app.use('/headers', headers);
     app.use('/recommends', recommends);
     app.use('/events', events);
+    app.use('/apps', apps)
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);

@@ -74,10 +74,6 @@ router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('cu
 router.get('/users/edit/:userId', users.getSchemas, common.renderPage('customers/users/edit'));
 router.param('userId', users.getOne);
 
-//앱에 필요한 부분
-router.get('/app/homescreen', headers.getList, events.getList, recommends.getList, common.setResponse);
-router.get('/app/mypage', reservations.getList, couponPurchaseLogs.getList, common.setResponse);
-
 //밑에는 임시
 //router.get('/stores/list2', stores.getList2, common.renderPage('customers/stores/list2'));
 
