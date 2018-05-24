@@ -25,7 +25,9 @@ var CouponPurchaseLogSchema = new Schema({
     expireAt: {
       type : Date,
       get: function(date){
-        return date.toLocaleDateString("ko-KR")
+        if(typeof date == "Date")
+          return date.toLocaleDateString("ko-KR")
+        else return date;
       }
     },
     created_at : {
