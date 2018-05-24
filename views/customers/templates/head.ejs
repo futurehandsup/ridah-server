@@ -26,19 +26,19 @@
       <div class="container" id="navbarSupportedContent">
         <ul class="navbar-nav row">
           <li class="nav-item col">
-            <a class="nav-link" href="/customers/home?userId=<%=user.id%>">홈 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/customers/home?userId=<%=user._id%>">홈 <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item col active">
-            <a class="nav-link" href="/customers/stores/list?userId=<%=user.id%>">내주변 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/customers/stores/list?userId=<%=user._id%>">내주변 <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item col">
-            <a class="nav-link" href="/customers/coupons/list?userId=<%=user.id%>">검색</a>
+            <a class="nav-link" href="/customers/coupons/list?userId=<%=user._id%>">검색</a>
           </li>
           <li class="nav-item col">
-            <a class="nav-link" href="/customers/coupons/list?userId=<%=user.id%>">이용권</a>
+            <a class="nav-link" href="/customers/coupons/list?userId=<%=user._id%>">이용권</a>
           </li>
           <li class="nav-item col">
-            <a class="nav-link" href="/customers/users/mypage?userId=<%=user.id%>">내정보</a>
+            <a class="nav-link" href="/customers/users/mypage?userId=<%=user._id%>">내정보</a>
           </li>
           <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -9,7 +9,7 @@
           <% var user = users[i]; %>
           <li class="list-group-item text-center">
             <div class="d-flex w-100 text-center">
-              <a href="/customers/stores/list?userId=<%=user.id%>" class="card-link">
+              <a href="/customers/stores/list?userId=<%=user._id%>" class="card-link">
                 <%=user.username%>
               </a>
             </div>
