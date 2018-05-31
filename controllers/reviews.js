@@ -36,6 +36,11 @@ exports.getList = function(req, res, next){
   if(req.result != undefined && req.result.store != undefined){
     params.reviewStore = req.result.store._id
   }
+  //store == undefined 인데 user(writer) 있으면?
+  if(req.result != undefined && req.result.user != undefined && req.originalUrl.includes('user')){
+    params.reviewWriter = req.result.user._id
+  }
+
   if(req.query.reviewType != undefined && req.query.reviewType != "all"){
     params.reviewType = req.query.reviewType;
   }
@@ -53,7 +58,7 @@ exports.getList = function(req, res, next){
   })
   .populate('reviewStore')
   .populate('reviewWriter')
-  .sort({created_at : 1}) //최신순
+  .sort({created_at : -1}) //최신순
   .exec(function(err, reviews) {
     if (err) {
       return next(err);

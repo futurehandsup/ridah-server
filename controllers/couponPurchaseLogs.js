@@ -36,6 +36,10 @@ exports.getList = function(req, res, next){
   if(req.result != undefined && req.result.user != undefined){
     params.user = req.result.user._id
   }
+  //req.result.user == null
+  else if(req.result.info == null || req.result.info.role != "Admin"){
+    params.user = null;
+  }
 
   CouponPurchaseLog.find(params)
   .populate('user')

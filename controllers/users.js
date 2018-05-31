@@ -28,7 +28,9 @@ exports.getSchemas = function(req, res, next){
 
 //사용자 리스트 불러오기
 exports.getList = function(req, res, next){
-  User.find(function(err, users) {
+  User.find()
+  .select('-salt -provider -password')
+  .exec(function(err, users) {
     if (err) {
       return next(err);
     } else {

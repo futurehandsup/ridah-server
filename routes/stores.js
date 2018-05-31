@@ -56,7 +56,7 @@ router.route('/:storeId')
 .delete(stores.deleteOne, common.setResponse)     //승마장 삭제
 .post(common.notImplementedError);
 
-router.route('/:storeId/details').get(reviews.getList, qnas.getList, programs.getReservationsList, common.setResponse);
+router.route('/:storeId/details').get(reviews.getList, programs.getReservationsList, common.setResponse);
 router.route('/:storeId/calendar').get(programs.getReservationsList);
 router.param('storeId', stores.getOne);
 

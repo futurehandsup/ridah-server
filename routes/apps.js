@@ -30,5 +30,6 @@ router.all('*', function(req, res, next){
 //앱에만 필요한 부분
 router.get('/homescreen', headers.getList, events.getList, recommends.getList, common.setResponse);
 router.get('/mypage', reservations.getList, couponPurchaseLogs.getList, common.setResponse);
+router.get('/couponscreen', coupons.getList, couponPurchaseLogs.getList, common.setResponse);
 
 module.exports = router;

@@ -36,6 +36,9 @@ exports.getList = function(req, res, next){
   if(req.result != undefined && req.result.store != undefined){
     params.store = req.result.store._id
   }
+  else if(req.result.info.role != "Admin"){
+    params.store = null;
+  }
   var populateParams = {};
   if(req.query.start != undefined){
     populateParams.$gte = new Date(req.query.start);

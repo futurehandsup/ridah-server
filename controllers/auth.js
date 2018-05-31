@@ -2,7 +2,7 @@ var User = require('mongoose').model('User'),
   jwt = require('jsonwebtoken'),
   passport = require('passport');
 
-var roles = ['Guest', 'User', 'Owner', 'Admin'];
+const ROLES = ['Guest', 'User', 'Owner', 'Admin'];
 
 var getErrorMessage = function(err) {
   var message = '';
@@ -41,7 +41,7 @@ exports.login = function(userRole){
         if (!user) {
           // user does not exist
           throw new Error('아이디가 존재하지 않습니다.')
-        } else if(roles.indexOf(user.role) < roles.indexOf(userRole)){
+        } else if(ROLES.indexOf(user.role) < ROLES.indexOf(userRole)){
           throw new Error('권한이 없습니다.')
         }else {
           // user exists, check the password
@@ -158,7 +158,7 @@ exports.check = function(userRole){
 
     // if token is valid, it will respond with its info
     const respond = (token) => {
-      if(roles.indexOf(token.role) < roles.indexOf(userRole)){
+      if(ROLES.indexOf(token.role) < ROLES.indexOf(userRole)){
         throw new Error('권한이 없습니다.')
       }
       var result = {
@@ -238,6 +238,36 @@ exports.authenticate = (req, res, next) => {
   //실행
   verifyToken.then(respond).catch(onError);
 
+}
+
+// 권한 체크
+exports.hasAuthority = (tobe, force) => {
+  return (req, res, next) =>{
+    if(tobe == null) tobe = ROLES[0]; //userRole : tobe
+    let err = new Error('권한 없음');
+    let hasAuth = true;
+
+    let token = req.result.info;
+    if(token == null){
+      token = { role : ROLES[0] } //user = guest
+    }
+
+    if(ROLES.indexOf(token.role) < ROLES.indexOf(tobe)){
+      hasAuth = false;
+    }
+    else{
+      if(userRole == 'User'){
+        if(token._id != req.result.user._id){
+          hasAuth = false;
+        }
+      }
+      else if(userRole == 'Owner'){
+        if(token._id != req.result.store.owner){
+          hasAuth = false;
+        }
+      }
+    }
+  }
 }
 
 exports.logout = (req, res, next) =>{

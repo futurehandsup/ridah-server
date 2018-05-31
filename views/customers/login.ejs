@@ -1,0 +1,60 @@
+<% include ./templates/header.ejs %>
+<div class="container" style="max-width: 500px; padding: 100px 0; margin-bottom: 200px;">
+
+  <form class="form-signin">
+    <h2 class="form-signin-heading">관리자 로그인</h2>
+    <span><%=messages%></span>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="text" name="userid" class="form-control" placeholder="아이디" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="비밀번호" required>
+    <!--<div class="checkbox">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>-->
+    <button id="loginButton" class="btn btn-lg btn-primary btn-fill btn-block" type="button">로그인</button>
+    <!-- 테스트용으로 주석 해제-->
+    <button id="signinButton" class="btn btn-lg btn-primary btn-block" type="button">회원가입</button>
+  </form>
+
+</div> <!-- /container -->
+<% include ./templates/bottom.ejs %>
+<script>
+$('#loginButton').click(function(){
+  var user =  $('.form-signin').serializeObject();
+
+  $.ajax({
+    type:"POST",
+    url:'/users/token/Admin',
+    data:user,
+    success:function(args){
+      alert("성공했습니다.");
+      location.href="/admin/stores/list";
+    },
+    error:function(e){
+        alert(e.responseText);
+    }
+  });
+});
+$('#signinButton').click(function(){
+  var user =  $('.form-signin').serializeObject();
+  user.role = "Admin";
+  user.username ="관리자";
+
+  $.ajax({
+    type:"POST",
+    url:'/users',
+    data:{
+      user: user
+    },
+    success:function(args){
+      alert("성공했습니다.");
+      location.href="/admin/stores/list";
+    },
+    error:function(e){
+      alert(e.responseText);
+    }
+  });
+});
+</script>

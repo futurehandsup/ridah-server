@@ -68,6 +68,15 @@ router.param('zzimStoreId', function(req, res, next, storeId){
   next();
 })
 
+var reservationRouter = require('./reservations');
+router.route('/:userId/reservations', reservationRouter)
+
+var reviewRouter = require('./reviews');
+router.use('/:userId/reviews', reviewRouter);
+
+var qnaRouter = require('./qnas');
+router.use('/:userId/qnas', qnaRouter);
+
 /////////////////////////////
 /* GET users listing. */
 router.get('/', function(req, res, next) {

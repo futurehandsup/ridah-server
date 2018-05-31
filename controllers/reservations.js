@@ -39,6 +39,13 @@ exports.getList = function(req, res, next){
   if(req.result != undefined && req.result.store != undefined){
     params.store = req.result.store._id
   }
+  //admin 일때만 전체 조회 가능
+  if(req.result != undefined && req.result.store==undefined && req.result.user==undefined){
+    if(req.result.info == null || req.result.info.role != "Admin"){
+      params.store = null;
+      params.owner = null;
+    }
+  }
   Reservation.find(params)
   .populate('store')
   .populate('owner')
