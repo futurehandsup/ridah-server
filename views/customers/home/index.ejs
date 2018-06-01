@@ -18,8 +18,14 @@
     <div class="card mb-3" style="width: 100%;">
       <div class="card-body">
         <h5 class="card-title">말랑이 추천하는 승마장</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="row">
+          <%for (recommend of recommends){%>
+            <%let store = recommend.recommendID%>
+            <div class="flex-1 text-white" style="padding: 30px 15px; text-align: center;background-image: url(<%=store.image%>); background-size: cover; background-position:center;height: 100px; margin: 0 10px;">
+              <%=store.storename%>
+            </div>
+          <%}%>
+        </div>
       </div>
     </div>
 

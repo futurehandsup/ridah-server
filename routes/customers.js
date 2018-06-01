@@ -32,7 +32,7 @@ router.get('/', users.getList, stores.getList, common.renderPage('customers/inde
 router.get('/login', common.renderPage('customers/login'));
 
 // home
-router.get('/home', headers.getList,  common.renderPage('customers/home/index'));
+router.get('/home',  headers.getList, events.getList, recommends.getList, common.renderPage('customers/home/index'));
 
 // stores
 router.get('/stores/list', stores.getList, common.renderPage('customers/stores/list'));

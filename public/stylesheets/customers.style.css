@@ -14,7 +14,10 @@ colors
 .navbar-nav .col.active .nav-link{
   color: #008d87;
 }
-
+.navbar-expand .navbar-nav .nav-link{
+  padding: 0;
+  white-space: nowrap;
+}
 
 .btn-primary{
   background-color: #008d87;
