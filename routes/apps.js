@@ -10,6 +10,7 @@ var programs = require('../controllers/programs');
 var reservations = require('../controllers/reservations');
 var coupons = require('../controllers/coupons');
 var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
+var carrotUsageLogs = require('../controllers/carrotUsageLogs');
 
 var headers = require('../controllers/headers')
 var events = require('../controllers/events')
@@ -30,6 +31,6 @@ router.all('*', function(req, res, next){
 //앱에만 필요한 부분
 router.get('/homescreen', headers.getList, events.getList, recommends.getList, common.setResponse);
 router.get('/mypage', reservations.getList, couponPurchaseLogs.getList, common.setResponse);
-router.get('/couponscreen', coupons.getList, couponPurchaseLogs.getList, common.setResponse);
+router.get('/couponscreen', coupons.getList, carrotUsageLogs.getList, common.setResponse);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
+var carrotUsageLogs = require('../controllers/carrotUsageLogs');
 var common = require('../controllers/common');
     //passport = require('passport');
 
@@ -10,25 +10,24 @@ router.route('/')
 .all(function(req, res, next) {
   // runs for all HTTP verbs first
   // think of it as route specific middleware!
-  console.log('getlist')
   next();
 })
-.get(couponPurchaseLogs.getList, common.setResponse)        // 승마장 리스트 출력
-.post(couponPurchaseLogs.registerOne, common.setResponse)   // 승마장 등록
+.get(carrotUsageLogs.getList, common.setResponse)        // 승마장 리스트 출력
+.post(carrotUsageLogs.registerOne, common.setResponse)   // 승마장 등록
 .put(common.notImplementedError)
 .delete(common.notImplementedError);
 
-router.route('/:couponPurchaseLogId')
+router.route('/:carrotUsageLogId')
 .all(function(req, res, next) {
   // runs for all HTTP verbs first
   // think of it as route specific middleware!
   next();
 })
 .get(common.setResponse)                          //승마장 정보 출력
-.put(couponPurchaseLogs.updateOne, common.setResponse)        //승마장 정보 가져오기
-.delete(couponPurchaseLogs.deleteOne, common.setResponse)     //승마장 삭제
+.put(carrotUsageLogs.updateOne, common.setResponse)        //승마장 정보 가져오기
+.delete(carrotUsageLogs.deleteOne, common.setResponse)     //승마장 삭제
 .post(common.notImplementedError);
 
-router.param('couponPurchaseLogId', couponPurchaseLogs.getOne);
+router.param('carrotUsageLogId', carrotUsageLogs.getOne);
 
 module.exports = router;

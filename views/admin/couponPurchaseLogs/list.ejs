@@ -88,7 +88,7 @@
                   <tr>
                     <td><%=i%></td>
                     <td><%=(couponPurchaseLog['user'] != null )? couponPurchaseLog['user'].userid : couponPurchaseLog['user']%></td>
-                    <td><%=couponPurchaseLog['coupon'].couponname%></td>
+                    <td><%=(couponPurchaseLog['coupon'] != null ) ? couponPurchaseLog['coupon'].couponname : ""%></td>
                     <td><%=couponPurchaseLog['price']%></td>
                     <td><%=couponPurchaseLog['payment']%></td>
                     <td><%=couponPurchaseLog['created_at']%></td>

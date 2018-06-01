@@ -88,6 +88,7 @@ var ProgramSchema = new Schema({
     }
     // 추가로 결제정보도. 언제 뭘로 결제했는지.
 });
+
 ProgramSchema.virtual('time.start_at').get(function(){
   var h, m;
   var s = this.time.start;
@@ -102,6 +103,30 @@ ProgramSchema.virtual('time.start_at').get(function(){
   }
   else{
     m = s.minutes.toString();
+  }
+  return (h + ":" + m);
+});
+ProgramSchema.virtual('time.end_at').get(function(){
+  var h, m;
+  var s = this.time.start;
+
+  var hours = s.hours;
+  var minutes = s.minutes+this.time.howLong;
+  if(minutes > 59){
+    hours +=1;
+    minutes -= 60;
+  }
+  if(hours < 10){
+    h = "0"+hours.toString();
+  }
+  else{
+    h = hours.toString();
+  }
+  if(minutes < 10){
+    m = "0"+s.minutes.toString();
+  }
+  else{
+    m = minutes.toString();
   }
   return (h + ":" + m);
 });

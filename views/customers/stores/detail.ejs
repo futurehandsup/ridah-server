@@ -21,7 +21,7 @@
 
     <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
-        <%var date=calendar.schedules[0].date;%>
+        <%var date=new Date(calendar.schedules[0].date);%>
         <%=date.getFullYear()%>년 <%=(date.getMonth()+1)%>월 <%=date.getDate()%>일 프로그램
         <a class="card-link float-right" onclick="$('#datepicker').datepicker('show');">
           <input type="text" id="datepicker" style="visibility: hidden; position:absolute;" value="<%=query.date%>">

@@ -59,6 +59,7 @@ module.exports = function() {
     var reservations = require('../routes/reservations');
     var coupons = require('../routes/coupons');
     var couponPurchaseLogs = require('../routes/couponPurchaseLogs');
+    var carrotUsageLogs = require('../routes/carrotUsageLogs');
     var notices = require('../routes/notices');
     var headers = require('../routes/headers');
     var recommends = require('../routes/recommends');
@@ -74,7 +75,7 @@ module.exports = function() {
     var authController = require('../controllers/auth')
 
     // 권한 체크 및 검증
-    app.use(['/users','/stores','/reviews','/qnas','/programs','/reservations','/coupons','/couponPurchaseLogs','/notices','/headers','/recommends','/events', '/apps']
+    app.use(['/users','/stores','/reviews','/qnas','/programs','/reservations','/coupons','/couponPurchaseLogs','/carrotUsageLogs','/notices','/headers','/recommends','/events', '/apps']
             , authController.authenticate)
 
     app.use('/', index);
@@ -87,6 +88,7 @@ module.exports = function() {
     app.use('/reservations', reservations);
     app.use('/coupons', coupons);
     app.use('/couponPurchaseLogs', couponPurchaseLogs);
+    app.use('/carrotUsageLogs', carrotUsageLogs);
     app.use('/notices',notices);
     app.use('/headers', headers);
     app.use('/recommends', recommends);

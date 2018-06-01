@@ -24,7 +24,7 @@
                 <small class="card-text">구매일로부터 <%=coupon.validFor%>일간 유효</small><br>
                 <!--<small class="card-text"><%=coupon.carrots%>회 사용가능</small>-->
               </p>
-              <button type="button" class="btn btn-primary createButton" data-couponid="<%=coupon.id%>" data-price="<%=coupon.price%>">구매하기</a>
+              <button type="button" class="btn btn-primary createButton" data-couponid="<%=coupon.id%>" data-price="<%=coupon.price%>" data-carrots="<%=coupon.carrots%>">구매하기</a>
             </div>
           </div>
         </div>
@@ -42,6 +42,7 @@ $(document).ready(function(){
       user : '<%=user.id%>',
       coupon : $(this).data('couponid'),
       price : $(this).data('price').replace(",", ""),
+      carrots: $(this).data('carrots'),
       validFor : <%=coupon.validFor%>
     }
 

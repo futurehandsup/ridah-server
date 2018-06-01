@@ -74,13 +74,17 @@ exports.registerOne = function(req, res, next) {
   var reservation = new Reservation(req.body);
   var message = null;
 
+  let date = new Date(reservation.reservationDate);
+  date = date.toLocaleDateString("ko-KR")
+  reservation.reservationDate = date;
+
   reservation.save(function(err) {
     if (err) {
       return next(err);
     } else {
       Program.findById(reservation.program, function (err, program){
         if(err) return next(err);
-        program.reservations.push(reservation);
+        //program.reservations.push(reservation);
         program.save();
       });
       var result = {

@@ -1,4 +1,4 @@
-var CouponPurchaseLog = require('mongoose').model('CouponPurchaseLog');
+var CarrotUsageLog = require('mongoose').model('CarrotUsageLog');
 var Coupon = require('mongoose').model('Coupon');
 var User = require('mongoose').model('User');
 //passport = require('passport');
@@ -10,7 +10,7 @@ var getErrorMessage = function(err) {
     switch (err.code) {
       case 11000:
       case 11001:
-        message = 'CouponPurchaseLogID already exists';
+        message = 'CarrotUsageLogID already exists';
         break;
       default:
         message = 'Something went Wrong';
@@ -25,7 +25,7 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = CouponPurchaseLog.schema.paths;
+  var schema = CarrotUsageLog.schema.paths;
 
   req.result.schema = schema;
   next();
@@ -37,14 +37,18 @@ exports.getList = function(req, res, next){
     params.user = req.result.user._id
   }
   //req.result.user == null
-  else if(req.result.info == null || req.result.info.role != "Admin"){
+  else if(req.result != undefined && req.result.info == null || req.result.info.role != "Admin"){
     params.user = null;
   }
 
-  CouponPurchaseLog.find(params)
-  .populate('user')
-  .populate('coupon')
-  .exec(function(err, couponPurchaseLogs) {
+  CarrotUsageLog.find(params)
+  .populate('user', '-salt -provider -password -zzimStores')
+  .populate('couponPurchaseLog')
+  .populate('reservation')
+  .populate({path:'reservation', populate:{ path: 'store', select: 'storename created_at updated_at score'}})
+  .populate({path:'reservation', populate:{ path: 'program'}})
+  .sort({created_at: -1})
+  .exec(function(err, carrotUsageLogs) {
     if (err) {
       return next(err);
     } else {
@@ -52,7 +56,7 @@ exports.getList = function(req, res, next){
         title : "이용권 구매 현황",
         success : true,
         messages : req.flash('error'),
-        couponPurchaseLogs : couponPurchaseLogs
+        carrotUsageLogs : carrotUsageLogs
       }
       if(req.result == undefined){
         req.result = result;
@@ -67,53 +71,64 @@ exports.getList = function(req, res, next){
 exports.registerOne = function(req, res, next) {
   var validFor = parseInt(req.body.validFor);
   req.body.validFor = undefined;
-  var couponPurchaseLog = new CouponPurchaseLog(req.body);
+  var carrotUsageLog = new CarrotUsageLog(req.body);
   var message = null;
   var today = new Date();
   today.setDate(today.getDate() + validFor);
-  couponPurchaseLog.expireAt = today;
-  //console.log(couponPurchaseLog.expireAt)
+  carrotUsageLog.expireAt = today;
+  //console.log(carrotUsageLog.expireAt)
 
-  couponPurchaseLog.save(function(err, cpl) {
+  carrotUsageLog.save(function(err, cpl) {
     if (err) {
       return next(err);
     } else {
-      CouponPurchaseLog.findById(cpl._id)
+      CarrotUsageLog.findById(cpl._id)
       .populate('coupon')
       .exec(function(err, log){
         if(err){return next(err);}
         else{
-          var result = {
-            title : "이용권 현황",
-            //page : 'couponPurchaseLogs/list2',
-            success : true,
-            messages : req.flash('error'),
-            couponPurchaseLog : couponPurchaseLog
+          var query = {
+            $inc : {
+              coupons: log.coupon.carrots,
+            }
           }
-          if(req.result == undefined){
-            req.result = result;
-          }
-          else{
-            req.result = Object.assign(req.result, result);
-          }
-          next();
-          //return res.redirect('/couponPurchaseLogs/list');
+          User.findByIdAndUpdate(carrotUsageLog.user, query, function(err, user){
+            if(err){
+                return next(err);
+            } else {
+              var result = {
+                title : "이용권 현황",
+                //page : 'carrotUsageLogs/list2',
+                success : true,
+                messages : req.flash('error'),
+                carrotUsageLog : carrotUsageLog
+              }
+              if(req.result == undefined){
+                req.result = result;
+              }
+              else{
+                req.result = Object.assign(req.result, result);
+              }
+              next();
+              //return res.redirect('/carrotUsageLogs/list');
+            }
+          });
         }
       });
     }
   });
 };
 exports.updateOne = function(req, res, next) {
-  CouponPurchaseLog.findByIdAndUpdate(req.result.couponPurchaseLog._id, req.body, function(err, couponPurchaseLog) {
+  CarrotUsageLog.findByIdAndUpdate(req.result.carrotUsageLog._id, req.body, function(err, carrotUsageLog) {
     if (err) {
       return next(err);
     } else {
-      couponPurchaseLog.updated_at = Date.now();
+      carrotUsageLog.updated_at = Date.now();
       var result = {
-        title : "CouponPurchaseLog Update",
+        title : "CarrotUsageLog Update",
         success : true,
         messages : req.flash('error'),
-        couponPurchaseLog : couponPurchaseLog
+        carrotUsageLog : carrotUsageLog
       }
       if(req.result == undefined){
         req.result = result;
@@ -122,23 +137,23 @@ exports.updateOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/couponPurchaseLogs/detail/'+req.couponPurchaseLog._id);
+      //return res.redirect('/carrotUsageLogs/detail/'+req.carrotUsageLog._id);
     }
   });
 };
 exports.getOne = function(req, res, next, id) {
-  CouponPurchaseLog.findOne({
+  CarrotUsageLog.findOne({
     _id: id
-  }, function(err, couponPurchaseLog) {
+  }, function(err, carrotUsageLog) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "CouponPurchaseLog List",
-        //page : 'couponPurchaseLogs/detail',
+        title : "CarrotUsageLog List",
+        //page : 'carrotUsageLogs/detail',
         success : true,
         messages : req.flash('error'),
-        couponPurchaseLog : couponPurchaseLog
+        carrotUsageLog : carrotUsageLog
       }
       if(req.result == undefined){
         req.result = result;
@@ -153,16 +168,16 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  CouponPurchaseLog.findByIdAndUpdate(req.result.couponPurchaseLog._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, couponPurchaseLog) {
+  CarrotUsageLog.findByIdAndUpdate(req.result.carrotUsageLog._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, carrotUsageLog) {
     if (err) {
       return next(err);
     } else {
-      couponPurchaseLog.updated_at = date;
+      carrotUsageLog.updated_at = date;
       var result = {
-        title : "CouponPurchaseLog Delete",
+        title : "CarrotUsageLog Delete",
         success : true,
         messages : req.flash('error'),
-        couponPurchaseLog : couponPurchaseLog
+        carrotUsageLog : carrotUsageLog
       }
       if(req.result == undefined){
         req.result = result;
@@ -171,7 +186,7 @@ exports.deleteOne = function(req, res, next) {
         req.result = Object.assign(req.result, result);
       }
       next();
-      //return res.redirect('/couponPurchaseLogs/detail/'+req.couponPurchaseLog._id);
+      //return res.redirect('/carrotUsageLogs/detail/'+req.carrotUsageLog._id);
     }
   });
 };

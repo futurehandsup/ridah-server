@@ -46,10 +46,22 @@ router.route('/:userId')
 .delete(users.deleteOne, common.setResponse)     //사용자 삭제
 .post(common.notImplementedError);
 
-router.param('userId', users.getOne);
+var reservationRouter = require('./reservations');
+router.use('/:userId/reservations', reservationRouter)
 
-var reservations = require('./reservations');
-router.use('/:userId/reservations', reservations);
+var couponPurchaseLogRouter = require('./couponPurchaseLogs');
+router.use('/:userId/couponPurchaseLogs', couponPurchaseLogRouter)
+
+var carrotUsageLogRouter = require('./carrotUsageLogs');
+router.use('/:userId/carrotUsageLogs', carrotUsageLogRouter)
+
+var reviewRouter = require('./reviews');
+router.use('/:userId/reviews', reviewRouter);
+
+var qnaRouter = require('./qnas');
+router.use('/:userId/qnas', qnaRouter);
+
+router.param('userId', users.getOne);
 
 router.route('/:userId/zzimStores')
 .get(users.getZzimStores, common.setResponse)                         //사용자 정보 출력
@@ -67,15 +79,6 @@ router.param('zzimStoreId', function(req, res, next, storeId){
   req.query.zzimStoreId = storeId;
   next();
 })
-
-var reservationRouter = require('./reservations');
-router.route('/:userId/reservations', reservationRouter)
-
-var reviewRouter = require('./reviews');
-router.use('/:userId/reviews', reviewRouter);
-
-var qnaRouter = require('./qnas');
-router.use('/:userId/qnas', qnaRouter);
 
 /////////////////////////////
 /* GET users listing. */

@@ -94,13 +94,16 @@ exports.getReservationsList = function(req, res, next){
 
   if(type == "daily"){
     //date_start.setDate(date.getDate());
-    date_end.setDate(date_end.getDate()+1)
-    date_end.setTime(date_end.getTime()-1);
+    // date_end.setDate(date_end.getDate()+1)
+    // date_end.setTime(date_end.getTime()-1);
   }else if(type=="weekly"){
     n = 7;
-    var diff = date.getDay();
-    date_start.setDate(date.getDate()-diff+1);
-    date_end.setDate(date_start.getDate()+(n-1));
+    //06-03
+    var diff = date.getDay(); //0
+    //date.getDate() == 2
+    if(diff==0) diff += 7
+    date_start.setDate(date.getDate()-diff+1); //월요일로
+    date_end.setDate(date.getDate()+(n-diff)); //
   }else if(type=="monthly"){
     var tmp_date = new Date(date);
     tmp_date.setDate(1);
@@ -118,7 +121,7 @@ exports.getReservationsList = function(req, res, next){
 
   var calendar = {
     type : type,
-    date : date,
+    date : date.toLocaleDateString("ko-KR"),
     schedules : new Array()
   }
   Program.find(params) // Program.find({store: ($StoreID) })
@@ -129,9 +132,10 @@ exports.getReservationsList = function(req, res, next){
       return next(err);
     } else {
       params.reservationDate = {
-        $gte : date_start,
-        $lte : date_end
+        $gte : date_start.toLocaleDateString("ko-KR"),
+        $lte : date_end.toLocaleDateString("ko-KR")
       };
+      //console.log(params.reservationDate)
 
       Reservation.aggregate([
         {
@@ -143,37 +147,35 @@ exports.getReservationsList = function(req, res, next){
             programs: { $push : "$program" }
           }
         },
-        { $sort: { _id: -1 } },
+        { $sort: { reservationDate: -1 } },
         {
           $match : {
             $and : [
-              { reservationDate : { $gte : date_start.toLocaleDateString("ko-KR"), $lte : date_end.toLocaleDateString("ko-KR") } },
+              { reservationDate : params.reservationDate },
               { store : require('mongoose').Types.ObjectId(params.store) }
             ]
           }
         }
       ])
       .exec(function(err, results){
+        //console.log(results)
         var reservations = results;
         reservations = reservations.slice(0); //배열의 shallow copy 반환
-
         var reservation;
         if(reservations.length != 0){
           reservation = reservations.pop();
-          console.log(reservations.length)
+          //console.log(reservations.length)
         }
+        var today = new Date(date_start);
+
         for(var i=0; i<n; i++){
           var p = JSON.parse(JSON.stringify( programs ));
-          var today = new Date(date_start);
           today.setDate(date_start.getDate()+i);
-          //console.log()
-          //console.log("today: "+today)
 
           var reservationDate;
-          if(reservation != null) reservationDate = new Date(reservation.reservationDate);
-          //console.log("reservation: "+reservationDate)
+          if(reservation != null) reservationDate = reservation.reservationDate;
 
-          if(reservation!=null && (reservationDate.getDate() == today.getDate())){
+          if(reservation!=null && (reservationDate == today.toLocaleDateString("ko-KR"))){
             for(var j=0; j<programs.length; j++){
               if(reservation.programs.findIndex(x => x.toString() === p[j]._id.toString()) > -1){ //같은 id값 있으면 reserved = true
                 p[j].isReserved = true;
@@ -185,7 +187,7 @@ exports.getReservationsList = function(req, res, next){
             }
           }
           var schedule = {
-            date : today,
+            date : today.toLocaleDateString("ko-KR"),
             programs : p
           }
           calendar.schedules.push(schedule);
