@@ -15,7 +15,8 @@
           </a>
         </li>
         <h2 class="text-center" style="">
-          <%=calendar.date.getFullYear()%>년 <%=calendar.date.getMonth()+1%>월
+         
+          <%=m_date.getFullYear()%>년 <%=m_date.getMonth()+1%>월
         </h2>
         <li class="page-item">
           <% m_date.setMonth(m_date.getMonth()+2);%>
@@ -41,10 +42,12 @@
         <% for(var i=0; i < calendar.schedules.length; i++){ %>
           <%
           var schedule = calendar.schedules[i];
-          var m = schedule.date.getDay();
+          var s_date = new Date(schedule.date)
+          var m = s_date.getDay();
           var flag_today = false;
           var flag_selected = false;
-          if(schedule.date.getFullYear() == calendar.date.getFullYear() && schedule.date.getMonth() == calendar.date.getMonth() && schedule.date.getDate() == calendar.date.getDate()){
+
+          if(s_date.getFullYear() == m_date.getFullYear() && s_date.getMonth() == m_date.getMonth() &&s_date.getDate() == m_date.getDate()){
             today_schedule = schedule;
             flag_selected = true;
           }
@@ -56,11 +59,11 @@
               <% } %>
           <% } else if(m%7 == 0){%><tr><%}%>
             <% var today = new Date();
-            if(schedule.date.getFullYear() == today.getFullYear() && schedule.date.getMonth() == today.getMonth() && schedule.date.getDate() == today.getDate()){
+            if(s_date.getFullYear() == today.getFullYear() && s_date.getMonth() == today.getMonth() && s_date.getDate() == today.getDate()){
               flag_today = true;
             }%>
           <td class="<%=flag_today?'today':''%> <%=flag_selected?'selected':''%>">
-            <a href="?type=monthly&date=<%=schedule.date.getFullYear()%>-<%=(schedule.date.getMonth()+1)%>-<%=(schedule.date.getDate())%>"><%=schedule.date.getDate()%></a><br>
+            <a href="?type=monthly&date=<%=s_date.getFullYear()%>-<%=(s_date.getMonth()+1)%>-<%=(s_date.getDate())%>"><%=s_date.getDate()%></a><br>
             <%for (var j=0; j < schedule.programs.length; j++){%>
             <% var program = schedule.programs[j];%>
               <div class="program">
