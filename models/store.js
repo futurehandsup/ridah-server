@@ -69,6 +69,10 @@ var StoreSchema = new Schema({
       type: String,
       default: "/images/background.jpg"
     }],
+    tag : [{
+      type: String,
+      default: ""
+    }],
     gps : {
       type : {
         type: String,

@@ -92,6 +92,13 @@ router.get('/notices/edit/:noticeId', notices.getSchemas, common.renderPage('adm
 
 router.param('headerId', headers.getOne);
 
+// notices -owner
+router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPage('owner/notices/list'));
+router.get('/notices/edit', notices.getList, notices.getSchemas, common.renderPage('owner/notices/edit')); // 필요없음
+router.get('/notices/edit/:noticeId', notices.getSchemas, common.renderPage('owner/notices/edit'));
+
+router.param('headerId', headers.getOne);
+
 // headers
 router.get('/headers/list', headers.getList, headers.getSchemas, common.renderPage('admin/headers/list'));
 router.get('/headers/edit', headers.getList, headers.getSchemas, common.renderPage('admin/headers/edit')); // 필요없음

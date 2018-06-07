@@ -123,10 +123,50 @@
             </table>
           </div>
         </div>
+
+        <!--new-->
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-header">
+            <div style="padding: 10px;">
+              조회기간     
+              <ul style="display: block; float: right;">일간</ul>
+              <ul style="display: block; float: right;">주간</ul>
+              <ul style="display: block; float: right;">월간</ul>
+                              <!--css등을 이용하여 버튼으로-->
+              <input type="date" name="date-from"> 
+              <input type="date" name="date-until">
+            </div>
+          </div>                     
+        </div> 
+
+          <div class="card">  
+            <div class="header">
+              <h4 class="title">주문현황 그래프                 
+                    
+                <ul class="list-group list-group-flush" style="padding: 10px;">
+                  <li class="list-group-item">그래프가 없습니다</li>      
+                </ul>
+      
+            </div>
+          </div>
+
+          <div class="card">  
+            <div class="header">
+             <h4 class="title">고객현황 그래프
+        
+                   <ul class="list-group list-group-flush" style="padding: 10px;">
+                      <li class="list-group-item">그래프가 없습니다</li>
+                   </ul>
+             
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
 </div>
+
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){
