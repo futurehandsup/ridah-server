@@ -57,6 +57,7 @@ exports.getList = function(req, res, next){
     path: 'reservations',
     match: { reservationDate : populateParams},
   })
+  .populate('store')
   .exec(function(err, programs) {
     if (err) {
       return next(err);
