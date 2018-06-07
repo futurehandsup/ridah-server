@@ -198,6 +198,23 @@ var StoreSchema = new Schema({
 StoreSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });
+//
+// StoreSchema.methods.hasTag = function(tag){
+//   return (this.tags.indexOf(tag) > -1)
+// }
+// StoreSchema.methods.addTag = function(tag){
+//   if(!this.hasTag(tag)){
+//     this.tags.push(tag);
+//   }
+// }
+// StoreSchema.methods.addTags = function(...tags){
+//   Array.prototype.push.apply(this.tags, tags);
+// }
+// StoreSchema.methods.removeTag = function(tag){
+//   if(this.hasTag(tag)){
+//     this.tags.splice(this.tags.indexOf(tag), 1);
+//   }
+// }
 
 // StoreSchema.virtual('idpass').get(function() {     // 가상 속성, StoreSchema 의 set 옵션에 virtuals 옵션을 true 로 설정해야 작동
 //     return this.userid + ' ' + this.password;
