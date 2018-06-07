@@ -80,6 +80,13 @@
                           </div>
                         </div>
 
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>태그</label>
+                            <input name="tag" type="text" class="form-control" placeholder="태그" value="">
+                          </div>
+                        </div>
+
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -105,7 +112,8 @@
                 <th>사이트</th>
                 <th>연락처</th>
                 <th>소개글</th>
-                <th>이미지</th>
+                <th>이미지</th> 
+                <th>태그</th>
                 
                 <th>작업</th>
 
@@ -126,7 +134,7 @@
                     <td><%=store['telephone']%></td>
                     <td><%=store['introduction']%></td>
                     <td><%=store['image']%></td>
-
+                    <td><%=store['tag']%></td>
                     <td>
                       <button data-item="<%=store._id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
                       <a href="edit/<%=store._id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>

@@ -1,104 +1,104 @@
 <% include ../templates/head.ejs %>
-<!-- Modal -->
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">프로그램 등록</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <div class="content">
-          <form id="createForm" action="/notices" method="POST">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>프로그램명</label>
-                  <input name="programname" type="text" class="form-control" placeholder="프로그램명" value="">
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">공지사항
+              <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
+              만들기
+              </button></h4>
+            <p class="category">Here is a subtitle for this table</p>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">승마장 등록</h4>
                 </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>프로그램 소개</label>
-                  <input name="introduction" type="text" class="form-control" placeholder="프로그램 소개" value="">
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>유형</label>
-                  <select name="programType" class="form-control" placeholder="프로그램명">
-                    <option value="체험일반">체험일반(50,000)</option>
-                    <option value="체험고급">체험고급(70,000)</option>
-                    <option value="자유기승">자유기승(50,000)</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <label>시작 시간(45분 소요)</label>
-                <div class="form-row">
-                  <div class="form-group col-6">
-                    <input name="time.start.hours" type="text" class="form-control" placeholder="시간(0~23)" value="">
+                <div class="modal-body">
+                  <div class="content">
+                    <form id="createForm" action="/notices" method="POST">
+                      <div class="row">
+                        <% var keys = Object.keys(schema);
+
+                       for(var j=0; j< keys.length; j++){
+                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label><%=keys[j]%></label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
+                        </div>
+
+                      <% } %>
+                      </div>
+                      <div class="clearfix"></div>
+                    </form>
                   </div>
-                  <div class="form-group col-6">
-                    <input name="time.start.minutes" type="text" class="form-control" placeholder="분(0~59)" value="">
-                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="createButton">저장</button>
                 </div>
               </div>
             </div>
-            <div class="clearfix"></div>
-          </form>
+          </div>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+                <th>ID</th>
+                <% var keys = Object.keys(schema); %>
+
+                <th>공지제목</th>
+                <th>공지내용</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>수정일</th>
+
+                <th>작업</th>
+
+              </thead>
+              <tbody>
+                <% %>
+                <% for(var i=0; i<notices.length; i++){
+                  var notice = notices[i];
+                  %>
+                  <tr>
+                    <td><%=i%></td>
+
+                    <td><%=notice['noticeTitle']%></td>
+                    <td><%=notice['noticeText']%></td>
+                    <td><%=(notice['noticeWriter'] != null) ? notice['noticeWriter'].username : notice['noticeWriter']%></td>
+                    <td><%=notice['created_at']%></td>
+                    <td><%=notice['updated_at']%></td>
+
+                    <td>
+                      <button data-item="<%=notice.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
+                      <a href="edit/<%=notice.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+                    </td>
+                  </tr>
+                <% }%>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="createButton">저장</button>
       </div>
     </div>
   </div>
-</div>
-
-<div class="container-fluid">
-  <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
-  만들기
-  </button>
-  <h2>공지사항</h2>
-  <table class="table table-bordered">
-    <thead class="thead-light">
-      <tr>
-        <th>시간</th>
-        <th>프로그램명</th>
-        <th>유형</th>
-        <th>관리</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for(var i=0; i<notices.length; i++){
-        var program = notices[i];
-      %>
-      <tr>
-        <td><%=program.time.start_at%></td>
-        <td><%=program.programname%><br><%=program.introduction%></td>
-        <td><%=program.programType%></td>
-        <td>
-          <button data-item="<%=program.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-          <a href="edit/<%=program.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
-        </td>
-      </tr>
-      <% }%>
-    </tbody>
-  </table>
 </div>
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){
   $('#createButton').click(function(){
-    var program =  $('#createForm').serializeObject();
-    program.store = '<%=store.id%>';
-
+    var notice =  $('#createForm').serializeObject();
     $.ajax({
       type:"POST",
       url:'/notices',
-      data:program,
+      data:notice,
       success:function(args){
         alert("성공했습니다.");
         location.reload();
@@ -109,10 +109,10 @@ $(document).ready(function(){
     });
   });
   $('.deleteButton').click(function(){
-    var programId = $(this).data("item");
+    var noticeId = $(this).data("item");
     $.ajax({
       type:"DELETE",
-      url:'/notices/'+programId,
+      url:'/notices/'+noticeId,
 
       success:function(args){
         alert("성공했습니다.");

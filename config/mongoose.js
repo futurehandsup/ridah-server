@@ -17,5 +17,6 @@ module.exports = function() {
    require('../models/header.js');
    require('../models/recommend.js');
    require('../models/event.js');
+   
    return db;
 }

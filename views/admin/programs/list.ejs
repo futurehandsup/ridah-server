@@ -121,7 +121,7 @@
 
                     <td><%=program['programname']%></td>
                     <td><%=program['introduction']%></td>
-                    <td><%=program['store']%></td>
+                    <td><%=(program.store!=null) ? program.store.storename : program.store%></td>
                     <td><%=program['programType']%></td>
                     <td><%=program['time'].start_at%></td>
                     <td><%=program['time'].howLong%></td>
