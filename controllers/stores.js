@@ -50,7 +50,12 @@ exports.getList = function(req, res, next){
     params.push(geoParams)
   }
   if(req.query.keyword != undefined ){
-    keywordParams = { $match : {storename : {$regex : req.query.keyword} }}
+    keywordParams = { $match :
+      {$or : [
+        {storename : {$regex : req.query.keyword} },
+        {address : {$regex : req.query.keyword} }
+      ]}
+    }
   }
   else{
     keywordParams = { $match : {storename : {$regex : ""}}}
