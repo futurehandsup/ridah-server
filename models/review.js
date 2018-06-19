@@ -31,6 +31,15 @@ var ReviewSchema = new Schema({
        type : Schema.ObjectId,
        ref : 'Store'
     },
+    //program, reservation 도 추가!
+    reviewProgram : {
+       type : Schema.ObjectId,
+       ref : 'Program'
+    },
+    reviewReservation : {
+       type : Schema.ObjectId,
+       ref : 'Reservation'
+    },
     reviewType : {
       type : String,
       default : 'review',

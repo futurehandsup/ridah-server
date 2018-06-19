@@ -33,14 +33,15 @@ exports.getSchemas = function(req, res, next){
 
 exports.getList = function(req, res, next){
   var params = {};
+  // GET /stores/:storeId/reviews
   if(req.result != undefined && req.result.store != undefined){
     params.reviewStore = req.result.store._id
   }
+  //GET /users/:userId/reviews
   //store == undefined 인데 user(writer) 있으면?
   if(req.result != undefined && req.result.user != undefined && req.originalUrl.includes('user')){
     params.reviewWriter = req.result.user._id
   }
-
   if(req.query.reviewType != undefined && req.query.reviewType != "all"){
     params.reviewType = req.query.reviewType;
   }
@@ -58,6 +59,8 @@ exports.getList = function(req, res, next){
   })
   .populate('reviewStore')
   .populate('reviewWriter')
+  .populate('reviewProgram')
+  .populate('reviewReservation')
   .sort({created_at : -1}) //최신순
   .exec(function(err, reviews) {
     if (err) {
@@ -86,7 +89,6 @@ exports.registerOne = function(req, res, next) {
     if (err) {
       return next(err);
     } else {
-        console.log('aa');
       var result = {
         title : "사용자 후기",
         //page : 'stores/list2',
