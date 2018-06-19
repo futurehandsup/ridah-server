@@ -44,6 +44,10 @@ var ReservationSchema = new Schema({
       default: 1,
       max: 4  //한번에 4명까지???
     },
+    review: {
+      type: Schema.ObjectId,
+      rev: 'Review',
+    },
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.
     하지만 DBRef 는 실제 값이 들어간 것이 아니고 외래키 형식으로 해당 값을 참조하는 것이다.

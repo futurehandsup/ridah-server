@@ -4,7 +4,6 @@ var mongoose = require('mongoose'),
 var ReviewSchema = new Schema({
     reviewTitle : {
       type: String,
-      index : true,         // 보조 index
       required : 'reviewTitle is required'   // 검증
     },
     reviewText : {
@@ -29,15 +28,18 @@ var ReviewSchema = new Schema({
     },
     reviewStore : {
        type : Schema.ObjectId,
+       index : true,         // 보조 index
        ref : 'Store'
     },
     //program, reservation 도 추가!
     reviewProgram : {
        type : Schema.ObjectId,
+       index : true,         // 보조 index
        ref : 'Program'
     },
     reviewReservation : {
        type : Schema.ObjectId,
+       index : true,         // 보조 index
        ref : 'Reservation'
     },
     reviewType : {
@@ -74,7 +76,19 @@ var ReviewSchema = new Schema({
       deleted_at : Date
     }
 });
+ReviewSchema.pre('save', function(next){
+  mongoose.model('Review').find({reviewReservation: this.reviewReservation}, function(err, reviews){
+    //console.log(reservations)
+    if(err) return next(err);
+    if(reviews.length > 0){
+      var err = new Error('후기는 한 번만 작성하실 수 있습니다.');
+      return next(err);
+    }
+  });
+})
 ReviewSchema.post('save', function(result){
+  mongoose.model('reservation').findByIdAndUpdate(result.reviewReservation, {review: result.id}, function(err){
+  })
   if(result.reviewType == "reply"){
     mongoose.model('Review').findById(result.parent, function(err, review){
       //console.log(result.id);
