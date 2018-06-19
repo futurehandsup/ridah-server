@@ -52,8 +52,6 @@
               <thead>
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
-
-                <th>승마장명</th>
                 <th>제목</th>
                 <th>작성자</th>
                 <th>내용</th>
@@ -71,8 +69,6 @@
                   %>
                   <tr>
                     <td><%=i%></td>
-
-                    <td><%=(qna['qnaStore'] != null) ? qna['qnaStore'].storename : qna['qnaStore']%></td>
                     <td><%=qna['qnaTitle']%></td>
                     <td><%=(qna['qnaWriter'] != null) ? qna['qnaWriter'].username : qna['qnaWriter']%></td>
                     <td><%=qna['qnaText']%></td>

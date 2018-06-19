@@ -15,11 +15,12 @@ var QnaSchema = new Schema({
     qnaWriter : {
        type : Schema.ObjectId,
        ref : 'User'
-     },
-    qnaStore : {
-       type : Schema.ObjectId,
-       ref : 'Store'
-     },
+    },
+    // 고객센터에 문의하는걸로 변경
+    // qnaStore : {
+    //    type : Schema.ObjectId,
+    //    ref : 'Store'
+    //  },
      qnaType : {
        type : String,
        default : 'qna',
