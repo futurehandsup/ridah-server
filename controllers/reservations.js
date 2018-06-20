@@ -50,6 +50,7 @@ exports.getList = function(req, res, next){
   .populate('store')
   .populate('owner')
   .populate('program')
+  .populate('review')
   .exec(function(err, reservations) {
     if (err) {
       return next(err);

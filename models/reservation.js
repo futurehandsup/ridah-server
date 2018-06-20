@@ -46,7 +46,7 @@ var ReservationSchema = new Schema({
     },
     review: {
       type: Schema.ObjectId,
-      rev: 'Review',
+      ref: 'Review',
     },
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.

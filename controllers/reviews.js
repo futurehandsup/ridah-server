@@ -83,6 +83,7 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
+  if(req.body.reviewType =="review") req.body.parent = undefined; //혹시몰라서 예외처리
   var review = new Review(req.body);
   var message = null;
   review.save(function(err) {

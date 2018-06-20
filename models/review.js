@@ -78,37 +78,41 @@ var ReviewSchema = new Schema({
 });
 ReviewSchema.pre('save', function(next){
   mongoose.model('Review').find({reviewReservation: this.reviewReservation}, function(err, reviews){
-    //console.log(reservations)
     if(err) return next(err);
     if(reviews.length > 0){
       var err = new Error('후기는 한 번만 작성하실 수 있습니다.');
       return next(err);
     }
+    else next();
   });
 })
 ReviewSchema.post('save', function(result){
-  mongoose.model('reservation').findByIdAndUpdate(result.reviewReservation, {review: result.id}, function(err){
-  })
   if(result.reviewType == "reply"){
     mongoose.model('Review').findById(result.parent, function(err, review){
       //console.log(result.id);
       review.replies.push(result.id);
       review.save();
     });
-  }
-  else if(result.reviewScore != null){
-    mongoose.model('Review')
-      .aggregate([
-        { $match: { reviewStore : result.reviewStore, reviewType: 'review'}},
-        { $group: { _id : "$reviewStore",avgScore : { $avg: "$reviewScore"} }}
-      ]).exec(function(err, review){
-        console.log(review)
-        mongoose.model('Store').findById(result.reviewStore, function(err, store){
-          store.score = review[0].avgScore;
-          store.save();
-        })
-      })
-  }
+  }else{
+    // 답글이 아닌 리뷰만 reservation에 추rk
+    mongoose.model('Reservation').findOneAndUpdate({_id : result.reviewReservation }, {review: result._id}, function(err, reservation){
+      if(err) {console.log(err)}
+      else{
+        if(result.reviewScore != null){
+          mongoose.model('Review')
+            .aggregate([
+             { $match: { reviewStore : result.reviewStore, reviewType: 'review'}},
+             { $group: { _id : "$reviewStore",avgScore : { $avg: "$reviewScore"} }}
+            ]).exec(function(err, review){
+              mongoose.model('Store').findById(result.reviewStore, function(err, store){
+                store.score = review[0].avgScore;
+                store.save();
+              })
+            })
+          }//if
+        }//else
+    });//findOneAndUpdate
+  }//else
 });
 ReviewSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
