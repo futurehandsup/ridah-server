@@ -9,13 +9,35 @@
     <ul class="list-group list-group-flush">
       <% for(var i=0; i<reservations.length; i++){
         var reservation = reservations[i];
+        var reservationDate = new Date(reservation.reservationDate);
+        var today = new Date()
       %>
         <li class="list-group-item">
           <div class="media">
             <div class="media-body">
               <small class="float-right"><%=reservation.reservationDate%></small>
               <h5 class="mt-0"><%=reservation.program.programname%></h5>
-              <p><%=reservation.store.storename%><p>
+              <p><%=reservation.store.storename%></p>
+              <% if(reservation.review == null ){ %>
+                  <form>
+                    <div class="form-group">
+                      <label for="reviewTitle">후기 남기기</label>
+                      <select class="form-control" id="reviewScore" name="reviewScore">
+                        <%for(var j=1; j<=10; j++){ %>
+                        <option value="<%=j%>"><%=j%></option>
+                        <% }%>
+                      </select>
+                      <input type="text" class="form-control" id="reviewTitle" name="reviewTitle" placeholder="댓글 제목"/>
+                      <textarea class="form-control" id="reviewText" name="reviewText" placeholder="댓글 내용"></textarea>
+                      <input type="hidden" name="reviewStore" value="<%=reservation.store._id%>"/>
+                      <input type="hidden" name="reviewProgram" value="<%=reservation.program._id%>"/>
+                      <input type="hidden" name="reviewReservation" value="<%=reservation._id%>"/>
+                    </div>
+                    <button type="button" class="reviewButton btn btn-primary">작성</button>
+                  </form>
+              <%} else { %>
+                <p><%=reservation.review.reviewText%></p>
+              <%}%>
             </div>
           </div>
         </li>
@@ -25,3 +47,28 @@
 </div>
 </section>
 <% include ../../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('.reviewButton').click(function(){
+    var form = $(this).closest('form');
+    var review =  form.serializeObject();
+
+    review.reviewWriter = '<%=user._id%>';
+    if(review.reviewWriter =='') review.reviewWriter = '59e46a7acfd9ae07de8d69f0';
+    review.reviewType="review";
+
+    $.ajax({
+      type:"POST",
+      url:'/reviews',
+      data:review,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+})
+</script>

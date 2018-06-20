@@ -7,21 +7,6 @@
         <%=reviews.length%>개의 후기가 있습니다.
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <form>
-            <div class="form-group">
-              <label for="reviewTitle">후기 남기기</label>
-              <select class="form-control" id="reviewScore" name="reviewScore">
-                <%for(var i=1; i<=10; i++){ %>
-                <option value="<%=i%>"><%=i%></option>
-                <% }%>
-              </select>
-              <input type="text" class="form-control" id="reviewTitle" name="reviewTitle" placeholder="댓글 제목">
-              <textarea class="form-control" id="reviewText" name="reviewText" placeholder="댓글 내용"></textarea>
-            </div>
-            <button id="reviewButton" type="button" class="btn btn-primary">작성</button>
-          </form>
-        </li>
         <% for(var i=0; i<reviews.length; i++){
           var review = reviews[i];
         %>
@@ -89,28 +74,7 @@ $(document).ready(function(){
       }
     });
   });
-  $('#reviewButton').click(function(){
-    var form = $(this).closest('form');
-    var review =  form.serializeObject();
-    review.reviewStore = '<%=store._id%>';
-
-    review.reviewWriter = '<%=user._id%>';
-    if(review.reviewWriter =='') review.reviewWriter = '59e46a7acfd9ae07de8d69f0';
-    review.reviewType="review";
-
-    $.ajax({
-      type:"POST",
-      url:'/reviews',
-      data:review,
-      success:function(args){
-        alert("성공했습니다.");
-        location.reload();
-      },
-      error:function(e){
-          alert(e.responseText);
-      }
-    });
-  });
+  
   // $('.deleteButton').click(function(){
   //   var reviewId = $(this).data("item");
   //   $.ajax({
