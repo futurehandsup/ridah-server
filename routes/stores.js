@@ -34,7 +34,7 @@ router.route('/')
   // else{
   //   return users.getOne(req, res, next);
   // }
-  //next();
+  next();
 })
 .get(stores.getList, common.setResponse)        // 승마장 리스트 출력
 .post(stores.registerOne, common.setResponse)   // 승마장 등록
@@ -52,7 +52,7 @@ router.route('/:storeId')
   // else{
   //   return users.getOne(req, res, next);
   // }
-//  next();
+  next();
 })
 .get(common.setResponse)                          //승마장 정보 출력
 .put(stores.updateOne, common.setResponse)        //승마장 정보 가져오기
