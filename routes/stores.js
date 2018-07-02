@@ -14,7 +14,7 @@ router.use(function(req, res, next) {
     return users.getOne(req, res, next, req.query.userId);
   }
   else if(req.result.info != null){
-      return users.getOne(req, res, next, req.result.info.id);
+    return users.getOne(req, res, next, req.result.info._id);
   }
   else{
     return users.getOne(req, res, next);
