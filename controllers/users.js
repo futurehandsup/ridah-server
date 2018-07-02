@@ -254,7 +254,7 @@ exports.getZzimStores = function(req, res, next){
     req.flash("user 없음 ");
   }
   else{
-    user.populate({path: 'zzimStores', select: 'storename address created_at updated_at score'}, function(err, u){
+    user.populate({path: 'zzimStores', select: 'storename address created_at updated_at score image'}, function(err, u){
       var result = {
         title : "zzim list",
         success : true,
