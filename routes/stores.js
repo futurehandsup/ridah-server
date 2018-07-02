@@ -28,12 +28,12 @@ router.route('/')
   // runs for all HTTP verbs first
   // think of it as route specific middleware!
   // 데모용으로 구성
-  if(req.query.userId != undefined){
-    return users.getOne(req, res, next, req.query.userId);
-  }
-  else{
-    return users.getOne(req, res, next);
-  }
+  // if(req.query.userId != undefined){
+  //   return users.getOne(req, res, next, req.query.userId);
+  // }
+  // else{
+  //   return users.getOne(req, res, next);
+  // }
   //next();
 })
 .get(stores.getList, common.setResponse)        // 승마장 리스트 출력
@@ -46,12 +46,12 @@ router.route('/:storeId')
   // runs for all HTTP verbs first
   // think of it as route specific middleware!
   // 데모용으로 구성
-  if(req.query.userId != undefined){
-    return users.getOne(req, res, next, req.query.userId);
-  }
-  else{
-    return users.getOne(req, res, next);
-  }
+  // if(req.query.userId != undefined){
+  //   return users.getOne(req, res, next, req.query.userId);
+  // }
+  // else{
+  //   return users.getOne(req, res, next);
+  // }
 //  next();
 })
 .get(common.setResponse)                          //승마장 정보 출력
