@@ -21,7 +21,7 @@
     <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
         <%var date=calendar.schedules[0].date;%>
-        <%=date.getFullYear()%>년 <%=(date.getMonth()+1)%>월 <%=date.getDate()%>일 프로그램
+        <%=date%>일 프로그램
         <a href="/owners/programs/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
         <a href="/owners/reservations/calendar?storeId=<%=store.id%>" class="card-link float-right pr-3"><span class="fa fa-cog"></span> 예약 관리</a>
       </div>

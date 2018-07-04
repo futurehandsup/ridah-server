@@ -63,7 +63,7 @@
               flag_today = true;
             }%>
           <td class="<%=flag_today?'today':''%> <%=flag_selected?'selected':''%>">
-            <a href="?type=monthly&date=<%=s_date.getFullYear()%>-<%=(s_date.getMonth()+1)%>-<%=(s_date.getDate())%>"><%=s_dates.getDate()%></a><br>
+            <a href="?type=monthly&date=<%=s_date.getFullYear()%>-<%=(s_date.getMonth()+1)%>-<%=(s_date.getDate())%>"><%=s_date.getDate()%></a><br>
             <%for (var j=0; j < schedule.programs.length; j++){%>
             <% var program = schedule.programs[j];%>
               <div class="program">
