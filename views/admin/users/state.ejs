@@ -4,47 +4,50 @@
   <!--통계페이지-->
 
  <div class="container-fluid">
-    <h2 class="my-3">통계</h2>
+    <h2 class="my-3">사용자 현황 : 그래프</h2>
     <div class="card">
 
-    <div class="card" style="margin-bottom: 20px;">
-      <div class="card-header">
-        조회기간     
-        <ul style="display: block; float: right;">일간</ul>
-        <ul style="display: block; float: right;">주간</ul>
-        <ul style="display: block; float: right;">월간</ul>
-        <!--css등을 이용하여 버튼으로-->
-        <input type="date" name="date-from"> 
-        <input type="date" name="date-until">
-      </div>
-   
-    </div> 
-      
-    <div class="card" style="margin-bottom: 20px;">
-      <div class="card-header">
-        주문현황 그래프
-      </div>
-      <ul class="list-group list-group-flush">
-        
-          <li class="list-group-item">그래프가 없습니다</li>
-        
-      </ul>
-    </div>
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-header">
+            <div style="padding: 10px;">
+              조회기간     
+              <ul style="display: block; float: right;">일간</ul>
+              <ul style="display: block; float: right;">주간</ul>
+              <ul style="display: block; float: right;">월간</ul>
+                              <!--css등을 이용하여 버튼으로-->
+              <input type="date" name="date-from"> 
+              <input type="date" name="date-until">
+            </div>
+          </div>                     
+        </div> 
 
-    <div class="card" style="margin-bottom: 20px;">
-      <div class="card-header">
-        고객현황 그래프
-      </div>
-      <ul class="list-group list-group-flush">
-        
-          <li class="list-group-item">그래프가 없습니다</li>
+          <div class="card">  
+            <div class="header">
+              <h4 class="title">주문현황 그래프                 
+                    
+                <ul class="list-group list-group-flush" style="padding: 10px;">
+                  <li class="list-group-item">그래프가 없습니다</li>      
+                </ul>
       
-      </ul>
-    </div>
+            </div>
+          </div>
+
+          <div class="card">  
+            <div class="header">
+             <h4 class="title">고객현황 그래프
+        
+                   <ul class="list-group list-group-flush" style="padding: 10px;">
+                      <li class="list-group-item">그래프가 없습니다</li>
+                   </ul>
+             
+            </div>
+          </div>
+
+    
     </div>
 </div>
 
-<% include ../templates/bottom.ejs %>
+<!-- <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){
   $('#createButton').click(function(){
@@ -80,4 +83,4 @@ $(document).ready(function(){
     });
   });
 });
-</script>
+</script> -->

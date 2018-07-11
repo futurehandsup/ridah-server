@@ -53,6 +53,7 @@ router.param('qnaId', qnas.getOne);
 
 //users
 router.get('/users/list', users.getList, users.getSchemas, common.renderPage('admin/users/list'));
+router.get('/users/state', users.getList, users.getSchemas, common.renderPage('admin/users/state'));
 router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('admin/users/edit')); // 필요없음
 router.get('/users/edit/:userId', users.getSchemas, common.renderPage('admin/users/edit'));
 router.param('userId', users.getOne);

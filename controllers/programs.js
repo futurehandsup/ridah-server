@@ -276,7 +276,8 @@ exports.getOne = function(req, res, next, id) {
         title : "Program List",
         //page : 'programs/detail',
         success : true,
-        messages : req.flash('error'),
+        messages : req.flash('error'),                                                                                                                                                                                                                               
+        
         program : program
       }
       if(req.result == undefined){
