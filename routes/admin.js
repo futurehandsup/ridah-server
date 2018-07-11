@@ -51,6 +51,13 @@ router.get('/qnas/edit/:qnaId', qnas.getSchemas, common.renderPage('admin/qnas/e
 
 router.param('qnaId', qnas.getOne);
 
+//faq
+router.get('/faqs/list', faqs.getList, faqs.getSchemas, common.renderPage('admin/faqs/list'));
+router.get('/faqs/edit', faqs.getList, faqs.getSchemas, common.renderPage('admin/faqs/edit')); // 필요없음
+router.get('/faqs/edit/:faqId', qnas.getSchemas, common.renderPage('admin/faqs/edit'));
+
+router.param('qnaId', qnas.getOne);
+
 //users
 router.get('/users/list', users.getList, users.getSchemas, common.renderPage('admin/users/list'));
 router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('admin/users/edit')); // 필요없음
