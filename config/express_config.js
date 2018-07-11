@@ -53,6 +53,7 @@ module.exports = function() {
     var index = require('../routes/index');
     var users = require('../routes/users');
     var stores = require('../routes/stores');
+    var tags = require('../routes/tags');
     var reviews = require('../routes/reviews');
     var qnas = require('../routes/qnas');
     var programs = require('../routes/programs');
@@ -82,6 +83,7 @@ module.exports = function() {
     //API Route : view 없음.
     app.use('/users', users);
     app.use('/stores', stores);
+    app.use('/tags', tags);
     app.use('/reviews', reviews);
     app.use('/qnas', qnas);
     app.use('/programs', programs);
