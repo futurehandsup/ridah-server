@@ -137,7 +137,7 @@ exports.getOne = function(req, res, next, id) {
       return next(err);
     } else {
       var result = {
-        title : "Reservation List",
+        title : "Reservation",
         //page : 'reservations/detail',
         success : true,
         messages : req.flash('error'),
@@ -178,3 +178,26 @@ exports.deleteOne = function(req, res, next) {
     }
   });
 };
+exports.setChecked = function(req, res, next){
+  let reservation = req.result.reservation;
+  if(reservation == null){
+    let error = new Error("잘못된 요청입니다.");
+    return next(error);
+  }
+  reservation.setChecked(function(err, r) {
+    if(err) return next(err);
+    var result = {
+      title : "Reservation Check In",
+      success : true,
+      messages : req.flash('error'),
+      reservation : r
+    }
+    if(req.result == undefined){
+      req.result = result;
+    }
+    else{
+      req.result = Object.assign(req.result, result);
+    }
+    return next()
+  });
+}

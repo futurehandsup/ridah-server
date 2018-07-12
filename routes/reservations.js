@@ -28,6 +28,15 @@ router.route('/:reservationId')
 .delete(reservations.deleteOne, common.setResponse)     //승마장 삭제
 .post(common.notImplementedError);
 
+router.route('/:reservationId/status/checked')
+.all(function(req, res, next){
+  next();
+})
+.get(common.notImplementedError)                          //승마장 정보 출력
+.put(reservations.setChecked, common.setResponse)        //승마장 정보 가져오기
+.delete(common.notImplementedError)     //승마장 삭제
+.post(common.notImplementedError);
+
 router.param('reservationId', reservations.getOne);
 
 module.exports = router;
