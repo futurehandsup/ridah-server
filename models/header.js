@@ -5,12 +5,12 @@ var HeaderSchema = new Schema({
     headerImg : {
       type: String,
       index : true,         // 보조 index
-      required : 'headerTitle is required'   // 검증
+      required : 'headerImg is required'   // 검증
     },
     headerUrl : {
       type : String,
       default : "",
-      required : 'headerText is required'
+      required : 'headerUrl is required'
     },
     created_at : {
       type : Date,

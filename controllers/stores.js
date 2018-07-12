@@ -44,7 +44,8 @@ exports.getList = function(req, res, next){
         near: { type: "Point", coordinates: [ Number(coord[1]), Number(coord[0]) ] },
         distanceField: "distance",
         distanceMultiplier: 0.001,
-        spherical: true
+        spherical: true,
+        /*maxDistance: 100, // 최대치 설정할수있게*/
       }
     };
     params.push(geoParams)
