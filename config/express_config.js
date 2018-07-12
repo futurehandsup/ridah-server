@@ -10,8 +10,7 @@ var express = require('express'),
     session = require('express-session'),       //세션 사용
     passport = require('passport'),
     flash = require('connect-flash'),
-    multer = require('multer')
-    ;
+    multer = require('multer')    ;
 
 module.exports = function() {
     var app = express();
@@ -65,6 +64,7 @@ module.exports = function() {
     var recommends = require('../routes/recommends');
     var events = require('../routes/events');
     var apps = require('../routes/apps');
+    var faqs = require('../routes/faqs');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
@@ -93,7 +93,8 @@ module.exports = function() {
     app.use('/headers', headers);
     app.use('/recommends', recommends);
     app.use('/events', events);
-    app.use('/apps', apps)
+    app.use('/apps', apps);
+    app.use('/faqs', faqs);
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);

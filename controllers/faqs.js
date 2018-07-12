@@ -33,8 +33,8 @@ exports.getSchemas = function(req, res, next){
 
 exports.getList = function(req, res, next){
   Notice.find()
-  .populate('noticeWriter')
-  .exec(function(err, notices) {
+  .populate('faqWriter')
+  .exec(function(err, faqs) {
     if (err) {
       return next(err);
     } else {
@@ -42,7 +42,7 @@ exports.getList = function(req, res, next){
         title : "메인 헤더",
         success : true,
         messages : req.flash('error'),
-        notices : notices
+        faqs : faqs
       }
       if(req.result == undefined){
         req.result = result;
@@ -55,10 +55,10 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
-  var notice = new Notice(req.body);
+  var faq = new Notice(req.body);
   var message = null;
 
-  notice.save(function(err) {
+  faq.save(function(err) {
     if (err) {
       return next(err);
     } else {
@@ -67,7 +67,7 @@ exports.registerOne = function(req, res, next) {
         //page : 'stores/list2',
         success : true,
         messages : req.flash('error'),
-        notice : notice
+        faq : faq
       }
       if(req.result == undefined){
         req.result = result;
@@ -81,16 +81,16 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Notice.findByIdAndUpdate(req.result.notice._id, req.body, function(err, notice) {
+  Notice.findByIdAndUpdate(req.result.faq._id, req.body, function(err, faq) {
     if (err) {
       return next(err);
     } else {
-      notice.updated_at = Date.now();
+      faq.updated_at = Date.now();
       var result = {
         title : "Notice Update",
         success : true,
         messages : req.flash('error'),
-        notice : notice
+        faq : faq
       }
       if(req.result == undefined){
         req.result = result;
@@ -106,9 +106,7 @@ exports.updateOne = function(req, res, next) {
 exports.getOne = function(req, res, next, id) {
   Notice.findOne({
     _id: id
-  })
-  .populate('noticeWriter')
-  .exec(function(err, notice) {
+  }, function(err, faq) {
     if (err) {
       return next(err);
     } else {
@@ -117,7 +115,7 @@ exports.getOne = function(req, res, next, id) {
         //page : 'stores/detail',
         success : true,
         messages : req.flash('error'),
-        notice : notice
+        faq : faq
       }
       if(req.result == undefined){
         req.result = result;
@@ -132,16 +130,16 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Notice.findByIdAndUpdate(req.result.notice._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, notice) {
+  Notice.findByIdAndUpdate(req.result.faq._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, faq) {
     if (err) {
       return next(err);
     } else {
-      notice.updated_at = date;
+      faq.updated_at = date;
       var result = {
         title : "Notice Delete",
         success : true,
         messages : req.flash('error'),
-        notice : notice
+        faq : faq
       }
       if(req.result == undefined){
         req.result = result;

@@ -4,8 +4,11 @@
   <!--통계페이지-->
 
  <div class="container-fluid">
-    <h2 class="my-3">사용자 현황 : 그래프</h2>
+    <h2 class="header">사용자 현황 그래프</h2>
     <div class="card">
+
+    </div>
+</div>
 
         <div class="card" style="margin-bottom: 20px;">
           <div class="card-header">
@@ -31,7 +34,6 @@
       
             </div>
           </div>
-
           <div class="card">  
             <div class="header">
              <h4 class="title">고객현황 그래프
@@ -43,44 +45,4 @@
             </div>
           </div>
 
-    
-    </div>
-</div>
-
-<!-- <% include ../templates/bottom.ejs %>
-<script>
-$(document).ready(function(){
-  $('#createButton').click(function(){
-    var program =  $('#createForm').serializeObject();
-    program.store = '<%=store.id%>';
-
-    $.ajax({
-      type:"POST",
-      url:'/programs',
-      data:program,
-      success:function(args){
-        alert("성공했습니다.");
-        location.reload();
-      },
-      error:function(e){
-          alert(e.responseText);
-      }
-    });
-  });
-  $('.deleteButton').click(function(){
-    var programId = $(this).data("item");
-    $.ajax({
-      type:"DELETE",
-      url:'/programs/'+programId,
-
-      success:function(args){
-        alert("성공했습니다.");
-        location.reload();
-      },
-      error:function(e){
-          alert(e.responseText);
-      }
-    });
-  });
-});
-</script> -->
+<% include ../templates/bottom.ejs %>
