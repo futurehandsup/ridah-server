@@ -71,7 +71,10 @@ var StoreSchema = new Schema({
     }],
     tag : [{
       type: String,
-      default: ""
+      default: "",
+      set: function(t){
+        return t.trim();
+      }
     }],
     gps : {
       type : {
