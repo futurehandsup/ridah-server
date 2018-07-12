@@ -106,7 +106,9 @@ exports.updateOne = function(req, res, next) {
 exports.getOne = function(req, res, next, id) {
   Notice.findOne({
     _id: id
-  }, function(err, notice) {
+  })
+  .populate('noticeWriter')
+  .exec(function(err, notice) {
     if (err) {
       return next(err);
     } else {

@@ -10,8 +10,7 @@ var express = require('express'),
     session = require('express-session'),       //세션 사용
     passport = require('passport'),
     flash = require('connect-flash'),
-    multer = require('multer')
-    ;
+    multer = require('multer')    ;
 
 module.exports = function() {
     var app = express();
@@ -53,7 +52,6 @@ module.exports = function() {
     var index = require('../routes/index');
     var users = require('../routes/users');
     var stores = require('../routes/stores');
-    var tags = require('../routes/tags');
     var reviews = require('../routes/reviews');
     var qnas = require('../routes/qnas');
     var programs = require('../routes/programs');
@@ -66,7 +64,7 @@ module.exports = function() {
     var recommends = require('../routes/recommends');
     var events = require('../routes/events');
     var apps = require('../routes/apps');
-    var faqs = require('../routes/faqs')
+    var faqs = require('../routes/faqs');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
@@ -84,7 +82,6 @@ module.exports = function() {
     //API Route : view 없음.
     app.use('/users', users);
     app.use('/stores', stores);
-    app.use('/tags', tags);
     app.use('/reviews', reviews);
     app.use('/qnas', qnas);
     app.use('/programs', programs);

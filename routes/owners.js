@@ -72,6 +72,8 @@ router.param('programId', programs.getOne);
 router.get('/statistics', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/index'));
 router.get('/calculations', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/index'));
 router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPage('owners/notices/list'));
+router.get('/notices/detail/:noticeId', notices.getSchemas, common.renderPage('owners/notices/detail'));
+router.param('noticeId', notices.getOne);
 
 
 //밑에는 임시

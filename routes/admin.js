@@ -15,6 +15,7 @@ var notices = require('../controllers/notices');
 var headers = require('../controllers/headers');
 var recommends = require('../controllers/recommends');
 var events = require('../controllers/events');
+var faqs = require('../controllers/faqs');
 //passport = require('passport');
 
 
@@ -34,6 +35,7 @@ router.get('/', /*common.isAuthenticated, */common.redirect('/admin/stores/list'
 router.get('/stores/list', stores.getList, stores.getSchemas, common.renderPage('admin/stores/list'));
 router.get('/stores/edit', stores.getList, stores.getSchemas, common.renderPage('admin/stores/edit')); // 필요없음
 router.get('/stores/edit/:storeId', stores.getSchemas, common.renderPage('admin/stores/edit'));
+router.get('/tags/list', stores.getList, stores.getSchemas, common.renderPage('admin/tags/list'));
 
 router.param('storeId', stores.getOne);
 
@@ -54,7 +56,7 @@ router.param('qnaId', qnas.getOne);
 //faq
 router.get('/faqs/list', faqs.getList, faqs.getSchemas, common.renderPage('admin/faqs/list'));
 router.get('/faqs/edit', faqs.getList, faqs.getSchemas, common.renderPage('admin/faqs/edit')); // 필요없음
-router.get('/faqs/edit/:faqId', qnas.getSchemas, common.renderPage('admin/faqs/edit'));
+router.get('/faqs/edit/:faqId', faqs.getSchemas, common.renderPage('admin/faqs/edit'));
 
 router.param('qnaId', qnas.getOne);
 
@@ -63,6 +65,7 @@ router.get('/users/list', users.getList, users.getSchemas, common.renderPage('ad
 router.get('/users/edit', users.getList, users.getSchemas, common.renderPage('admin/users/edit')); // 필요없음
 router.get('/users/edit/:userId', users.getSchemas, common.renderPage('admin/users/edit'));
 router.param('userId', users.getOne);
+router.get('/users/state', users.getList, users.getSchemas, common.renderPage('admin/users/state'));
 
 // reservations
 router.get('/reservations/list', reservations.getList, reservations.getSchemas, common.renderPage('admin/reservations/list'));
