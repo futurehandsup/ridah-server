@@ -1,0 +1,22 @@
+<% include ../templates/head.ejs %>
+<section style="background-color: #fafafa;">
+ <!--  <div class="jumbotron-fluid" style="background-position: center; min-height: 200px;padding: 100px 15px; margin-bottom: 20px;">
+    <div class="container-fluid">
+
+    </div>
+  </div> -->
+  <div class="container-fluid">
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-header">
+        <span style="font-size: 20px; font-style: bold;"><%=notice.noticeTitle%></span>
+        <span style="margin-right: 10px; float: right;"><%=notice['noticeWriter'].username%></span>
+        <span style="margin-right: 10px; float: right;"><%=notice.created_at%></span>
+      </div>
+      <div class="card-body">
+        <p class="card-text"><%=notice.noticeText%></p>
+      </div>
+    </div>
+  </div>
+</section>
+<% include ../templates/bottom.ejs %>
+

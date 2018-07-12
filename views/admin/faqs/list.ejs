@@ -1,11 +1,11 @@
-<% include ../templates/head.ejs %>
+<% include ../templates/header.ejs %>
 <div class="content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="header">
-            <h4 class="title">공지사항
+            <h4 class="title">FAQ
               <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
               만들기
               </button></h4>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="modal-body">
                   <div class="content">
-                    <form id="createForm" action="/notices" method="POST">
+                    <form id="createForm" action="/faqs" method="POST">
                       <div class="row">
                         <% var keys = Object.keys(schema);
 
@@ -59,21 +59,27 @@
                 <th>작성일</th>
                 <th>수정일</th>
 
+                <th>작업</th>
+
               </thead>
               <tbody>
                 <% %>
-                <% for(var i=0; i<notices.length; i++){
-                  var notice = notices[i];
+                <% for(var i=0; i<faqs.length; i++){
+                  var faq = faqs[i];
                   %>
                   <tr>
                     <td><%=i%></td>
 
-                    <td><a href="/owners/notices/detail/<%=notice.id%>"><%=notice['noticeTitle']%></a></td>
-                    <td><%=notice['noticeText']%></td>
-                    <td><%=(notice['noticeWriter'] != null) ? notice['noticeWriter'].username : notice['noticeWriter']%></td>
-                    <td><%=notice['created_at']%></td>
-                    <td><%=notice['updated_at']%></td>
+                    <td><%=faq['faqTitle']%></td>
+                    <td><%=faq['faqText']%></td>
+                    <td><%=(faq['faqWriter'] != null) ? faq['faqWriter'].username : faq['faqWriter']%></td>
+                    <td><%=faq['created_at']%></td>
+                    <td><%=faq['updated_at']%></td>
 
+                    <td>
+                      <button data-item="<%=faq.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
+                      <a href="edit/<%=faq.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+                    </td>
                   </tr>
                 <% }%>
               </tbody>
@@ -88,11 +94,11 @@
 <script>
 $(document).ready(function(){
   $('#createButton').click(function(){
-    var notice =  $('#createForm').serializeObject();
+    var faq =  $('#createForm').serializeObject();
     $.ajax({
       type:"POST",
-      url:'/notices',
-      data:notice,
+      url:'/faqs',
+      data:faq,
       success:function(args){
         alert("성공했습니다.");
         location.reload();
@@ -103,10 +109,10 @@ $(document).ready(function(){
     });
   });
   $('.deleteButton').click(function(){
-    var noticeId = $(this).data("item");
+    var faqId = $(this).data("item");
     $.ajax({
       type:"DELETE",
-      url:'/notices/'+noticeId,
+      url:'/faqs/'+faqId,
 
       success:function(args){
         alert("성공했습니다.");
