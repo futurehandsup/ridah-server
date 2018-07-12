@@ -34,11 +34,20 @@ router.get('/login', common.renderPage('owners/login'));
 
 router.get('/dashboard', common.renderPage('owners/dashboard/index'));
 
-// 예약 내역
+// 예약 달력
 router.get('/reservations', programs.getReservationsList, reviews.getList, common.setResponse);
 router.get('/reservations/daily', programs.getReservationsList, common.renderPage('owners/reservations/daily'));
 router.get('/reservations/weekly', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/weekly'));
 router.get('/reservations/monthly', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/monthly'));
+
+// 예약 내역
+router.get('/reservations/list', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/list'));
+
+// 이용 내역
+router.get('/reservations/usage', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/usage'));
+
+// 취소 내역
+router.get('/reservations/cancel', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/cancel'));
 
 // stores
 router.get('/stores/detail', programs.getReservationsList, reviews.getList, qnas.getList, common.renderPage('owners/stores/detail'));
