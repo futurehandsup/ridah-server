@@ -15,7 +15,12 @@ var FaqSchema = new Schema({
     /*faqWriter : {
        type : Schema.ObjectId,
        ref : 'User'
-     },*/    
+     },*/  
+     faqCategory : {
+      type : String,
+      default : "기타",
+      required : 'faqCategory is required'
+     },
      created_at : {
       type : Date,
       default : Date.now,

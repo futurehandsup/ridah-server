@@ -10,6 +10,15 @@
               만들기
               </button></h4>
             <p class="category">Here is a subtitle for this table</p>
+              <div class="category">
+                <tr>카테고리</th>
+                <th><select>
+                  <option>전체</option>
+                  <option value="예약">예약</option>
+                  <option value="결제">결제</option>
+                  <option value="기타">기타</option>
+                </select></th>
+              </div>
           </div>
           <!-- Modal -->
           <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -17,24 +26,39 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">승마장 등록</h4>
+                  <h4 class="modal-title" id="myModalLabel">FAQ 등록</h4>
                 </div>
                 <div class="modal-body">
                   <div class="content">
                     <form id="createForm" action="/faqs" method="POST">
                       <div class="row">
-                        <% var keys = Object.keys(schema);
 
-                       for(var j=0; j< keys.length; j++){
-                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label><%=keys[j]%></label>
-                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                            <label>FAQTitle</label>
+                            <input name="FAQTitle" type="text" class="form-control" placeholder="FAQTitle" value="">
                           </div>
                         </div>
 
-                      <% } %>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>FAQText</label>
+                            <input name="FAQText" type="text" class="form-control" placeholder="FAQText" value="">
+                          </div>
+                        </div>
+
+                       <div class="col-md-4">
+                          <div class="form-group">
+                            <label>FAQCategory</label>
+                              <div><select>
+                                <option>전체</option>
+                                <option value="예약">예약</option>
+                                <option value="결제">결제</option>
+                                <option value="기타">기타</option>
+                              </select></div>
+                          </div>
+                        </div>
+
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -53,11 +77,10 @@
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
 
-                <th>공지제목</th>
-                <th>공지내용</th>
-                <th>작성자</th>
+                <th>질문</th>
+                <th>답변</th>
+                <th>카테고리</th>
                 <th>작성일</th>
-                <th>수정일</th>
 
                 <th>작업</th>
 
@@ -68,13 +91,12 @@
                   var faq = faqs[i];
                   %>
                   <tr>
-                    <td><%=i%></td>
+                    <td><%=i%></td>                         
 
                     <td><%=faq['faqTitle']%></td>
                     <td><%=faq['faqText']%></td>
-                    <td><%=(faq['faqWriter'] != null) ? faq['faqWriter'].username : faq['faqWriter']%></td>
+                    <td><%=faq['faqCategory']%></td>
                     <td><%=faq['created_at']%></td>
-                    <td><%=faq['updated_at']%></td>
 
                     <td>
                       <button data-item="<%=faq.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>

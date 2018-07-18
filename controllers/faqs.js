@@ -1,4 +1,4 @@
-var Notice = require('mongoose').model('Notice');
+var Faq = require('mongoose').model('Faq');
 var Store = require('mongoose').model('Store');
 var User = require('mongoose').model('User');
 //passport = require('passport');
@@ -25,14 +25,14 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = Notice.schema.paths;
+  var schema = Faq.schema.paths;
 
   req.result.schema = schema;
   next();
 }
 
 exports.getList = function(req, res, next){
-  Notice.find()
+  Faq.find()
   .populate('faqWriter')
   .exec(function(err, faqs) {
     if (err) {
@@ -55,7 +55,7 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
-  var faq = new Notice(req.body);
+  var faq = new Faq(req.body);
   var message = null;
 
   faq.save(function(err) {
@@ -81,13 +81,13 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Notice.findByIdAndUpdate(req.result.faq._id, req.body, function(err, faq) {
+  Faq.findByIdAndUpdate(req.result.faq._id, req.body, function(err, faq) {
     if (err) {
       return next(err);
     } else {
       faq.updated_at = Date.now();
       var result = {
-        title : "Notice Update",
+        title : "Faq Update",
         success : true,
         messages : req.flash('error'),
         faq : faq
@@ -104,14 +104,14 @@ exports.updateOne = function(req, res, next) {
   });
 };
 exports.getOne = function(req, res, next, id) {
-  Notice.findOne({
+  Faq.findOne({
     _id: id
   }, function(err, faq) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "Notice List",
+        title : "Faq List",
         //page : 'stores/detail',
         success : true,
         messages : req.flash('error'),
@@ -130,13 +130,13 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Notice.findByIdAndUpdate(req.result.faq._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, faq) {
+  Faq.findByIdAndUpdate(req.result.faq._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, faq) {
     if (err) {
       return next(err);
     } else {
       faq.updated_at = date;
       var result = {
-        title : "Notice Delete",
+        title : "Faq Delete",
         success : true,
         messages : req.flash('error'),
         faq : faq

@@ -58,7 +58,7 @@ router.get('/faqs/list', faqs.getList, faqs.getSchemas, common.renderPage('admin
 router.get('/faqs/edit', faqs.getList, faqs.getSchemas, common.renderPage('admin/faqs/edit')); // 필요없음
 router.get('/faqs/edit/:faqId', faqs.getSchemas, common.renderPage('admin/faqs/edit'));
 
-router.param('qnaId', qnas.getOne);
+router.param('faqId', faqs.getOne);
 
 //users
 router.get('/users/list', users.getList, users.getSchemas, common.renderPage('admin/users/list'));
