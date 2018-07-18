@@ -31,11 +31,12 @@ router.get('*', common.setAuthHeaders, auth.check(), function(req, res, next){
 });
 router.get('/', /*common.isAuthenticated, */common.redirect('/admin/stores/list'));
 
-// stores
+// stores, tags
 router.get('/stores/list', stores.getList, stores.getSchemas, common.renderPage('admin/stores/list'));
 router.get('/stores/edit', stores.getList, stores.getSchemas, common.renderPage('admin/stores/edit')); // 필요없음
 router.get('/stores/edit/:storeId', stores.getSchemas, common.renderPage('admin/stores/edit'));
 router.get('/tags/list', stores.getList, stores.getSchemas, common.renderPage('admin/tags/list'));
+router.get('/tags/edit/:storeId', stores.getSchemas, common.renderPage('admin/tags/edit'));
 
 router.param('storeId', stores.getOne);
 
