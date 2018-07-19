@@ -31,6 +31,8 @@ router.all('*', function(req, res, next){
 router.get('/', users.getList, stores.getList, common.renderPage('customers/index'));
 router.get('/login', common.renderPage('customers/login'));
 
+router.get('/app_policy', common.renderPage('customers/app_policy'));
+
 // home
 router.get('/home',  headers.getList, events.getList, recommends.getList, common.renderPage('customers/home/index'));
 
