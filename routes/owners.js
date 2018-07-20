@@ -41,13 +41,13 @@ router.get('/reservations/weekly', programs.getList, reservations.getSchemas, co
 router.get('/reservations/monthly', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/monthly'));
 
 // 예약 내역
-router.get('/reservations/list', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/list'));
+router.get('/reservations/list', reservations.getList, reservations.getSchemas, common.renderPage('owners/reservations/list'));
 
 // 이용 내역
-router.get('/reservations/usage', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/usage'));
+router.get('/reservations/usage', reservations.getList, reservations.getSchemas, common.renderPage('owners/reservations/usage'));
 
 // 취소 내역
-router.get('/reservations/cancel', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/cancel'));
+router.get('/reservations/cancel', reservations.getList, reservations.getSchemas, common.renderPage('owners/reservations/cancel'));
 
 // stores
 router.get('/stores/detail', programs.getReservationsList, reviews.getList, qnas.getList, common.renderPage('owners/stores/detail'));
@@ -78,8 +78,18 @@ router.get('/programs/edit', programs.getList, programs.getSchemas, common.rende
 router.get('/programs/edit/:programId', programs.getSchemas, common.renderPage('owners/progrmas/edit'));
 router.param('programId', programs.getOne);
 
+//통계
 router.get('/statistics', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/index'));
+router.get('/statistics/reservations', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/reservations'));
+router.get('/statistics/customers', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/customers'));
+
+//정산 내역
 router.get('/calculations', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/index'));
+router.get('/calculations/vat', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/vat'));
+router.get('/calculations/tax', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/tax'));
+router.get('/calculations/info', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/info'));
+
+
 router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPage('owners/notices/list'));
 router.get('/notices/detail/:noticeId', notices.getSchemas, common.renderPage('owners/notices/detail'));
 router.param('noticeId', notices.getOne);
