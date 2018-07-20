@@ -15,7 +15,7 @@ body{
   display: block;
   position: absolute;
   background-color: #2a2d34;
-  height: 100vh;
+  height: 200vh;
   color: #acacac;
   z-index: 2;
 }
