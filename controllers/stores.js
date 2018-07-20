@@ -118,7 +118,9 @@ exports.getList = function(req, res, next){
   });
 }
 exports.registerOne = function(req, res, next) {
-  req.body.tag = req.body.tag.split(',').map((i)=>i.trim());
+  if(req.body.tag != null){
+    req.body.tag = req.body.tag.split(',').map((i)=>i.trim());
+  }
   var store = new Store(req.body);
   var message = null;
 
@@ -145,7 +147,9 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  req.body.tag = req.body.tag.split(',').map((i)=>i.trim());
+  if(req.body.tag != null){
+    req.body.tag = req.body.tag.split(',').map((i)=>i.trim());
+  }
   Store.findByIdAndUpdate(req.result.store._id, req.body, function(err, store) {
     if (err) {
       return next(err);
