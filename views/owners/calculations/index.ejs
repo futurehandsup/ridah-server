@@ -4,7 +4,7 @@
   <!--통계페이지-->
 
  <div class="container-fluid">
-    <h2 class="my-3">정산</h2>
+    <h2 class="my-3">정산내역 조회</h2>
     <div class="card">
 
     <div class="card" style="margin-bottom: 20px;">
@@ -90,4 +90,11 @@ $(document).ready(function(){
     });
   });
 });
+</script>
+<script>
+$(document).ready(function(){
+  $('.sidebar .nav .active').removeClass('active');
+  var path = "calculations-index" ;
+  $('#'+path).addClass('active');
+})
 </script>
