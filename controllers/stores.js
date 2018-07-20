@@ -44,7 +44,8 @@ exports.getList = function(req, res, next){
         near: { type: "Point", coordinates: [ Number(coord[1]), Number(coord[0]) ] },
         distanceField: "distance",
         distanceMultiplier: 0.001,
-        spherical: true
+        spherical: true,
+        /*maxDistance: 100, // 최대치 설정할수있게*/
       }
     };
     params.push(geoParams)
@@ -117,7 +118,9 @@ exports.getList = function(req, res, next){
   });
 }
 exports.registerOne = function(req, res, next) {
-  req.body.tag = req.body.tag.split(',');
+  if(req.body.tag != null){
+    req.body.tag = req.body.tag.split(',').map((i)=>i.trim());
+  }
   var store = new Store(req.body);
   var message = null;
 
@@ -144,7 +147,9 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  req.body.tag = req.body.tag.split(',');
+  if(req.body.tag != null){
+    req.body.tag = req.body.tag.split(',').map((i)=>i.trim());
+  }
   Store.findByIdAndUpdate(req.result.store._id, req.body, function(err, store) {
     if (err) {
       return next(err);

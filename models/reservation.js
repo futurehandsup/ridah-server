@@ -48,6 +48,14 @@ var ReservationSchema = new Schema({
       type: Schema.ObjectId,
       ref: 'Review',
     },
+    status: {
+      type: String,
+      enum: ["예약완료", "입장완료", "취소요청", "취소완료"],
+      default: "예약완료",
+    },
+    checked_at: {//입장완료일
+      type: Date,
+    },
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.
     하지만 DBRef 는 실제 값이 들어간 것이 아니고 외래키 형식으로 해당 값을 참조하는 것이다.
@@ -133,6 +141,20 @@ ReservationSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });
 
+ReservationSchema.methods.setChecked = function(cb){ //입장완료 요쳥
+  if(this.status != "예약완료"){
+    cb(Error("취소된 예약이거나 이미 입장완료 처리된 예약입니다."));
+  }else{
+    let date =  new Date();
+    this.status = "입장완료";
+    this.checked_at = date;
+
+    this.update({$set: {
+      status : "입장완료",
+      checked_at :date,
+    }}, null, ()=>cb(null,this));
+  }
+}
 ReservationSchema.set('toJSON',{ getters : true , virtuals : true});
 /*res.json() 을 사용하여 다큐먼트 데이터를 출력 할 때 get 옵션으로 정의한 값이 JSON에 포함되게 할 것이다.
 위 코드를 적지 않으면 JSON으로 데이터를 표현할 때 get 옵션을 무시하게 될 것 이다.

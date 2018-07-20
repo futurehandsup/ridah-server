@@ -31,3 +31,5 @@ npm-debug.log
 
 # 연결 관련 설정 파일
 env
+nohup.out
+.DS_Store
