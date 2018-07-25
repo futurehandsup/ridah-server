@@ -6,51 +6,31 @@
  <div class="container-fluid">
     <h2 class="my-3">정산 정보</h2>
     <div class="card">
-
-    <div class="card" style="margin-bottom: 20px;">
-      <ul class="list-group list-group-flush">
-        
-          <li class="list-group-item">그래프가 없습니다</li>
-        
-      </ul>
-    </div>
-
-    <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
-        정산예정일     
-        <!--css등을 이용하여 버튼으로-->
-        <input type="date" name="date-from"> 
-        <input type="date" name="date-until">
-      </div>   
-    </div> 
-
-    <div class="card" style="margin-bottom: 20px;">
-      <div class="card-header">
-       <table>
+       <table class="table">
           <tr>
-            <td rowspan="2">정산예정일</td>
-            <td rowspan="2">정산완료일</td>
-            <td rowspan="2">판매자 정산번호</td>
-            <td rowspan="2">정산금액(A+B+C+D+E+F)</td>
-            <td colspan="6">상세내역</td>
-            <td rowspan="2">정산방식</td>
-            <td rowspan="2">정산계좌</td>
+            <td style="width: 200px;">정산대금 수령방법</td>
+            <td></td>
           </tr>
           <tr>
-            <td>결제금액(A)</td>
-            <td>수수료합계(B)</td>
-            <td>혜택정산(C)</td>
-            <td>일별공제환급(D)</td>
-            <td>지급보류(E)</td>
-            <td>마이너스충전금 상계(F)</td>
+            <td>정산대금 입금계좌</td>
+            <td>
+              <ul>
+                <select>
+                  <option>계좌번호1</option>
+                  <option>계좌번호2</option>
+                </select>
+                <input type="file" value="통장사본 업로드">
+              </ul>
+              <ul>
+                <input type="text" name="">
+                <input type="text" name="">
+                <input type="button" value="인증" name="">
+              </ul>
+            </td>
           </tr>
         </table>
       </div>
-      <ul class="list-group list-group-flush">
-        
-          <li class="list-group-item">그래프가 없습니다</li>
-      </ul>
-    </div>
     </div>
 </div>
 
