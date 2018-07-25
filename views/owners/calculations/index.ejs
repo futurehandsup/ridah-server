@@ -10,7 +10,20 @@
     <div class="card" style="margin-bottom: 20px;">
       <ul class="list-group list-group-flush">
         
-          <li class="list-group-item">그래프가 없습니다</li>
+          <li class="list-group-item">
+            <table>
+              <tr>
+                <th rowspan="2"><i class="pe-7s-graph"></i></th>
+                <th>나의 정산 계좌</th>
+                <th rowspan="2"><i class="pe-7s-note2"></i></th>
+                <th>정산 예정일</th>
+              </tr>
+              <tr>
+                <td>(은행/계좌번호)</td>
+                <td>매달 1, 10, 20일</td>
+              </tr>
+            </table>
+          </li>
         
       </ul>
     </div>
@@ -25,31 +38,34 @@
     </div> 
 
     <div class="card" style="margin-bottom: 20px;">
-      <div class="card-header">
        <table>
+        <thead>
           <tr>
             <td rowspan="2">정산예정일</td>
             <td rowspan="2">정산완료일</td>
             <td rowspan="2">판매자 정산번호</td>
-            <td rowspan="2">정산금액(A+B+C+D+E+F)</td>
-            <td colspan="6">상세내역</td>
-            <td rowspan="2">정산방식</td>
-            <td rowspan="2">정산계좌</td>
+            <td rowspan="2">정산금액(A+B)</td>
+            <td colspan="2">상세내역</td>
           </tr>
           <tr>
             <td>결제금액(A)</td>
             <td>수수료합계(B)</td>
-            <td>혜택정산(C)</td>
-            <td>일별공제환급(D)</td>
-            <td>지급보류(E)</td>
-            <td>마이너스충전금 상계(F)</td>
+          </tr>
+        </thead>
+          <!-- 샘플 -->
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
           </tr>
         </table>
-      </div>
-      <ul class="list-group list-group-flush">
-        
+
+      <!-- <ul class="list-group list-group-flush">
           <li class="list-group-item">그래프가 없습니다</li>
-      </ul>
+      </ul> -->
     </div>
     </div>
 </div>
