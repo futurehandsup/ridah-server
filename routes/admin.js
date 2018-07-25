@@ -102,14 +102,7 @@ router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPa
 router.get('/notices/edit', notices.getList, notices.getSchemas, common.renderPage('admin/notices/edit')); // 필요없음
 router.get('/notices/edit/:noticeId', notices.getSchemas, common.renderPage('admin/notices/edit'));
 
-router.param('headerId', headers.getOne);
-
-// notices -owner
-router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPage('owner/notices/list'));
-router.get('/notices/edit', notices.getList, notices.getSchemas, common.renderPage('owner/notices/edit')); // 필요없음
-router.get('/notices/edit/:noticeId', notices.getSchemas, common.renderPage('owner/notices/edit'));
-
-router.param('headerId', headers.getOne);
+router.param('noticeId', notices.getOne);
 
 // headers
 router.get('/headers/list', headers.getList, headers.getSchemas, common.renderPage('admin/headers/list'));
