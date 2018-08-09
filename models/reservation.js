@@ -50,10 +50,16 @@ var ReservationSchema = new Schema({
     },
     status: {
       type: String,
-      enum: ["예약완료", "입장완료", "취소요청", "취소완료"],
+      enum: ["예약완료", "입장완료", "취소요청", "취소진행", "취소완료"],
       default: "예약완료",
     },
     checked_at: {//입장완료일
+      type: Date,
+    },
+    cancelcalled_at: {//취소요청일
+      type: Date,
+    },
+    cancelled_at: {//취소완료일
       type: Date,
     },
     /*
