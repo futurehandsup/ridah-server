@@ -8,27 +8,38 @@ var mongoose = require('mongoose'),
   유효기간 : 기본 90일?
 */
 var CalculationSchema = new Schema({
-    couponname : {
-      type: String,
-      //index : true,         // 보조 index
-      //unique : true,     // primary key로 지정
-      required : 'coupon name is required'   // 검증
+    store : {
+       type : Schema.ObjectId,
+       ref : 'Store'
     },
-    price : {
-      type : Number,
-      min : 0,
-      get : function(number){
-        return Intl.NumberFormat().format(number);
+    calculateDue_at : { //정산예정일
+      type : Date,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
       }
     },
-    carrots:{
-      type: Number,
-      default: 1
+    calculate_at : { //정산완료일
+      type : Date,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
+      }
     },
-    validFor:{
+    calculationNum : { //판매자 정산번호
       type : Number,
-      default : 30
+      default : 0
     },
+    calculateAmount : {
+      type : Number,
+      default : 0
+    },
+    payment : {
+      type : Number,
+      default : 0
+    },
+    fee : {
+      type : Number,
+      default : 0
+    }
 
     /*
     // 예약한 코스 정보, 예약 인원 등등
@@ -46,24 +57,6 @@ var CalculationSchema = new Schema({
     });
     위 처럼 코드를 작성하면 find 함수를 이용하여 검색할 때 posts 컬렉션에 있는 모든 데이터를 인출해 author 필드를 채워 넣을 것 이다.
     */
-    created_at : {
-      type : Date,
-      default : Date.now,
-      get: function(date){
-        return date.toLocaleDateString("ko-KR")
-      }
-    },
-    updated_at : {
-      type : Date,
-      default : Date.now,
-      get: function(date){
-        return date.toLocaleDateString("ko-KR")
-      }
-    },
-    deleted : {
-      is_deleted : Boolean,
-      deleted_at : Date
-    }
 });
 CalculationSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });

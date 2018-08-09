@@ -18,6 +18,13 @@ module.exports = function() {
    require('../models/recommend.js');
    require('../models/event.js');
    require('../models/faq.js');
+   require('../models/calculation.js');
+   require('../models/calculationInfo.js');
+   require('../models/calculationTax.js');
+   require('../models/calculationVat.js');
+   require('../models/reservation.js');
+   require('../models/reservationCancel.js');
+   require('../models/reservationUsage.js');
    
    return db;
 }

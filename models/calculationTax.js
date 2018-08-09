@@ -8,28 +8,43 @@ var mongoose = require('mongoose'),
   유효기간 : 기본 90일?
 */
 var CalculationTaxSchema = new Schema({
-    couponname : {
-      type: String,
-      //index : true,         // 보조 index
-      //unique : true,     // primary key로 지정
-      required : 'coupon name is required'   // 검증
+    store : {
+       type : Schema.ObjectId,
+       ref : 'Store'
     },
-    price : {
-      type : Number,
-      min : 0,
-      get : function(number){
-        return Intl.NumberFormat().format(number);
+    created_at : {
+      type : Date,
+      default : Date.now,
+      get: function(date){
+        return date.toLocaleDateString("ko-KR")
       }
     },
-    carrots:{
-      type: Number,
-      default: 1
+    supplier : {
+      type : String,
+      default : ""
     },
-    validFor:{
+    item : {
+      type : String,
+      default : ""
+    },
+    supplyPrice : {
       type : Number,
-      default : 30
+      default : 0
     },
-
+    taxPrice : {
+      type : Number,
+      default : 0
+    },
+    issuedStatus : {
+      type : String,
+      enum : ["미발행", "발행신청", "발행대기", "발행완료"],
+      default : ""
+    },
+    reportStatus : {
+      type : String,
+      enum : ["미신고", "신고신청", "신고대기", "신고완료"],
+      default : ""
+    }
     /*
     // 예약한 코스 정보, 예약 인원 등등
     options : {
@@ -46,24 +61,6 @@ var CalculationTaxSchema = new Schema({
     });
     위 처럼 코드를 작성하면 find 함수를 이용하여 검색할 때 posts 컬렉션에 있는 모든 데이터를 인출해 author 필드를 채워 넣을 것 이다.
     */
-    created_at : {
-      type : Date,
-      default : Date.now,
-      get: function(date){
-        return date.toLocaleDateString("ko-KR")
-      }
-    },
-    updated_at : {
-      type : Date,
-      default : Date.now,
-      get: function(date){
-        return date.toLocaleDateString("ko-KR")
-      }
-    },
-    deleted : {
-      is_deleted : Boolean,
-      deleted_at : Date
-    }
 });
 CalculationTaxSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });

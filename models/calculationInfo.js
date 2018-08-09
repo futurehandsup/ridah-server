@@ -7,27 +7,13 @@ var mongoose = require('mongoose'),
   사용 가능 횟수 : (n 회 이용권)
   유효기간 : 기본 90일?
 */
-var CalculationVatSchema = new Schema({
-    couponname : {
-      type: String,
-      //index : true,         // 보조 index
-      //unique : true,     // primary key로 지정
-      required : 'coupon name is required'   // 검증
+var CalculationInfoSchema = new Schema({
+    store : {
+       type : Schema.ObjectId,
+       ref : 'Store'
     },
-    price : {
-      type : Number,
-      min : 0,
-      get : function(number){
-        return Intl.NumberFormat().format(number);
-      }
-    },
-    carrots:{
-      type: Number,
-      default: 1
-    },
-    validFor:{
-      type : Number,
-      default : 30
+    tongjangSabon : {
+      type : String
     },
 
     /*
@@ -65,7 +51,7 @@ var CalculationVatSchema = new Schema({
       deleted_at : Date
     }
 });
-CalculationVatSchema.post('update', function(result) {
+CalculationInfoSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });
 
@@ -124,8 +110,8 @@ CalculationVatSchema.post('update', function(result) {
 //     });
 // };
 
-CalculationVatSchema.set('toJSON',{ getters : true , virtuals : true});
+CalculationInfoSchema.set('toJSON',{ getters : true , virtuals : true});
 /*res.json() 을 사용하여 다큐먼트 데이터를 출력 할 때 get 옵션으로 정의한 값이 JSON에 포함되게 할 것이다.
 위 코드를 적지 않으면 JSON으로 데이터를 표현할 때 get 옵션을 무시하게 될 것 이다.
 출처: http://alexband.tistory.com/23 [Front-end Rider] */
-mongoose.model('CalculationVat', CalculationVatSchema);
+mongoose.model('CalculationInfo', CalculationInfoSchema);

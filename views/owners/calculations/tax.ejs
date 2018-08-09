@@ -85,7 +85,27 @@
           <td>신고상태</td>
         </thead>
 
-        <tr>
+        <tbody>
+        <% %>
+                <% for(var i=0; i<calculationTaxs.length; i++){
+                  var calculationTax = calculationTaxs[i];
+                  %>
+                  <tr>
+
+                    <td><input type="checkbox" name=""></td>
+                    <td><%=calculationTax['vatPeriod']%></td>
+                    <td><%=calculationTax['overTax']%></td>
+                    <td><%=calculationTax['underTax']%></td>
+                    <td><%=calculationTax['creditcard']%></td>
+                    <td><%=calculationTax['deduction']%></td>
+                    <td><%=calculationTax['expenditure']%></td>
+                    <td><%=calculationTax['etc']%>
+
+                  </tr>
+                <% }%>
+        </tbody>
+
+        <!-- <tr>
           <td><input type="checkbox" name=""></td>
           <td>1</td>
           <td>2</td>
@@ -94,7 +114,7 @@
           <td>5</td>
           <td>6</td>
           <td>7</td>
-        </tr>
+        </tr> -->
       </table>
 
     </div>

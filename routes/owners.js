@@ -9,6 +9,11 @@ var qnas = require('../controllers/qnas');
 var programs = require('../controllers/programs');
 var reservations = require('../controllers/reservations');
 var notices = require('../controllers/notices');
+var calculations = require('../controllers/calculations');
+var calculationTaxs = require('../controllers/calculationTaxs');
+var calculationVats = require('../controllers/calculationVats');
+var calculationInfos = require('../controllers/calculationInfos');
+
 //passport = require('passport');
 
 router.all('*', function(req, res, next){
@@ -84,10 +89,10 @@ router.get('/statistics/reservations', programs.getList, programs.getSchemas, co
 router.get('/statistics/customers', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/customers'));
 
 //정산 내역
-router.get('/calculations', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/index'));
-router.get('/calculations/vat', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/vat'));
-router.get('/calculations/tax', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/tax'));
-router.get('/calculations/info', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/info'));
+router.get('/calculations', calculations.getList, calculations.getSchemas, common.renderPage('owners/calculations/index'));
+router.get('/calculations/vat', calculationVats.getList, calculationVats.getSchemas, common.renderPage('owners/calculations/vat'));
+router.get('/calculations/tax', calculationTaxs.getList, calculationTaxs.getSchemas, common.renderPage('owners/calculations/tax'));
+router.get('/calculations/info', calculationInfos.getList, calculationInfos.getSchemas, common.renderPage('owners/calculations/info'));
 
 
 router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPage('owners/notices/list'));

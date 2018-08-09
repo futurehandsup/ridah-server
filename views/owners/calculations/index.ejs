@@ -52,15 +52,32 @@
             <td>수수료합계(B)</td>
           </tr>
         </thead>
+        <tbody>
+        <% %>
+                <% for(var i=0; i<calculations.length; i++){
+                  var calculation = calculations[i];
+                  %>
+                  <tr>
+
+                    <td><%=calculation['calculationDue_at']%></td>
+                    <td><%=calculation['calculate_at']%></td>
+                    <td><%=calculation['calculationNumber']%></td>
+                    <td><%=calculation['calculateAmount']%></td>
+                    <td><%=calculation['payment']%></td>
+                    <td><%=calculation['fee']%></td>
+
+                  </tr>
+                <% }%>
+          </tbody>
           <!-- 샘플 -->
-          <tr>
+          <!-- <tr>
             <td>1</td>
             <td>2</td>
             <td>3</td>
             <td>4</td>
             <td>5</td>
             <td>6</td>
-          </tr>
+          </tr> -->
         </table>
 
       <!-- <ul class="list-group list-group-flush">

@@ -5,7 +5,7 @@ var ReservationUsageSchema = new Schema({
     reservationNum : {
       type : Number,
       default : 0,
-      require : "reservationNum is required";
+      require : "reservationNum is required"
     },
     reservationDate : {
       type : String,
@@ -20,25 +20,25 @@ var ReservationUsageSchema = new Schema({
       // }
     },
     usedDate : {
-      type : Date.
-      default : "0000-00-00";
-    }
+      type : Date,
+      default : "0000-00-00"
+    },
     programName : {
       type : String,
-      default : "";
+      default : ""
     },
     personnel : {
       type : String ,
       default : "",
-      require : "personnel is required";
+      require : "personnel is required"
     },
     reserver : {
       type : String,
-      default : "";
+      default : ""
     },
     reserverPhone : {
       type : Number,
-      default : "";
+      default : ""
     },
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.
