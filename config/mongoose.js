@@ -14,6 +14,7 @@ module.exports = function() {
    require('../models/couponPurchaseLog.js');
    require('../models/carrotUsageLog.js');
    require('../models/notice.js');
+   require('../models/noticeOwner.js');
    require('../models/header.js');
    require('../models/recommend.js');
    require('../models/event.js');
@@ -25,6 +26,6 @@ module.exports = function() {
    require('../models/reservation.js');
    require('../models/reservationCancel.js');
    require('../models/reservationUsage.js');
-   
+
    return db;
 }

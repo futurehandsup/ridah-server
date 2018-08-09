@@ -12,6 +12,7 @@ var programs = require('../controllers/programs');
 var coupons = require('../controllers/coupons');
 var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
 var notices = require('../controllers/notices');
+var noticeOwners = require('../controllers/noticeOwners');
 var headers = require('../controllers/headers');
 var recommends = require('../controllers/recommends');
 var events = require('../controllers/events');
@@ -103,6 +104,13 @@ router.get('/notices/edit', notices.getList, notices.getSchemas, common.renderPa
 router.get('/notices/edit/:noticeId', notices.getSchemas, common.renderPage('admin/notices/edit'));
 
 router.param('noticeId', notices.getOne);
+
+// noticeOwners
+router.get('/noticeOwners/list', noticeOwners.getList, noticeOwners.getSchemas, common.renderPage('admin/noticeOwners/list'));
+router.get('/noticeOwners/edit', noticeOwners.getList, noticeOwners.getSchemas, common.renderPage('admin/noticeOwners/edit')); // 필요없음
+router.get('/noticeOwners/edit/:noticeOwnerId', noticeOwners.getSchemas, common.renderPage('admin/noticeOwners/edit'));
+
+router.param('noticeOwnerId', noticeOwners.getOne);
 
 // headers
 router.get('/headers/list', headers.getList, headers.getSchemas, common.renderPage('admin/headers/list'));

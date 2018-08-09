@@ -46,6 +46,7 @@ exports.getList = function(req, res, next){
       params.owner = null;
     }
   }
+
   Reservation.find(params)
   .populate('store')
   .populate('owner')

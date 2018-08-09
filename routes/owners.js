@@ -9,6 +9,7 @@ var qnas = require('../controllers/qnas');
 var programs = require('../controllers/programs');
 var reservations = require('../controllers/reservations');
 var notices = require('../controllers/notices');
+var noticeOwners = require('../controllers/noticeOwners');
 var calculations = require('../controllers/calculations');
 var calculationTaxs = require('../controllers/calculationTaxs');
 var calculationVats = require('../controllers/calculationVats');
@@ -94,11 +95,15 @@ router.get('/calculations/vat', calculationVats.getList, calculationVats.getSche
 router.get('/calculations/tax', calculationTaxs.getList, calculationTaxs.getSchemas, common.renderPage('owners/calculations/tax'));
 router.get('/calculations/info', calculationInfos.getList, calculationInfos.getSchemas, common.renderPage('owners/calculations/info'));
 
-
+//관리자 공지사항
 router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPage('owners/notices/list'));
 router.get('/notices/detail/:noticeId', notices.getSchemas, common.renderPage('owners/notices/detail'));
 router.param('noticeId', notices.getOne);
 
+//가맹점주 공지사항
+router.get('/noticeOwners/list', noticeOwners.getList, noticeOwners.getSchemas, common.renderPage('owners/noticeOwners/list'));
+router.get('/noticeOwners/detail/:noticeOwnerId', noticeOwners.getSchemas, common.renderPage('owners/noticeOwners/detail'));
+router.param('noticeOwnerId', noticeOwners.getOne);
 
 //밑에는 임시
 //router.get('/stores/list2', stores.getList2, common.renderPage('owners/stores/list2'));
