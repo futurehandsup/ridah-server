@@ -180,7 +180,9 @@ exports.getOne = function(req, res, next, id) {
       _id : id
     }
   };
-  Store.findOne(params, function(err, store) {
+  Store.findOne(params)
+  .populate('publicData')
+  .exec(function(err, store) {
     if (err) {
       return next(err);
     } else {

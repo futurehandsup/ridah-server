@@ -36,7 +36,7 @@ router.route('/')
   // }
   next();
 })
-.get(stores.getList, common.setResponse)        // 승마장 리스트 출력
+.get(stores.getList, common.setResponse)        // 승마장 리스트 출력  GET /stores
 .post(stores.registerOne, common.setResponse)   // 승마장 등록
 .put(common.notImplementedError)
 .delete(common.notImplementedError);

@@ -65,6 +65,8 @@ module.exports = function() {
     var events = require('../routes/events');
     var apps = require('../routes/apps');
     var faqs = require('../routes/faqs');
+    var publicDatas = require('../routes/publicDatas');
+
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
@@ -95,6 +97,7 @@ module.exports = function() {
     app.use('/events', events);
     app.use('/apps', apps);
     app.use('/faqs', faqs);
+    app.use('/publicDatas', publicDatas);
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);
