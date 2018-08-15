@@ -88,7 +88,7 @@ exports.registerOneFromArg = function(pd) {
     if (err) {
       return next(err);
     } else {
-      console.log("saved")
+      //console.log("saved")
       // var result = {
       //   title : "publicData",
       //   //page : 'stores/list2',

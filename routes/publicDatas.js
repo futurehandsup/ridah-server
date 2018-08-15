@@ -16,18 +16,18 @@ router.route('/')
 .post(publicDatas.registerOne, common.setResponse)   // 승마장 등록
 .put(common.notImplementedError)
 .delete(common.notImplementedError);
-
-router.route('/addAll')
-.all(function(req,res,next){
-  let data = require("../data.json");
-  data.forEach((e, i)=>{
-  //  if(i!=0) return;
-    publicDatas.registerOneFromArg(e);
-    console.log("adding "+e.BSSH_NM);
-  })
-  next();
-})
-.get(publicDatas.getList, common.setResponse);
+//
+// router.route('/addAll')
+// .all(function(req,res,next){
+//   let data = require("../data.json");
+//   data.forEach((e, i)=>{
+//   //  if(i!=0) return;
+//     publicDatas.registerOneFromArg(e);
+//     console.log("adding "+e.BSSH_NM);
+//   })
+//   next();
+// })
+// .get(publicDatas.getList, common.setResponse);
 
 router.route('/:publicDataId')
 .all(function(req, res, next) {
