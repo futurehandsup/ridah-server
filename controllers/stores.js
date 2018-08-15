@@ -39,13 +39,14 @@ exports.getList = function(req, res, next){
 
   if(req.query.gps != undefined){
     let coord = req.query.gps.split(',')
+    let maxDistance = (req.query.maxDistance!=null)? req.query.maxDistance : 50;
     geoParams = {
       $geoNear : {
         near: { type: "Point", coordinates: [ Number(coord[1]), Number(coord[0]) ] },
         distanceField: "distance",
         distanceMultiplier: 0.001,
         spherical: true,
-        /*maxDistance: 100, // 최대치 설정할수있게*/
+        maxDistance: maxDistance, // 최대치 설정할수있게*/
       }
     };
     params.push(geoParams)
