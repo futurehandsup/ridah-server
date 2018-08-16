@@ -46,7 +46,7 @@ exports.getList = function(req, res, next){
         distanceField: "distance",
         distanceMultiplier: 0.001,
         spherical: true,
-        maxDistance: maxDistance, // 최대치 설정할수있게*/
+        maxDistance: maxDistance*1000, // 최대치 설정할수있게*/
       }
     };
     params.push(geoParams)
