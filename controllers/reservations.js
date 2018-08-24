@@ -47,10 +47,34 @@ exports.getList = function(req, res, next){
     }
   }
 
+  // //검색조건 설정
+  // if(req.query.date_from != ""){ // 날짜 시작
+  //   params.reservationDate = {
+  //     $gt: 17, //최소값
+  //     $lt: 66  //최댓값
+  //   }
+  // }
+  if(req.query.search_condition != null){ // 검색조건 시작
+    params.ownerName = req.query.search_condition
+  }
+  /*
+  populate({
+    path: 'program',
+    match: { name: search_condition },
+    // Explicitly exclude `_id`, see http://bit.ly/2aEfTdB
+    //select: 'name -_id',
+  })
+  */
+  console.log(params)
+
   Reservation.find(params)
   .populate('store')
-  .populate('owner')
-  .populate('program')
+  .populate({
+    path: 'owner'
+  })
+  .populate({
+    path: 'program',
+  })
   .populate('review')
   .exec(function(err, reservations) {
     if (err) {
