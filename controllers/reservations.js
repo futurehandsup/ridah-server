@@ -211,18 +211,27 @@ exports.setChecked = function(req, res, next){
   }
   reservation.setChecked(function(err, r) {
     if(err) return next(err);
-    var result = {
-      title : "Reservation Check In",
-      success : true,
-      messages : req.flash('error'),
-      reservation : r
-    }
-    if(req.result == undefined){
-      req.result = result;
-    }
-    else{
-      req.result = Object.assign(req.result, result);
-    }
-    return next()
+    Reservation.find(r)
+    .populate('store')
+    .populate('owner')
+    .populate('program')
+    .populate('review')
+    .exec(function(err, re) {
+      if(err) return next(err);
+      var result = {
+        title : "Reservation Check In",
+        success : true,
+        messages : req.flash('error'),
+        reservation : re
+      }
+      if(req.result == undefined){
+        req.result = result;
+      }
+      else{
+        req.result = Object.assign(req.result, result);
+      }
+      return next()
+    });
+
   });
 }

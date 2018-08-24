@@ -55,7 +55,23 @@
                 <th>전화번호</th>
               </thead>
               <tbody>
+                <% %>
+                <% for(var i=0; i<reservations.length; i++){
+                  var reservation = reservations[i];
+                  %>
+                  <tr>
+                    <td><%=i%></td>
 
+                    <td><%=reservation['_id']%></td>
+                    <td><%=reservation['reservationDate']%></td>
+                    <td><%=reservation['cancelcalled_at']%></td>
+                    <td><%=reservation['status']%></td>
+                    <td><%=reservation['program'].programname%></td>
+                    <td><%=reservation['howMany']%></td>
+                    <td><%=reservation['ownerName']%></td>
+                    <td><%=reservation['telephone']%></td>
+                  </tr>
+                <% }%>
               </tbody>
             </table>
           </li>
