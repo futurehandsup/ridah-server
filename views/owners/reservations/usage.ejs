@@ -9,27 +9,31 @@
 
     <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
+        <form action="" method="get">
+           <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
         <div>
           조회기간     
           <ul style="display: block; float: right;">일간</ul>
           <ul style="display: block; float: right;">주간</ul>
           <ul style="display: block; float: right;">월간</ul>
           <!--css등을 이용하여 버튼으로-->
-          <input type="date" name="date-from"> 
-          <input type="date" name="date-until">
+          <input type="date" name="date-from" value="<%=query.date_from%>"> 
+          <input type="date" name="date-until" value="<%=query.date_until%>">
         </div>
         <div style="margin-top: 10px;">
           <ul style="display: block; float: right;">
             <button class="btn btn-success">검색</button>
           </ul>
-          <select placeholder="상세조건">
-            <option>예약번호</option>
-            <option>프로그램명</option>
-            <option>예약자명</option>
-            <option>전화번호</option>
+          <select placeholder="상세조건" name="search_condition">
+
+            <option value="예약번호" <%=(query.search_condition=="예약번호")? "selected" : ""%>>예약번호</option>
+            <option value="프로그램명" <%=(query.search_condition=="프로그램명")? "selected" : ""%>>프로그램명</option>
+            <option value="예약자명" <%=(query.search_condition=="예약자명")? "selected" : ""%>>예약자명</option>
+            <option value="전화번호" <%=(query.search_condition=="전화번호")? "selected" : ""%>>전화번호</option>
           </select>
-          <input type="text" name="search-condition">
+          <input type="text" name="search_key" value="<%=query.search_key%>">
         </div>
+      </form>
       </div>
    
     </div> 
@@ -70,8 +74,8 @@
                     <td><%=reservation['telephone']%></td>
 
                     <td>
-                      <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-                      <a href="edit/<%=reservation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+                      <!-- <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
+                      <a href="edit/<%=reservation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button> -->
                     </td>
                   </tr>
                 <% }%>

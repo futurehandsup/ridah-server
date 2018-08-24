@@ -17,21 +17,22 @@
           <ul style="display: block; float: right;">주간</ul>
           <ul style="display: block; float: right;">월간</ul>
           <!--css등을 이용하여 버튼으로-->
-          <input type="date" name="date_from" value="">
-          <input type="date" name="date_until" value="">
+          <input type="date" name="date_from" value="<%=query.date_from%>">
+          <input type="date" name="date_until" value="<%=query.date_until%>">
         </div>
         <div style="margin-top: 10px;">
           <ul style="display: block; float: right;">
             <button class="btn btn-success">검색</button>
           </ul>
-          <select placeholder="상세조건">
-            <option>예약번호</option>
-            <option>예약상태</option>
-            <option>프로그램명</option>
-            <option>예약자명</option>
-            <option>전화번호</option>
+          <select placeholder="상세조건" name="search_condition">
+
+            <option value="예약번호" <%=(query.search_condition=="예약번호")? "selected" : ""%>>예약번호</option>
+            <option value="예약상태" <%=(query.search_condition=="예약상태")? "selected" : ""%>>예약상태</option>
+            <!--<option>프로그램명</option>-->
+            <option value="예약자명" <%=(query.search_condition=="예약자명")? "selected" : ""%>>예약자명</option>
+            <option value="전화번호" <%=(query.search_condition=="전화번호")? "selected" : ""%>>전화번호</option>
           </select>
-          <input type="text" name="search_condition">
+          <input type="text" name="search_key" value="<%=query.search_key%>">
         </div>
       </form>
       </div>
@@ -66,18 +67,20 @@
                   <tr>
                     <td><%=i%></td>
 
-                    <td><%=reservation['store'].storename%></td>
-                    <td><%=reservation['program'].programname%></td>
+                    <td><%=reservation['_id']%>
+                    <td><%=reservation['created_at']%></td>
                     <td><%=reservation['reservationDate']%></td>
-                    <td><%=(reservation.owner != null) ? reservation.owner.userid : reservation.owner %></td>
+                    <td><%=reservation['status']%></td>
+
+                    <td><%=reservation['program'].programname%></td>
+                    <td><%=reservation['howMany']%></td>
+                  
                     <td><%=reservation['ownerName']%></td>
                     <td><%=reservation['telephone']%></td>
-                    <td><%=reservation['howMany']%></td>
-                    <td><%=reservation['carrots']%></td>
 
                     <td>
-                      <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-                      <a href="edit/<%=reservation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+                     <!--  <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
+                      <a href="edit/<%=reservation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button> -->
                     </td>
                   </tr>
                 <% }%>

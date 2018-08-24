@@ -32,7 +32,12 @@ exports.getSchemas = function(req, res, next){
 }
 
 exports.getList = function(req, res, next){
-  CalculationTax.find()
+  
+  var params = {};
+ 
+  // 검색로직
+  
+  CalculationTax.find(params)
   .exec(function(err, calculationTaxs) {
     if (err) {
       return next(err);

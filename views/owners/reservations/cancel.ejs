@@ -9,6 +9,8 @@
 
     <div class="card" style="margin-bottom: 20px;">
       <div class="card-header">
+        <form action="" method="get">
+        <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
         <div>
           조회기간     
           <ul style="display: block; float: right;">일간</ul>
@@ -22,15 +24,16 @@
           <ul style="display: block; float: right;">
             <button class="btn btn-success">검색</button>
           </ul>
-          <select placeholder="처리상태">
+          <select placeholder="처리상태" name="search_condition">
             <option>전체</option>
-            <option>취소요청</option>
-            <option>취소중</option>
-            <option>취소완료</option>
-            <option>취소철회</option>
+            <option value="취소요청" <%=(query.search_condition=="취소요청")? "selected" : ""%>>취소요청</option>
+            <option value="취소진행" <%=(query.search_condition=="취소진행")? "selected" : ""%>>취소진행</option>
+            <option value="취소완료" <%=(query.search_condition=="취소완료")? "selected" : ""%>>취소완료</option>
+            <option value="취소철회" <%=(query.search_condition=="취소철회")? "selected" : ""%>>취소철회</option>
           </select>
-          <input type="text" name="search-condition">
+         
         </div>
+      </form>
       </div>
     </div>
 
