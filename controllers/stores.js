@@ -55,7 +55,8 @@ exports.getList = function(req, res, next){
     keywordParams = { $match :
       {$or : [
         {storename : {$regex : req.query.keyword} },
-        {address : {$regex : req.query.keyword} }
+        {address : {$regex : req.query.keyword} },
+        {tag : {$regex : req.query.keyword} }
       ]}
     }
   }
