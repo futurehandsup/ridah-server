@@ -157,6 +157,23 @@ var StoreSchema = new Schema({
       type: Boolean,
       default: false
     },
+
+    account_bank : {
+      type : String,
+      default : null
+    },
+
+    account_address : {
+      type : String,
+      default : null
+    },
+
+    // account_date : [{
+    //   type : Number,
+    //   default :  null
+    // }],
+
+
     // owner : {
     //   type : Schema.ObjectId,
     //   ref : 'User'

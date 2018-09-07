@@ -32,6 +32,28 @@ exports.getSchemas = function(req, res, next){
 }
 
 exports.getList = function(req, res, next){
+
+  var params = {};
+  if(req.result != undefined && req.result.user != undefined){
+    params.owner = req.result.user._id
+  }
+  if(req.result != undefined && req.result.store != undefined){
+    params.store = req.result.store._id
+  }
+
+  //검색조건 설정
+  if(req.query.date_from != null && req.query.date_from != ""){ // 날짜 시작
+  
+    if(params.reservationDate == null) params.reservationDate = {}
+    params.reservationDate.$gte = req.query.date_from //최소값
+  }
+
+  //검색조건 설정
+  if(req.query.until != null && req.query.date_until != ""){ // 날짜 끝
+    if(params.reservationDate == null) params.reservationDate = {}
+    params.reservationDate.$lte = req.query.date_until 
+  }
+
   Calculation.find()
   .exec(function(err, calculations) {
     if (err) {

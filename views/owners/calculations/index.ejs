@@ -19,7 +19,7 @@
                 <th>정산 예정일</th>
               </tr>
               <tr>
-                <td>(은행/계좌번호)</td>
+                <td>(<%=store['account_bank']%>)<%=store['account_address']%></td>
                 <td>매달 1, 10, 20일</td>
               </tr>
             </table>
@@ -32,8 +32,15 @@
       <div class="card-header">
         정산예정일     
         <!--css등을 이용하여 버튼으로-->
-        <input type="date" name="date-from"> 
-        <input type="date" name="date-until">
+        <form>
+          <input type="date" name="date-from"  value="<%=query.date_from%>"> 
+          <input type="date" name="date-until" value="<%=query.date_until%>">
+        
+          <ul style="display: block; float: right;">
+              <button class="btn btn-success">검색</button>
+          </ul>
+        </form>
+
       </div>   
     </div> 
 
@@ -59,9 +66,9 @@
                   %>
                   <tr>
 
-                    <td><%=calculation['calculationDue_at']%></td>
+                    <td><%=calculation['calculateDue_at']%></td>
                     <td><%=calculation['calculate_at']%></td>
-                    <td><%=calculation['calculationNumber']%></td>
+                    <td><%=calculation['calculationNum']%></td>
                     <td><%=calculation['calculateAmount']%></td>
                     <td><%=calculation['payment']%></td>
                     <td><%=calculation['fee']%></td>
