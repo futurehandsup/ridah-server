@@ -39,13 +39,14 @@ exports.getList = function(req, res, next){
 
   if(req.query.gps != undefined){
     let coord = req.query.gps.split(',')
+    let maxDistance = (req.query.maxDistance!=null)? req.query.maxDistance : 50;
     geoParams = {
       $geoNear : {
         near: { type: "Point", coordinates: [ Number(coord[1]), Number(coord[0]) ] },
         distanceField: "distance",
         distanceMultiplier: 0.001,
         spherical: true,
-        /*maxDistance: 100, // 최대치 설정할수있게*/
+        maxDistance: maxDistance*1000, // 최대치 설정할수있게*/
       }
     };
     params.push(geoParams)
@@ -54,7 +55,8 @@ exports.getList = function(req, res, next){
     keywordParams = { $match :
       {$or : [
         {storename : {$regex : req.query.keyword} },
-        {address : {$regex : req.query.keyword} }
+        {address : {$regex : req.query.keyword} },
+        {tag : {$regex : req.query.keyword} }
       ]}
     }
   }
@@ -180,7 +182,9 @@ exports.getOne = function(req, res, next, id) {
       _id : id
     }
   };
-  Store.findOne(params, function(err, store) {
+  Store.findOne(params)
+  .populate('publicData')
+  .exec(function(err, store) {
     if (err) {
       return next(err);
     } else {

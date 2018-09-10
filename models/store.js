@@ -69,6 +69,10 @@ var StoreSchema = new Schema({
       type: String,
       default: "/images/background.jpg"
     }],
+    publicData: {
+      type: Schema.ObjectId,
+      ref: 'PublicData',
+    },
     tag : [{
       type: String,
       default: ""
@@ -215,6 +219,33 @@ var StoreSchema = new Schema({
 StoreSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });
+
+StoreSchema.pre('save', function(next){
+  if(this.gps.coordinates.length == 0){
+    const https = require('https');
+    const {maps_api_key} = require('../config/env/google-credential');
+    let address = encodeURI(this.address.split(" ").join("+"));
+    //console.log("address: "+address)
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?language=ko&address=${address}&key=${maps_api_key}`;
+    //console.log("url: "+url)
+
+    https.get(url, (resp) => {
+      let data = '';
+      // A chunk of data has been recieved.
+      resp.on('data', (chunk) => {data += chunk});
+      // The whole response has been received. Print out the result.
+      resp.on('end', () => {
+        let geocodeData = JSON.parse(data);
+        let {lat, lng} = geocodeData.results[0].geometry.location;
+        this.gps.coordinates = [lng, lat];
+        next();
+      });
+    }).on("error", (err) => {
+      console.log("Error: " + err.message);
+      return next(err);
+    });
+  }
+})
 //
 // StoreSchema.methods.hasTag = function(tag){
 //   return (this.tags.indexOf(tag) > -1)
