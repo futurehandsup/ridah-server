@@ -32,7 +32,7 @@ exports.getSchemas = function(req, res, next){
 }
 
 exports.getList = function(req, res, next){
-  
+
   var params = {};
 
   if(req.result != undefined && req.result.user != undefined){
@@ -51,7 +51,7 @@ exports.getList = function(req, res, next){
 
   //검색조건 설정
   if(req.query.date_from != null && req.query.date_from != ""){ // 날짜 시작
-  
+
     if(params.reservationDate == null) params.reservationDate = {}
     params.reservationDate.$gte = req.query.date_from //최소값
   }
@@ -59,36 +59,33 @@ exports.getList = function(req, res, next){
   //검색조건 설정
   if(req.query.until != null && req.query.date_until != ""){ // 날짜 시작
     if(params.reservationDate == null) params.reservationDate = {}
-    params.reservationDate.$lte = req.query.date_until 
+    params.reservationDate.$lte = req.query.date_until
   }
 
-    if(req.query.issue_condition == '미발행'){
-      params.status = '미발행'
-    }
-    if(req.query.issue_condition == '발행신청'){
-      params.status = '발행신청'
-    }
-    if(req.query.issue_condition == '발행대기'){
-      params.status = '발행대기'
-    }
-    if(req.query.issue_condition == '발행완료'){
-      params.status = '발행완료'
-    }
+  if(req.query.issue_condition == '미발행'){
+    params.status = '미발행'
+  }
+  if(req.query.issue_condition == '발행신청'){
+    params.status = '발행신청'
+  }
+  if(req.query.issue_condition == '발행대기'){
+    params.status = '발행대기'
+  }
+  if(req.query.issue_condition == '발행완료'){
+    params.status = '발행완료'
+  }
 
-    if(req.query.report_condition == '미신고'){
-      params.status = '미신고'
-    }
-    if(req.query.report_condition == '신고신청'){
-      params.status = '신고신청'
-    }
-    if(req.query.report_condition == '신고대기'){
-      params.status = '신고대기'
-    }
-    if(req.query.report_condition == '신고완료'){
-      params.status = '신고완료'
-    }
-
-
+  if(req.query.report_condition == '미신고'){
+    params.status = '미신고'
+  }
+  if(req.query.report_condition == '신고신청'){
+    params.status = '신고신청'
+  }
+  if(req.query.report_condition == '신고대기'){
+    params.status = '신고대기'
+  }
+  if(req.query.report_condition == '신고완료'){
+    params.status = '신고완료'
   }
   CalculationTax.find(params)
   .exec(function(err, calculationTaxs) {
