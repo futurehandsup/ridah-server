@@ -42,6 +42,7 @@ module.exports = function() {
     app.set('view engine', 'ejs');
 
     app.set('jwt-secret', config.sessionSecret);
+    app.set('jwt-refresh-secret', config.refreshSecret);
 
     app.use(flash());
     app.use(passport.initialize());    // 추가

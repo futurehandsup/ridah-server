@@ -11,6 +11,11 @@ var UserSchema = new Schema({
       unique : true,     // primary key로 지정
       required : 'User ID is required',   // 검증
     },
+    kakaoId : {
+      type : String ,
+      trim : true ,     //자동으로 앞뒤공백 제거
+      unique : true,     // 중복제거
+    },
     email : {
       type : String ,
       index : true,         // 보조 index
@@ -156,6 +161,11 @@ UserSchema.statics.findUniqueUserid = function(userid, suffix, callback) {
 UserSchema.statics.findOneByUsername = function(username) {
     return this.findOne({
         userid : username
+    }).exec();
+}
+UserSchema.statics.findOneByKakaoId = function(kakaoId) {
+    return this.findOne({
+        kakaoId : kakaoId
     }).exec();
 }
 
