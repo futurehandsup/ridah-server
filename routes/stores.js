@@ -10,16 +10,16 @@ var qnas = require('../controllers/qnas');
     //passport = require('passport');
 
 router.use(function(req, res, next) {
-  if(req.result.info != null){
-    return users.getOne(req, res, next, req.result.info._id);
-  }
-  else if(req.query.userId != undefined){
-    return users.getOne(req, res, next, req.query.userId);
-  }
-  else{
-    return users.getOne(req, res, next);
-  }
-  //next();
+  // if(req.result.info != null){
+  //   return users.getOne(req, res, next, req.result.info._id);
+  // }
+  // else if(req.query.userId != undefined){
+  //   return users.getOne(req, res, next, req.query.userId);
+  // }
+  // else{
+  //   return users.getOne(req, res, next);
+  // }
+  next();
 });
 
 //RESTful API

@@ -9,6 +9,12 @@ var qnas = require('../controllers/qnas');
 var programs = require('../controllers/programs');
 var reservations = require('../controllers/reservations');
 var notices = require('../controllers/notices');
+var noticeOwners = require('../controllers/noticeOwners');
+var calculations = require('../controllers/calculations');
+var calculationTaxs = require('../controllers/calculationTaxs');
+var calculationVats = require('../controllers/calculationVats');
+var calculationInfos = require('../controllers/calculationInfos');
+
 //passport = require('passport');
 
 router.all('*', function(req, res, next){
@@ -20,12 +26,13 @@ router.all('*', function(req, res, next){
     return stores.getOne(req, res, next);
   }
 }, function(req, res, next){
-  if(req.query.userId != undefined){
-    return users.getOne(req, res, next, req.query.userId);
-  }
-  else{
-    return users.getOne(req, res, next);
-  }
+  // if(req.query.userId != undefined){
+  //   return users.getOne(req, res, next, req.query.userId);
+  // }
+  // else{
+  //   return users.getOne(req, res, next);
+  // }
+  next()
 });
 // render 될 페이지 모음
 router.get('/', stores.getList, common.renderPage('owners/index'));
@@ -41,13 +48,13 @@ router.get('/reservations/weekly', programs.getList, reservations.getSchemas, co
 router.get('/reservations/monthly', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/monthly'));
 
 // 예약 내역
-router.get('/reservations/list', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/list'));
+router.get('/reservations/list', reservations.getList, reservations.getSchemas, common.renderPage('owners/reservations/list'));
 
 // 이용 내역
-router.get('/reservations/usage', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/usage'));
+router.get('/reservations/usage', reservations.getList, reservations.getSchemas, common.renderPage('owners/reservations/usage'));
 
 // 취소 내역
-router.get('/reservations/cancel', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/cancel'));
+router.get('/reservations/cancel', reservations.getList, reservations.getSchemas, common.renderPage('owners/reservations/cancel'));
 
 // stores
 router.get('/stores/detail', programs.getReservationsList, reviews.getList, qnas.getList, common.renderPage('owners/stores/detail'));
@@ -78,12 +85,26 @@ router.get('/programs/edit', programs.getList, programs.getSchemas, common.rende
 router.get('/programs/edit/:programId', programs.getSchemas, common.renderPage('owners/progrmas/edit'));
 router.param('programId', programs.getOne);
 
+//통계
 router.get('/statistics', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/index'));
-router.get('/calculations', programs.getList, programs.getSchemas, common.renderPage('owners/calculations/index'));
+router.get('/statistics/reservations', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/reservations'));
+router.get('/statistics/customers', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/customers'));
+
+//정산 내역
+router.get('/calculations', calculations.getList, calculations.getSchemas, common.renderPage('owners/calculations/index'));
+router.get('/calculations/vat', calculationVats.getList, calculationVats.getSchemas, common.renderPage('owners/calculations/vat'));
+router.get('/calculations/tax', calculationTaxs.getList, calculationTaxs.getSchemas, common.renderPage('owners/calculations/tax'));
+router.get('/calculations/info', calculationInfos.getList, calculationInfos.getSchemas, common.renderPage('owners/calculations/info'));
+
+//관리자 공지사항
 router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPage('owners/notices/list'));
 router.get('/notices/detail/:noticeId', notices.getSchemas, common.renderPage('owners/notices/detail'));
 router.param('noticeId', notices.getOne);
 
+//가맹점주 공지사항
+router.get('/noticeOwners/list', noticeOwners.getList, noticeOwners.getSchemas, common.renderPage('owners/noticeOwners/list'));
+router.get('/noticeOwners/detail/:noticeOwnerId', noticeOwners.getSchemas, common.renderPage('owners/noticeOwners/detail'));
+router.param('noticeOwnerId', noticeOwners.getOne);
 
 //밑에는 임시
 //router.get('/stores/list2', stores.getList2, common.renderPage('owners/stores/list2'));

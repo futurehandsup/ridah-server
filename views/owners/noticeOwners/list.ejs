@@ -1,14 +1,14 @@
-<% include ../templates/header.ejs %>
+<% include ../templates/head.ejs %>
 <div class="content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="header">
-            <h4 class="title">추천 승마장
-              <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
-              추가하기
-              </button></h4>
+            <h4 class="title">공지사항
+              <!-- <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
+              만들기
+              </button> --></h4>
             <p class="category">Here is a subtitle for this table</p>
           </div>
           <!-- Modal -->
@@ -17,24 +17,24 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">추천 승마장 등록</h4>
+                  <h4 class="modal-title" id="myModalLabel">승마장 등록</h4>
                 </div>
                 <div class="modal-body">
                   <div class="content">
-                    <form id="createForm" action="/recommends" method="POST">
+                    <form id="createForm" action="/noticeOwners" method="POST">
                       <div class="row">
+                        <% var keys = Object.keys(schema);
 
+                       for(var j=0; j< keys.length; j++){
+                         if(keys[j]=="__v" || keys[j]=="_id" || keys[j].includes("deleted") || keys[j].includes("_at") ) continue;%>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label>추천 승마장</label>
-                             <select placeholder = "추천승마장" name="recommendID" type="text" class="form-control"> 
-                              <% for(var i=0; i<stores.length; i++){ %>
-                              <option value="<%=stores[i]._id%>"><%=stores[i].storename%></option>
-                            <% }%> 
-                             </select>
-                           </div>
+                            <label><%=keys[j]%></label>
+                            <input name="<%=keys[j]%>" type="text" class="form-control" placeholder="<%=keys[j]%>" value="">
+                          </div>
                         </div>
 
+                      <% } %>
                       </div>
                       <div class="clearfix"></div>
                     </form>
@@ -53,31 +53,27 @@
                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
 
-                <th>승마장ID</th>   
-                <th>승마장명</th>
-                <th>추천 등록일</th>
-                <th>홈페이지</th>
-
-                <th>작업</th>
+                <th>공지제목</th>
+                <th>공지내용</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>수정일</th>
 
               </thead>
               <tbody>
                 <% %>
-                <% for(var i=0; i<recommends.length; i++){
-                  var recommend = recommends[i];
+                <% for(var i=0; i<noticeOwners.length; i++){
+                  var noticeOwner = noticeOwners[i];
                   %>
                   <tr>
                     <td><%=i%></td>
 
-                    <td><%=recommend['recommendID']._id%></td>
-                    <td><%=recommend['recommendID'].storename%></td>
-                    <td><%=recommend['created_at']%></td>
-                    <td><%=recommend['recommendID'].website%>
+                    <td><a href="/owners/noticeOwners/detail/<%=noticeOwner.id%>"><%=noticeOwner['noticeTitle']%></a></td>
+                    <td><%=noticeOwner['noticeText']%></td>
+                    <td><%=(noticeOwner['noticeWriter'] != null) ? noticeOwner['noticeWriter'].username : noticeOwner['noticeWriter']%></td>
+                    <td><%=noticeOwner['created_at']%></td>
+                    <td><%=noticeOwner['updated_at']%></td>
 
-                    <td>
-                      <button data-item="<%=recommend._id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-                      <!-- <a href="edit/<%=recommend._id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>-->
-                    </td>
                   </tr>
                 <% }%>
               </tbody>
@@ -92,11 +88,11 @@
 <script>
 $(document).ready(function(){
   $('#createButton').click(function(){
-    var recommend =  $('#createForm').serializeObject();
+    var noticeOnwer =  $('#createForm').serializeObject();
     $.ajax({
       type:"POST",
-      url:'/recommends',
-      data:recommend,
+      url:'/noticeOwners',
+      data:noticeOwner,
       success:function(args){
         alert("성공했습니다.");
         location.reload();
@@ -107,10 +103,10 @@ $(document).ready(function(){
     });
   });
   $('.deleteButton').click(function(){
-    var recommendId = $(this).data("item");
+    var noticeOwnerId = $(this).data("item");
     $.ajax({
       type:"DELETE",
-      url:'/recommends/'+recommendId,
+      url:'/noticeOwners/'+noticeOwnerId,
 
       success:function(args){
         alert("성공했습니다.");

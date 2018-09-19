@@ -1,15 +1,11 @@
 var mongoose = require('mongoose'),
      Schema = mongoose.Schema;
 
-var ReservationSchema = new Schema({
-    store : {
-      type : Schema.ObjectId,
-      index: true,
-      ref : 'Store'
-    },
-    program : {
-      type : Schema.ObjectId,
-      ref : 'Program'
+var ReservationUsageSchema = new Schema({
+    reservationNum : {
+      type : Number,
+      default : 0,
+      require : "reservationNum is required"
     },
     reservationDate : {
       type : String,
@@ -23,44 +19,26 @@ var ReservationSchema = new Schema({
       //   return new Date(date)
       // }
     },
-    owner : { // 예약자
-      type : Schema.ObjectId,
-      index : true,
-      ref : 'User'
+    usedDate : {
+      type : Date,
+      default : "0000-00-00"
     },
-    carrots : {
-      type : Number,
-    },
-    ownerName : {
-      type : String ,
-    },
-    telephone : {
+    programName : {
       type : String,
       default : ""
     },
-    howMany : {
-      type: Number,
-      min: 1,
-      default: 1,
-      max: 4  //한번에 4명까지???
+    personnel : {
+      type : String ,
+      default : "",
+      require : "personnel is required"
     },
-    review: {
-      type: Schema.ObjectId,
-      ref: 'Review',
+    reserver : {
+      type : String,
+      default : ""
     },
-    status: {
-      type: String,
-      enum: ["예약완료", "입장완료", "취소요청", "취소진행", "취소완료", "취소철회"],
-      default: "예약완료",
-    },
-    checked_at: {//입장완료일
-      type: Date,
-    },
-    cancelcalled_at: {//취소요청일
-      type: Date,
-    },
-    cancelled_at: {//취소완료일
-      type: Date,
+    reserverPhone : {
+      type : Number,
+      default : ""
     },
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.
@@ -93,11 +71,11 @@ var ReservationSchema = new Schema({
     }
     // 추가로 결제정보도. 언제 뭘로 결제했는지.
 });
-ReservationSchema.pre('save', function(next){
+ReservationUsageSchema.pre('save', function(next){
   //console.log(this);
   let reservation = this;
 
-  mongoose.model('Reservation').find({reservationDate : this.reservationDate, program: this.program }, function(err, reservations){
+  mongoose.model('ReservationUsage').find({reservationDate : this.reservationDate, program: this.program }, function(err, reservations){
     console.log(reservations)
     if(err) return next(err);
     if(reservations.length > 0){
@@ -118,7 +96,7 @@ ReservationSchema.pre('save', function(next){
     else next();
   });
 });
-ReservationSchema.post('save', function(reservation){
+ReservationUsageSchema.post('save', function(reservation){
   mongoose.model('User').findOneAndUpdate({
       _id : reservation.owner,
     },
@@ -143,11 +121,11 @@ ReservationSchema.post('save', function(reservation){
       });
     });
 });
-ReservationSchema.post('update', function(result) {
+ReservationUsageSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });
 
-ReservationSchema.methods.setChecked = function(cb){ //입장완료 요쳥
+ReservationUsageSchema.methods.setChecked = function(cb){ //입장완료 요쳥
   if(this.status != "예약완료"){
     cb(Error("취소된 예약이거나 이미 입장완료 처리된 예약입니다."));
   }else{
@@ -161,8 +139,8 @@ ReservationSchema.methods.setChecked = function(cb){ //입장완료 요쳥
     }}, null, ()=>cb(null,this));
   }
 }
-ReservationSchema.set('toJSON',{ getters : true , virtuals : true});
+ReservationUsageSchema.set('toJSON',{ getters : true , virtuals : true});
 /*res.json() 을 사용하여 다큐먼트 데이터를 출력 할 때 get 옵션으로 정의한 값이 JSON에 포함되게 할 것이다.
 위 코드를 적지 않으면 JSON으로 데이터를 표현할 때 get 옵션을 무시하게 될 것 이다.
 출처: http://alexband.tistory.com/23 [Front-end Rider] */
-mongoose.model('Reservation', ReservationSchema);
+mongoose.model('ReservationUsage', ReservationUsageSchema);

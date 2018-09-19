@@ -46,10 +46,79 @@ exports.getList = function(req, res, next){
       params.owner = null;
     }
   }
+
+  //검색조건 설정
+  if(req.query.date_from != null && req.query.date_from != ""){ // 날짜 시작
+  
+    if(params.reservationDate == null) params.reservationDate = {}
+    params.reservationDate.$gte = req.query.date_from //최소값
+  }
+
+  //검색조건 설정
+  if(req.query.until != null && req.query.date_until != ""){ // 날짜 시작
+    if(params.reservationDate == null) params.reservationDate = {}
+    params.reservationDate.$lte = req.query.date_until 
+  }
+
+  if(req.query.search_key!=""){
+    if(req.query.search_condition == '예약번호'){ // 검색조건 예약번호
+      let keyword = new RegExp( req.query.search_key) 
+      params._id= keyword
+    }
+    if(req.query.search_condition == '예약상태'){ // 검색조건 예약상태
+      let keyword = new RegExp( req.query.search_key) 
+      params.status = keyword
+    }
+    if(req.query.search_condition == '예약자명'){ // 검색조건 예약자명
+      let keyword = new RegExp( req.query.search_key) 
+      params.ownerName = keyword
+    }
+    if(req.query.search_condition == '전화번호'){ // 검색조건 전화번호
+      let keyword = new RegExp( req.query.search_key) 
+      params.telephone = keyword
+    }
+   /* if(req.query.search_condition == '프로그램명'){ // 검색조건 프로그램명
+      let keyword = new RegExp( req.query.search_key) 
+      params.program = keyword
+    }
+    외래키 */ 
+    if(req.query.search_condition == '취소요청'){
+      params.status = '취소요청'
+    }
+    if(req.query.search_condition == '취소진행'){
+      params.status = '취소진행'
+    }
+    if(req.query.search_condition == '취소완료'){
+      params.status = '취소완료'
+    }
+    if(req.query.search_condition == '취소철회'){
+      params.status = '취소철회'
+    }
+  }
+
+  /*
+  populate({
+    path: 'program',
+    match: { name: search_condition },
+    // Explicitly exclude `_id`, see http://bit.ly/2aEfTdB
+    //select: 'name -_id',
+  })
+  */
+  console.log(params)
+// params = {
+//   reservationDate: ~~,
+//   reservationNo: ~~,
+//   ownerName : ~~,
+
+// }
   Reservation.find(params)
   .populate('store')
-  .populate('owner')
-  .populate('program')
+  .populate({
+    path: 'owner'
+  })
+  .populate({
+    path: 'program',
+  })
   .populate('review')
   .exec(function(err, reservations) {
     if (err) {
@@ -209,4 +278,5 @@ exports.setChecked = function(req, res, next){
     });
 
   });
+
 }

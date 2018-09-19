@@ -5,7 +5,7 @@
       <div class="col-md-8">
         <div class="card">
           <div class="header">
-            <h4 class="title">승마장 정보 수정</h4>
+            <h4 class="title">공지사항 수정</h4>
           </div>
           <div class="content">
             <form id="editForm">
@@ -14,50 +14,22 @@
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>승마장명</label>
-                    <input name="storename" type="text" class="form-control" placeholder="storename" value="<%=store['storename']%>">
+                    <label>제목</label>
+                    <input name="noticeTitle" type="text" class="form-control" placeholder="noticeTitle" value="<%=noticeOwner['noticeTitle']%>">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>이메일</label>
-                    <input name="email" type="text" class="form-control" placeholder="email" value="<%=store['email']%>">
+                    <label>작성자</label>
+                    <input  type="text" class="form-control" placeholder="noticeWriter" value="<%=noticeOwner['noticeWriter']%>" readonly="readonly">
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>주소</label>
-                    <input name="address" type="text" class="form-control" placeholder="address" value="<%=store['address']%>">
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>사이트</label>
-                    <input name="website" type="text" class="form-control" placeholder="website" value="<%=store['website']%>">
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>연락처</label>
-                    <input name="telephone" type="text" class="form-control" placeholder="telephone" value="<%=store['telephone']%>">
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>소개글</label>
-                    <input name="introduction" type="text" class="form-control" placeholder="introduction" value="<%=store['introduction']%>">
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>이미지</label>
-                    <input name="image" type="text" class="form-control" placeholder="image" value="<%=store['image']%>">
+                    <label>내용</label>
+                    <input name="noticeText" type="text" class="form-control" placeholder="noticeText" value="<%=noticeOwner['noticeText']%>">
                   </div>
                 </div>
 
@@ -105,12 +77,12 @@
 <script>
 $(document).ready(function(){
   $('#editButton').click(function(){
-    var store =  $('#editForm').serializeObject();
+    var noticeOwner =  $('#editForm').serializeObject();
 
     $.ajax({
       type:"PUT",
-      url:'/stores/<%=store.id%>',
-      data:store,
+      url:'/noticeOwners/<%=noticeOwner.id%>',
+      data:noticeOwner,
       success:function(args){
         alert("성공했습니다.");
         location.reload();

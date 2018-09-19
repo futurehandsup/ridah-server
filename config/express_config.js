@@ -61,6 +61,7 @@ module.exports = function() {
     var couponPurchaseLogs = require('../routes/couponPurchaseLogs');
     var carrotUsageLogs = require('../routes/carrotUsageLogs');
     var notices = require('../routes/notices');
+    var noticeOwners = require('../routes/noticeOwners')
     var headers = require('../routes/headers');
     var recommends = require('../routes/recommends');
     var events = require('../routes/events');
@@ -93,6 +94,7 @@ module.exports = function() {
     app.use('/couponPurchaseLogs', couponPurchaseLogs);
     app.use('/carrotUsageLogs', carrotUsageLogs);
     app.use('/notices',notices);
+    app.use('/noticeOwners', noticeOwners);
     app.use('/headers', headers);
     app.use('/recommends', recommends);
     app.use('/events', events);
