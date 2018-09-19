@@ -24,6 +24,9 @@ var UserSchema = new Schema({
     telephone : {
       type : String
     },
+    image: {
+      type: String,
+    },
     zzimStores: [{
       type: Schema.ObjectId,
       ref: 'Store'

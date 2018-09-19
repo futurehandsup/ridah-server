@@ -28,7 +28,7 @@ var getErrorMessage = function(err) {
 exports.checkGrantType = function(req, res, next){
   const { grant_type } = req.body;
   let token;
-  console.log("gggggg")
+  //console.log(grant_type)
   switch (grant_type) {
     case "id_pw":
       //아이디 비밀번호 체크후 오류 없으면 올바른 user 객체를 req.user에
@@ -88,18 +88,18 @@ let checkKakaoToken = function(req, res, next){
   axios.get('https://kapi.kakao.com/v1/user/access_token_info',{
     headers: { 'Authorization': `Bearer ${kakao_token}`}
   }).then(function(response) {
-    if(response.id == null){ //에러
-      throw new Error(JSON.stringify(response))
+    if(response.status!="200" || response.data.id == null){ //에러
+      throw new Error(JSON.stringify(response.data))
     }
     else{ // 정상
-      let userKakaoId = response.id
+      let userKakaoId = response.data.id
       User.findOneByKakaoId(userKakaoId)
         .then((user)=>{
           if (!user) {
             // user does not exist
             throw new Error('가입되지 않은 카카오 계정입니다.');
-          } else if(ROLES.indexOf(user.role) < ROLES.indexOf(userRole)){
-            throw new Error('권한이 없습니다.')
+          // } else if(ROLES.indexOf(user.role) < ROLES.indexOf(userRole)){
+          //   throw new Error('권한이 없습니다.')
           }else {
             // user exists
             req.user = user;
@@ -123,21 +123,23 @@ let checkRefreshToken = function(req, res, next){
   //const secret = req.app.get('jwt-secret');
   const { refresh_token } = req.body
   const refresh_secret = req.app.get('jwt-refresh-secret');
+
   jwt.verify(refresh_token, refresh_secret, (err, decoded) => {
     if (err){
       res.clearCookie('authToken');
       res.clearCookie('refreshToken');
-      next( new Error('토큰 검증 실패') );
+      return next( new Error('토큰 검증 실패') );
     }
     //에러 없으면
-    const { userid } = decoded
+    const { userid } = decoded;
     User.findOneByUsername(userid)
       .then((user)=>{
         if(!user){
           throw new Error('잘못된 토큰입니다.')
         }
         else {
-          req.user = user
+          req.user = user;
+          return next();
         }
       })
       .catch(e=>next(e))
@@ -181,7 +183,7 @@ let generateTokenFromUser = function(user, req){
     console.log(secret)
     let token = jwt.sign(userInfo, secret,
       { expiresIn: '7d', issuer: 'anymal.com', subject: 'userInfo'})
-    let refreshToken = jwt.sign(userInfo, secret,
+    let refreshToken = jwt.sign(userInfo, refresh_secret,
       { expiresIn: '30d', issuer: 'anymal.com', subject: 'userInfo'})
 
     if(token == null || refreshToken == null){
