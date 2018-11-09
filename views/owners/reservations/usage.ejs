@@ -1,6 +1,6 @@
 <% include ../templates/head.ejs %>
 <!-- Modal -->
-  
+
   <!--통계페이지-->
 
  <div class="container-fluid">
@@ -12,13 +12,13 @@
         <form action="" method="get">
            <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
         <div>
-          조회기간     
+          조회기간
           <ul style="display: block; float: right;">일간</ul>
           <ul style="display: block; float: right;">주간</ul>
           <ul style="display: block; float: right;">월간</ul>
           <!--css등을 이용하여 버튼으로-->
-          <input type="date" name="date-from" value="<%=query.date_from%>"> 
-          <input type="date" name="date-until" value="<%=query.date_until%>">
+          <input class="form-control" type="date" name="date-from" value="<%=query.date_from%>">
+          <input class="form-control" type="date" name="date-until" value="<%=query.date_until%>">
         </div>
         <div style="margin-top: 10px;">
           <ul style="display: block; float: right;">
@@ -35,15 +35,15 @@
         </div>
       </form>
       </div>
-   
-    </div> 
-      
+
+    </div>
+
     <div class="card" style="margin-bottom: 20px;">
       <!-- <div class="card-header">
         검색결과
       </div> -->
       <ul class="list-group list-group-flush">
-        
+
           <li class="list-group-item">
             <table class="table table-hover table-striped">
               <thead>
@@ -82,7 +82,7 @@
               </tbody>
             </table>
           </li>
-        
+
       </ul>
     </div>
 
@@ -133,4 +133,3 @@ $(document).ready(function(){
   $('#'+path).addClass('active');
 })
 </script>
-

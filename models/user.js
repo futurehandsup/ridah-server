@@ -11,6 +11,11 @@ var UserSchema = new Schema({
       unique : true,     // primary key로 지정
       required : 'User ID is required',   // 검증
     },
+    kakaoId : {
+      type : String ,
+      trim : true ,     //자동으로 앞뒤공백 제거
+      unique : true,     // 중복제거
+    },
     email : {
       type : String ,
       index : true,         // 보조 index
@@ -18,6 +23,9 @@ var UserSchema = new Schema({
     },
     telephone : {
       type : String
+    },
+    image: {
+      type: String,
     },
     zzimStores: [{
       type: Schema.ObjectId,
@@ -104,10 +112,13 @@ UserSchema.pre('save', function(next){
   신규 사용자 등록을 위해 post 로 데이터를 보냈을 시 데이터를 등록하기 전 pre 미들웨어가 있다면
   pre 미들웨어를 먼저 실행하고 데이터를 등록할 것 이다.
   */
-  if(this.password) {
-    this.salt = new Buffer(crypto.randomBytes(16).toString('base64'),
+  //console.log(this.password)
+  if(this.isModified('password') || this.isDirectModified('password')) {
+    //console.log(this.password)
+    this.salt = new Buffer(crypto.randomBytes(16).toString ('base64'),
     'base64');
     this.password = this.hashPassword(this.password);
+    //console.log(this.password)
   }
   next();
 });
@@ -156,6 +167,11 @@ UserSchema.statics.findUniqueUserid = function(userid, suffix, callback) {
 UserSchema.statics.findOneByUsername = function(username) {
     return this.findOne({
         userid : username
+    }).exec();
+}
+UserSchema.statics.findOneByKakaoId = function(kakaoId) {
+    return this.findOne({
+        kakaoId : kakaoId
     }).exec();
 }
 

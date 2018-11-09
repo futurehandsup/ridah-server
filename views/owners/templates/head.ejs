@@ -28,26 +28,36 @@
           말랑 <!-- 로고 이미지 자리 -->
         </div>
         <ul class="nav flex-column">
-          <li class="nav-item">
-            <span>Main</span>
-          </li>
           <li id="dashboard" class="nav-item">
             <a class="nav-link" href="/owners/dashboard">대시보드</a>
           </li>
-          <li id="dashboard" class="nav-item">
-            <a class="nav-link" style="font-style: italic;">예약조회</a>
-          </li>
-          <li id="reservations" class="nav-item active">
-            <a class="nav-link" href="/owners/reservations/daily?type=monthly&storeId=<%=store.id%>"> -예약 달력 <span class="sr-only">(current)</span></a>
-          </li>
-          <li id="reservation-list" class="nav-item active">
-            <a class="nav-link" href="/owners/reservations/list?storeId=<%=store.id%>"> -예약 내역 <span class="sr-only">(current)</span></a>
-          </li>
-          <li id="reservations-usage" class="nav-item active">
-            <a class="nav-link" href="/owners/reservations/usage?storeId=<%=store.id%>"> -이용 내역 <span class="sr-only">(current)</span></a>
-          </li>
-          <li id="reservations-cancel" class="nav-item active">
-            <a class="nav-link" href="/owners/reservations/cancel?storeId=<%=store.id%>"> -취소 내역 <span class="sr-only">(current)</span></a>
+          <li id="reservations" class="has-sub nav-item">
+            <a class="nav-link">
+              <i class="ti-user"></i>
+              예약조회
+            </a>
+            <ul class="nav sub-nav">
+              <li id="reservations-daily">
+                <a class="nav-link" href="/owners/reservations/daily?type=monthly&storeId=<%=store.id%>">
+                  <p>예약 달력</p>
+                </a>
+              </li>
+              <li id="reservations-list">
+                <a class="nav-link" href="/owners/reservations/list?storeId=<%=store.id%>">
+                  <p>예약 내역 </p>
+                </a>
+              </li>
+              <li id="reservations-usage">
+                <a class="nav-link" href="/owners/reservations/usage?storeId=<%=store.id%>">
+                  <p>이용내역</p>
+                </a>
+              </li>
+              <li id="reservations-cancel">
+                <a class="nav-link" href="/owners/reservations/cancel?storeId=<%=store.id%>">
+                  <p>취소 내역</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li id="programs" class="nav-item">
             <a class="nav-link" href="/owners/programs/list?storeId=<%=store.id%>">프로그램 관리</a>

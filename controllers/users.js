@@ -89,6 +89,7 @@ exports.updateOne = function(req, res, next) {
     if (err) {
       return next(err);
     } else {
+      user.set(req.body);
       user.updated_at = Date.now();
       user.save();
       var result = {

@@ -3,4 +3,5 @@ var dbinfo = require('./_db.js')
 module.exports = {
   db : 'mongodb://'+dbinfo.database_id+':'+dbinfo.database_pw+'@localhost/database',
   sessionSecret : 'thisissessionSecret',
+  refreshSecret : 'thisisrefreshsessionSecret',
 }

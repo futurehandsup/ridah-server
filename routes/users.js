@@ -24,6 +24,17 @@ router.route('/token/:userRole')
 .delete(common.notImplementedError)
 .put(common.notImplementedError);
 
+router.route('/v2/token')
+.all(function(req, res, next) {
+  // runs for all HTTP verbs first
+  // think of it as route specific middleware!
+  next();
+})
+.post(auth.checkGrantType, auth.generateToken, common.setResponse) //토큰 획득
+.get(auth.check(), common.setResponse)  //로그인 여부 체크
+.delete(common.notImplementedError)
+.put(common.notImplementedError);
+
 router.route('/token')
 .all(function(req, res, next) {
   // runs for all HTTP verbs first
