@@ -22,7 +22,7 @@
       </div>   
       <li class="list-group-item">
           
-          <select placeholder="발행상태" name="issue_condition">
+          <select class="form-control" placeholder="발행상태" name="issue_condition">
             <option>전체</option>
             <option value="미발행" <%=(query.issue_condition)=="미발행"? "selected" : ""%>>미발행</option>
             <option value="발행신청" <%=(query.issue_condition)=="발행신청"? "selected" : ""%>>발행신청</option>
@@ -32,7 +32,7 @@
         </li>
         <li class="list-group-item">
 
-          <select placeholder="신고상태" name="report_condition">
+          <select class="form-control" placeholder="신고상태" name="report_condition">
             <option>전체</option>
             <option value="미신고" <%=(query.report_condition)=="미신고"? "selected" : ""%>>미신고</option>
             <option value="신고신청" <%=(query.report_condition)=="신고신청"? "selected" : ""%>>신고신청</option>
@@ -42,8 +42,8 @@
         </li>
         <li class="list-group-item">
           조회기간
-          <input type="date" name="date-from" value="<%=query.date_from%>"> 
-          <input type="date" name="date-until" value="<%=query.date_until%>">
+          <input type="date" name="date-from" value="<%=query.date_from%>" class="form-control"> 
+          <input type="date" name="date-until" value="<%=query.date_until%>" class="form-control">
           <!-- <select>
             <option>분기선택</option>
             <option>2018상반기</option>

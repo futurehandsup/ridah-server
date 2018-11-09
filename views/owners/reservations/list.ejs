@@ -17,14 +17,14 @@
           <ul style="display: block; float: right;">주간</ul>
           <ul style="display: block; float: right;">월간</ul>
           <!--css등을 이용하여 버튼으로-->
-          <input type="date" name="date_from" value="<%=query.date_from%>">
-          <input type="date" name="date_until" value="<%=query.date_until%>">
+          <input type="date" name="date_from" value="<%=query.date_from%>" class = "form-control">
+          <input type="date" name="date_until" value="<%=query.date_until%>" class = "form-control">
         </div>
         <div style="margin-top: 10px;">
           <ul style="display: block; float: right;">
             <button class="btn btn-success">검색</button>
           </ul>
-          <select placeholder="상세조건" name="search_condition">
+          <select placeholder="상세조건" name="search_condition" class="form-control">
 
             <option value="예약번호" <%=(query.search_condition=="예약번호")? "selected" : ""%>>예약번호</option>
             <option value="예약상태" <%=(query.search_condition=="예약상태")? "selected" : ""%>>예약상태</option>
@@ -32,7 +32,7 @@
             <option value="예약자명" <%=(query.search_condition=="예약자명")? "selected" : ""%>>예약자명</option>
             <option value="전화번호" <%=(query.search_condition=="전화번호")? "selected" : ""%>>전화번호</option>
           </select>
-          <input type="text" name="search_key" value="<%=query.search_key%>">
+          <input type="text" name="search_key" value="<%=query.search_key%>" class="form-control">
         </div>
       </form>
       </div>
