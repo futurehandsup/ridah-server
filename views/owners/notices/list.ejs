@@ -9,7 +9,8 @@
               <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
               만들기
               </button></h4>
-            <p class="category">Here is a subtitle for this table</p>
+            <p class="category">공지사항을 간편하게 수정하여 원하는 사항을 빠르게 전달하세요.
+            </p>
           </div>
           <!-- Modal -->
           <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -49,18 +50,24 @@
           </div>
           <div class="content table-responsive table-full-width">
             <table class="table table-hover table-striped">
-              <thead>
-                <th>ID</th>
+              <thead class="thead-control">
+                <th>전체보기</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+<!--                 <th>ID</th>
                 <% var keys = Object.keys(schema); %>
 
                 <th>공지제목</th>
                 <th>공지내용</th>
                 <th>작성자</th>
                 <th>작성일</th>
-                <th>수정일</th>
+                <th>수정일</th> -->
 
               </thead>
-              <tbody>
+              <tbody class="tbody-control">
                 <% %>
                 <% for(var i=0; i<notices.length; i++){
                   var notice = notices[i];

@@ -287,3 +287,23 @@ ul.timeline{
   display: inline-block;
   width: 65px;
 }
+.thead-control{
+  background-color: #008d87;
+  text-align: center;
+  color: white;
+  height: 70px;
+  padding: .6rem;
+  font-size: 20px;
+}
+.tbody-control{
+ text-align: center;
+ font-size: 16px;
+ font-family: YDIYGO320;
+}
+.tbody-control a:link{
+  color: #000000
+}
+
+.tbody-control a:visited{
+  color: #000000
+}
