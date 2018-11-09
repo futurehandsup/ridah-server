@@ -60,7 +60,7 @@ router.route('/:storeId')
 .post(common.notImplementedError);
 
 router.route('/:storeId/details').get(reviews.getList, programs.getReservationsList, common.setResponse);
-router.route('/:storeId/calendar').get(programs.getReservationsList);
+router.route('/:storeId/calendar').get(programs.getReservationsList, common.setResponse);
 router.param('storeId', stores.getOne);
 
 var reservationRouter = require('./reservations');

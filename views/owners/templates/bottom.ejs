@@ -10,8 +10,14 @@ src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZh
 <script>
 $(document).ready(function(){
   $('.sidebar .nav .active').removeClass('active');
-  var path = location.pathname.split('/')[2] ;
-  $('#'+path).addClass('active');
+  var path = location.pathname.split('/')[3] ;
+  var parentPath = location.pathname.split('/')[2] ;
+  $('#'+parentPath+"-"+path).addClass('active');
+  $('#'+parentPath).addClass('open');
+
+  $('.has-sub').click(function(){
+    $(this).toggleClass('open')
+  })
 })
 </script>
 </body>

@@ -1,8 +1,23 @@
 body{
   background-color: #eeeeee;
 }
+.form-control{
+  border: solid 1.5px #666666;
+  border-radius: 10px;
+  display: inline-block;
+  width: unset;
+  padding: unset;
+  font-size: unset;
+  padding: .05rem .3rem;
+  /* padding: .375rem .75rem; */
+/* font-size: 1rem; */
+}
 .bg-lighter{
   background-color: #f8f8f8;
+}
+.drop-shadow{
+  box-shadow: 1.8369701987210304e-16px 3px 5.7px 0.3px rgba(0, 0, 0, 0.24), 1.224646799147353e-16px 2px 5.88px 0.12px rgba(0, 0, 0, 0.16);
+  z-index: 1;
 }
 .wrapper{
   overflow: hidden;
@@ -55,6 +70,66 @@ body{
   box-shadow: 1.8369701987210304e-16px 3px 4.7px 0.3px rgba(0, 0, 0, 0.24), 6.123233995736765e-17px 1px 6.86px 0.14px rgba(0, 0, 0, 0.16);
   z-index: 1000;
 }
+.sidebar .nav .sub-nav{
+  margin-top: 0;
+}
+.has-sub{
+  cursor :pointer;
+}
+.sidebar .nav li {
+  overflow: hidden;
+}
+.sidebar .nav .sub-nav li > a{
+  margin: 0;
+  padding: 7px 12px;
+  padding-left: 48px;
+  font-weight: 300;;
+  font-size: 14px;
+}
+.sidebar .nav .sub-nav li > a > p{
+  margin: 0;
+}
+.has-sub.open > a, .has-sub.open > a:hover{
+  background-color: #656d7d;
+  color: white !important;
+}
+.has-sub:before{
+  content : "\e64b";
+  position: absolute;
+  right: 8px;
+  display: inline-block;
+  z-index: 3;
+  padding: 23px 12px;
+
+  font-family: 'themify';
+  speak: none;
+  font-style: normal;
+  font-weight: bold;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1.42857;
+  -webkit-font-smoothing: antialiased;
+}
+.has-sub.open:before{
+  content : "\e648";
+}
+.sidebar .nav .has-sub .sub-nav{
+  max-height: 0;
+  overflow: hidden;
+
+  -webkit-transition:max-height .5s ease;
+  transition:max-height .5s ease;
+}
+.sidebar .nav .has-sub.open .sub-nav{
+  max-height: 200px;
+  display: block;
+
+  -webkit-transition: max-height .5s ease;
+  transition:max-height .5s ease;
+}
+.sidebar .nav .sub-nav li.active > a {
+  color: white;
+}
 .container, .container-fluid{
     padding-left: 50px;
     padding-right: 50px;
@@ -69,49 +144,60 @@ body{
   font-size: 13px;
   border: none;
 }
-.table-reservations thead{
-  border-bottom: solid 2px #747474;
+
+.table-reservations thead tr{
+  background-color: #d2d2d2;
 }
 .table-reservations tbody tr{
-  border-bottom: solid 2px #747474;
+
+  border-bottom: solid 1px #747474;
 }
 .table-reservations tbody tr:last-child{
   border: none;
 }
 .table-reservations td{
-  border: solid 1px #dddddd;
-  border-bottom: none;
-  border-top: none;
+  border: none;
   padding: 4px 11px;
-  font-weight: bold
+  font-weight: normal;
+  position: relative;
 }
 .table-reservations tr td:first-child, .table-reservations tr td:last-child{
   border: none;
 }
 .table-reservations thead th{
   background-color: transparent;
-  padding: 0;
-  text-align: right;
+  padding: 9px;;
+  text-align: center;;
   border: none;
   font-size: 16px;
-  color: #878787;
-  font-weight: 500;
+  color: #323232;
+  font-weight: 200;
+}
+.table-reservations tbody td{
+  height: 235px;
 }
 .table-reservations tbody td > a{
+  display: block;
+
   color: #878787;
   font-size: 17px;
-  position: relative;
-  left: -2px;
+  text-align: right;
   font-weight: normal;
-
 }
-.table-reservations thead th:first-child,
+.table-reservations thead th:first-child{
+  color: white;
+}
 .table-reservations tbody tr td:first-child > a{
-  color: #49a9a5;
+  color: #343434;
 }
-.table-reservations thead th:last-child
+.table-reservations tbody tr td:nth-child(2n+1){
+  background-color: white;
+}
+.table-reservations tbody tr td:nth-child(2n){
+  background-color: #f8f8f8;
+}
 .table-reservations tbody tr td:last-child > a{
-  color: #000000;
+  color: #343434;
 }
 .table-reservations td.today{
   background-color: white;
@@ -120,46 +206,84 @@ body{
   background-color:rgba(0, 141, 135, 0.2);
 }
 .table-reservations .program{
+
   margin-bottom: 7px;
 }
 .table-reservations .timebadge{
   display: inline-block;
-  font-size: 13px;
-  margin-top: 2px;
-  border-radius: 9px;
+  font-size: 15px;
+  height: 14px;
   padding: 0px;
-  width: 46px;
+  padding-left: 8px;
   text-align: center;
+  border-left: solid 4px #d0d0d0;
+  line-height: 1;
 }
 .timebadge-available{
-  background-color: #49a9a5;
+  color: rgba(47, 47, 47, 0.65);
+  border-color: #d0d0d0;
 }
 .timebadge-reserved{
-  background-color: #ff7f7f;
+  color: #2f2f2f;
+  border-color: #008d87 !important;
+}
+.table-reservations .statusbadge{
+  border-radius: 8px;
+  border: solid 2px #d0d0d0;
+  width: 30px;
+  height: 20px;
+  font-size: 12px;
+  padding: 0 2px;
+  display:inline-block;
+  white-space: nowrap;
+  text-align: center;
+}
+.table-reservations .statusbadge.statusbadge-available{
+  background-color: #d0d0d0;
+  color: white;
+}
+.table-reservations .statusbadge.statusbadge-reserved{
+  background-color:transparent;
+  color:  #008d87;
+  border-color: #008d87 !important;
 }
 ul.timeline{
   padding: 0;
   margin: 0;
-  margin-top: 30px;
+  margin-left: -15px;
 }
 .timeline > li{
-  border-left: solid 1px #7d7d7d;
-  display: block;
-  padding: 0 20px 50px;
-  list-style: circle;
+  list-style: none;
   position: relative;
+  font-weight: 300;
 }
-.timeline .marker{
-  width: 15px;
-  height: 15px;
-  border-radius: 8px;
-  border: solid 1px #7d7d7d;
-  background-color: #eeeeee;
+.timeline >li .title{
+  font-size: 24px;
+  background-color: #008d87;
+  color: white;
+  padding: 2px;
+  padding-left: 35px;
+  box-shadow: 1.224646799147353e-16px 2px 5.88px 0.12px rgba(0, 0, 0, 0.16), 1.8369701987210304e-16px 3px 4.7px 0.3px rgba(0, 0, 0, 0.24);
+}
+.timeline >li .content{
+  padding: 35px;
+}
+.timeline >li hr{
+  background-color: #008d87;
+  border-width: 3px;
+  margin: 20px 0;
+}
+.timeline >li .content .name{
+  margin-bottom: 20px;
+}
+.timeline >li .content p {
+  margin-bottom: 15px;
+  line-height: 1.9;
+}
+.timeline >li .content p > strong{
+  color: #008d87;
+  font-size:15px;
+  font-weight: 700;
   display: inline-block;
-  position: absolute;
-  left: -8px;
-}
-.timeline .marker ~ * {
-  position: relative;
-  top: -5px;
+  width: 65px;
 }
