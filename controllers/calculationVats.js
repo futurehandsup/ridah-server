@@ -1,4 +1,4 @@
-var Calculation = require('mongoose').model('Calculation');
+var CalculationVat = require('mongoose').model('CalculationVat');
 var Store = require('mongoose').model('Store');
 var User = require('mongoose').model('User');
 //passport = require('passport');
@@ -25,7 +25,7 @@ var getErrorMessage = function(err) {
 };
 
 exports.getSchemas = function(req, res, next){
-  var schema = Calculation.schema.paths;
+  var schema = CalculationVat.schema.paths;
 
   req.result.schema = schema;
   next();
@@ -55,8 +55,8 @@ exports.getList = function(req, res, next){
     params.reservationDate.$lte = req.query.date_until 
   }
 
-  Calculation.find()
-  .exec(function(err, calculations) {
+  CalculationVat.find()
+  .exec(function(err, calculationVats) {
     if (err) {
       return next(err);
     } else {
@@ -64,7 +64,7 @@ exports.getList = function(req, res, next){
         title : "메인 헤더",
         success : true,
         messages : req.flash('error'),
-        calculations : calculations
+        calculationVats : calculationVats
       }
       if(req.result == undefined){
         req.result = result;
@@ -77,10 +77,10 @@ exports.getList = function(req, res, next){
   })
 }
 exports.registerOne = function(req, res, next) {
-  var calculation = new Calculation(req.body);
+  var calculationVat = new CalculationVat(req.body);
   var message = null;
 
-  calculation.save(function(err) {
+  calculationVat.save(function(err) {
     if (err) {
       return next(err);
     } else {
@@ -89,7 +89,7 @@ exports.registerOne = function(req, res, next) {
         //page : 'stores/list2',
         success : true,
         messages : req.flash('error'),
-        calculation : calculation
+        calculationVat : calculationVat
       }
       if(req.result == undefined){
         req.result = result;
@@ -103,16 +103,16 @@ exports.registerOne = function(req, res, next) {
   });
 };
 exports.updateOne = function(req, res, next) {
-  Calculation.findByIdAndUpdate(req.result.calculation._id, req.body, function(err, calculation) {
+  CalculationVat.findByIdAndUpdate(req.result.calculationVat._id, req.body, function(err, calculationVat) {
     if (err) {
       return next(err);
     } else {
-      calculation.updated_at = Date.now();
+      calculationVat.updated_at = Date.now();
       var result = {
-        title : "Calculation Update",
+        title : "CalculationVat Update",
         success : true,
         messages : req.flash('error'),
-        calculation : calculation
+        calculationVat : calculationVat
       }
       if(req.result == undefined){
         req.result = result;
@@ -126,20 +126,20 @@ exports.updateOne = function(req, res, next) {
   });
 };
 exports.getOne = function(req, res, next, id) {
-  Calculation.findOne({
+  CalculationVat.findOne({
     _id: id
   })
-  .populate('calculationWriter')
-  .exec(function(err, calculation) {
+  .populate('calculationVatWriter')
+  .exec(function(err, calculationVat) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title : "Calculation List",
+        title : "CalculationVat List",
         //page : 'stores/detail',
         success : true,
         messages : req.flash('error'),
-        calculation : calculation
+        calculationVat : calculationVat
       }
       if(req.result == undefined){
         req.result = result;
@@ -154,16 +154,16 @@ exports.getOne = function(req, res, next, id) {
 }
 exports.deleteOne = function(req, res, next) {
   var date = Date.now();
-  Calculation.findByIdAndUpdate(req.result.calculation._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, calculation) {
+  CalculationVat.findByIdAndUpdate(req.result.calculationVat._id, { $set: { deleted : { is_deleted: true, deleted_at: date } }}, function(err, calculationVat) {
     if (err) {
       return next(err);
     } else {
-      calculation.updated_at = date;
+      calculationVat.updated_at = date;
       var result = {
-        title : "Calculation Delete",
+        title : "CalculationVat Delete",
         success : true,
         messages : req.flash('error'),
-        calculation : calculation
+        calculationVat : calculationVat
       }
       if(req.result == undefined){
         req.result = result;

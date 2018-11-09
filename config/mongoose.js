@@ -27,6 +27,6 @@ module.exports = function() {
    require('../models/reservationCancel.js');
    require('../models/reservationUsage.js');
    require('../models/publicData.js');
-
+   
    return db;
 }

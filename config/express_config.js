@@ -67,7 +67,9 @@ module.exports = function() {
     var apps = require('../routes/apps');
     var faqs = require('../routes/faqs');
     var publicDatas = require('../routes/publicDatas');
-
+    var calculations = require('../routes/calculations');
+    var calculationVats = require('../routes/calculationVats');
+    var calculationTaxs = require('../routes/calculationTaxs');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
@@ -100,6 +102,9 @@ module.exports = function() {
     app.use('/apps', apps);
     app.use('/faqs', faqs);
     app.use('/publicDatas', publicDatas);
+    app.use('/calculations', calculations);
+    app.use('/calculationVats', calculationVats);
+    app.use('/calculationTaxs', calculationTaxs);
 
     //admin Route : /views/admin/* view 사용
     app.use('/admin', admin);

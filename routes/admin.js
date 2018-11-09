@@ -17,6 +17,10 @@ var headers = require('../controllers/headers');
 var recommends = require('../controllers/recommends');
 var events = require('../controllers/events');
 var faqs = require('../controllers/faqs');
+var calculations = require('../controllers/calculations');
+var calculationTaxs = require('../controllers/calculationTaxs');
+var calculationVats = require('../controllers/calculationVats');
+
 //passport = require('passport');
 
 
@@ -132,6 +136,22 @@ router.get('/events/edit', events.getList, events.getSchemas, common.renderPage(
 router.get('/events/edit/:eventId', events.getSchemas, common.renderPage('admin/events/edit'));
 
 router.param('eventId', events.getOne);
+
+//insertCals
+router.get('/insertCals/list', calculations.getList,calculations.getSchemas, common.renderPage('admin/insertCals/list'));
+router.get('/insertCals/edit', calculations.getList,calculations.getSchemas, common.renderPage('admin/insertCals/edit')); // 필요없음
+//router.get('/events/edit/:eventId', events.getSchemas, common.renderPage('admin/events/edit'));
+
+//insertVats
+router.get('/insertVats/list', calculationVats.getList, calculationVats.getSchemas, common.renderPage('admin/insertVats/list'));
+router.get('/insertVats/edit', calculationVats.getList, calculationVats.getSchemas, common.renderPage('admin/insertVats/edit')); // 필요없음
+//router.get('/events/edit/:eventId', events.getSchemas, common.renderPage('admin/events/edit'));
+
+//insertTaxs
+router.get('/insertTaxs/list', calculationTaxs.getList, calculationTaxs.getSchemas, common.renderPage('admin/insertTaxs/list'));
+router.get('/insertTaxs/edit', calculationTaxs.getList,calculationTaxs.getSchemas, common.renderPage('admin/insertTaxs/edit')); // 필요없음
+//router.get('/events/edit/:eventId', events.getSchemas, common.renderPage('admin/events/edit'));
+
 
 //밑에는 임시
 //router.get('/stores/list2', stores.getList2, common.renderPage('admin/stores/list2'));

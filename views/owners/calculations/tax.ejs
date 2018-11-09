@@ -24,20 +24,20 @@
           
           <select placeholder="발행상태" name="issue_condition">
             <option>전체</option>
-            <option value="미발행" <%=(query.issue_condition=="미발행"? "selected" : ""%>>미발행</option>
-            <option value="발행신청" <%=(query.issue_condition=="발행신청"? "selected" : ""%>>발행신청</option>
-            <option value="발행대기" <%=(query.issue_condition=="발행대기"? "selected" : ""%>>발행대기</option>
-            <option value="발행완료" <%=(query.issue_condition=="발행완료"? "selected" : ""%>>발행완료</option>
+            <option value="미발행" <%=(query.issue_condition)=="미발행"? "selected" : ""%>>미발행</option>
+            <option value="발행신청" <%=(query.issue_condition)=="발행신청"? "selected" : ""%>>발행신청</option>
+            <option value="발행대기" <%=(query.issue_condition)=="발행대기"? "selected" : ""%>>발행대기</option>
+            <option value="발행완료" <%=(query.issue_condition)=="발행완료"? "selected" : ""%>>발행완료</option>
           </select>
         </li>
         <li class="list-group-item">
 
           <select placeholder="신고상태" name="report_condition">
             <option>전체</option>
-            <option value="미신고" <%=(query.report_condition=="미신고"? "selected" : ""%>>미신고</option>
-            <option value="신고신청" <%=(query.report_condition=="신고신청"? "selected" : ""%>>신고신청</option>
-            <option value="신고대기" <%=(query.report_condition=="신고대기"? "selected" : ""%>>신고대기</option>
-            <option value="신고완료" <%=(query.report_condition=="신고완료"? "selected" : ""%>>신고완료</option>
+            <option value="미신고" <%=(query.report_condition)=="미신고"? "selected" : ""%>>미신고</option>
+            <option value="신고신청" <%=(query.report_condition)=="신고신청"? "selected" : ""%>>신고신청</option>
+            <option value="신고대기" <%=(query.report_condition)=="신고대기"? "selected" : ""%>>신고대기</option>
+            <option value="신고완료" <%=(query.report_condition)=="신고완료"? "selected" : ""%>>신고완료</option>
           </select>
         </li>
         <li class="list-group-item">

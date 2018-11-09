@@ -15,12 +15,14 @@ var CalculationSchema = new Schema({
     calculateDue_at : { //정산예정일
       type : Date,
       get: function(date){
+        if(date == null) return ""
         return date.toLocaleDateString("ko-KR")
       }
     },
     calculate_at : { //정산완료일
       type : Date,
       get: function(date){
+        if(date == null) return ""
         return date.toLocaleDateString("ko-KR")
       }
     },
