@@ -4,6 +4,15 @@ exports.setResponse = function(req, res, next){
   }
   res.json(req.result);
 }
+exports.setTitle = function(title){
+  return function(req, res, next){
+    if(req.result == null){
+      req.result = {}
+    }
+    req.result.title = title;
+    next();
+  }
+}
 exports.redirect = function(page){
   return function(req, res, next){
     res.redirect(page);

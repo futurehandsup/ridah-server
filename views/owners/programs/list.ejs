@@ -56,37 +56,49 @@
     </div>
   </div>
 </div>
-
-<div class="container-fluid">
+<div class="row">
+  <h2 class="my-3 col-md">프로그램 관리
+  </h2>
   <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
   만들기
   </button>
-  <h2>프로그램 관리</h2>
-  <table class="table table-bordered">
-    <thead class="thead-light">
-      <tr>
-        <th>시간</th>
-        <th>프로그램명</th>
-        <th>유형</th>
-        <th>관리</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for(var i=0; i<programs.length; i++){
-        var program = programs[i];
-      %>
-      <tr>
-        <td><%=program.time.start_at%></td>
-        <td><%=program.programname%><br><%=program.introduction%></td>
-        <td><%=program.programType%></td>
-        <td>
-          <button data-item="<%=program.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-          <a href="edit/<%=program.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
-        </td>
-      </tr>
-      <% }%>
-    </tbody>
-  </table>
+</div>
+<div class="bg-white" >
+  <table class="table table-default table-striped">
+      <thead>
+        <tr>
+          <th>프로그램명</th>
+          <th>검토여부</th>
+          <th>시작시간</th>
+          <th>소요시간</th>
+          <th>가격(캐롯)</th>
+          <th>기본수량</th>
+          <th>유형</th>
+          <th>설명</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var i=0; i<programs.length; i++){
+          var program = programs[i];
+        %>
+        <tr>
+          <td><%=program.programname%></td>
+          <td></td>
+          <td><%=program.time.start_at%></td>
+          <td><%=program.time.howLong%></td>
+          <td><%=program.carrots%></td>
+          <td></td>
+          <td><%=program.programType%></td>
+          <td><%=program.introduction%></td>
+          <td>
+            <button data-item="<%=program.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
+            <a href="edit/<%=program.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+          </td>
+        </tr>
+        <% }%>
+      </tbody>
+    </table>
 </div>
 <% include ../templates/bottom.ejs %>
 <script>
@@ -124,4 +136,11 @@ $(document).ready(function(){
     });
   });
 });
+</script>
+<script>
+$(document).ready(function(){
+  $('.sidebar .nav .active').removeClass('active');
+  var path = "programs" ;
+  $('#'+path).addClass('active');
+})
 </script>
