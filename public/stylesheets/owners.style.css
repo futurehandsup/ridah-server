@@ -314,11 +314,16 @@ ul.timeline{
 }
 .timeline >li .title{
   font-size: 24px;
-  background-color: #008d87;
   color: white;
   padding: 2px;
   padding-left: 35px;
   box-shadow: 1.224646799147353e-16px 2px 5.88px 0.12px rgba(0, 0, 0, 0.16), 1.8369701987210304e-16px 3px 4.7px 0.3px rgba(0, 0, 0, 0.24);
+}
+.timeline >li.reserved .title{
+  background-color: #008d87;
+}
+.timeline >li.available .title{
+  background-color: #dddddd;
 }
 .timeline >li .content{
   padding: 35px;
