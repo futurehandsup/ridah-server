@@ -13,9 +13,9 @@ router.use(function(req, res, next) {
   // if(req.result.info != null){
   //   return users.getOne(req, res, next, req.result.info._id);
   // }
-  // else if(req.query.userId != undefined){
-  //   return users.getOne(req, res, next, req.query.userId);
-  // }
+  /*else*/ if(req.query.userId != null){
+    return users.getOne(req, res, next, req.query.userId);
+  }
   // else{
   //   return users.getOne(req, res, next);
   // }

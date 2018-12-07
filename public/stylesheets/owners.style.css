@@ -245,12 +245,21 @@ body{
 .table-reservations tbody tr td:last-child > a{
   color: #343434;
 }
-.table-reservations td.today{
+.table-reservations tbody tr td.today > a{
+  color: #ff7f7f;
+}
+.table-reservations tbody tr td.selected{
+  border: solid 2px #008d87;
+}
+.table-reservations tbody tr td.selected > a{
+  color: #008d87;
+}
+/* .table-reservations td.today{
   background-color: white;
 }
 .table-reservations td.selected{
   background-color:rgba(0, 141, 135, 0.2);
-}
+} */
 .table-reservations .program{
 
   margin-bottom: 7px;
