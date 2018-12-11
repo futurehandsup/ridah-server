@@ -215,7 +215,7 @@ var StoreSchema = new Schema({
       is_deleted : Boolean,
       deleted_at : Date
     },
-});
+}, { usePushEach: true });
 StoreSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });
