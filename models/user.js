@@ -95,7 +95,7 @@ var UserSchema = new Schema({
       is_deleted : Boolean,
       deleted_at : Date
     }
-}, {id: true});
+}, {id: true, usePushEach: true });
 
 // UserSchema.virtual('idpass').get(function() {     // 가상 속성, UserSchema 의 set 옵션에 virtuals 옵션을 true 로 설정해야 작동
 //     return this.userid + ' ' + this.password;

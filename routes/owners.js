@@ -43,21 +43,21 @@ router.get('/dashboard', common.renderPage('owners/dashboard/index'));
 
 // 예약 달력
 router.get('/reservations', programs.getReservationsList, reviews.getList, common.setResponse);
-router.get('/reservations/daily', programs.getReservationsList, common.renderPage('owners/reservations/daily'));
+router.get('/reservations/daily', programs.getReservationsList, common.setTitle('예약 달력'), common.renderPage('owners/reservations/daily'));
 router.get('/reservations/weekly', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/weekly'));
 router.get('/reservations/monthly', programs.getList, reservations.getSchemas, common.renderPage('owners/reservations/monthly'));
 
 // 예약 내역
-router.get('/reservations/list', reservations.getList, reservations.getSchemas, common.renderPage('owners/reservations/list'));
+router.get('/reservations/list', reservations.getList, reservations.getSchemas, common.setTitle('예약 내역'), common.renderPage('owners/reservations/list'));
 
 // 이용 내역
-router.get('/reservations/usage', reservations.getList, reservations.getSchemas, common.renderPage('owners/reservations/usage'));
+router.get('/reservations/usage', reservations.getList, reservations.getSchemas, common.setTitle('이용 내역'), common.renderPage('owners/reservations/usage'));
 
 // 취소 내역
-router.get('/reservations/cancel', reservations.getList, reservations.getSchemas, common.renderPage('owners/reservations/cancel'));
+router.get('/reservations/cancel', reservations.getList, reservations.getSchemas, common.setTitle('취소 내역'),common.renderPage('owners/reservations/cancel'));
 
 // stores
-router.get('/stores/detail', programs.getReservationsList, reviews.getList, qnas.getList, common.renderPage('owners/stores/detail'));
+router.get('/stores/detail', programs.getReservationsList, reviews.getList, qnas.getList, common.setTitle('승마장 정보'), common.renderPage('owners/stores/detail'));
 router.get('/stores/edit', common.renderPage('owners/stores/edit')); // 필요없음
 router.get('/stores/edit/:storeId', stores.getSchemas, common.renderPage('owners/stores/edit'));
 
@@ -80,30 +80,30 @@ router.param('qnaId', qnas.getOne);
 
 // programs
 router.get('/programs', programs.getList, common.setResponse);
-router.get('/programs/list', programs.getList, programs.getSchemas, common.renderPage('owners/programs/list'));
-router.get('/programs/edit', programs.getList, programs.getSchemas, common.renderPage('owners/programs/edit')); // 필요없음
-router.get('/programs/edit/:programId', programs.getSchemas, common.renderPage('owners/progrmas/edit'));
+router.get('/programs/list', programs.getList, programs.getSchemas, common.setTitle('프로그램 관리'), common.renderPage('owners/programs/list'));
+router.get('/programs/edit', programs.getList, programs.getSchemas, common.setTitle('프로그램 수정'), common.renderPage('owners/programs/edit')); // 필요없음
+router.get('/programs/edit/:programId', programs.getSchemas, common.setTitle('프로그램 수정'), common.renderPage('owners/progrmas/edit'));
 router.param('programId', programs.getOne);
 
 //통계
-router.get('/statistics', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/index'));
+router.get('/statistics', programs.getList, programs.getSchemas, common.setTitle('통계'), common.renderPage('owners/statistics/index'));
 router.get('/statistics/reservations', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/reservations'));
 router.get('/statistics/customers', programs.getList, programs.getSchemas, common.renderPage('owners/statistics/customers'));
 
 //정산 내역
-router.get('/calculations', calculations.getList, calculations.getSchemas, common.renderPage('owners/calculations/index'));
-router.get('/calculations/vat', calculationVats.getList, calculationVats.getSchemas, common.renderPage('owners/calculations/vat'));
-router.get('/calculations/tax', calculationTaxs.getList, calculationTaxs.getSchemas, common.renderPage('owners/calculations/tax'));
-router.get('/calculations/info', calculationInfos.getList, calculationInfos.getSchemas, common.renderPage('owners/calculations/info'));
+router.get('/calculations', calculations.getList, calculations.getSchemas, common.setTitle('정산내역 조회'), common.renderPage('owners/calculations/index'));
+router.get('/calculations/vat', calculationVats.getList, calculationVats.getSchemas, common.setTitle('부가세 신고 내역'), common.renderPage('owners/calculations/vat'));
+router.get('/calculations/tax', calculationTaxs.getList, calculationTaxs.getSchemas, common.setTitle('세금 계산서 조회'), common.renderPage('owners/calculations/tax'));
+router.get('/calculations/info', calculationInfos.getList, calculationInfos.getSchemas, common.setTitle('정산 정보'), common.renderPage('owners/calculations/info'));
 
 //관리자 공지사항
-router.get('/notices/list', notices.getList, notices.getSchemas, common.renderPage('owners/notices/list'));
-router.get('/notices/detail/:noticeId', notices.getSchemas, common.renderPage('owners/notices/detail'));
+router.get('/notices/list', notices.getList, notices.getSchemas, common.setTitle('전체 공지사항'), common.renderPage('owners/notices/list'));
+router.get('/notices/detail/:noticeId', notices.getSchemas, common.setTitle('전체 공지사항 상세'), common.renderPage('owners/notices/detail'));
 router.param('noticeId', notices.getOne);
 
 //가맹점주 공지사항
-router.get('/noticeOwners/list', noticeOwners.getList, noticeOwners.getSchemas, common.renderPage('owners/noticeOwners/list'));
-router.get('/noticeOwners/detail/:noticeOwnerId', noticeOwners.getSchemas, common.renderPage('owners/noticeOwners/detail'));
+router.get('/noticeOwners/list', noticeOwners.getList, noticeOwners.getSchemas, common.setTitle('가맹점 공지'), common.renderPage('owners/noticeOwners/list'));
+router.get('/noticeOwners/detail/:noticeOwnerId', noticeOwners.getSchemas, common.setTitle('가맹점 공지'), common.renderPage('owners/noticeOwners/detail'));
 router.param('noticeOwnerId', noticeOwners.getOne);
 
 //밑에는 임시

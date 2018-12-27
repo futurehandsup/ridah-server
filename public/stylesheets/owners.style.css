@@ -1,5 +1,5 @@
 body{
-  background-color: #eeeeee;
+  background-color: #f8f8f8;
 }
 .form-control{
   border: solid 1.5px #666666;
@@ -21,6 +21,11 @@ body{
 }
 .wrapper{
   overflow: hidden;
+}
+.card{
+  border: none;
+  background-color: white;
+  border-radius: 0;
 }
 .sidebar, .main-panel{
   float: left;
@@ -59,6 +64,15 @@ body{
   padding: 12px;
   padding-left: 46px;
   color: #acacac;
+  position: relative;;
+}
+.sidebar > .nav .nav-link > i{
+  position: absolute;
+  left: 6px;
+  top: 0;
+  padding: 13px;
+  font-weight: bold;
+  font-size: 20px;
 }
 .sidebar > .nav .nav-item.active .nav-link{
   background-color: #656d7d;
@@ -69,6 +83,9 @@ body{
   background-color: white;
   box-shadow: 1.8369701987210304e-16px 3px 4.7px 0.3px rgba(0, 0, 0, 0.24), 6.123233995736765e-17px 1px 6.86px 0.14px rgba(0, 0, 0, 0.16);
   z-index: 1000;
+}
+.navbar .nav-item{
+  position: relative;;
 }
 .sidebar .nav .sub-nav{
   margin-top: 0;
@@ -94,24 +111,24 @@ body{
   color: white !important;
 }
 .has-sub:before{
-  content : "\e64b";
+  content : "\e688";
   position: absolute;
-  right: 8px;
+  right: 0px;
   display: inline-block;
   z-index: 3;
-  padding: 23px 12px;
-
-  font-family: 'themify';
+  padding: 10px 10px;
+  font-family: 'Pe-icon-7-stroke';
   speak: none;
   font-style: normal;
+  font-size: 27px;
   font-weight: bold;
   font-variant: normal;
   text-transform: none;
-  line-height: 1.42857;
+  line-height: 1;
   -webkit-font-smoothing: antialiased;
 }
 .has-sub.open:before{
-  content : "\e648";
+  content : "\e682";
 }
 .sidebar .nav .has-sub .sub-nav{
   max-height: 0;
@@ -138,6 +155,35 @@ body{
 .navbar .container-fluid{
   padding-top: 0;
   margin: 0 -15px;
+}
+.calendar-pagination{
+  display: flex;
+  justify-content: space-between;
+
+}
+.calendar-pagination .calendar-title {
+  font-size: 50px;
+}
+.calendar-pagination .calendar-title small{
+  font-size: 16px;
+  color: #888;
+  display: block;
+  margin-top: 7px;
+}
+.calendar-pagination .page-item {
+    align-self: flex-end;
+}
+.calendar-pagination .page-item a{
+  font-size: 25px;
+  color: #727272;
+      vertical-align: middle;
+}
+.calendar-pagination .page-item a:hover{
+  text-decoration: unset;
+}
+.calendar-pagination .page-item a i{
+  font-size: 40px;
+  vertical-align: middle;
 }
 .table-reservations{
   background-color: transparent;
@@ -199,12 +245,21 @@ body{
 .table-reservations tbody tr td:last-child > a{
   color: #343434;
 }
-.table-reservations td.today{
+.table-reservations tbody tr td.today > a{
+  color: #ff7f7f;
+}
+.table-reservations tbody tr td.selected{
+  border: solid 2px #008d87;
+}
+.table-reservations tbody tr td.selected > a{
+  color: #008d87;
+}
+/* .table-reservations td.today{
   background-color: white;
 }
 .table-reservations td.selected{
   background-color:rgba(0, 141, 135, 0.2);
-}
+} */
 .table-reservations .program{
 
   margin-bottom: 7px;
@@ -259,11 +314,16 @@ ul.timeline{
 }
 .timeline >li .title{
   font-size: 24px;
-  background-color: #008d87;
   color: white;
   padding: 2px;
   padding-left: 35px;
   box-shadow: 1.224646799147353e-16px 2px 5.88px 0.12px rgba(0, 0, 0, 0.16), 1.8369701987210304e-16px 3px 4.7px 0.3px rgba(0, 0, 0, 0.24);
+}
+.timeline >li.reserved .title{
+  background-color: #008d87;
+}
+.timeline >li.available .title{
+  background-color: #dddddd;
 }
 .timeline >li .content{
   padding: 35px;
@@ -287,6 +347,16 @@ ul.timeline{
   display: inline-block;
   width: 65px;
 }
+.table{
+
+}
+.table.table-default thead {
+  background-color: #d2d2d2;
+  text-align: center;
+}
+.table.table-default tbody{
+  text-align: center;
+}
 .thead-control{
   background-color: #008d87;
   text-align: center;
@@ -298,7 +368,7 @@ ul.timeline{
 .tbody-control{
  text-align: center;
  font-size: 16px;
- font-family: YDIYGO320;
+ font-family: 'YDIYGO320';
 }
 .tbody-control a:link{
   color: #000000
@@ -315,6 +385,9 @@ ul.timeline{
   color: #008d87;
   font-color: #000000;
   box-shadow: 0px 2px 5.9px 0.1px rgba(0, 0, 0, 0.16);
+}
+table td{
+  max-width: 270px;
 }
 .my-3{
   font-weight: normal;

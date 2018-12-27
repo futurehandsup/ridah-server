@@ -193,6 +193,7 @@ exports.getReservationsList = function(req, res, next){
           }
           calendar.schedules.push(schedule);
         }
+
         var result = {
           title : "예약 현황",
           success : true,
@@ -201,6 +202,7 @@ exports.getReservationsList = function(req, res, next){
           reservations : results,
           calendar : calendar
         }
+        console.log(JSON.stringify(calendar))
         if(req.result == undefined){
           req.result = result;
         }
@@ -276,8 +278,8 @@ exports.getOne = function(req, res, next, id) {
         title : "Program List",
         //page : 'programs/detail',
         success : true,
-        messages : req.flash('error'),                                                                                                                                                                                                                               
-        
+        messages : req.flash('error'),
+
         program : program
       }
       if(req.result == undefined){

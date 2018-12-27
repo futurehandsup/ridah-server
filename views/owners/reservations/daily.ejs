@@ -2,32 +2,33 @@
 <div class="row bg-white">
   <div class="col bg-lighter drop-shadow">
     <div class="row">
-      <div class="container-fluid" style="">
+      <div class="my-3" style="">
         예약달력에서 예약날짜와 정보를 확인 가능합니다.
       </div>
       <div class="container-fluid bg-white" >
-        <ul class="pagination justify-content-center text-center">
+        <ul class="pagination calendar-pagination text-center">
           <li class="page-item">
             <%
             var m_date = new Date(calendar.date);
             m_date.setMonth(m_date.getMonth()-1);
             %>
             <% var prev_date = m_date.getFullYear() + "-" + (m_date.getMonth()+1) + "-" + m_date.getDate();%>
-            <a class="page-link" href="daily?type=monthly&date=<%=prev_date%>" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
+            <a class="" href="daily?type=monthly&date=<%=prev_date%>&storeId=<%=store._id%>" aria-label="<%=(m_date.getMonth()+1)%>월">
+              <span aria-hidden="true"><i class="pe-7s-angle-left"></i> <%=(m_date.getMonth()+1)%>월</span>
+              <span class="sr-only"><%=(m_date.getMonth()+1)%>월</span>
             </a>
           </li>
-          <h2 class="text-center" style="">
-
-            <%=m_date.getFullYear()%>년 <%=m_date.getMonth()+1%>월
+          <h1 class="text-center flex-1 calendar-title" style="">
+            <% m_date.setMonth(m_date.getMonth()+1);%>
+            <%=m_date.getMonth()+1%>월
+            <small><%=m_date.getFullYear()%>년</small>
           </h2>
           <li class="page-item">
-            <% m_date.setMonth(m_date.getMonth()+2);%>
+            <% m_date.setMonth(m_date.getMonth()+1);%>
             <% var next_date = m_date.getFullYear() + "-" + (m_date.getMonth()+1) + "-" + m_date.getDate();%>
-            <a class="page-link" href="daily?type=monthly&date=<%=next_date%>" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
+            <a class="" href="daily?type=monthly&date=<%=next_date%>&storeId=<%=store._id%>" aria-label="Next">
+              <span aria-hidden="true"><%=(m_date.getMonth()+1)%>월 <i class="pe-7s-angle-right"></i></span>
+              <span class="sr-only"><%=(m_date.getMonth()+1)%>월</span>
             </a>
           </li>
         </ul>
@@ -37,22 +38,24 @@
           <% var dates = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]%>
           <thead class="">
             <tr>
-            <% for(date in dates){%>
+            <% for(var date in dates){%>
               <th scope="col"><%=dates[date]%></th>
             <%}%>
             </tr>
           </thead>
           <tbody>
-          <% var today_schedule;%>
+          <% var today_schedule;
+            let selectedDate = new Date(query.date);%>
+
           <% for(var i=0; i < calendar.schedules.length; i++){ %>
             <%
             var schedule = calendar.schedules[i];
-            var s_date = new Date(schedule.date)
+            var s_date = new Date(schedule.date);
             var m = s_date.getDay();
             var flag_today = false;
             var flag_selected = false;
 
-            if(s_date.getFullYear() == m_date.getFullYear() && s_date.getMonth() == m_date.getMonth() &&s_date.getDate() == m_date.getDate()){
+            if(s_date.getFullYear() == selectedDate.getFullYear() && s_date.getMonth() == selectedDate.getMonth() &&s_date.getDate() == selectedDate.getDate()){
               today_schedule = schedule;
               flag_selected = true;
             }
@@ -67,8 +70,8 @@
               if(s_date.getFullYear() == today.getFullYear() && s_date.getMonth() == today.getMonth() && s_date.getDate() == today.getDate()){
                 flag_today = true;
               }%>
-            <td class="<%=flag_today?'today':''%> <%=flag_selected?'selected':''%>">
-              <a href="?type=monthly&date=<%=s_date.getFullYear()%>-<%=(s_date.getMonth()+1)%>-<%=(s_date.getDate())%>"><%=s_date.getDate()%></a><br>
+            <td class="<%=flag_today?'today':''%><%=flag_selected?'selected':''%>">
+              <a href="?type=monthly&date=<%=s_date.getFullYear()%>-<%=(s_date.getMonth()+1)%>-<%=(s_date.getDate())%>&storeId=<%=store._id%>"><%=s_date.getDate()%></a><br>
               <%for (var j=0; j < schedule.programs.length; j++){%>
               <% var program = schedule.programs[j];%>
                 <div class="program">
@@ -92,34 +95,22 @@
   </div>
   <div class="col-3">
     <div class="" style="padding: 15px; padding-top: 25px;">
-      <h1 class="text-cetnter" style="font-size: 48px;">19 <small style="font-size:16px;">토요일</small></h1>
+      <% if(query.date!=null) {%>
+        <h1 class="text-cetnter" style="font-size: 48px;">
+          <%
+          let koreanDates = ["일", "월", "화", "수", "목", "금", "토"];
+          %><%=selectedDate.getDate()%> <small style="font-size:16px;"><%=koreanDates[selectedDate.getDay()]%>요일</small></h1>
+      <%}%>
     </div>
     <div>
-      <%if(today_schedule!=null){%>
+      <%if(query.date != null && today_schedule!=null){%>
         <ul class="timeline">
         <%for (p of today_schedule.programs){%>
-          <li class="reserved">
+          <li class="<%=p.isReserved?'reserved':'available'%>">
             <div class="title"><%=p.time.start_at%></div>
-            <div class="content">전소현 님
-            프로그램
-            체험 승마
-            </div>
-          </li>
-          <%}%>
-        </ul>
-      <%} else { %>
-        <ul class="timeline">
-          <li class="reserved">
-            <div class="title">11:30</div>
-            <div class="content">
-            <h5>전소현 님</h5>
-            프로그램
-            체험 승마
-            </div>
-          </li>
-          <li class="reserved">
-            <div class="title">11:30</div>
-            <div class="content">
+
+            <%if(p.isReserved){%>
+              <div class="content">
               <h5 class="name">전소현 님</h5>
               <p>010-1234-5678</p>
               <hr>
@@ -128,6 +119,19 @@
               <p><strong>고객메모</strong><br>
               늦게 도착할 것 같습니다.
               </p>
+              </div>
+            <%}else{%>
+
+            <%}%>
+
+          </li>
+          <%}%>
+        </ul>
+      <%} else { %>
+        <ul class="timeline">
+          <li class="reserved">
+            <div class="content">
+            <p class='text-center'>날짜를 선택해 보세요!</p>
             </div>
           </li>
         </ul>

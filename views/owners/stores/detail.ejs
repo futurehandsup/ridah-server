@@ -5,85 +5,84 @@
 
     </div>
   </div>
-  <div class="container-fluid">
-    <div class="card" style="margin-bottom: 20px;">
-      <div class="card-header">
-        정보 <a href="/owners/stores/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
-      </div>
-      <div class="card-body">
-        <h4 class="card-title"><%=store.storename%></h4>
-        <h6 class="card-subtitle mb-2 text-muted"><%=store.address%></h6>
-        <p class="card-text"><%=store.introduction%></p>
-        <a href="#" class="card-link"><%=store.telephone%></a>
-      </div>
+  <div class="card" style="margin-bottom: 20px;">
+    <div class="card-header">
+      정보 <a href="/owners/stores/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
     </div>
-
-    <div class="card" style="margin-bottom: 20px;">
-      <div class="card-header">
-        <%var date=calendar.schedules[0].date;%>
-        <%=date%>일 프로그램
-        <a href="/owners/programs/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
-        <a href="/owners/reservations/calendar?storeId=<%=store.id%>" class="card-link float-right pr-3"><span class="fa fa-cog"></span> 예약 관리</a>
-      </div>
-      <ul class="list-group list-group-flush">
-        <% for(var i=0; i<calendar.schedules[0].programs.length; i++){%>
-          <% var program = calendar.schedules[0].programs[i]; %>
-          <li class="list-group-item">
-            <%if(program.isReserved){ %>
-            <span class="text-danger pull-right">예약 불가</span>
-            <%}else{%>
-            <span class="text-primary pull-right">예약 가능</span>
-            <%}%>
-            <%=program.time.start_at%>
-            <h5><%=program.programname%></h5>
-          </li>
-        <%}%>
-      </ul>
-    </div>
-
-    <div class="card" style="margin-bottom: 20px;">
-      <div class="card-header">
-        리뷰 <%=reviews.length%>개
-        <a href="/owners/reviews/list?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
-      </div>
-      <ul class="list-group list-group-flush">
-        <%if(reviews.length == 0){%>
-          <li class="list-group-item">후기가 없습니다</li>
-        <%}%>
-        <% for(var i=0; i<reviews.length; i++){%>
-          <% var review = reviews[i]; %>
-          <li class="list-group-item">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1"><%=review.reviewTitle%></h5>
-            </div>
-            <p class="mb-1"><%=review.reviewText%></p>
-            <small><%=(review.reviewWriter!=undefined) ? (review.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=review.created_at%></small>
-          </li>
-        <%} %>
-      </ul>
-    </div>
-
-    <div class="card" style="margin-bottom: 20px;">
-      <div class="card-header">
-        문의 <%=qnas.length%>개
-        <a href="/owners/qnas/list?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
-      </div>
-      <ul class="list-group list-group-flush">
-        <%if(qnas.length == 0){%>
-          <li class="list-group-item">문의가 없습니다</li>
-        <%}%>
-        <% for(var i=0; i<qnas.length; i++){%>
-          <% var qna = qnas[i]; %>
-          <li class="list-group-item">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1"><%=qna.qnaTitle%></h5>
-            </div>
-            <p class="mb-1"><%=qna.qnaText%></p>
-            <small><%=(qna.qnaWriter!=undefined) ? (qna.qnaWriter.username) : "탈퇴한 사용자"%>님, <%=qna.created_at%></small>
-          </li>
-        <%} %>
-      </ul>
+    <div class="card-body">
+      <h4 class="card-title"><%=store.storename%></h4>
+      <h6 class="card-subtitle mb-2 text-muted"><%=store.address%></h6>
+      <p class="card-text"><%=store.introduction%></p>
+      <a href="#" class="card-link"><%=store.telephone%></a>
     </div>
   </div>
+
+  <div class="card" style="margin-bottom: 20px;">
+    <div class="card-header">
+      <%var date=calendar.schedules[0].date;%>
+      <%=date%>일 프로그램
+      <a href="/owners/programs/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
+      <a href="/owners/reservations/calendar?storeId=<%=store.id%>" class="card-link float-right pr-3"><span class="fa fa-cog"></span> 예약 관리</a>
+    </div>
+    <ul class="list-group list-group-flush">
+      <% for(var i=0; i<calendar.schedules[0].programs.length; i++){%>
+        <% var program = calendar.schedules[0].programs[i]; %>
+        <li class="list-group-item">
+          <%if(program.isReserved){ %>
+          <span class="text-danger pull-right">예약 불가</span>
+          <%}else{%>
+          <span class="text-primary pull-right">예약 가능</span>
+          <%}%>
+          <%=program.time.start_at%>
+          <h5><%=program.programname%></h5>
+        </li>
+      <%}%>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-bottom: 20px;">
+    <div class="card-header">
+      리뷰 <%=reviews.length%>개
+      <a href="/owners/reviews/list?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
+    </div>
+    <ul class="list-group list-group-flush">
+      <%if(reviews.length == 0){%>
+        <li class="list-group-item">후기가 없습니다</li>
+      <%}%>
+      <% for(var i=0; i<reviews.length; i++){%>
+        <% var review = reviews[i]; %>
+        <li class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%=review.reviewTitle%></h5>
+          </div>
+          <p class="mb-1"><%=review.reviewText%></p>
+          <small><%=(review.reviewWriter!=undefined) ? (review.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=review.created_at%></small>
+        </li>
+      <%} %>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-bottom: 20px;">
+    <div class="card-header">
+      문의 <%=qnas.length%>개
+      <a href="/owners/qnas/list?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
+    </div>
+    <ul class="list-group list-group-flush">
+      <%if(qnas.length == 0){%>
+        <li class="list-group-item">문의가 없습니다</li>
+      <%}%>
+      <% for(var i=0; i<qnas.length; i++){%>
+        <% var qna = qnas[i]; %>
+        <li class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%=qna.qnaTitle%></h5>
+          </div>
+          <p class="mb-1"><%=qna.qnaText%></p>
+          <small><%=(qna.qnaWriter!=undefined) ? (qna.qnaWriter.username) : "탈퇴한 사용자"%>님, <%=qna.created_at%></small>
+        </li>
+      <%} %>
+    </ul>
+  </div>
+
 </section>
 <% include ../templates/bottom.ejs %>
