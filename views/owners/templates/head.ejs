@@ -59,48 +59,56 @@
               </li>
             </ul>
           </li>
+          <li id="filters" class="nav-item">
+            <a class="nav-link" href="/owners/programs/list?storeId=<%=store.id%>">필터 관리</a>
+          </li>
           <li id="programs" class="nav-item">
             <a class="nav-link" href="/owners/programs/list?storeId=<%=store.id%>">프로그램 관리</a>
           </li>
           <li id="stores" class="nav-item">
             <a class="nav-link" href="/owners/stores/detail?storeId=<%=store.id%>">승마장 정보 관리</a>
           </li>
-          <li id="statistics" class="nav-item">
-            <a class="nav-link" style="font-style: italic;">통계</a>
-          </li>
           <li id="statistics-reservation" class="nav-item">
-            <a class="nav-link"  href="/owners/statistics/reservations?storeId=<%=store.id%>"> -예약분석</a>
+            <a class="nav-link"  href="/owners/statistics/reservations?storeId=<%=store.id%>">통계</a>
           </li>
-          <li id="statistics-customer" class="nav-item">
+          <!-- <li id="statistics-customer" class="nav-item">
             <a class="nav-link"  href="/owners/statistics/customers?storeId=<%=store.id%>"> -고객분석</a>
-          </li>
-          <li id="calculations" class="nav-item">
-            <a class="nav-link" style="font-style: italic;">정산내역</a>
-          </li>
+          </li> -->
           <li id="calculations-index" class="nav-item">
-            <a class="nav-link" href="/owners/calculations?storeId=<%=store.id%>"> -정산내역 조회</a>
+            <a class="nav-link" href="/owners/calculations?storeId=<%=store.id%>">정산</a>
           </li>
-          <li id="calculations-vat" class="nav-item">
+          <!-- <li id="calculations-vat" class="nav-item">
             <a class="nav-link" href="/owners/calculations/vat?storeId=<%=store.id%>"> -부가세 신고 내역</a>
           </li>
-          <li id="calculations-tax" class="nav-item">
+ -->          <!-- <li id="calculations-tax" class="nav-item">
             <a class="nav-link" href="/owners/calculations/tax?storeId=<%=store.id%>"> -세금 계산서 조회</a>
-          </li>
-          <li id="calculations-info" class="nav-item">
+          </li> -->
+          <!-- <li id="calculations-info" class="nav-item">
             <a class="nav-link" href="/owners/calculations/info?storeId=<%=store.id%>"> -정산 정보</a>
-          </li>
+          </li> -->
           <!-- <li id="qnas" class="nav-item">
             <a class="nav-link" href="/owners/qnas/list?storeId=<%=store.id%>">문의관리</a>
           </li> -->
-          <li id="reviews" class="nav-item">
-            <a class="nav-link" href="/owners/reviews/list?storeId=<%=store.id%>">이용후기 관리</a>
+          <li id="reservations" class="has-sub nav-item">
+            <a class="nav-link">
+              <i class="ti-user"></i>
+              문의 관리
+            </a>
+            <ul class="nav sub-nav">
+              <li id="reviews" class="nav-item">
+               <a class="nav-link" href="/owners/reviews/list?storeId=<%=store.id%>">대화 문의 관리</a>
+              </li>
+              <li id="reviews" class="nav-item">
+                <a class="nav-link" href="/owners/reviews/list?storeId=<%=store.id%>">이용 후기 관리</a>
+              </li>               
+            </ul>
           </li>
           <li id="notices" class="nav-item">
-            <a class="nav-link" href="/owners/notices/list?storeId=<%=store.id%>">전체 공지사항</a>
+            <a class="nav-link" href="/owners/notices/list?storeId=<%=store.id%>">공지사항</a>
           </li>
-          <li id="noticeOwners" class="nav-item">
+          <!-- <li id="noticeOwners" class="nav-item">
             <a class="nav-link" href="/owners/noticeOwners/list?storeId=<%=store.id%>">가맹점 공지사항</a>
-          </li>
+          </li> -->
 
         </ul>
         <ul class="nav flex-column">
