@@ -43,7 +43,7 @@ exports.getList = function(req, res, next){
 
   //검색조건 설정
   if(req.query.date_from != null && req.query.date_from != ""){ // 날짜 시작
-  
+
     if(params.reservationDate == null) params.reservationDate = {}
     params.reservationDate.$gte = req.query.date_from //최소값
   }
@@ -51,14 +51,37 @@ exports.getList = function(req, res, next){
   //검색조건 설정
   if(req.query.until != null && req.query.date_until != ""){ // 날짜 끝
     if(params.reservationDate == null) params.reservationDate = {}
-    params.reservationDate.$lte = req.query.date_until 
+    params.reservationDate.$lte = req.query.date_until
   }
 
-  Calculation.find()
+  Calculation
+  .aggregate()
+  //
+  .lookup({ from: 'carrotusagelogs', localField: 'carrotUsageLogs', foreignField: '_id', as: 'carrotUsageLogs' })
+  .lookup({ from: 'stores', localField: 'store', foreignField: '_id', as: 'store'})
+  .unwind('store')
+  .project({
+    store: { _id: '$store._id', storename: '$store.storename'},
+    carrotUsageLogs: 1,
+    calculationYear:1,
+    calculationMonth:1,
+    carrots: {
+      $reduce: {
+        input: "$carrotUsageLogs",
+        initialValue: 0,
+        in: { $add: [ "$$value", "$$this.carrots" ] }
+      }
+    },
+  })
+  //.find()
+  // .populate("carrotUsageLogs")
+  // .populate({ path: 'store', select: 'storename' })
   .exec(function(err, calculations) {
     if (err) {
       return next(err);
     } else {
+      console.log(calculations)
+      console.log(calculations[0].carrotUsageLogs)
       var result = {
         title : "메인 헤더",
         success : true,
