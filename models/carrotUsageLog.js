@@ -13,7 +13,7 @@ var CarrotUsageLogSchema = new Schema({
     },
     usageType: {
       type: String,
-      enum : ['purchase', 'reservation', 'expire'],
+      enum : ['purchase', 'reservation', 'expire'], //// TODO: 예약취소부분 반영
     },
     couponPurchaseLog: {
       type: Schema.ObjectId,
@@ -52,7 +52,52 @@ var CarrotUsageLogSchema = new Schema({
 CarrotUsageLogSchema.post('update', function(result) {
   this.update({_id  : result.id },{ $set: { updated_at: new Date() } });
 });
+CarrotUsageLogSchema.post('save', function(result) {
+  if(result.usageType == "reservation"){
+    let calculation =  mongoose.model('Calculation')
+    result.populate('reservation', function(err, carrotUsageLog){
+      console.log(carrotUsageLog)
+      calculation.findOneAndUpdate({
+          calculationYear: new Date(carrotUsageLog.reservation.reservationDate).getFullYear(),
+          calculationMonth: new Date(carrotUsageLog.reservation.reservationDate).getMonth()+1,
+          store: carrotUsageLog.reservation.store
+        },
+        {
+          $set: {
+            calculationYear: new Date(carrotUsageLog.reservation.reservationDate).getFullYear(),
+            calculationMonth:new Date(carrotUsageLog.reservation.reservationDate).getMonth()+1,
+            store: carrotUsageLog.reservation.store,
+            //fee : carrotUsageLog.carrots,
+          },
+          $push: {carrotUsageLogs : carrotUsageLog._id  },
+        },
+        {upsert: true, new: true, runValidators: true},  //options
+        function(err, calculation){
+          if(err) {
+          //  return next(err)
+            carrotUsageLog.remove();
+          }
+          console.log(calculation)
+          if(calculation==null){
+            carrotUsageLog.remove();
+            carrotUsageLog.reservation.remove();
+            //throw new Error("실패")
+          }
+        }
+      );
+    })
+  }
+});
+CarrotUsageLogSchema.post('remove', function(result) {
+  let User = mongoose.model('User');
+  let carrots = (result.remained - result.carrots);
+  User.findOneAndUpdate({_id : result.user},
+    {coupons : carrots} ,
+    {new :true},
+    function(err, user){
 
+    });
+});
 // CarrotUsageLogSchema.virtual('idpass').get(function() {     // 가상 속성, CarrotUsageLogSchema 의 set 옵션에 virtuals 옵션을 true 로 설정해야 작동
 //     return this.userid + ' ' + this.password;
 // });

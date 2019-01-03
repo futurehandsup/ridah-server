@@ -26,6 +26,14 @@ var CalculationSchema = new Schema({
         return date.toLocaleDateString("ko-KR")
       }
     },
+    calculationYear: String,
+    calculationMonth: String,
+    carrotUsageLogs: [
+      {
+        type : Schema.ObjectId,
+        ref : 'CarrotUsageLog'
+      }
+    ],
     calculationNum : { //판매자 정산번호
       type : Number,
       default : 0
@@ -123,4 +131,4 @@ CalculationSchema.set('toJSON',{ getters : true , virtuals : true});
 /*res.json() 을 사용하여 다큐먼트 데이터를 출력 할 때 get 옵션으로 정의한 값이 JSON에 포함되게 할 것이다.
 위 코드를 적지 않으면 JSON으로 데이터를 표현할 때 get 옵션을 무시하게 될 것 이다.
 출처: http://alexband.tistory.com/23 [Front-end Rider] */
-mongoose.model('Calculation', CalculationSchema, 'calculation');
+mongoose.model('Calculation', CalculationSchema);
