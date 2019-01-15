@@ -66,14 +66,24 @@
               <i class="pe-7s-display2"></i>
               프로그램 관리</a>
           </li>
+           <li id="programs" class="nav-item">
+            <a class="nav-link" href="/owners/programs/list?storeId=<%=store.id%>">
+              <i class="pe-7s-filter"></i>
+              필터 관리</a>
+          </li>
           <li id="stores-detail" class="nav-item">
             <a class="nav-link" href="/owners/stores/detail?storeId=<%=store.id%>">
               <i class="pe-7s-note2"></i>
               승마장 정보 관리</a>
           </li>
-          <li id="statistics" class="has-sub nav-item">
+          <li id="statistics-reservation" class="nav-item">
+            <a class="nav-link"  href="/owners/statistics/reservations?storeId=<%=store.id%>">
+              <i class="pe-7s-graph3"></i>
+              통계</a>
+          </li>
+         <!--  <li id="statistics" class="has-sub nav-item">
             <a class="nav-link" >
-              <i class="pe-7s-graph1"></i>
+              <i class="pe-7s-graph3"></i>
               통계</a>
             <ul class="nav sub-nav">
               <li id="statistics-reservation">
@@ -83,8 +93,13 @@
                 <a class="nav-link"  href="/owners/statistics/customers?storeId=<%=store.id%>"> -고객분석</a>
               </li>
             </ul>
+          </li> -->
+          <li id="calculations-index" class="nav-item">
+            <a class="nav-link"  href="/owners/calculations?storeId=<%=store.id%>">
+              <i class="pe-7s-calculator"></i>
+              정산 내역</a>
           </li>
-          <li id="calculations" class="has-sub nav-item">
+         <!--  <li id="calculations" class="has-sub nav-item">
             <a class="nav-link" >
               <i class="pe-7s-calculator"></i>
               정산내역</a>
@@ -102,23 +117,41 @@
                 <a class="nav-link" href="/owners/calculations/info?storeId=<%=store.id%>">정산 정보</a>
               </li>
             </ul>
-          </li>
+          </li> -->
 
 
           <!-- <li id="qnas" class="nav-item">
             <a class="nav-link" href="/owners/qnas/list?storeId=<%=store.id%>">문의관리</a>
           </li> -->
-          <li id="reviews" class="nav-item">
+          <li id="reviews" class="has-sub nav-item">
+            <a class="nav-link">
+              <i class="pe-7s-chat"></i>
+              문의 내역
+            </a>
+            <ul class="nav sub-nav">
+              <li id="reviews-chat">
+                <a class="nav-link" href="/owners/reviews-chat/list?storeId=<%=store.id%>">
+                  <p>대화 문의 관리</p>
+                </a>
+              </li>
+              <li id="reviews-usage">
+                <a class="nav-link" href="/owners/reviews/list?storeId=<%=store.id%>">
+                  <p>이용 후기 관리</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- <li id="reviews" class="nav-item">
             <a class="nav-link" href="/owners/reviews/list?storeId=<%=store.id%>">
               <i class="pe-7s-chat"></i>
               이용후기 관리</a>
           </li>
-          <li id="notices" class="has-sub nav-item">
+ -->          <li id="notices" class="has-sub nav-item">
             <a class="nav-link" >
               <i class="pe-7s-speaker"></i>
               공지사항</a>
             <ul class="nav sub-nav">
-              <li id="notices">
+              <li id="noticesAll">
                 <a class="nav-link" href="/owners/notices/list?storeId=<%=store.id%>">전체 공지사항</a>
               </li>
               <li id="noticeOwners">
