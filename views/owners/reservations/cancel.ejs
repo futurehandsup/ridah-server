@@ -10,14 +10,14 @@
         <ul style="display: block; float: right;">주간</ul>
         <ul style="display: block; float: right;">월간</ul>
         <!--css등을 이용하여 버튼으로-->
-        <input type="date" name="date-from" class="form-control">
-        <input type="date" name="date-until" class="form-control">
+        <input type="date" name="date-from" class="form-control form-control-width">
+        <input type="date" name="date-until" class="form-control form-control-width">
       </div>
       <div style="margin-top: 10px;">
         <ul style="display: block; float: right;">
           <button class="btn btn-success">검색</button>
         </ul>
-        <select placeholder="처리상태" name="search_condition" class="form-control">
+        <select placeholder="처리상태" name="search_condition" class="form-control form-control-width">
           <option>전체</option>
           <option value="취소요청" <%=(query.search_condition=="취소요청")? "selected" : ""%>>취소요청</option>
           <option value="취소진행" <%=(query.search_condition=="취소진행")? "selected" : ""%>>취소진행</option>
