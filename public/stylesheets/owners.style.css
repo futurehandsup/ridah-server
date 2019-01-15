@@ -5,12 +5,15 @@ body{
   border: solid 1.5px #666666;
   border-radius: 10px;
   display: inline-block;
-  width: unset;
+ /* width: unset;*/
   padding: unset;
   font-size: unset;
   padding: .05rem .3rem;
   /* padding: .375rem .75rem; */
 /* font-size: 1rem; */
+}
+.form-control-width{
+  width: unset;
 }
 .bg-lighter{
   background-color: #f8f8f8;

@@ -10,10 +10,62 @@
       <div class="modal-body">
         <div class="content">
           <form id="createForm" action="/programs" method="POST">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>프로그램명</label>
+         
+                  <div class="row">
+                    <div class="col-md-12">
+                     <div class="form-group">   
+                        <label>프로그램명</label>
+                        <input name="programname" type="text" class="form-control" placeholder="프로그램명" value="">
+                      </div>
+                    </div>
+                  </div>
+
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>시작시각(시)</label>
+                              <input name="time.start.hours" type="text" class="form-control" placeholder="0~23" value="">
+                            </div>
+                          </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>시작시각(분)</label>
+                              <input name="time.start.minutes" type="text" class="form-control" placeholder="0~59" value="">
+                            </div>
+                          </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>소요시간(분)</label>
+                              <input name="time.howLong" type="text" class="form-control" placeholder="분">
+                        </div>
+                       </div>
+                    </div>
+
+                    <div class="row">      
+                      <div class="col-md-6">
+                          <div class="form-group">   
+                          <label>가격(캐럿)</label>
+                          <input name="carrots" type="text" class="form-control" placeholder="캐럿" value="">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>기본수량</label>
+                          <input name="atLeast" type="text" class="form-control" placeholder="기본수량" value="">
+                        </div>
+                      </div>  
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-12">
+                     <div class="form-group">   
+                        <label>프로그램 소개</label>
+                        <textarea name="introduction" type="text" class="form-control" placeholder="프로그램 소개" value=""></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- label>프로그램명</label>
                   <input name="programname" type="text" class="form-control" placeholder="프로그램명" value="">
                 </div>
               </div>
@@ -41,10 +93,8 @@
                   </div>
                   <div class="form-group col-6">
                     <input name="time.start.minutes" type="text" class="form-control" placeholder="분(0~59)" value="">
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </div> -->
+            
             <div class="clearfix"></div>
           </form>
         </div>
@@ -67,13 +117,14 @@
   <table class="table table-default table-striped">
       <thead>
         <tr>
+          <th>선택</th>
           <th>프로그램명</th>
           <th>검토여부</th>
           <th>시작시간</th>
-          <th>소요시간</th>
-          <th>가격(캐롯)</th>
+          <th>소요시간(분)</th>
+          <th>가격(캐럿)</th>
           <th>기본수량</th>
-          <th>유형</th>
+          <!-- <th>유형</th> -->
           <th>설명</th>
           <th>관리</th>
         </tr>
@@ -83,13 +134,14 @@
           var program = programs[i];
         %>
         <tr>
+          <td><input type="radio" name="selectedProgram"></td>
           <td><%=program.programname%></td>
-          <td></td>
+          <td><%=program.ifChecked?"검토완료":"검토중"%></td>
           <td><%=program.time.start_at%></td>
           <td><%=program.time.howLong%></td>
           <td><%=program.carrots%></td>
-          <td></td>
-          <td><%=program.programType%></td>
+          <td><%=program.atLeast%></td>
+          <!-- <td><%=program.programType%></td> -->
           <td><%=program.introduction%></td>
           <td>
             <button data-item="<%=program.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>

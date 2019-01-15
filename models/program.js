@@ -21,15 +21,19 @@ var ProgramSchema = new Schema({
       ref : 'Store',
       //index : true
     },
-    programType : {
+   /* programType : {
       // 체험 / 자유
       type : String,
       enum : ['체험일반', '체험고급', '자유기승'],
       default: '체험일반'
-    },
+    },*/
     carrots : {
       type: Number,
       min: 0
+    },
+    atLeast : {
+      type : Number,
+      default: 1
     },
     time : {
       start: {
@@ -52,6 +56,12 @@ var ProgramSchema = new Schema({
     reservations: [
       {type : Schema.ObjectId, ref: 'Reservation'}
     ],
+
+    ifChecked : { // 검토 여부
+      type: Boolean,
+      default: false
+    },
+
     /*
     // 예약한 코스 정보, 예약 인원 등등
     options : {
