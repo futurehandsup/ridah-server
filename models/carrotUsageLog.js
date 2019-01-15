@@ -57,16 +57,23 @@ CarrotUsageLogSchema.post('save', function(result) {
     let calculation =  mongoose.model('Calculation')
     result.populate('reservation', function(err, carrotUsageLog){
       console.log(carrotUsageLog)
+      let calculationYear, calculationMonth, reservationDate;
+      reservationDate = new Date(carrotUsageLog.reservation.reservationDate);
+      calculationYear = reservationDate.getFullYear();
+      calculationMonth = reservationDate.getMonth()+1;
+      let calculateDue_at = reservationDate.setMonth(reservationDate.getMonth() + 1, 15);
+
       calculation.findOneAndUpdate({
-          calculationYear: new Date(carrotUsageLog.reservation.reservationDate).getFullYear(),
-          calculationMonth: new Date(carrotUsageLog.reservation.reservationDate).getMonth()+1,
+          calculationYear: calculationYear,
+          calculationMonth: calculationMonth,
           store: carrotUsageLog.reservation.store
         },
         {
           $set: {
-            calculationYear: new Date(carrotUsageLog.reservation.reservationDate).getFullYear(),
-            calculationMonth:new Date(carrotUsageLog.reservation.reservationDate).getMonth()+1,
+            calculationYear: calculationYear,
+            calculationMonth: calculationMonth,
             store: carrotUsageLog.reservation.store,
+            calculateDue_at : calculateDue_at,
             //fee : carrotUsageLog.carrots,
           },
           $push: {carrotUsageLogs : carrotUsageLog._id  },

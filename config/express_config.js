@@ -49,6 +49,7 @@ module.exports = function() {
     app.use(passport.session());       // 추가
 
     app.locals.filterItems = require('./filterItems');
+    app.locals.moment = require('moment');
 
     var index = require('../routes/index');
     var users = require('../routes/users');

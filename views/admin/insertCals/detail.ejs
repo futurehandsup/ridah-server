@@ -1,0 +1,107 @@
+<% include ../templates/header.ejs %>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">정산 상세 내역
+              <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
+              만들기
+              </button></h4>
+            <p class="category"><%=calculation.store.storename%></p>
+          </div>
+          <div class="content">
+            <div class="row">
+              <div class="col-md-4">
+                <p>기간 :  <%=calculation.calculationYear%>년  <%=calculation.calculationMonth%>월</p>
+                <p>정산예정일 : <%=moment(calculation.calculateDue_at).format('YYYY-MM-DD')%></p>
+                <p>정산금액 : </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal -->
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+                <th>ID</th>
+                <% var keys = Object.keys(schema); %>
+
+                <th>예약번호</th>
+                <th>프로그램명</th>
+                <th>예약일</th>
+                <th>이용예정일</th>
+                <th>이용여부</th>
+                <th>캐럿</th>
+                <th>정산금액</th>
+
+                <!-- <th>작업</th> -->
+
+              </thead>
+              <tbody>
+                <% let carrotUsageLogs = calculation.carrotUsageLogs; %>
+                <% for(var i=0; i<carrotUsageLogs.length; i++){
+                  var carrotUsageLog = carrotUsageLogs[i];
+                  var reservation = carrotUsageLog.reservation;
+                  %>
+                  <tr>
+                    <td><%=i%></td>
+
+                    <td><%=reservation._id%></td><!--예약번호-->
+                    <td><%=reservation.program.programname%></td><!--프로그램명-->
+                    <td><%=moment(reservation['created_at']).format('YYYY-MM-DD')%></td><!--예약일-->
+                    <td><%=moment(reservation['reservationDate']).format('YYYY-MM-DD')%></td><!--이용예정일-->
+                    <td><%=reservation['checked_at']?'o':'x'%></td><!--이용여부-->
+                    <td><%=reservation['carrots']%></td><!--캐럿-->
+                    <td></td><!--정산금액-->
+
+                    <!-- <td>
+                      <button data-item="<%=calculation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
+                      <a href="edit/<%=calculation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+                    </td>
+                  </tr> -->
+                <% }%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#createButton').click(function(){
+    var calculation =  $('#createForm').serializeObject();
+    $.ajax({
+      type:"POST",
+      url:'/calculations',
+      data:calculation,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+  $('.deleteButton').click(function(){
+    var calculationId = $(this).data("item");
+    $.ajax({
+      type:"DELETE",
+      url:'/calculations/'+calculationId,
+
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

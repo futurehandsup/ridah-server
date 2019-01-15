@@ -11,6 +11,7 @@ var reservations = require('../controllers/reservations');
 var programs = require('../controllers/programs');
 var coupons = require('../controllers/coupons');
 var couponPurchaseLogs = require('../controllers/couponPurchaseLogs');
+var carrotUsageLogs = require('../controllers/carrotUsageLogs');
 var notices = require('../controllers/notices');
 var noticeOwners = require('../controllers/noticeOwners');
 var headers = require('../controllers/headers');
@@ -138,9 +139,12 @@ router.get('/events/edit/:eventId', events.getSchemas, common.renderPage('admin/
 router.param('eventId', events.getOne);
 
 //insertCals
-router.get('/insertCals/list', calculations.getList,calculations.getSchemas, common.renderPage('admin/insertCals/list'));
+//router.get('/insertCals/list', calculations.getList,calculations.getSchemas, common.renderPage('admin/insertCals/list'));
+router.get('/insertCals/list', calculations.getList, calculations.getSchemas, common.renderPage('admin/insertCals/list0'));
 router.get('/insertCals/edit', calculations.getList,calculations.getSchemas, common.renderPage('admin/insertCals/edit')); // 필요없음
+router.get('/insertCals/detail/:calculationId', calculations.getSchemas, common.renderPage('admin/insertCals/detail'));
 //router.get('/events/edit/:eventId', events.getSchemas, common.renderPage('admin/events/edit'));
+router.param('calculationId', calculations.getOne);
 
 //insertVats
 router.get('/insertVats/list', calculationVats.getList, calculationVats.getSchemas, common.renderPage('admin/insertVats/list'));

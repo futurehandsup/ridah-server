@@ -65,6 +65,8 @@ exports.getList = function(req, res, next){
     carrotUsageLogs: 1,
     calculationYear:1,
     calculationMonth:1,
+    calculateDue_at: 1,
+    calculate_at: 1,
     carrots: {
       $reduce: {
         input: "$carrotUsageLogs",
@@ -151,7 +153,11 @@ exports.getOne = function(req, res, next, id) {
   Calculation.findOne({
     _id: id
   })
-  .populate('calculationWriter')
+  .populate('store')
+  .populate({
+    path: 'carrotUsageLogs',
+    populate: { path: 'reservation', populate: {path:'program'} }
+  })
   .exec(function(err, calculation) {
     if (err) {
       return next(err);
