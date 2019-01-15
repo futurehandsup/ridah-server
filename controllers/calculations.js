@@ -43,7 +43,6 @@ exports.getList = function(req, res, next){
 
   //검색조건 설정
   if(req.query.date_from != null && req.query.date_from != ""){ // 날짜 시작
-
     if(params.reservationDate == null) params.reservationDate = {}
     params.reservationDate.$gte = req.query.date_from //최소값
   }
@@ -55,7 +54,7 @@ exports.getList = function(req, res, next){
   }
 
   Calculation
-  .aggregate()
+  .aggregate({$match: params})
   //
   .lookup({ from: 'carrotusagelogs', localField: 'carrotUsageLogs', foreignField: '_id', as: 'carrotUsageLogs' })
   .lookup({ from: 'stores', localField: 'store', foreignField: '_id', as: 'store'})
