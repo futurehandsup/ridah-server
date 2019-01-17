@@ -1,0 +1,65 @@
+<% include ../templates/head.ejs %>
+<section>
+  <div class="row">
+    <h2 class="my-3 col-md">고객에게 노출되는 필터를 적용시킬 수 있습니다.
+    </h2>
+    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
+    만들기
+    </button>
+  </div>
+  <div class="bg-white" >
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-body">
+        <form id="editForm">
+          <% let filters = filterItems.filters%>
+          <% for(var i=0; i<filters.length; i++){
+              var filter = filters[i];
+              var itemName = "filter_"+filter.fieldName;
+          %>
+            <div class="form-group">
+              <div><%=filter.title%></div>
+              <% for (var j=0; j<filter.items.length; j++){
+                  var item = filter.items[j];
+                %>
+                <div class="form-check form-check-inline">
+                  <input type="checkbox" <%=(store[itemName].includes(j)) ? "checked" : null%> id="<%=itemName%>_<%=j%>" name="<%=itemName%>" value="<%=j%>">
+                  <label class="" for="<%=itemName%>_<%=j%>"><%=item%></label>
+                </div>
+              <% }%>
+
+            </div>
+          <% }%>
+          <button id="editButton" type="button" class="btn btn-primary">저장</button>
+          <a href="./detail?storeId=<%=store.id%>" class="btn btn-outline-primary">이전으로</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#editButton').click(function(){
+    var store =  $('#editForm').serializeObject();
+    $.ajax({
+      type:"PUT",
+      url:'/stores/<%=store.id%>',
+      data:store,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $('.sidebar .nav .active').removeClass('active');
+  var path = "filters" ;
+  $('#'+path).addClass('active');
+})
+</script>

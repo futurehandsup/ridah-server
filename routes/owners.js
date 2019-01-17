@@ -56,6 +56,10 @@ router.get('/reservations/usage', reservations.getList, reservations.getSchemas,
 // 취소 내역
 router.get('/reservations/cancel', reservations.getList, reservations.getSchemas, common.setTitle('취소 내역'),common.renderPage('owners/reservations/cancel'));
 
+//filters
+router.get('/filters/edit', common.renderPage('owners/filters/edit')); // 필요없음
+router.get('/filters/edit/:storeId', stores.getSchemas, common.renderPage('owners/filters/edit'));
+router.param('storeId', stores.getOne);
 // stores
 router.get('/stores/detail', programs.getReservationsList, reviews.getList, qnas.getList, common.setTitle('승마장 정보'), common.renderPage('owners/stores/detail'));
 router.get('/stores/edit', common.renderPage('owners/stores/edit')); // 필요없음
