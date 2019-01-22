@@ -136,7 +136,7 @@
         <tr>
           <td><input type="radio" name="selectedProgram"></td>
           <td><%=program.programname%></td>
-          <td><%=program.ifChecked?"검토완료":"검토중"%></td>
+          <td class='<%=program.ifChecked?"text-purple":"text-red"%>'><%=program.ifChecked?"검토완료":"검토중"%></td>
           <td><%=program.time.start_at%></td>
           <td><%=program.time.howLong%></td>
           <td><%=program.carrots%></td>

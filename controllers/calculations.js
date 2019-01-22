@@ -81,8 +81,8 @@ exports.getList = function(req, res, next){
     if (err) {
       return next(err);
     } else {
-      console.log(calculations)
-      console.log(calculations[0].carrotUsageLogs)
+      /*console.log(calculations)*/
+     /* console.log(calculations[0].carrotUsageLogs)*/
       var result = {
         title : "메인 헤더",
         success : true,
