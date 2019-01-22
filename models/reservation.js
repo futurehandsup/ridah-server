@@ -50,7 +50,7 @@ var ReservationSchema = new Schema({
     },
     status: {
       type: String,
-      enum: ["예약완료", "예약취소"], /*"입장완료", "취소요청", "취소진행", "취소완료", "취소철회"],*/
+      enum: ["예약완료", "예약취소", "입장완료", "취소요청", "취소진행", "취소완료", "취소철회"],
       default: "예약완료",
     },
     checked_at: {//입장완료일
@@ -61,6 +61,9 @@ var ReservationSchema = new Schema({
     },
     cancelled_at: {//취소완료일
       type: Date,
+    },
+    customer_memo:{
+      type: String,
     },
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.
