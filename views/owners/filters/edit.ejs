@@ -1,38 +1,44 @@
 <% include ../templates/head.ejs %>
 <section>
   <div class="row">
-    <h2 class="my-3 col-md">고객에게 노출되는 필터를 적용시킬 수 있습니다.
-    </h2>
-    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
-    만들기
-    </button>
+    <div class="my-3 col-md">
+      <h2 class="h5">고객에게 노출되는 필터를 적용시킬 수 있습니다.</h2>
+    </div>
   </div>
   <div class="bg-white" >
     <div class="card" style="margin-bottom: 20px;">
-      <div class="card-body">
-        <form id="editForm">
+      <form id="editForm">
+        <table class="table table-striped">
+          <thead><tr><th>필터 리스트</th></tr></thead>
           <% let filters = filterItems.filters%>
           <% for(var i=0; i<filters.length; i++){
               var filter = filters[i];
               var itemName = "filter_"+filter.fieldName;
           %>
-            <div class="form-group">
-              <div><%=filter.title%></div>
+            <tbody class="form-group">
+              <tr><td><%=filter.title%></td></tr>
+              <tr><td>
               <% for (var j=0; j<filter.items.length; j++){
                   var item = filter.items[j];
                 %>
-                <div class="form-check form-check-inline">
-                  <input type="checkbox" <%=(store[itemName].includes(j)) ? "checked" : null%> id="<%=itemName%>_<%=j%>" name="<%=itemName%>" value="<%=j%>">
-                  <label class="" for="<%=itemName%>_<%=j%>"><%=item%></label>
-                </div>
+                <label class="tag" for="<%=itemName%>_<%=j%>">
+    							<input type="checkbox" <%=(store[itemName].includes(j)) ? "checked" : null%> id="<%=itemName%>_<%=j%>" name="<%=itemName%>" value="<%=j%>">
+    							<div class="btn btn-round btn-sm btn-outline-default">
+    								<%=item%>
+    							</div>
+    						</label>
               <% }%>
-
-            </div>
+              </td></tr>
+            </tbody>
           <% }%>
-          <button id="editButton" type="button" class="btn btn-primary">저장</button>
-          <a href="./detail?storeId=<%=store.id%>" class="btn btn-outline-primary">이전으로</a>
-        </form>
-      </div>
+          <tbody>
+            <tr><td>
+              <a href="./detail?storeId=<%=store.id%>" class="btn btn-outline-default">이전으로</a>
+              <button id="editButton" type="button" class="btn btn-primary">저장</button>
+            </td></tr>
+          </tbody>
+        </table>
+      </form>
     </div>
   </div>
 </section>
