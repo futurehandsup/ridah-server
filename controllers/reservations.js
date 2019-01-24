@@ -77,6 +77,14 @@ exports.getList = function(req, res, next){
       let keyword = new RegExp( req.query.search_key) 
       params.telephone = keyword
     }
+    if(req.query.search_condition == '예약일시'){
+      let keyword = new RegExp( req.query.search_key)
+      params.reservationDate = keyword
+    }
+    if(req.query.search_condition == '프로그램명'){
+      let keyword = new RegExp( req.query.search_key)
+      params.program = keyword
+    }
    /* if(req.query.search_condition == '프로그램명'){ // 검색조건 프로그램명
       let keyword = new RegExp( req.query.search_key) 
       params.program = keyword

@@ -1,23 +1,73 @@
 <% include ../templates/head.ejs %>
 <section style="background-color: #fafafa;">
-  <div class="jumbotron-fluid" style="background-image:url('<%=store.image%>');background-position: center; min-height: 200px;padding: 100px 15px; margin-bottom: 20px;">
+  <!-- <div class="jumbotron-fluid" style="background-image:url('<%=store.image%>');background-position: center; min-height: 200px;padding: 100px 15px; margin-bottom: 20px;">
     <div class="container-fluid">
 
     </div>
-  </div>
+  </div> -->
   <div class="card" style="margin-bottom: 20px;">
     <div class="card-header">
-      정보 <a href="/owners/stores/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
+      <span class="card-title info-card-title"> 승마장 정보 </span>
+      <a href="/owners/stores/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
     </div>
     <div class="card-body">
-      <h4 class="card-title"><%=store.storename%></h4>
-      <h6 class="card-subtitle mb-2 text-muted"><%=store.address%></h6>
-      <p class="card-text"><%=store.introduction%></p>
-      <a href="#" class="card-link"><%=store.telephone%></a>
+      <div class="row">
+        <span class="col-md-2 info-card-title2">승마장명</span>
+        <span class="col-md-10"><%=store.storename%></span>        
+      </div>
+      <div class="row">
+        <span class="col-md-2 info-card-title2">주소</span>
+        <span class="col-md-10"><%=store.address%></span>        
+      </div>
+      <div class="row">
+        <span class="col-md-2 info-card-title2">계좌번호</span>
+        <span class="col-md-1">[<%=store.account_bank%>]</span>
+        <span class="col-md-9"><%=store.account_address%></span>        
+      </div>
+      <div class="row">
+        <span class="col-md-2 info-card-title2">승마장 설명</span>
+        <span class="col-md-10"><%=store.introduction%></span>        
+      </div>
+  </div>
+  
+  <div class="card" style="margin-bottom: 20px;">
+    <div class="card-header">
+      <span class="card-title info-card-title">연락처</span>
+      <a href="/owners/stores/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
     </div>
+    <div class="card-body">
+      <div class="row">
+        <span class="col-md-2 info-card-title2">전화번호</span>
+        <span class="col-md-10"><%=store.telephone%></span>        
+      </div>
+      <div class="row">
+        <span class="col-md-2 info-card-title2">휴대전화</span>
+        <span class="col-md-10"><%=store.telephone%></span>        
+      </div>
+      <div class="row">
+        <span class="col-md-2 info-card-title2">홈페이지</span>
+        <span class="col-md-9"><%=store.website%></span>        
+      </div>
+      <div class="row">
+        <span class="col-md-2 info-card-title2">이메일</span>
+        <span class="col-md-10"><%=store.email%></span>        
+      </div>
   </div>
 
   <div class="card" style="margin-bottom: 20px;">
+    <div class="card-header">
+      <span class="card-title info-card-title">통장사본 업로드</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <form>
+          <div class="col-md-3"><input type="file" name="account_image"></div>
+          <button class="btn btn-success">통장사본 저장</button>
+        </form>
+      </div>
+  </div>
+
+<!--   <div class="card" style="margin-bottom: 20px;">
     <div class="card-header">
       <%var date=calendar.schedules[0].date;%>
       <%=date%>일 프로그램
@@ -82,7 +132,7 @@
         </li>
       <%} %>
     </ul>
-  </div>
+  </div> -->
 
 </section>
 <% include ../templates/bottom.ejs %>

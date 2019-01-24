@@ -406,3 +406,15 @@ table td{
 .text-purple{
   color: purple;
 }
+.info-card-title{
+  font-weight: bold;
+  color: #008d87;
+}
+.info-card-title2{
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 3px;
+}
+.btn-color{
+  background-color: #008d87;
+}
