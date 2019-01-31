@@ -418,3 +418,7 @@ table td{
 .btn-color{
   background-color: #008d87;
 }
+.narrowpadding{
+  padding-left: 5px;
+  padding-right: 5px;
+}

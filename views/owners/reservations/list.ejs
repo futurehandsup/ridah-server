@@ -4,16 +4,16 @@
   <!--통계페이지-->
 
 <!--  <div class="container-fluid"> -->
-<h2 class="my-3">예약내역_전체 예약내역 조회는 예약건을 쉽고 빠르게 조회할 수 있습니다.</h2>
+<h2 class="my-3">전체 예약내역 조회는 예약건을 쉽고 빠르게 조회할 수 있습니다.</h2>
 <div class="card">
   <div class="card-body">
     <form action="" method="get">
     <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
 
-      <div class="row">
+  <!--     <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <div class="col-md-2">
+            <span class="col-md-2">
               조회기간
             </div>
             <div class="col-md-6">
@@ -28,11 +28,61 @@
               <button class="btn btn-success">검색</button>
             </div>
           </div>
+          </div> -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-2 narrowpadding">
+                <select placeholder="검색조건" name="search_condition" class="form-control form-control-width">
+                  <option value="예약일">예약일</option>
+                  <option value="이용일">이용일</option>
+                </select>
+              </div>
+            <div class="row">
+              <div class="col-md-8 form-control-width narrowpadding">
+                <button class="btn btn-default form-control form-control-width">오늘</button>
+                <button class="btn btn-default form-control form-control-width">3일</button>
+                <button class="btn btn-default form-control form-control-width">1주일</button>
+                <button class="btn btn-default form-control form-control-width">1개월</button>
+                <button class="btn btn-default form-control form-control-width">3개월</button>
+              </div>
+            <div class="row">
+              <div class="col-md-8 narrowpadding">
+                 <input type="date" name="date_from" value="<%=query.date_from%>" class = "form-control form-control-width">
+              </div>
+            </div>
+
+            
+            <button class="btn btn-success form-control-width"></button>
+
+            </div>
           </div>
         </div>
-        <div class="row">
-          
+
+        <div class="row" style="padding-top: 10px;">
+          <div class="col-md-10">
+            <span class="col-md-1 narrowpadding">
+              <select class="form-control form-control-width" placeholder="상세조건">
+                <option>예약번호</option>
+                <option>예약일시</option>
+                <option>예약상태</option>
+                <option>프로그램명</option>
+                <option>예약자명</option>
+                <option>전화번호</option>
+              </select>
+            </span>
+            <span class="col-md-4 narrowpadding">
+              <input type="text" name="search_key" value="<%=query.search_key%>" class="form-control form-control-width">
+            </span>
+            <span class="col-md-2 narrowpadding">
+              <input type="date" name="date_until" value="<%=query.date_until%>" class = "form-control form-control-width">
+            </span>
+            <span class="col-md-3 narrowpadding">
+              
+            </span>
+          </div>
         </div>
+
           <!--css등을 이용하여 버튼으로-->
           <!-- <input type="date" name="date_from" value="<%=query.date_from%>" class = "form-control form-control-width">
           <input type="date" name="date_until" value="<%=query.date_until%>" class = "form-control form-control-width">
