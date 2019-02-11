@@ -62,8 +62,9 @@ var ReservationSchema = new Schema({
     cancelled_at: {//취소완료일
       type: Date,
     },
-    customer_memo:{
+    customer_memo:{//고객메모
       type: String,
+      default: null, 
     },
     /*
     위 코드처럼 post 의 author 속성에 user 인스턴스를 대입해 사용한다.

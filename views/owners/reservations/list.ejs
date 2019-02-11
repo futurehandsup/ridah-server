@@ -77,7 +77,7 @@
                 </div>
               </div>
             </div>
-            
+
             <button class="btn btn-success">검색</button>
           </div>
 
@@ -117,6 +117,7 @@
       <th>인원</th>
       <th>예약자명</th>
       <th>전화번호</th>
+      <th>고객메모</th>
     </thead>
     <tbody>
       <% %>
@@ -124,7 +125,7 @@
         var reservation = reservations[i];
         %>
         <tr>
-          <td><%=i%></td>
+          <td><input type="checkbox" name="reservation.id"  value="<%=i%>"></td>
 
           <td><%=reservation['_id']%>
           <td><%=reservation['created_at']%></td>
@@ -140,6 +141,7 @@
              var lastfour = full.split('-'); %>
 
           <td><%=lastfour[2]%></td>
+          <td><%=reservation['customer_memo']%></td>
 
 <!--           <td>
             <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
@@ -150,6 +152,12 @@
     </tbody>
   </table>
 </div>
+
+ <div class="col-md-2">
+    <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton">
+      <span class="fa fa-trash"> 선택삭제</span>
+    </button>
+  </div>
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){
