@@ -125,7 +125,11 @@
         var reservation = reservations[i];
         %>
         <tr>
-          <td><input type="checkbox" name="reservation.id"  value="<%=i%>"></td>
+          <td>
+            <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton">
+              <span class="fa fa-trash"></span></button>
+            </button>
+          </td>
 
           <td><%=reservation['_id']%>
           <td><%=reservation['created_at']%></td>
@@ -153,11 +157,12 @@
   </table>
 </div>
 
- <div class="col-md-2">
+<!--  <div class="col-md-2">
     <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton">
       <span class="fa fa-trash"> 선택삭제</span>
     </button>
-  </div>
+  </div> -->
+  
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){
