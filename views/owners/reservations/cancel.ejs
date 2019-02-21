@@ -100,7 +100,9 @@
     <tbody>
       <% %>
       <% for(var i=0; i<reservations.length; i++){
-        var reservation = reservations[i];
+        
+        var reservation = reservations[i];       
+          
         %>
         <tr>
           <td><%=i%></td>
@@ -128,36 +130,36 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <span>환불 정책</span>
+                  <span>환불정책</span>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                   <div class="content">
-                    <table class=".table-bordered">
+                    <table class="table table-bordered refund">
                       <tr>
-                        <th>구분</th>
-                        <th>내용</th>
+                        <th class="refundIndex">구분</th>
+                        <th class="refundIndex">내용</th>
                       </tr>
                       <tr>
-                        <td>
+                        <td class="refundIndex">
                           일반 상품
                         </td>
                         <td>
-                          - 이용예정일로부터 7일 이전 취소 요청시 전액 환불<br>
-                          - 이용예정일로부터 5일 이전 취소 요청시 반액 환불<br>
-                          - 이용예정일로부터 3일 이전 취소 요청시 환불 불가<br>
+                            - 이용예정일로부터 7일 이전 취소 요청시 전액 환불<br>
+                            - 이용예정일로부터 5일 이전 취소 요청시 반액 환불<br>
+                            - 이용예정일로부터 3일 이전 취소 요청시 환불 불가<br>
                           <br>
-                          - 구매 당일 취소 시에도 예약이 확정된 후 취소 요청 시 위의 기준에 따라 공제 후 환불
+                            - 구매 당일 취소 시에도 예약이 확정된 후 취소 요청 시 위의 기준에 따라 공제 후 환불
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td class="refundIndex">
                           할인특가 상품<br>
                           및<br>
                           프로모션 상품
                         </td>
                         <td>
-                          - 할인특가상품의 경우 할인가격이 아닌 정상가격을 기준으로 위의 기준에 따라 공제한 후 환불
+                            - 할인특가상품의 경우 할인가격이 아닌 정상가격을 기준으로 위의 기준에 따라 공제한 후 환불
                         </td>
                       </tr>
                     </table>

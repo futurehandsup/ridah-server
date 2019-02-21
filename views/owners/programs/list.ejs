@@ -132,6 +132,7 @@
       <tbody>
         <% for(var i=0; i<programs.length; i++){
           var program = programs[i];
+          if (program['deleted'].is_deleted!=true) {
         %>
         <tr>
           <td><input type="radio" name="selectedProgram"></td>
@@ -148,7 +149,7 @@
             <a href="edit/<%=program.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
           </td>
         </tr>
-        <% }%>
+        <% } }%>
       </tbody>
     </table>
 </div>
