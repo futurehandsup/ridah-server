@@ -360,6 +360,15 @@ ul.timeline{
 .table.table-default tbody{
   text-align: center;
 }
+.table.table-striped thead{
+  background-color: #d2d2d2;
+}
+.table.table-striped td:first-child, .table.table-striped th:first-child{
+  padding-left: 40px;
+}
+.table.table-striped td:last-child, .table.table-striped th:last-child{
+  padding-right: 40px;
+}
 .thead-control{
   background-color: #008d87;
   text-align: center;
@@ -400,6 +409,10 @@ table td{
   margin-left: 40px;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
+.my-3 > h2{
+  font-size: 15px;
+  margin: 0;
+}
 .text-red{
   color: #ef255f;
 }
@@ -430,3 +443,54 @@ table td{
 .refundIndex{
   text-align: center;
 }
+ .btn.btn-outline-default {
+  background-color: #ffffff;
+  color: #6c6e70;
+  border: solid 1px #666666;
+}
+.btn-primary{
+  background-color: #008d87;
+  border-color: #008d87;
+}
+
+
+[type=checkbox], [type=radio] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0; }
+  [type=checkbox] + span.checkbox, [type=radio] + span.checkbox {
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    background-color: white;
+    border: solid 1px #4a4a4a;
+    margin: 0 4.5px; }
+  [type=checkbox]:checked + span.checkbox, [type=radio]:checked + span.checkbox {
+    background-color: #2b2b2b;
+    background-image: url("/assets/img/icons/ic-active-box-white.png");
+    background-position: center;
+    background-repeat: no-repeat; }
+  [type=checkbox]:disabled + span.checkbox, [type=radio]:disabled + span.checkbox {
+    background-color: #d8d8d8;
+    border-color: #d8d8d8; }
+    [type=checkbox]:disabled + span.checkbox ~ .label-text, [type=radio]:disabled + span.checkbox ~ .label-text {
+      color: #9b9b9b; }
+
+.tag [type=checkbox] + .btn {
+  /* padding: 0 18px; */
+  /* height: 52px; */
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+.tag [type=checkbox] + .btn.btn-outline-default {
+  background-color: #ffffff;
+  color: #6c6e70; }
+.tag [type=checkbox]:checked + .btn.btn-outline-default {
+ background-color: #008d87;
+ color: #ffffff;
+ border: solid 1px #008d87; }
+
