@@ -59,12 +59,12 @@
                   <div class="row">
                     <div class="col-md-3">
                       <select placeholder="상세조건" class="form-control form-control-width">
-                        <option>예약번호</option>
-                        <option>예약일시</option>
-                        <option>예약상태</option>
-                        <option>프로그램명</option>
-                        <option>예약자명</option>
-                        <option>전화번호</option>
+                        <option value="예약번호" <%=(query.search_condition=="예약번호")? "selected" : ""%>>예약번호</option>
+                        <option value="예약일시" <%=(query.search_condition=="예약일시")? "selected" : ""%>>예약일시</option>
+                        <option value="예약상태" <%=(query.search_condition=="예약상태")? "selected" : ""%>>예약상태</option>
+                        <option value="프로그램명" <%=(query.search_condition=="프로그램명")? "selected" : ""%>>프로그램명</option>
+                        <option value="예약자명" <%=(query.search_condition=="예약자명")? "selected" : ""%>>예약자명</option>
+                        <option value="전화번호" <%=(query.search_condition=="전화번호")? "selected" : ""%>>전화번호</option>
                       </select>
                     </div>
                     <div class="col-md-7">
@@ -118,7 +118,6 @@
       <th>예약자명</th>
       <th>전화번호</th>
       <th>고객메모</th>
-      <th>관리</th>
     </thead>
     <tbody>
       <% %>
@@ -126,14 +125,16 @@
         var reservation = reservations[i];
         %>
         <tr>
-          <td><input type="radio"></td>
+          <td><%=(i+1)%></td>
 
           <td><%=reservation['_id']%>
           <td><%=reservation['created_at']%></td>
           <td><%=reservation['reservationDate']%></td>
           <td><%=reservation['status']%></td>
 
-          <td><%=reservation['program'].programname%></td>
+          <!-- 프로그램명 오류 -->
+          <td><%=reservation['program']%></td>
+
           <td><%=reservation['howMany']%></td>
 
           <td><%=reservation['ownerName']%></td>
@@ -143,16 +144,16 @@
 
           <td><%=lastfour[2]%></td>
           <td><%=reservation['customer_memo']%></td>
-
-          <td>
+          <!-- <td>
             <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
             <a href="edit/<%=reservation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
-          </td> 
+          </td>  -->
         </tr>
       <% }%>
     </tbody>
   </table>
 </div>
+
 
 <!--  <div class="col-md-2">
     <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton">

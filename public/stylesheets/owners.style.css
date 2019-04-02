@@ -493,4 +493,10 @@ table td{
  background-color: #008d87;
  color: #ffffff;
  border: solid 1px #008d87; }
-
+ .info-head {
+  float: left;
+  width: 17%
+ }
+.info-info {
+ float: left;
+}
