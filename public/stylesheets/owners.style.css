@@ -1,5 +1,6 @@
 body{
   background-color: #f8f8f8;
+  height: 100%;
 }
 .form-control{
   border: solid 1.5px #666666;
@@ -499,4 +500,11 @@ table td{
  }
 .info-info {
  float: left;
+}
+footer {
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  height: 40px;
+
 }

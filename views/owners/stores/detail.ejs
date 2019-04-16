@@ -6,7 +6,7 @@
     </div>
   </div> -->
   <div class="row">
-  <h2 class="my-3 col-md">승마장 정보를 간편하게 수정하실 수 있습니다.
+  <h2 class="my-3 col-md">승마장 정보를 간편하게 관리하실 수 있습니다.
   </h2>
 </div>
   <div class="card" style="margin-bottom: 20px;">
@@ -58,49 +58,54 @@
       </div>
   </div> -->
   <div>
-     <table class="table table-default table-hover table-striped">
+     <table class="table table-default table-hover table-striped" style="margin-bottom: 0;">
     <thead>
-    <thead>
-      <th class="info-head">승마장 정보 수정</th>
-      <th class="info-info"></th>
+      <tr>
+        <th class="info-head">승마장 정보</th>
+      </tr>
     </thead>
     <tbody>
         <tr>
-          <td class="info-head">승마장명</td>
-          <td class="info-info"><%=store.storename%></td>
+          <td class="info-head">승마장 이름</td>
+          <td class="info-info" colspan="3"><%=store.storename%></td>
         </tr>
         <tr>
           <td class="info-head">주소</td>
-          <td class="info-info"><%=store.address%></td>
+          <td class="info-info" colspan="3"><%=store.address%></td>
         </tr>
         <tr>
-          <td class="info-head">계좌번호</td>
-          <td class="info-info"><%=store.account_bank%>  <%=store.account_address%></td>
-        </tr>
-        <tr>
-          <td class="info-head">승마장 설명</td>
-          <td class="info-info"><%=store.introduction%></td>
-        </tr>
-        <tr>
-          <td class="info-head">전화번호</td>
-          <td class="info-info"><%=store.telephone%></td>
-        </tr>
-        <tr>
-          <td class="info-head">휴대전화</td>
-          <td class="info-info"><%=store.telephone%></td>
+          <td class="info-head">대표번호</td>
+          <td class="info-info" colspan="3"><%=store.telephone%></td>
         </tr>
         <tr>
           <td class="info-head">홈페이지</td>
-          <td class="info-info"><%=store.website%>></td>
+          <td class="info-info" colspan="3"><%=store.website%></td>
         </tr>
         <tr>
-          <td class="info-head">이메일</td>
-          <td class="info-info"><%=store.email%></td>
+          <td class="info-head">승마장 소개</td>
+          <td class="info-info" colspan="3"><%=store.introduction%></td>
+        </tr>
+        <tr>
+          <td class="info-head" colspan="3">계좌정보</td>
+          <td class="info-info"><%=store.account_bank%></td>
+          <td class="info-info">계좌번호   <%=store.account_address%></td>
+          <td class="info-info">예금주명   <%=store.account_owner%></td>
+        </tr>
+        <tr>
+          <td class="info-head" colspan="3">통장사본</td>
+          <form>
+            <td class="info-info">
+                <input type="file" name="account_image">
+                <!-- <button class="btn btn-primary btn-sm">통장사본 저장</button> -->
+            </td>
+          </form>
         </tr>
     </tbody>
+  </table>
+
   </div>
 
-  <!-- <div class="card" style="margin-bottom: 20px;">
+<!--   <div class="card" style="margin-bottom: 20px;">
     <div class="card-header">
       <span class="card-title info-card-title">통장사본 업로드</span>
     </div>
@@ -179,6 +184,9 @@
       <%} %>
     </ul>
   </div> -->
-
 </section>
+<div class="footer">
+  <a href="/edit.js"><button> 정보수정 </button></a>
+  <button> 저장 </button>
+</div>
 <% include ../templates/bottom.ejs %>
