@@ -501,10 +501,16 @@ table td{
 .info-info {
  float: left;
 }
-footer {
-  position: fixed;
-  width: 100%;
-  background-color: white;
-  height: 40px;
-
+.store_edit{
+  color: #f5f5f5;
+  border-radius: 8px;
+  border: solid 0 #727475;
+  background-color: #656363;
+  margin-right:10px;
+}
+.store_save{
+  color: #f5f5f5;
+  border-radius: 8px;
+  border: solid 0 #727475;
+  background-color: #008e88;
 }

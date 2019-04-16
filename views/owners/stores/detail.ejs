@@ -58,7 +58,7 @@
       </div>
   </div> -->
   <div>
-     <table class="table table-default table-hover table-striped" style="margin-bottom: 0;">
+     <table class="table table-default table-hover table-striped" style="margin-bottom: 0; width: 100%;">
     <thead>
       <tr>
         <th class="info-head">승마장 정보</th>
@@ -99,6 +99,12 @@
                 <!-- <button class="btn btn-primary btn-sm">통장사본 저장</button> -->
             </td>
           </form>
+        </tr>
+        <tr>
+          <td class="info-head" colspan="5">
+            <a href="owners/stores/edit?storeId=<%=store.id%>"><button class="store_edit"> 정보수정 </button></a>
+            <button class="store_save"> 저장 </button>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -185,8 +191,4 @@
     </ul>
   </div> -->
 </section>
-<div class="footer">
-  <a href="/edit.js"><button> 정보수정 </button></a>
-  <button> 저장 </button>
-</div>
 <% include ../templates/bottom.ejs %>
