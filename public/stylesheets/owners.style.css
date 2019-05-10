@@ -514,3 +514,14 @@ table td{
   border: solid 0 #727475;
   background-color: #008e88;
 }
+
+.row-full-height{
+  align-items: stretch;
+  height:90vh;
+}
+.row-direction-col{
+  flex-direction: column;
+}
+.nopadding{
+  padding: 0 !important;
+}

@@ -1,35 +1,56 @@
 <% include ../templates/head.ejs %>
-<div class="row row-full-height bg-white" >
-  <div class="col-3  drop-shadow  bg-light" style="padding-right:0;">
+<div class="row row-full-height" >
+  <div class="col-3  drop-shadow " style="padding-right:0;">
     <div class="card">
       <div class="card-header">
         <%=qnas.length%>개의 문의가 있습니다.
       </div>
       <ul class="list-group list-group-flush">
         <% for(var i=0; i<qnas.length; i++){
-          var qna = qnas[i];
         %>
           <li class="list-group-item bg-light">
-            <a href="/owners/qnas/detail/<%=qna.id%>?storeId=<%=store.id%>"
             <div class="media">
               <div class="media-body">
-                <h5 class="mt-0"><%=qna.qnaTitle%></h5>
-                <p><%=qna.qnaText%><p>
-                <small class="float-right"><%=(qna.qnaWriter!=undefined) ? (qna.qnaWriter.username) : "탈퇴한 사용자"%>님, <%=qna.created_at%></small>
+                <h5 class="mt-0"><%=qnas[i].qnaTitle%></h5>
+                <p><%=qnas[i].qnaText%><p>
+                <small class="float-right"><%=(qnas[i].qnaWriter!=undefined) ? (qnas[i].qnaWriter.username) : "탈퇴한 사용자"%>님, <%=qnas[i].created_at%></small>
               </div>
             </div>
           </li>
-
-
         <% }%>
       </ul>
     </div>
   </div>
   <div class="col row row-direction-col">
     <div class="container-fluid col" >
+      <% for(var j=0; j<qna.replies.length; j++){%>
+      <% var reply = qna.replies[j];%>
+        <li class="list-group-item bg-light">
+          <div class="media">
+            <small class="mr-3">댓글</small>
+            <div class="media-body">
+              <h5 class="mt-0"><%=reply.qnaTitle%></h5>
+              <p><%=reply.qnaText%><p>
+              <small class="float-right"><%=reply.qnaWriter%>님, <%=reply.created_at%></small>
+            </div>
+          </div>
+        </li>
+      <% }%>
 
     </div>
 
+    <div class="card">
+      <li class="list-group-item">
+        <form>
+          <div class="form-group">
+            <textarea class="form-control" id="qnaText" name="qnaText" placeholder="댓글 내용"></textarea>
+          </div>
+          <input type="hidden" name="parent" value="<%=qna.id%>">
+          <button class="replyButton" type="button" class="btn btn-primary">작성</button>
+        </form>
+      </li>
+
+    </div>
 
   </div>
 
