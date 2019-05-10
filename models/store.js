@@ -172,6 +172,11 @@ var StoreSchema = new Schema({
       default : null
     },
 
+    account_owner : {
+      type : String,
+      default : null
+    },
+
     account_image :{
       type : String,
       default : null
