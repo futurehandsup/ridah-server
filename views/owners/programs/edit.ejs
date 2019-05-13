@@ -8,33 +8,33 @@
   <table class="table table-default table-hover table-striped" style="margin-bottom: 0; width: 100%;">
     <thead>
       <tr>
-        <th class="info-head" style="border: 0;"><%=program.programname%></th>
+        <th class="info-head" style="border: 0;" colspan="2"><%=program.programname%></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="info-head">프로그램명</td>
-        <td class="info-info"><input type="text" name="programname" value="<%=program.programname%>" placeholder="프로그램명"></td>
+        <td class="info-info"><input class="form-control" type="text" name="programname" value="<%=program.programname%>" placeholder="프로그램명"></td>
       </tr>
       <tr>
         <td class="info-head">시작시간</td>
-        <td class="info-info"><input type="text" name="time.start_at" value="<%=program.time.start_at%>" placeholder="시작시간"></td>
+        <td class="info-info"><input class="form-control"  type="text" name="time.start_at" value="<%=program.time.start_at%>" placeholder="시작시간"></td>
       </tr>
       <tr>
         <td class="info-head">소요시간(분)</td>
-        <td class="info-info"><input type="text" name="time.howLong" value="<%=program.time.howLong%>" placeholder="소요시간(분)"></td>
+        <td class="info-info"><input class="form-control"  type="text" name="time.howLong" value="<%=program.time.howLong%>" placeholder="소요시간(분)"></td>
       </tr>
       <tr>
         <td class="info-head">가격(캐럿)</td>
-        <td class="info-info"><input type="text" name="carrots" value="<%=program.carrots%>" placeholder="가격(캐럿)"></td>
+        <td class="info-info"><input class="form-control"  type="text" name="carrots" value="<%=program.carrots%>" placeholder="가격(캐럿)"></td>
       </tr>
       <tr>
         <td class="info-head">기본수량</td>
-        <td class="info-info"><input type="text" name="atLeast" value="<%=program.atLeast%>" placeholder="기본수량"></td>
+        <td class="info-info"><input class="form-control"  type="text" name="atLeast" value="<%=program.atLeast%>" placeholder="기본수량"></td>
       </tr>
       <tr>
         <td class="info-head">설명</td>
-        <td class="info-info"><textarea name="introduction" value="<%=program.introduction%>" placeholder="설명" cols="23" rows="3"></textarea>
+        <td class="info-info"><textarea class="form-control"  name="introduction" value="" placeholder="설명" rows="3" style="width:100%;"><%=program.introduction%></textarea>
       </tr>
     </tbody>
   </table>
