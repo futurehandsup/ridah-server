@@ -5,7 +5,7 @@ var QnaSchema = new Schema({
     qnaTitle : {
       type: String,
       index : true,         // 보조 index
-      required : 'qnaTitle is required'   // 검증
+    //  required : 'qnaTitle is required'   // 검증
     },
     qnaText : {
       type : String,
