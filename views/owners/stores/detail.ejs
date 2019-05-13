@@ -58,6 +58,7 @@
       </div>
   </div> -->
   <div>
+    <form id="infoForm">
      <table class="table table-default table-hover table-striped" style="margin-bottom: 0; width: 100%;">
     <thead>
       <tr>
@@ -79,21 +80,20 @@
         </tr>
         <tr>
           <td class="info-head">홈페이지</td>
-          <td class="info-info" colspan="3"><input type="text" placeholder="<%=store.website%>"></td>
+          <td class="info-info" colspan="3"><input type="text" name="website" value="<%=store.website%>" placeholder="승마장 홈페이지"></td>
         </tr>
         <tr>
           <td class="info-head">승마장 소개</td>
-          <td class="info-info" colspan="3"><input type="text" placeholder="<%=store.introduction%>"></td>
+          <td class="info-info" colspan="3"><input type="text" name="introduction" value="<%=store.introduction%>" placeholder="승마장 소개"></td>
         </tr>
         <tr>
           <td class="info-head" colspan="3">계좌정보</td>
-          <td class="info-info" style="margin-right: 30px;"><%=store.account_bank%></td>
-          <td class="info-info" style="margin-right: 30px;">계좌번호   <%=store.account_address%></td>
-          <td class="info-info">예금주명   <%=store.account_owner%></td>
+          <td class="info-info"><%=store.account_bank%></td>
+          <td class="info-info"><input type="text" name="account_address" value="<%=store.account_address%>" placeholder="계좌번호"></td>
+          <td class="info-info"><input type="text" name="account_owner" value="<%=store.account_owner%>" placeholder="예금주명"></td>
         </tr>
         <tr>
           <td class="info-head" colspan="3">통장사본</td>
-          <form>
             <td class="info-info">
                 <input type="file" name="account_image">
                 <!-- <button class="btn btn-primary btn-sm">통장사본 저장</button> -->
@@ -103,7 +103,7 @@
         <tr>
           <td class="info-head" colspan="5">
             <a href="owners/stores/edit?storeId=<%=store.id%>"><button class="store_edit"> 정보수정 </button></a>
-            <button class="store_save"> 저장 </button>
+            <button class="store_save" id="saveButton"> 저장 </button>
           </td>
         </tr>
     </tbody>
@@ -192,3 +192,22 @@
   </div> -->
 </section>
 <% include ../templates/bottom.ejs %>
+<script>
+  $(document).ready(function(){
+  $('#saveButton').click(function(){
+    var store =  $('#infoForm').serializeObject();
+    $.ajax({
+      type:"PUT",
+      url:'/stores/<%=store.id%>',
+      data:store,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

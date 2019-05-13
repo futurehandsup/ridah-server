@@ -86,7 +86,7 @@ router.param('qnaId', qnas.getOne);
 router.get('/programs', programs.getList, common.setResponse);
 router.get('/programs/list', programs.getList, programs.getSchemas, common.setTitle('프로그램 관리'), common.renderPage('owners/programs/list'));
 router.get('/programs/edit', programs.getList, programs.getSchemas, common.setTitle('프로그램 수정'), common.renderPage('owners/programs/edit')); // 필요없음
-router.get('/programs/edit/:programId', programs.getSchemas, common.setTitle('프로그램 수정'), common.renderPage('owners/progrmas/edit'));
+router.get('/programs/edit/:programId', programs.getSchemas, common.setTitle('프로그램 수정'), common.renderPage('owners/programs/edit'));
 router.param('programId', programs.getOne);
 
 //통계

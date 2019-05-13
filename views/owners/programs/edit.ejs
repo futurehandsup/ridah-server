@@ -1,0 +1,54 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">프로그램 정보 수정</h4>
+          </div>
+          <div class="content">
+            <form id="editForm">
+              <div class="row">
+              <% var keys = Object.keys(schema); %>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>프로그램명</label>
+                    <input name="programname" type="text" class="form-control" value="<%=program['storename']%>">
+                  </div>
+                </div>
+
+              </div>
+
+              <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+              <a href="../list" type="button" class="btn btn-info pull-right">이전으로</a>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#editButton').click(function(){
+    var store =  $('#editForm').serializeObject();
+
+    $.ajax({
+      type:"PUT",
+      url:'/stores/<%=store.id%>',
+      data:store,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
