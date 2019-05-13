@@ -4,7 +4,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">프로그램 등록</h4>
+        <h4 class="modal-title" id="myModalLabel">프로그램 추가</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -110,9 +110,9 @@
 <div class="row">
   <h2 class="my-3 col-md">프로그램 관리
   </h2>
-  <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
+  <!-- <button type="button" class="store_save" data-toggle="modal" data-target="#createModal" data-backdrop="false">
   만들기
-  </button>
+  </button> -->
 </div>
 <div class="bg-white" >
   <table class="table table-default table-striped">
@@ -146,14 +146,17 @@
           <!-- <td><%=program.programType%></td> -->
           <td><%=program.introduction%></td>
           <td>
-            <button data-item="<%=program.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-            <a href="edit/<%=program.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+            <a href="" data-item="<%=program.id%>" class="optionDelete deleteButton">삭제</a>
+            <a href="edit/<%=program.id%>" class="optionEdit">수정</button>
           </td>
         </tr>
         <% } }%>
       </tbody>
     </table>
 </div>
+    <div>
+      <button type="button" class="store_save" data-toggle="modal" data-target="#createModal" data-backdrop="false" style="margin-left: 25px;"> 프로그램 추가 </button>
+    </div>
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){

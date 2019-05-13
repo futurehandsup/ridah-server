@@ -528,3 +528,12 @@ table td{
 .nopadding{
   padding: 0 !important;
 }
+.optionDelete{
+  color: red;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.optionEdit{
+  margin-left: 5px;
+  margin-right: 5px;
+}
