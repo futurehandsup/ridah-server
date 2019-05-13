@@ -496,7 +496,10 @@ table td{
  border: solid 1px #008d87; }
  .info-head {
   float: left;
-  width: 17%
+  width: 17%;
+  color: #393939;
+  text-align: left;
+  font-weight: bold;
  }
 .info-info {
  float: left;

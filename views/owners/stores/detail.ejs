@@ -61,13 +61,13 @@
      <table class="table table-default table-hover table-striped" style="margin-bottom: 0; width: 100%;">
     <thead>
       <tr>
-        <th class="info-head">승마장 정보</th>
+        <th class="info-head" style="border: 0;">승마장 정보</th>
       </tr>
     </thead>
     <tbody>
         <tr>
           <td class="info-head">승마장 이름</td>
-          <td class="info-info" colspan="3"><%=store.storename%></td>
+          <td class="info-info"><%=store.storename%></td>
         </tr>
         <tr>
           <td class="info-head">주소</td>
@@ -79,16 +79,16 @@
         </tr>
         <tr>
           <td class="info-head">홈페이지</td>
-          <td class="info-info" colspan="3"><%=store.website%></td>
+          <td class="info-info" colspan="3"><input type="text" placeholder="<%=store.website%>"></td>
         </tr>
         <tr>
           <td class="info-head">승마장 소개</td>
-          <td class="info-info" colspan="3"><%=store.introduction%></td>
+          <td class="info-info" colspan="3"><input type="text" placeholder="<%=store.introduction%>"></td>
         </tr>
         <tr>
           <td class="info-head" colspan="3">계좌정보</td>
-          <td class="info-info"><%=store.account_bank%></td>
-          <td class="info-info">계좌번호   <%=store.account_address%></td>
+          <td class="info-info" style="margin-right: 30px;"><%=store.account_bank%></td>
+          <td class="info-info" style="margin-right: 30px;">계좌번호   <%=store.account_address%></td>
           <td class="info-info">예금주명   <%=store.account_owner%></td>
         </tr>
         <tr>
