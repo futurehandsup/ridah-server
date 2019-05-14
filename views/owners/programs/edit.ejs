@@ -1,0 +1,74 @@
+<% include ../templates/head.ejs %>
+<div class="row">
+  <h2 class="my-3 col-md">프로그램의 정보를 수정할 수 있습니다.</h2>
+
+</div>
+
+<form id="infoForm">
+  <table class="table table-default table-hover table-striped" style="margin-bottom: 0; width: 100%;">
+    <thead>
+      <tr>
+        <th class="info-head" style="border: 0;" colspan="2"><%=program.programname%></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="info-head">프로그램명</td>
+        <td class="info-info"><input class="form-control" type="text" name="programname" value="<%=program.programname%>" placeholder="프로그램명"></td>
+      </tr>
+      <tr>
+        <td class="info-head">시작시간</td>
+        <td class="info-info"><input class="form-control"  type="text" name="time.start_at" value="<%=program.time.start_at%>" placeholder="시작시간"></td>
+      </tr>
+      <tr>
+        <td class="info-head">소요시간(분)</td>
+        <td class="info-info"><input class="form-control"  type="text" name="time.howLong" value="<%=program.time.howLong%>" placeholder="소요시간(분)"></td>
+      </tr>
+      <tr>
+        <td class="info-head">가격(캐럿)</td>
+        <td class="info-info"><input class="form-control"  type="text" name="carrots" value="<%=program.carrots%>" placeholder="가격(캐럿)"></td>
+      </tr>
+      <tr>
+        <td class="info-head">기본수량</td>
+        <td class="info-info"><input class="form-control"  type="text" name="atLeast" value="<%=program.atLeast%>" placeholder="기본수량"></td>
+      </tr>
+      <tr>
+        <td class="info-head">설명</td>
+        <td class="info-info"><textarea class="form-control"  name="introduction" value="" placeholder="설명" rows="3" style="width:100%;"><%=program.introduction%></textarea>
+      </tr>
+    </tbody>
+  </table>
+</form>
+
+<a href="/owners/programs/list?/storeId=<%=store.id%>" style="margin-left: 20px;"><button class="store_edit"> 뒤로가기 </button></a>
+<button class="store_save" id="saveButton"> 저장 </button>
+</section>
+<% include ../templates/bottom.ejs %>
+
+<script>
+  $(document).ready(function(){
+  $('#saveButton').click(function(){
+    var program =  $('#infoForm').serializeObject();
+    $.ajax({
+      type:"PUT",
+      url:'/programs/<%=program.id%>',
+      data:program,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
+
+<script type="text/javascript">
+  
+  function goBack(){
+    window.history.back();
+  }
+
+</script>

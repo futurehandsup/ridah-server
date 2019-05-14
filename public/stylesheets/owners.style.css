@@ -495,11 +495,13 @@ table td{
  color: #ffffff;
  border: solid 1px #008d87; }
  .info-head {
-  float: left;
-  width: 17%
+  width: 17%;
+  color: #393939;
+  text-align: left;
+  font-weight: bold;
  }
 .info-info {
- float: left;
+  text-align: left;
 }
 .store_edit{
   color: #f5f5f5;
@@ -524,4 +526,13 @@ table td{
 }
 .nopadding{
   padding: 0 !important;
+}
+.optionDelete{
+  color: red;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.optionEdit{
+  margin-left: 5px;
+  margin-right: 5px;
 }
