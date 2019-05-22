@@ -106,10 +106,11 @@
                 <% var keys = Object.keys(schema); %>
 
                 <th>승마장명</th>
-                <th>대표자</th>
+                <th>전화번호</th>
+                <th>담당자</th>
+                <th>휴대전화</th>
                 <th>이메일</th>
-                <th>연락처</th>
-                <th>태그</th>
+
                 <th>프로그램 관리</th>
                 <th>작업</th>
 
@@ -124,10 +125,10 @@
                     <td>
                       <a href="edit/<%=store._id%>"><%=store['storename']%></a>
                     </td>
-                    <td><%=store['owner']%></td>
-                    <td><%=store['email']%></td>
                     <td><%=store['telephone']%></td>
-                    <td><%=store['tag']%></td>
+                    <td><%=store['owner']%></td>
+                    <td></td>
+                    <td><%=store['email']%></td>
                     <td>
                       <a href="edit/<%=store._id%>" class="btn btn-info btn-fill btn-sm">보기</a>
                     </td>
