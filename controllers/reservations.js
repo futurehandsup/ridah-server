@@ -60,6 +60,9 @@ exports.getList = function(req, res, next){
       params.owner = null;
     }
   }
+  //검색조건 설정
+  
+
 
   //검색조건 설정
   if(req.query.date_from != null && req.query.date_from != ""){ // 날짜 시작
@@ -69,10 +72,29 @@ exports.getList = function(req, res, next){
   }
 
   //검색조건 설정
-  if(req.query.until != null && req.query.date_until != ""){ // 날짜 시작
+  if(req.query.until != null && req.query.date_until != ""){ // 날짜 끝
     if(params.reservationDate == null) params.reservationDate = {}
     params.reservationDate.$lte = req.query.date_until 
   }
+
+  //검색조건 설정 _ 오늘, 3일, 1주일, 1개월, 3개월
+/*  if(fixed_days!=""){
+    if(req.query.fixed_days == '오늘'){
+
+    }
+    if(req.query.fixed_days == '3일'){
+
+    }
+    if(req.query.fixed_days == '1주일'){
+
+    }
+    if(req.query.fixed_days == '1개월'){
+
+    }
+    if(req.query.fixed_days == '3개월'){
+      
+    }
+  }*/
 
   if(req.query.search_key!=""){
     if(req.query.search_condition == '예약번호'){ // 검색조건 예약번호

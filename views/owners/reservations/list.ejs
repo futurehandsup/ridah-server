@@ -29,36 +29,60 @@
             </div>
           </div>
           </div> -->
-          <div class="row">
-            <div class="col-md-10">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <select placeholder="검색조건" name="search_condition" class="form-control form-control-width">
-                          <option value="예약일">예약일</option>
-                          <option value="이용일">이용일</option>
-                        </select>
-                    </div>
-                    <div class="col-md-7">
-                       <button class="btn btn-default form-control form-control-width">오늘</button>
-                        <button class="btn btn-default form-control form-control-width">3일</button>
-                        <button class="btn btn-default form-control form-control-width">1주일</button>
-                        <button class="btn btn-default form-control form-control-width">1개월</button>
-                        <button class="btn btn-default form-control form-control-width">3개월</button>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="date" name="date_from" value="<%=query.date_from%>" class = "form-control form-control-width">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-               <div class="row">
-                <div class="col-md-6">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <select placeholder="상세조건" class="form-control form-control-width">
+          <!--검색파트css : search_opt, search_btn, search_submit -->
+          <div>
+            <table width="80%" border="0">
+              <tr>
+                <td><select name="search_date" class="form-control form-control-width search_opt">
+                        <option value="예약일">예약일</option>
+                        <option value="이용일">이용일</option>
+                      </select></td>
+                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">오늘</button></td>
+                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">3일</button></td>
+                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">1주일</button></td>
+                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">1개월</button></td>
+                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">3개월</button></td>
+                <td class="search_seperate">ㅣ</td>
+                <td>
+                  <input type="date" name="date_from" value="<%=query.date_from%>" class = "search_calendar form-control form-control-width">
+                </td>
+                <td class="search_seperate">ㅡ</td>
+                <td><input type="date" name="date_until" value="<%=query.date_until%>" class ="search_calendar form-control form-control-width"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><select name="search_condition" class="form-control form-control-width search_opt">
+                        <option value="예약일">상세조건</option>
+                        <option value="이용일">예약번호</option>
+                        <option value="이용일">예약자명</option>
+                        <option value="이용일">확인번호</option>
+                      </select></td>
+                <td colspan="9"><input type="text" name="search_key" value="<%=query.search_key%>" class="search_bar form-control form-control-width"></td>
+                <td align="center"><button class="btn btn-success search_submit">검색</button></td>
+              </tr>
+            </table>
+            
+            <!--수정전-->
+<!--             <table>
+                <tr>
+                  <td><select placeholder="검색조건" name="search_condition" class="form-control form-control-width search_opt">
+                        <option value="예약일">예약일</option>
+                        <option value="이용일">이용일</option>
+                      </select>
+                  </td>
+                  <td>
+                    <button class="select_opt2 btn btn-default form-control form-control-width">오늘</button>
+                      <button class="select_opt2 btn btn-default form-control form-control-width">3일</button>
+                      <button class="select_opt2 btn btn-default form-control form-control-width">1주일</button>
+                      <button class="select_opt2 btn btn-default form-control form-control-width">1개월</button>
+                      <button class="select_opt2 btn btn-default form-control form-control-width">3개월</button>
+                  </td>
+                  <td><input type="date" name="date_from" value="<%=query.date_from%>" class = "select_opt2 form-control form-control-width">
+                  </td>
+                  <td rowspan="2"><button class="btn btn-success search_submit">검색</button></td>
+                </tr>
+                <tr>
+                  <td><select placeholder="상세조건" class="form-control form-control-width select_opt">
                         <option value="예약번호" <%=(query.search_condition=="예약번호")? "selected" : ""%>>예약번호</option>
                         <option value="예약일시" <%=(query.search_condition=="예약일시")? "selected" : ""%>>예약일시</option>
                         <option value="예약상태" <%=(query.search_condition=="예약상태")? "selected" : ""%>>예약상태</option>
@@ -66,21 +90,13 @@
                         <option value="예약자명" <%=(query.search_condition=="예약자명")? "selected" : ""%>>예약자명</option>
                         <option value="전화번호" <%=(query.search_condition=="전화번호")? "selected" : ""%>>전화번호</option>
                       </select>
-                    </div>
-                    <div class="col-md-7">
-                       <input type="text" name="search_key" value="<%=query.search_key%>" class="form-control form-control-width">
-                    </div>
-                    <div class="col-md-2">
-                        <input type="date" name="date_until" value="<%=query.date_until%>" class = "form-control form-control-width">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button class="btn btn-success">검색</button>
+                  </td>
+                  <td><input type="text" name="search_key" value="<%=query.search_key%>" class="select_opt form-control form-control-width"></td>
+                  <td><input type="date" name="date_until" value="<%=query.date_until%>" class ="select_opt2 form-control form-control-width"></td>
+                  <td></td>
+                </tr>
+            </table> -->
           </div>
-
         </div>
 
           <!--css등을 이용하여 버튼으로-->
