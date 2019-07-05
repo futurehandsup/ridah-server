@@ -33,21 +33,65 @@
           <div>
             <table width="80%" border="0">
               <tr>
-                <td><select name="search_date" class="form-control form-control-width search_opt">
+                <td><!-- <select name="search_date" class="form-control form-control-width search_opt">
                         <option value="예약일">예약일</option>
                         <option value="이용일">이용일</option>
-                      </select></td>
-                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">오늘</button></td>
-                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">3일</button></td>
-                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">1주일</button></td>
-                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">1개월</button></td>
-                <td align="center"><button class="search_btn btn btn-default form-control form-control-width">3개월</button></td>
+                      </select> -->
+                예약일        
+                </td>
+                 <%
+                  var today = new Date();
+                  var dd = today.getDate();
+                  var mm = today.getMonth()+1; //January is 0!
+                  var yyyy = today.getFullYear();
+
+                  if(dd<10) {
+                      dd='0'+dd
+                  } 
+                  if(mm<10) {
+                      mm='0'+mm
+                  } 
+
+                  today = yyyy + '-' +mm + '-' +dd;
+                  date_from = today;
+                  
+                  %>
+                <td align="center">
+                  <button type="button" id="changeDate" name = "today" class="search_btn btn btn-default form-control form-control-width">오늘</button></td>
+                <td align="center">
+                  <button type="button" id="changeDate" name = "threedays" class="search_btn btn btn-default form-control form-control-width">3일</button></td>
+                <td align="center">
+                  <button type="button" id="changeDate" name = "oneweek" class="search_btn btn btn-default form-control form-control-width">1주일</button></td>
+                <td align="center">
+                  <button type="button" id="changeDate"  name ="onemonth" class="search_btn btn btn-default form-control form-control-width">1개월</button></td>
+                <td align="center">
+                  <button type="button" id="changeDate" name = "threemonths" class="search_btn btn btn-default form-control form-control-width">3개월</button></td>
                 <td class="search_seperate">ㅣ</td>
+                <td class="search_seperate"><i class="pe-7s-date"></i></td>
                 <td>
-                  <input type="date" name="date_from" value="<%=query.date_from%>" class = "search_calendar form-control form-control-width">
+                  <input type="date" id="date_from" name="date_from" value="<%=date_from%>" class = "search_calendar form-control form-control-width">
                 </td>
                 <td class="search_seperate">ㅡ</td>
-                <td><input type="date" name="date_until" value="<%=query.date_until%>" class ="search_calendar form-control form-control-width"></td>
+                <td class="search_seperate"><i class="pe-7s-date"></i></td>
+                <td><input type="date" id="date_until" name="date_until" value="<%= date_until = today%>" class ="search_calendar form-control form-control-width"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><!-- <select name="search_date" class="form-control form-control-width search_opt">
+                        <option value="예약일">예약일</option>
+                        <option value="이용일">이용일</option>
+                      </select> -->
+                이용일        
+                </td>
+                <td align="center" colspan="5">검색 기간을 선택하세요</td>
+                <td class="search_seperate">ㅣ</td>
+                <td class="search_seperate"><i class="pe-7s-date"></i></td>
+                <td>
+                  <input type="date" name="date_from" value="<%=date_from = today %>"class = "search_calendar form-control form-control-width">
+                </td>
+                <td class="search_seperate">ㅡ</td>
+                <td class="search_seperate"><i class="pe-7s-date"></i></td>
+                <td><input type="date" name="date_until" value="<%=date_until%>" class ="search_calendar form-control form-control-width"></td>
                 <td></td>
               </tr>
               <tr>
@@ -57,7 +101,7 @@
                         <option value="이용일">예약자명</option>
                         <option value="이용일">확인번호</option>
                       </select></td>
-                <td colspan="9"><input type="text" name="search_key" value="<%=query.search_key%>" class="search_bar form-control form-control-width"></td>
+                <td colspan="11"><input type="text" name="search_key" value="<%=query.search_key%>" class="search_bar form-control form-control-width"></td>
                 <td align="center"><button class="btn btn-success search_submit">검색</button></td>
               </tr>
             </table>
@@ -149,7 +193,7 @@
           <td><%=reservation['status']%></td>
 
           <!-- 프로그램명 오류 -->
-          <td><%=reservation['program']%></td>
+          <td><%=reservation['program'].programname%></td>
 
           <td><%=reservation['howMany']%></td>
 
@@ -220,4 +264,66 @@ $(document).ready(function(){
   var path = "reservations-list" ;
   $('#'+path).addClass('active');
 })
+</script>
+
+<script>
+  
+  var date_from = '<%=date_from%>'
+  var dd = '<%=dd%>'
+  var mm = '<%=mm%>'
+  var yyyy = '<%=yyyy%>'
+  var date_until = date_from
+    
+    // $("button[name=today]").click(function(){
+    //   date_from = date_until;
+    //   $('#date_from').val(date_from);
+    // })
+    $("button[name=threedays]").click(function(){   
+      date_from = new Date('<%=date_from%>'); // 2014-03-01 - 월은 0에서부터 시작된다.
+      date_from.setDate(date_from.getDate() - 3); 
+      
+      var new_yy = date_from.getFullYear();
+      var new_mm = date_from.getMonth() + 1; new_mm = (new_mm < 10) ? '0' + new_mm : new_mm;
+      var new_dd = date_from.getDate(); new_dd = (new_dd < 10) ? '0' + new_dd : new_dd; 
+
+      date_from = new_yy+ '-' + new_mm + '-' + new_dd;
+      $('#date_from').val(date_from);
+    })
+    // $("button[name=oneweek]").click(function(){
+    //   date_from = dateAddDel(date_until, '-7', 'd')
+    //   $('#date_from').val(date_from);
+    // })
+    // $("button[name=onemonth]").click(function(){
+    //   date_from = dateAddDel(date_until, '-1', 'm')
+    //   $('#date_from').val(date_from);
+    // })
+    // $("button[name=threemonths]").click(function(){
+    //   date_from = dateAddDel(date_until, '-3', 'm')
+    //   $('#date_from').val(date_from);
+    // })
+
+</script>
+
+<script>
+  // function dateAddDel(sDate, nNum, type) {
+  //   var yy = parseInt(sDate.substr(0, 4), 10);
+  //   var mm = parseInt(sDate.substr(5, 2), 10);
+  //   var dd = parseInt(sDate.substr(8), 10);
+    
+  //   if (type == "d") {
+  //       _date = new Date(yy, mm - 1, dd + nNum);
+  //   }
+  //   else if (type == "m") {
+  //       _date = new Date(yy, mm - 1, dd + (nNum * 31));
+  //   }
+  //   else if (type == "y") {
+  //       _date = new Date(yy + nNum, mm - 1, dd);
+  //   }
+ 
+  //   yy = _date.getFullYear();
+  //   mm = _date.getMonth() + 1; mm = (mm < 10) ? '0' + mm : mm;
+  //   dd = _date.getDate(); dd = (dd < 10) ? '0' + dd : dd;
+ 
+  //   return yy + '-' +  mm  + '-' + dd;
+  // }
 </script>
