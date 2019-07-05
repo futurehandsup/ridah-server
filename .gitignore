@@ -1,4 +1,4 @@
-# Logs
+﻿# Logs
 logs
 *.log
 
@@ -33,5 +33,6 @@ npm-debug.log
 env
 nohup.out
 .DS_Store
+package-lock.json
 
 .nvmrc
