@@ -25,7 +25,41 @@
         </select>
 
       </div> -->
-          <div class="row">
+                <div>
+            <table>
+              <tr>
+                <td><select placeholder="검색조건" name="search_condition" class="form-control form-control-width select_opt">
+                      <option value="예약일">예약일</option>
+                      <option value="이용일">이용일</option>
+                    </select>
+                </td>
+                <td><button class="select_opt2 btn btn-default form-control form-control-width">오늘</button>
+                    <button class="select_opt2 btn btn-default form-control form-control-width">3일</button>
+                    <button class="select_opt2 btn btn-default form-control form-control-width">1주일</button>
+                    <button class="select_opt2 btn btn-default form-control form-control-width">1개월</button>
+                    <button class="select_opt2 btn btn-default form-control form-control-width">3개월</button>
+                </td>
+                <td><input type="date" name="date_from" value="<%=query.date_from%>" class = "select_opt2 form-control form-control-width">
+                </td>
+                <td rowspan="2"><button class="btn btn-success search_btn">검색</button></td>
+              </tr>
+              <tr>
+                <td><select placeholder="상세조건" class="form-control form-control-width select_opt">
+                      <option value="예약번호" <%=(query.search_condition=="예약번호")? "selected" : ""%>>예약번호</option>
+                      <option value="예약일시" <%=(query.search_condition=="예약일시")? "selected" : ""%>>예약일시</option>
+                      <option value="예약상태" <%=(query.search_condition=="예약상태")? "selected" : ""%>>예약상태</option>
+                      <option value="프로그램명" <%=(query.search_condition=="프로그램명")? "selected" : ""%>>프로그램명</option>
+                      <option value="예약자명" <%=(query.search_condition=="예약자명")? "selected" : ""%>>예약자명</option>
+                      <option value="전화번호" <%=(query.search_condition=="전화번호")? "selected" : ""%>>전화번호</option>
+                    </select>
+                </td>
+                <td><input type="text" name="search_key" value="<%=query.search_key%>" class="select_opt form-control form-control-width"></td>
+                <td><input type="date" name="date_until" value="<%=query.date_until%>" class ="select_opt2 form-control form-control-width"></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+<!--           <div class="row">
             <div class="col-md-10">
               <div class="row">
                 <div class="col-md-6">
@@ -75,7 +109,7 @@
             </div>
 
             <button class="btn btn-success">검색</button>
-          </div>
+          </div> -->
 
     </form>
   </div>
