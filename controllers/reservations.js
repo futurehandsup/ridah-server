@@ -52,17 +52,31 @@ exports.getList = function(req, res, next){
   
 
 
-  //검색조건 설정
-  if(req.query.date_from != null && req.query.date_from != ""){ // 날짜 시작
+  //검색조건 설정 (예약일)
+  if(req.query.reserved_date_from != null && req.query.reserved_date_from != ""){ // 날짜 시작
   
-    if(params.reservationDate == null) params.reservationDate = {}
-    params.reservationDate.$gte = req.query.date_from //최소값
+    if(params.created_at == null) params.created_at = {}
+    params.created_at.$gte = req.query.reserved_date_from //최소값
   }
 
   //검색조건 설정
-  if(req.query.until != null && req.query.date_until != ""){ // 날짜 끝
+  if(req.query.reserved_date_until != null && req.query.reserved_date_until != ""){ // 날짜 끝
+    if(params.created_at == null) params.created_at = {}
+    params.created_at.$lte = req.query.reserved_date_until 
+  }
+
+
+  //검색조건 설정 (이용예정일)
+  if(req.query.usage_date_from != null && req.query.usage_date_from != ""){ // 날짜 시작
+  
     if(params.reservationDate == null) params.reservationDate = {}
-    params.reservationDate.$lte = req.query.date_until 
+    params.reservationDate.$gte = req.query.usage_date_from //최소값
+  }
+
+  //검색조건 설정
+  if(req.query.usage_date_until != null && req.query.usage_date_until != ""){ // 날짜 끝
+    if(params.reservationDate == null) params.reservationDate = {}
+    params.reservationDate.$lte = req.query.usage_date_until 
   }
 
   //검색조건 설정 _ 오늘, 3일, 1주일, 1개월, 3개월
@@ -83,50 +97,40 @@ exports.getList = function(req, res, next){
       
     }
   }*/
+  
+    if(req.query.ownerName != null && req.query.ownerName != ""){ // 검색조건 예약자명
+        params.ownerName = req.query.ownerName
+      }
 
-  if(req.query.search_key!=""){
-    if(req.query.search_condition == '예약번호'){ // 검색조건 예약번호
-      let keyword = new RegExp( req.query.search_key) 
-      params._id= keyword
-    }
-    if(req.query.search_condition == '예약상태'){ // 검색조건 예약상태
-      let keyword = new RegExp( req.query.search_key) 
-      params.status = keyword
-    }
-    if(req.query.search_condition == '예약자명'){ // 검색조건 예약자명
-      let keyword = new RegExp( req.query.search_key) 
-      params.ownerName = keyword
-    }
-    if(req.query.search_condition == '전화번호'){ // 검색조건 전화번호
-      let keyword = new RegExp( req.query.search_key) 
-      params.telephone = keyword
-    }
-    if(req.query.search_condition == '예약일시'){
-      let keyword = new RegExp( req.query.search_key)
-      params.reservationDate = keyword
-    }
-    if(req.query.search_condition == '프로그램명'){
-      let keyword = new RegExp( req.query.search_key)
-      params.program = keyword
-    }
-   /* if(req.query.search_condition == '프로그램명'){ // 검색조건 프로그램명
-      let keyword = new RegExp( req.query.search_key) 
-      params.program = keyword
-    }
-    외래키 */ 
-    if(req.query.search_condition == '취소요청'){
-      params.status = '취소요청'
-    }
-    if(req.query.search_condition == '취소진행'){
-      params.status = '취소진행'
-    }
-    if(req.query.search_condition == '취소완료'){
-      params.status = '취소완료'
-    }
-    if(req.query.search_condition == '취소철회'){
-      params.status = '취소철회'
-    }
-  }
+    if(req.query.programname != null && req.query.programname != ""){
+        params.programname = req.query.programname
+      }
+
+    if(req.query._id != null && req.query._id != ""){ // 검색조건 예약번호
+        params._id= req.query._id
+      }
+
+    if(req.query.telephone != null && req.query.telephone != ""){ // 검색조건 전화번호 
+        params.telephone = req.query.telephone
+      }
+     /* if(req.query.search_condition == '프로그램명'){ // 검색조건 프로그램명
+        let keyword = new RegExp( req.query.search_key) 
+        params.program = keyword
+      }
+      외래키 */ 
+      if(req.query.search_condition == '취소요청'){
+        params.status = '취소요청'
+      }
+      if(req.query.search_condition == '취소진행'){
+        params.status = '취소진행'
+      }
+      if(req.query.search_condition == '취소완료'){
+        params.status = '취소완료'
+      }
+      if(req.query.search_condition == '취소철회'){
+        params.status = '취소철회'
+      }
+  
 
   /*
   populate({
