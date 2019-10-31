@@ -4,6 +4,21 @@
   <div class="card-body">
     <form action="" method="get">
       <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
+      <%
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+          if(dd<10) {
+            dd='0'+dd
+            }
+          if(mm<10) {
+            mm='0'+mm
+            }
+
+            today = yyyy + '-' +mm + '-' +dd;
+      %>
 <!--       <div>
         조회기간
         <ul style="display: block; float: right;">일간</ul>
@@ -32,35 +47,44 @@
                   <div class="col-md-1">예약일</div>
                   <div class="col-md-5 search_cal_group">
                     <i class="pe-7s-date"></i>
-                    <input type="date" name="date_from" class="search_calendar">
-                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>     
+                    <input type="date" name="date_from" class="search_calendar" value="<%=query.reserved_date_from%>">
+                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
                     <i class="pe-7s-date"></i>
-                    <input type="date" name="date_until" class="search_calendar">
+                    <input type="date" name="date_until" class="search_calendar" value="<%=query.reserved_date_until = today%>">
                   </div>
                   <div class="col-md-1">이용예정일</div>
                   <div class="col-md-5 search_cal_group">
                     <i class="pe-7s-date"></i>
-                    <input type="date" name="date_from" class="search_calendar">
-                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>   
+                    <input type="date" name="date_from" class="search_calendar" value="<%=query.usage_date_from%>">
+                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
                     <i class="pe-7s-date"></i>
-                    <input type="date" name="date_until" class="search_calendar">
+                    <input type="date" name="date_until" class="search_calendar" value="<%=query.usage_date_until%>">
                   </div>
               </div>
-              
+
               <hr class="search_hr">
               <!--조건 검색 테이블-->
               <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
               <div class="row" style="margin-bottom: 1.5%;">
                 <div class="col-md-1">예약자명</div>
-                <div class="col-md-3"><input type="text" name="sName" class="form-control search_key"></div>
+                <div class="col-md-3"><input type="text" name="ownerName" value="<%=query.ownerName%>" class="form-control search_key" <%=query.search_ownerName =="예약자명"%> ></div>
                 <div class="col-md-1">프로그램명</div>
-                <div class="col-md-3"><input type="text" name="sProgram" class="form-control search_key"></div>
+                <div class="col-md-3"><input type="text" name="programname" value="<%=query.programname%>" class="form-control search_key" <%=query.search_programname =="프로그램명"%>></div>
                 <div class="col-md-1">예약번호</div>
-                <div class="col-md-3"><input type="text" name="sProgram" class="form-control search_key"></div>
+                <div class="col-md-3"><input type="text" name="_id" value="<%=query._id%>" class="form-control search_key" <%=query.search_id =="예약번호"%>></div>
               </div>
               <div class="row">
                 <div class="col-md-1">번호뒷자리</div>
-                <div class="col-md-3"><input type="text" name="sLastNum" class="form-control search_key"></div>
+                <div class="col-md-3"><input type="text" name="telephone" value="<%=query.telephone%>" class="form-control search_key" <%=query.search_telephone =="전화번호"%>></div>
+                <div class="col-md-1">처리상태</div>
+                <div class="col-md-3">
+                  <select name="status" value="<%=query.search_condition%>" class="form-control search_key">
+                    <option value="취소요청">취소요청</option>
+                    <option value="취소진행">취소진행</option>
+                    <option value="취소완료">취소완료</option>
+                    <option value="취소철회">취소철회</option>
+                  </select>
+                </div>
               </div>
               <div class="row">
                 <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
@@ -144,9 +168,9 @@
     <tbody>
       <% %>
       <% for(var i=0; i<reservations.length; i++){
-        
-        var reservation = reservations[i];       
-          
+
+        var reservation = reservations[i];
+
         %>
         <tr>
           <td><%=(i+1)%></td>
@@ -259,4 +283,3 @@ $(document).ready(function(){
   $('#'+path).addClass('active');
 })
 </script>
-

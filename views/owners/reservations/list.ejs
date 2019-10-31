@@ -47,7 +47,7 @@
             <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
               <!--날짜 검색 테이블-->
               <div class="row">
-                  <div class="col-md-1">예약일</div>
+                  <div class="col-md-1 search label">예약일</div>
                   <div class="col-md-5 search_cal_group">
                     <i class="pe-7s-date"></i>
                     <input type="date" name="date_from" class="search_calendar" value="<%=query.reserved_date_from%>">
@@ -55,7 +55,7 @@
                     <i class="pe-7s-date"></i>
                     <input type="date" name="date_until" class="search_calendar" value="<%=query.reserved_date_until = today%>">
                   </div>
-                  <div class="col-md-1">이용예정일</div>
+                  <div class="col-md-1 search label">이용예정일</div>
                   <div class="col-md-5 search_cal_group">
                     <i class="pe-7s-date"></i>
                     <input type="date" name="date_from" class="search_calendar" value="<%=query.usage_date_from%>">
@@ -69,15 +69,15 @@
               <!--조건 검색 테이블-->
               <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
               <div class="row" style="margin-bottom: 1.5%;">
-                <div class="col-md-1">예약자명</div>
+                <div class="col-md-1 search label">예약자명</div>
                 <div class="col-md-3"><input type="text" name="ownerName" value="<%=query.ownerName%>" class="form-control search_key" <%=query.search_ownerName =="예약자명"%> ></div>
-                <div class="col-md-1">프로그램명</div>
+                <div class="col-md-1 search label">프로그램명</div>
                 <div class="col-md-3"><input type="text" name="programname" value="<%=query.programname%>" class="form-control search_key" <%=query.search_programname =="프로그램명"%>></div>
-                <div class="col-md-1">예약번호</div>
+                <div class="col-md-1 search label">예약번호</div>
                 <div class="col-md-3"><input type="text" name="_id" value="<%=query._id%>" class="form-control search_key" <%=query.search_id =="예약번호"%>></div>
               </div>
               <div class="row">
-                <div class="col-md-1">번호뒷자리</div>
+                <div class="col-md-1 search label">번호뒷자리</div>
                 <div class="col-md-3"><input type="text" name="telephone" value="<%=query.telephone%>" class="form-control search_key" <%=query.search_telephone =="전화번호"%>></div>
               </div>
               <div class="row">
