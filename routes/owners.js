@@ -77,7 +77,7 @@ router.param('reviewId', reviews.getOne);
 // review
 router.get('/qnas/list', qnas.getList, qnas.getSchemas, common.renderPage('owners/qnas/list'));
 //router.get('/qnas/detail', qnas.getList, qnas.getSchemas, common.renderPage('owners/qnas/detail')); // 필요없음
-router.get('/qnas/detail/:qnaId', qnas.getList, qnas.getSchemas, common.renderPage('owners/qnas/detail'));
+router.get('/qnas/detail/:qnaId',function(req,res,next){req.query.qnaType="qna"; next();}, qnas.getList, qnas.getSchemas, common.renderPage('owners/qnas/detail'));
 
 router.param('qnaId', qnas.getOne);
 

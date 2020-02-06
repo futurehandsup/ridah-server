@@ -125,7 +125,14 @@ exports.updateOne = function(req, res, next) {
 exports.getOne = function(req, res, next, id) {
   Qna.findOne({
     _id: id
-  }, function(err, qna) {
+  })
+  .populate('qnaWriter')
+  .populate({
+    path: 'replies',
+    // Get friends of friends - populate the 'friends' array for every friend
+    populate: { path: 'qnaWriter' }
+  })
+  .exec( function(err, qna) {
     if (err) {
       return next(err);
     } else {

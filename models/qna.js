@@ -5,8 +5,8 @@ var QnaSchema = new Schema({
     qnaTitle : {
       type: String,
       index : true,         // 보조 index
-    //  required : 'qnaTitle is required'   // 검증
-    },
+      //  required : 'qnaTitle is required'   // 검증
+    }, // qnaTitle 없어도 될 듯.
     qnaText : {
       type : String,
       default : "",
@@ -16,11 +16,10 @@ var QnaSchema = new Schema({
        type : Schema.ObjectId,
        ref : 'User'
     },
-    // 고객센터에 문의하는걸로 변경
-    // qnaStore : {
-    //    type : Schema.ObjectId,
-    //    ref : 'Store'
-    //  },
+    qnaStore : {
+       type : Schema.ObjectId,
+       ref : 'Store'
+     },
      qnaType : {
        type : String,
        default : 'qna',
