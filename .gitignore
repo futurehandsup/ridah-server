@@ -37,7 +37,5 @@ nohup.out
 .DS_Store
 package-lock.json
 
-ConvertToUTF8-master/*
-
 .nvmrc
 config/env/development.js
