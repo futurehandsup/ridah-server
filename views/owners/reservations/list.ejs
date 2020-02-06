@@ -17,12 +17,12 @@
 
           if(dd<10) {
             dd='0'+dd
-            } 
+            }
           if(mm<10) {
             mm='0'+mm
-            } 
+            }
 
-            today = yyyy + '-' +mm + '-' +dd;                  
+            today = yyyy + '-' +mm + '-' +dd;
       %>
   <!--     <div class="row">
         <div class="col-md-6">
@@ -51,7 +51,7 @@
                   <div class="col-md-5 search_cal_group">
                     <i class="pe-7s-date"></i>
                     <input type="date" name="date_from" class="search_calendar" value="<%=query.reserved_date_from%>">
-                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>     
+                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
                     <i class="pe-7s-date"></i>
                     <input type="date" name="date_until" class="search_calendar" value="<%=query.reserved_date_until = today%>">
                   </div>
@@ -59,12 +59,12 @@
                   <div class="col-md-5 search_cal_group">
                     <i class="pe-7s-date"></i>
                     <input type="date" name="date_from" class="search_calendar" value="<%=query.usage_date_from%>">
-                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>   
+                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
                     <i class="pe-7s-date"></i>
                     <input type="date" name="date_until" class="search_calendar" value="<%=query.usage_date_until%>">
                   </div>
               </div>
-              
+
               <hr class="search_hr">
               <!--조건 검색 테이블-->
               <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
@@ -87,12 +87,12 @@
                 </div>
               </div>
             </div>
-      
+
             <!--수정전, 버튼 검색 있었을 때-->
 <!--             <table width="80%" border="0">
               <tr>
                 <td>
-                예약일        
+                예약일
                 </td>
                 <td align="center">
                   <button type="button" id="changeDate" name = "today" class="search_btn btn btn-default form-control form-control-width">오늘</button></td>
@@ -116,7 +116,7 @@
               </tr>
               <tr>
                 <td>
-                이용일        
+                이용일
                 </td>
                 <td align="center" colspan="5">검색 기간을 선택하세요</td>
                 <td class="search_seperate">ㅣ</td>
@@ -158,13 +158,13 @@
         <option value="예약자명" <%=(query.search_condition=="예약자명")? "selected" : ""%>>예약자명</option>
         <option value="전화번호" <%=(query.search_condition=="전화번호")? "selected" : ""%>>전화번호</option>
       </select>
-      
+
       <input type="text" name="search_key" value="<%=query.search_key%>" class="form-control form-control-width"> -->
   </form>
 </div>
 
 <div class="card" style="margin-bottom: 20px;">
-  <!--예약취소, 환불버튼 만들기--> 
+  <!--예약취소, 환불버튼 만들기-->
   (여기에 버튼)
   <table class="table table-default table-hover table-striped">
     <thead>
@@ -219,7 +219,7 @@
     </tbody>
   </table>
 </div>
-  
+
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){
@@ -266,24 +266,24 @@ $(document).ready(function(){
 </script>
 
 <script>
-  
+
   var date_from = '<%=date_from%>'
   var dd = '<%=dd%>'
   var mm = '<%=mm%>'
   var yyyy = '<%=yyyy%>'
   var date_until = date_from
-    
+
     // $("button[name=today]").click(function(){
     //   date_from = date_until;
     //   $('#date_from').val(date_from);
     // })
-    $("button[name=threedays]").click(function(){   
+    $("button[name=threedays]").click(function(){
       date_from = new Date('<%=date_from%>'); // 2014-03-01 - 월은 0에서부터 시작된다.
-      date_from.setDate(date_from.getDate() - 3); 
-      
+      date_from.setDate(date_from.getDate() - 3);
+
       var new_yy = date_from.getFullYear();
       var new_mm = date_from.getMonth() + 1; new_mm = (new_mm < 10) ? '0' + new_mm : new_mm;
-      var new_dd = date_from.getDate(); new_dd = (new_dd < 10) ? '0' + new_dd : new_dd; 
+      var new_dd = date_from.getDate(); new_dd = (new_dd < 10) ? '0' + new_dd : new_dd;
 
       date_from = new_yy+ '-' + new_mm + '-' + new_dd;
       $('#date_from').val(date_from);
@@ -308,7 +308,7 @@ $(document).ready(function(){
   //   var yy = parseInt(sDate.substr(0, 4), 10);
   //   var mm = parseInt(sDate.substr(5, 2), 10);
   //   var dd = parseInt(sDate.substr(8), 10);
-    
+
   //   if (type == "d") {
   //       _date = new Date(yy, mm - 1, dd + nNum);
   //   }
@@ -318,11 +318,11 @@ $(document).ready(function(){
   //   else if (type == "y") {
   //       _date = new Date(yy + nNum, mm - 1, dd);
   //   }
- 
+
   //   yy = _date.getFullYear();
   //   mm = _date.getMonth() + 1; mm = (mm < 10) ? '0' + mm : mm;
   //   dd = _date.getDate(); dd = (dd < 10) ? '0' + dd : dd;
- 
+
   //   return yy + '-' +  mm  + '-' + dd;
   // }
 </script>
