@@ -9,16 +9,17 @@
   <div class="card-body">
     <form action="" method="get">
     <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
+      <script type="text/javascript">
+        if(dd<10) {
+          dd='0'+dd
+          }
+        if(mm<10) {
+          mm='0'+mm
+          }
 
-          if(dd<10) {
-            dd='0'+dd
-            }
-          if(mm<10) {
-            mm='0'+mm
-            }
+          today = yyyy + '-' +mm + '-' +dd;
+      </script>
 
-            today = yyyy + '-' +mm + '-' +dd;
-      %>
   <!--     <div class="row">
         <div class="col-md-6">
           <div class="form-group">
