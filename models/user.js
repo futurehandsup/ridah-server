@@ -134,7 +134,7 @@ UserSchema.methods.hashPassword = function(password) {
     hashPassword() 메소드는 노드의 crypto 모듈을 활용해 비밀번호를 암호화 하기 위해 사용되며 ,
     authenticate() 메소드는 문자열 인수를 받아들여 암호화하고 현재 사용자의 비밀번호와 비교한다.
     */
-    return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
+    return crypto.pbkdf2Sync(password, this.salt, 10000, 64, "sha512").toString('base64');
 };
 
 UserSchema.methods.authenticate = function(password) {
