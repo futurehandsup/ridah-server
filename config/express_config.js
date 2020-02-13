@@ -73,6 +73,8 @@ module.exports = function() {
     var calculationVats = require('../routes/calculationVats');
     var calculationTaxs = require('../routes/calculationTaxs');
 
+    var webapi = require('../routes/webapi');
+
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
     var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
@@ -86,6 +88,8 @@ module.exports = function() {
             , authController.authenticate)
 
     app.use('/', index);
+    app.use('/apis/web', webapi);
+    
     //API Route : view 없음.
     app.use('/users', users);
     app.use('/stores', stores);
