@@ -1,0 +1,82 @@
+<% include ../templates/head.ejs %>
+<h4 class="my-3">가맹점 공지사항</h4>
+<div class="card">
+  <table class="table table-hover table-striped">
+    <thead class="thead-control">
+      <th>전체보기</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <!-- <th>ID</th>
+      <% var keys = Object.keys(schema); %>
+
+      <th>공지제목</th>
+      <th>공지내용</th>
+      <th>작성자</th>
+      <th>작성일</th>
+      <th>수정일</th> -->
+
+    </thead>
+    <tbody class="tbody-control">
+      <% %>
+      <% for(var i=0; i<noticeOwners.length; i++){
+        var noticeOwner = noticeOwners[i];
+        %>
+        <tr>
+          <td><%=i%></td>
+
+          <td><a href="/newowners/noticeOwners/detail/<%=noticeOwner.id%>"><%=noticeOwner['noticeTitle']%></a></td>
+          <td><%=noticeOwner['noticeText']%></td>
+          <td><%=(noticeOwner['noticeWriter'] != null) ? noticeOwner['noticeWriter'].username : noticeOwner['noticeWriter']%></td>
+          <td><%=noticeOwner['created_at']%></td>
+          <td><%=noticeOwner['updated_at']%></td>
+
+        </tr>
+      <% }%>
+    </tbody>
+  </table>
+</div>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#createButton').click(function(){
+    var noticeOnwer =  $('#createForm').serializeObject();
+    $.ajax({
+      type:"POST",
+      url:'/noticeOwners',
+      data:noticeOwner,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+  $('.deleteButton').click(function(){
+    var noticeOwnerId = $(this).data("item");
+    $.ajax({
+      type:"DELETE",
+      url:'/noticeOwners/'+noticeOwnerId,
+
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $('.sidebar .nav .active').removeClass('active');
+  var path = "noticeOwners" ;
+  $('#'+path).addClass('active');
+})
+</script>

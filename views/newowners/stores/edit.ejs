@@ -1,0 +1,150 @@
+<% include ../templates/head.ejs %>
+<section style="padding-top: 80px;">
+  <div class="container-fluid">
+    <h2>승마장 정보 수정</h2>
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-body">
+        <form id="editForm">
+          <div class="form-group">
+            <label for="storename">승마장 이름</label>
+            <input type="text" class="form-control" id="storename" name="storename" placeholder="승마장 이름" value="<%=store.storename%>">
+          </div>
+          <div class="form-group">
+            <label for="introduction">승마장 설명</label>
+            <textarea class="form-control" id="introduction" name="introduction" placeholder="승마장 설명"><%=store.introduction%></textarea>
+          </div>
+          <div class="form-group">
+            <label for="website">홈페이지</label>
+            <input type="url" class="form-control" id="website" name="website" placeholder="승마장 이름" value="<%=store.website%>">
+          </div>
+          <div class="form-group">
+            <label for="telephone">전화번호</label>
+            <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="전화번호" value="<%=store.telephone%>">
+          </div>
+          <div class="form-group">
+            <label for="address">주소</label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="주소" value="<%=store.address%>">
+          </div>
+          <% let filters = filterItems.filters%>
+          <% for(var i=0; i<filters.length; i++){
+              var filter = filters[i];
+              var itemName = "filter_"+filter.fieldName;
+          %>
+            <div class="form-group">
+              <div><%=filter.title%></div>
+              <% for (var j=0; j<filter.items.length; j++){
+                  var item = filter.items[j];
+                %>
+                <div class="form-check form-check-inline">
+                  <input type="checkbox" <%=(store[itemName].includes(j)) ? "checked" : null%> id="<%=itemName%>_<%=j%>" name="<%=itemName%>" value="<%=j%>">
+                  <label class="" for="<%=itemName%>_<%=j%>"><%=item%></label>
+                </div>
+              <% }%>
+
+            </div>
+          <% }%>
+          <div class="form-group">
+            <label for="image">이미지</label><br>
+            <image id="storeImage" src="<%=store.image%>"/>
+            <button type="button" data-toggle="modal" data-target="#imageModal" class="btn btn-primary">변경</a>
+          </div>
+          <button id="editButton" type="button" class="btn btn-primary">저장</button>
+          <a href="./detail?storeId=<%=store.id%>" class="btn btn-outline-primary">이전으로</a>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--이미지 업로드 모달-->
+  <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">이미지 변경</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form id='imageForm'>
+            <input id="imageInput" name="images" type="file" accept="image/*">
+          </form>
+          <div id="previewBox" style="display:none;">
+            <img src="" style="width: 100%; height:auto;" >
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="imageUploadButton" type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</section>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  var imageUrl = ""
+  $('#imageInput').change(function(){
+    //일단 한장 테스트
+    let files = this.files;
+
+    //for(var i=0;i<files.length;i++){}
+    let file = files[0];
+    var imageType = /image.*/; //이미지 파일일 경우만 뿌려줌.
+    if (!file.type.match(imageType))
+      return false; //continue;
+
+    var img = $('#previewBox').find('img')[0]
+    img.src = window.URL.createObjectURL(file);
+    $('#previewBox').show()
+
+  })
+  $('#imageUploadButton').click(function(){
+    let files = $('#imageInput')[0].files;
+    if(files.length === 0) return false;
+
+    //let file = files[0];
+    var formData = new FormData($('#imageForm')[0]);
+    //formData.append("images", files, files[0].name);
+
+    console.log(formData.has('images')) // true)
+
+    $.ajax({
+      type:"POST",
+      method: 'POST',
+      url:'/modules/uploadImage',
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success:function(data){
+        alert("성공했습니다.\nurl:"+data.file);
+        imageUrl = data.file;
+        $('#storeImage').attr('src', imageUrl);
+        $('#imageModal').modal('hide')
+      },
+      error:function(e){
+        alert(e.responseText);
+      }
+    });
+
+  })
+  $('#editButton').click(function(){
+    var store =  $('#editForm').serializeObject();
+    if (imageUrl != ""){
+      store.image = imageUrl;
+    }
+
+    $.ajax({
+      type:"PUT",
+      url:'/stores/<%=store.id%>',
+      data:store,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

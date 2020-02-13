@@ -1,0 +1,79 @@
+<% include ../templates/head.ejs %>
+<!-- Modal -->
+
+  <!--통계페이지-->
+
+<!--  <div class="container-fluid"> -->
+<h2 class="my-3">정산 정보</h2>
+<div class="card">
+   <table class="table">
+      <tr>
+        <td style="width: 200px;">정산대금 수령방법</td>
+        <td>계좌입금</td>
+      </tr>
+      <tr>
+        <td>정산대금 입금계좌</td>
+        <td>
+          <div class="form-group">
+            <input type="text" name="" class="form-control" placeholder="은행명">
+            <input type="text" name="" class="form-control" placeholder="계좌번호">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>통장사본 업로드</td>
+        <td>
+          <div class="form-group">
+            <input type="file" value="">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<!-- </div> -->
+
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#createButton').click(function(){
+    var program =  $('#createForm').serializeObject();
+    program.store = '<%=store.id%>';
+
+    $.ajax({
+      type:"POST",
+      url:'/programs',
+      data:program,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+  $('.deleteButton').click(function(){
+    var programId = $(this).data("item");
+    $.ajax({
+      type:"DELETE",
+      url:'/programs/'+programId,
+
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $('.sidebar .nav .active').removeClass('active');
+  var path = "calculations-info" ;
+  $('#'+path).addClass('active');
+})
+</script>

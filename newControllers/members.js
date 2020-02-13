@@ -4,7 +4,7 @@ let connection = common.initDatabase();
 
 // 사용자 리스트
 exports.getMemberList = function(req, res, next) {
-  let { userNo, page, userName } = req.query; // 조건 작성
+  let { page, userName } = req.query; // 조건 작성
   let query = "SELECT SQL_CALC_FOUND_ROWS * FROM Member "
 
   query += "WHERE "
@@ -50,7 +50,7 @@ exports.getMemberDetail = function(req, res, next) {
   query += ` WHERE userNo = '${userNo}';`
 
   console.log(query);
-  connection.query(query, function (err, member) {
+  connection.query(query, function (err, results) {
     if (err) {
       return next(err);
     } else {
@@ -58,7 +58,7 @@ exports.getMemberDetail = function(req, res, next) {
         title : "회원 상세 조회",
         success : true,
         message : '메시지',
-        member : member
+        member : results[0]
       }
       common.setResult(req, result);
       next();

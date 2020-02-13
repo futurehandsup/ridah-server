@@ -8,6 +8,7 @@ var members = require('../newControllers/members');
 // var stores = require('../newControllers/stores');
 // ...
 
+// members
 router.route('/member')
 .all(function(req, res, next)  {next();})
 .get(members.getMemberList, common.setResponse) // 사용자 리스트 출력

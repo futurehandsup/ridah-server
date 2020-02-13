@@ -48,6 +48,9 @@ module.exports = function() {
     app.use(passport.initialize());    // 추가
     app.use(passport.session());       // 추가
 
+    var common = require('../newControllers/common');
+    app.use(common.setPage);
+
     app.locals.filterItems = require('./filterItems');
     app.locals.moment = require('moment');
 
@@ -73,11 +76,12 @@ module.exports = function() {
     var calculationVats = require('../routes/calculationVats');
     var calculationTaxs = require('../routes/calculationTaxs');
 
-    var webapi = require('../routes/webapi');
+    var webapi = require('../newRoutes/webapi');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
     var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
+    var newOwners = require('../newRoutes/owners'); // 업주용 페이지 -->개발 예정
 
     var modules = require('../routes/modules'); // 기타 기능 -- 파일 업로드 등
 
@@ -89,7 +93,7 @@ module.exports = function() {
 
     app.use('/', index);
     app.use('/apis/web', webapi);
-    
+
     //API Route : view 없음.
     app.use('/users', users);
     app.use('/stores', stores);
@@ -118,6 +122,7 @@ module.exports = function() {
     app.use('/customers', customers);
     //owners Route : /views/customers/* view 사용
     app.use('/owners', owners);
+    app.use('/newowners', newOwners);
 
     //owners Route : /views/customers/* view 사용
     app.use('/modules', modules);

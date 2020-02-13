@@ -1,0 +1,143 @@
+<% include ../templates/head.ejs %>
+<div class="row bg-white">
+  <div class="col bg-lighter drop-shadow">
+    <div class="row">
+      <div class="my-3" style="">
+        예약달력에서 예약날짜와 정보를 확인 가능합니다.
+      </div>
+      <div class="container-fluid bg-white" >
+        <ul class="pagination calendar-pagination text-center">
+          <li class="page-item">
+            <%
+            var m_date = new Date(calendar.date);
+            m_date.setMonth(m_date.getMonth()-1);
+            %>
+            <% var prev_date = m_date.getFullYear() + "-" + (m_date.getMonth()+1) + "-" + m_date.getDate();%>
+            <a class="" href="daily?type=monthly&date=<%=prev_date%>&storeId=<%=store._id%>" aria-label="<%=(m_date.getMonth()+1)%>월">
+              <span aria-hidden="true"><i class="pe-7s-angle-left"></i> <%=(m_date.getMonth()+1)%>월</span>
+              <span class="sr-only"><%=(m_date.getMonth()+1)%>월</span>
+            </a>
+          </li>
+          <h1 class="text-center flex-1 calendar-title" style="">
+            <% m_date.setMonth(m_date.getMonth()+1);%>
+            <%=m_date.getMonth()+1%>월
+            <small><%=m_date.getFullYear()%>년</small>
+          </h2>
+          <li class="page-item">
+            <% m_date.setMonth(m_date.getMonth()+1);%>
+            <% var next_date = m_date.getFullYear() + "-" + (m_date.getMonth()+1) + "-" + m_date.getDate();%>
+            <a class="" href="daily?type=monthly&date=<%=next_date%>&storeId=<%=store._id%>" aria-label="Next">
+              <span aria-hidden="true"><%=(m_date.getMonth()+1)%>월 <i class="pe-7s-angle-right"></i></span>
+              <span class="sr-only"><%=(m_date.getMonth()+1)%>월</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="container-fluid" style="padding: 0; padding-left: 15px;">
+        <table class="table table-reservations table-bordered" style="margin:0">
+          <% var dates = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]%>
+          <thead class="">
+            <tr>
+            <% for(var date in dates){%>
+              <th scope="col"><%=dates[date]%></th>
+            <%}%>
+            </tr>
+          </thead>
+          <tbody>
+          <% var today_schedule;
+            let selectedDate = new Date(query.date);%>
+
+          <% for(var i=0; i < calendar.schedules.length; i++){ %>
+            <%
+            var schedule = calendar.schedules[i];
+            var s_date = new Date(schedule.date);
+            var m = s_date.getDay();
+            var flag_today = false;
+            var flag_selected = false;
+
+            if(s_date.getFullYear() == selectedDate.getFullYear() && s_date.getMonth() == selectedDate.getMonth() &&s_date.getDate() == selectedDate.getDate()){
+              today_schedule = schedule;
+              flag_selected = true;
+            }
+            %>
+            <% if(i==0){ %>
+              <tr>
+                <%for(var j=0; j<m; j++){ %>
+                <td></td>
+                <% } %>
+            <% } else if(m%7 == 0){%><tr><%}%>
+              <% var today = new Date();
+              if(s_date.getFullYear() == today.getFullYear() && s_date.getMonth() == today.getMonth() && s_date.getDate() == today.getDate()){
+                flag_today = true;
+              }%>
+            <td class="<%=flag_today?'today':''%><%=flag_selected?'selected':''%>">
+              <a href="?type=monthly&date=<%=s_date.getFullYear()%>-<%=(s_date.getMonth()+1)%>-<%=(s_date.getDate())%>&storeId=<%=store._id%>"><%=s_date.getDate()%></a><br>
+              <%for (var j=0; j < schedule.programs.length; j++){%>
+              <% var program = schedule.programs[j];%>
+                <div class="program">
+                  <span class="timebadge timebadge-<%=(program.isReserved)? 'reserved' : 'available' %>"><%=program.time.start_at%></span>
+                  <span class="statusbadge statusbadge-<%=(program.isReserved)? 'reserved' : 'available' %>"><%=(program.isReserved==true)?"1건":"막기"%></span>
+                </div>
+              <% } %>
+            </td>
+            <% if(i==calendar.schedules.length-1){
+                for(var j=m; j < 6; j++){
+            %>
+                <td></td>
+                <% } %>
+              </tr>
+            <% } else if(m%7 == 6){%> </tr> <%}%>
+          <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="" style="padding: 15px; padding-top: 25px;">
+      <% if(query.date!=null) {%>
+        <h1 class="text-cetnter" style="font-size: 48px;">
+          <%
+          let koreanDates = ["일", "월", "화", "수", "목", "금", "토"];
+          %><%=selectedDate.getDate()%> <small style="font-size:16px;"><%=koreanDates[selectedDate.getDay()]%>요일</small></h1>
+      <%}%>
+    </div>
+    <div>
+      <%if(query.date != null && today_schedule!=null){%>
+        <ul class="timeline">
+        <%for (p of today_schedule.programs){%>
+          <li class="<%=p.isReserved?'reserved':'available'%>">
+            <div class="title"><%=p.time.start_at%></div>
+
+            <%if(p.isReserved){%>
+              <div class="content">
+              <h5 class="name">전소현 님</h5>
+              <p>010-1234-5678</p>
+              <hr>
+              <p><strong>프로그램</strong> 체험 승마</p>
+              <p><strong>인원</strong> 3</p>
+              <p><strong>고객메모</strong><br>
+              늦게 도착할 것 같습니다.
+              </p>
+              </div>
+            <%}else{%>
+
+            <%}%>
+
+          </li>
+          <%}%>
+        </ul>
+      <%} else { %>
+        <ul class="timeline">
+          <li class="reserved">
+            <div class="content">
+            <p class='text-center'>날짜를 선택해 보세요!</p>
+            </div>
+          </li>
+        </ul>
+      <%}%>
+
+    </div>
+  </div>
+</div>
+<% include ../templates/bottom.ejs %>

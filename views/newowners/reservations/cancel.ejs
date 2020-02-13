@@ -1,0 +1,285 @@
+<% include ../templates/head.ejs %>
+<h2 class="my-3">취소내역_취소된 예약내역을 한 눈에 확인 가능합니다.</h2>
+<div class="card">
+  <div class="card-body">
+    <form action="" method="get">
+      <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
+      <%
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+          if(dd<10) {
+            dd='0'+dd
+            }
+          if(mm<10) {
+            mm='0'+mm
+            }
+
+            today = yyyy + '-' +mm + '-' +dd;
+      %>
+<!--       <div>
+        조회기간
+        <ul style="display: block; float: right;">일간</ul>
+        <ul style="display: block; float: right;">주간</ul>
+        <ul style="display: block; float: right;">월간</ul>
+        <input type="date" name="date-from" class="form-control form-control-width">
+        <input type="date" name="date-until" class="form-control form-control-width">
+      </div>
+      <div style="margin-top: 10px;">
+        <ul style="display: block; float: right;">
+          <button class="btn btn-success">검색</button>
+        </ul>
+        <select placeholder="처리상태" name="search_condition" class="form-control form-control-width">
+          <option>전체</option>
+          <option value="취소요청" <%=(query.search_condition=="취소요청")? "selected" : ""%>>취소요청</option>
+          <option value="취소진행" <%=(query.search_condition=="취소진행")? "selected" : ""%>>취소진행</option>
+          <option value="취소완료" <%=(query.search_condition=="취소완료")? "selected" : ""%>>취소완료</option>
+          <option value="취소철회" <%=(query.search_condition=="취소철회")? "selected" : ""%>>취소철회</option>
+        </select>
+
+      </div> -->
+        <!--검색파트css : search_opt, search_btn, search_submit -->
+            <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
+              <!--날짜 검색 테이블-->
+              <div class="row">
+                  <div class="col-md-1">예약일</div>
+                  <div class="col-md-5 search_cal_group">
+                    <i class="pe-7s-date"></i>
+                    <input type="date" name="date_from" class="search_calendar" value="<%=query.reserved_date_from%>">
+                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+                    <i class="pe-7s-date"></i>
+                    <input type="date" name="date_until" class="search_calendar" value="<%=query.reserved_date_until = today%>">
+                  </div>
+                  <div class="col-md-1">이용예정일</div>
+                  <div class="col-md-5 search_cal_group">
+                    <i class="pe-7s-date"></i>
+                    <input type="date" name="date_from" class="search_calendar" value="<%=query.usage_date_from%>">
+                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+                    <i class="pe-7s-date"></i>
+                    <input type="date" name="date_until" class="search_calendar" value="<%=query.usage_date_until%>">
+                  </div>
+              </div>
+
+              <hr class="search_hr">
+              <!--조건 검색 테이블-->
+              <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
+              <div class="row" style="margin-bottom: 1.5%;">
+                <div class="col-md-1">예약자명</div>
+                <div class="col-md-3"><input type="text" name="ownerName" value="<%=query.ownerName%>" class="form-control search_key" <%=query.search_ownerName =="예약자명"%> ></div>
+                <div class="col-md-1">프로그램명</div>
+                <div class="col-md-3"><input type="text" name="programname" value="<%=query.programname%>" class="form-control search_key" <%=query.search_programname =="프로그램명"%>></div>
+                <div class="col-md-1">예약번호</div>
+                <div class="col-md-3"><input type="text" name="_id" value="<%=query._id%>" class="form-control search_key" <%=query.search_id =="예약번호"%>></div>
+              </div>
+              <div class="row">
+                <div class="col-md-1">번호뒷자리</div>
+                <div class="col-md-3"><input type="text" name="telephone" value="<%=query.telephone%>" class="form-control search_key" <%=query.search_telephone =="전화번호"%>></div>
+                <div class="col-md-1">처리상태</div>
+                <div class="col-md-3">
+                  <select name="status" value="<%=query.search_condition%>" class="form-control search_key">
+                    <option value="취소요청">취소요청</option>
+                    <option value="취소진행">취소진행</option>
+                    <option value="취소완료">취소완료</option>
+                    <option value="취소철회">취소철회</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
+                <div class="col-md-2" style="align-items: right;">
+                  <p align="right"><button class="btn btn-success search_submit">검색</button></p>
+                </div>
+              </div>
+            </div>
+<!--           <div class="row">
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <select placeholder="검색조건" name="search_condition" class="form-control form-control-width">
+                          <option value="예약일">예약일</option>
+                          <option value="이용일">이용일</option>
+                        </select>
+                    </div>
+                    <div class="col-md-7">
+                       <button class="btn btn-default form-control form-control-width">오늘</button>
+                        <button class="btn btn-default form-control form-control-width">3일</button>
+                        <button class="btn btn-default form-control form-control-width">1주일</button>
+                        <button class="btn btn-default form-control form-control-width">1개월</button>
+                        <button class="btn btn-default form-control form-control-width">3개월</button>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" name="date_from" value="<%=query.date_from%>" class = "form-control form-control-width">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+               <div class="row">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <select placeholder="상세조건" class="form-control form-control-width">
+                        <option>예약번호</option>
+                        <option>예약일시</option>
+                        <option>예약상태</option>
+                        <option>프로그램명</option>
+                        <option>예약자명</option>
+                        <option>전화번호</option>
+                      </select>
+                    </div>
+                    <div class="col-md-7">
+                       <input type="text" name="search_key" value="<%=query.search_key%>" class="form-control form-control-width">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" name="date_until" value="<%=query.date_until%>" class = "form-control form-control-width">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-success">검색</button>
+          </div> -->
+
+    </form>
+  </div>
+</div>
+<div class="card" style="margin-bottom: 20px;">
+  <!-- <div class="card-header">
+    검색결과
+  </div> -->
+  <table class="table table-default table-hover table-striped">
+    <thead>
+      <% var keys = Object.keys(schema); %>
+      <th>선택</th>
+      <th>예약번호</th>
+      <th>예약일시</th>
+      <th>취소요청일시</th>
+      <th>취소처리상태</th>
+      <th>프로그램명</th>
+      <th>인원</th>
+      <th>예약자명</th>
+      <th>전화번호</th>
+    </thead>
+    <tbody>
+      <% %>
+      <% for(var i=0; i<reservations.length; i++){
+
+        var reservation = reservations[i];
+
+        %>
+        <tr>
+          <td><%=(i+1)%></td>
+
+          <td><%=reservation['_id']%></td>
+          <td><%=reservation['reservationDate']%></td>
+          <td><%=reservation['cancelcalled_at']%></td>
+          <td><%=reservation['status']%></td>
+          <td><%=reservation['program']%></td>
+          <td><%=reservation['howMany']%></td>
+          <td><%=reservation['ownerName']%></td>
+          <td><%=reservation['telephone']%></td>
+        </tr>
+      <% }%>
+    </tbody>
+  </table>
+</div>
+  <div class="col-md-2" style="margin-bottom: 5px;">
+    <!-- Trigger/Open The Modal -->
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createModal" data-backdrop="false">
+    환불정책
+    </button>
+
+    <!-- The Modal -->
+          <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <span>환불정책</span>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="content">
+                    <table class="table table-bordered refund">
+                      <tr>
+                        <th class="refundIndex">구분</th>
+                        <th class="refundIndex">내용</th>
+                      </tr>
+                      <tr>
+                        <td class="refundIndex">
+                          일반 상품
+                        </td>
+                        <td>
+                            - 이용예정일로부터 7일 이전 취소 요청시 전액 환불<br>
+                            - 이용예정일로부터 5일 이전 취소 요청시 반액 환불<br>
+                            - 이용예정일로부터 3일 이전 취소 요청시 환불 불가<br>
+                          <br>
+                            - 구매 당일 취소 시에도 예약이 확정된 후 취소 요청 시 위의 기준에 따라 공제 후 환불
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="refundIndex">
+                          할인특가 상품<br>
+                          및<br>
+                          프로모션 상품
+                        </td>
+                        <td>
+                            - 할인특가상품의 경우 할인가격이 아닌 정상가격을 기준으로 위의 기준에 따라 공제한 후 환불
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                </div>
+            </div>
+          </div>
+  </div>
+
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#createButton').click(function(){
+    var program =  $('#createForm').serializeObject();
+    program.store = '<%=store.id%>';
+
+    $.ajax({
+      type:"POST",
+      url:'/programs',
+      data:program,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+  $('.deleteButton').click(function(){
+    var programId = $(this).data("item");
+    $.ajax({
+      type:"DELETE",
+      url:'/programs/'+programId,
+
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $('.sidebar .nav .active').removeClass('active');
+  var path = "reservations-cancel" ;
+  $('#'+path).addClass('active');
+})
+</script>
