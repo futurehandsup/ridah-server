@@ -194,7 +194,7 @@ router.route('/calculation')
 
 router.route('/calculation/:calculationNo')
 .all(function(req, res, next) {next();})
-.get(calculations.getCalculatinoDetail, common.setResponse)     //정산 정보 출력
+.get(calculations.getCalculationDetail, common.setResponse)     //정산 정보 출력
 .put(calculations.updateCalculation, common.setResponse)        //정산 정보 가져오기
 .delete(calculations.deleteCalculation, common.setResponse)     //정산 삭제
 .post(common.notImplementedError);

@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var common = require('../newControllers/common');
+
 // 컨트롤러 변수 선언
 let stores = require('../newControllers/stores');
 //let members = require('../newControllers/members');

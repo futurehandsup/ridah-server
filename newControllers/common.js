@@ -100,7 +100,7 @@ exports.getErrorMessage = function(err) {
 
 exports.initDatabase = function(){
   var mysql = require('mysql');
-  var dbconfig = process.env.NODE_ENV == 'production' ? "real" : "dev"
+  var dbconfig = process.env.NODE_ENV == 'production' ? "real" : "local"
   //console.log(dbconfig)
   var config = require('../config/env/db')[dbconfig];
   return mysql.createPool({

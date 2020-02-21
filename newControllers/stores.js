@@ -5,7 +5,7 @@ let connection = common.initDatabase();
 // 사용자 리스트
 exports.getStoreList = function(req, res, next) {
   let { page, storeName } = req.query; // 조건 작성
-  let query = "SELECT SQL_CALC_FOUND_ROWS * FROM Store "
+  let query = "SELECT * FROM Store "
 
   query += "WHERE "
 
@@ -24,7 +24,7 @@ exports.getStoreList = function(req, res, next) {
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }
-  query += "; SELECT FOUND_ROWS() AS rows;"
+  query += ";"
 
   console.log(query)
   connection.query(query, function (err, results) {
@@ -35,8 +35,124 @@ exports.getStoreList = function(req, res, next) {
         title : "승마장 리스트",
         success : true,
         message : '메시지',
-        stores : results[0],
-        rows: results[1][0].rows
+        stores : results
+      }
+      console.log(results)
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
+
+// 사용자 상세 불러오기
+exports.getStoreDetail = function(req, res, next) {
+  let { storeNo } = req.params;
+  let query = ` SELECT * `;
+
+  query += ` FROM Store `
+
+  query += ` WHERE storeNo = '${storeNo}';`
+
+  console.log(query);
+  connection.query(query, function (err, results) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "회원 상세 조회",
+        success : true,
+        message : '메시지',
+        store : results[0]
+      }
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
+
+//회원 수정
+exports.updateStore = function(req, res, next) {
+  let { storeNo } = req.params;
+  if(!Object.keys(req.body)){
+    return next(new Error("값이 없으므로 수정할 수 없습니다."));
+  }
+  let query = `UPDATE Store SET `;
+  query += ` updateDate = CURRENT_TIMESTAMP, `
+  for(let item in req.body){
+    if(item == "storeNo") continue;
+    query += `${item} = '${req.body[item]}', `
+  }
+  query = query.trim();
+  if(query.endsWith(',')) query = query.slice(0, -1);  //마지막 AND
+
+  query += ` WHERE storeNo = '${storeNo}'`;
+
+  console.log(query);
+  connection.query(query, function(err, sqlResult) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title: "회원정보 수정 성공",
+        success: true,
+        message: '메시지',
+        storeNo: storeNo
+      }
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
+
+// 회원 삭제
+exports.deleteStore = function(req, res, next) {
+  let {storeNo} = req.params
+  var query = `UPDATE Store SET leaveYn = 1, leaveDate = CURRENT_TIMESTAMP`
+  query += ` WHERE storeNo = '${storeNo}'`
+
+  console.log(query);
+  connection.query(query, function(err, sqlResult) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title: "사용자 삭제 성공",
+        success: true,
+        message: '메시지'
+      }
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
+
+// 회원 만들기
+exports.addStore = function(req, res, next) {
+  let store = req.body; //request의 내용을 가지고 옴.
+
+  let queryKeys = "";
+  let queryValues = "";
+  for(let item in store){
+    queryKeys += `${item}, `
+    queryValues += `'${store[item]}', `
+  }
+  queryKeys = queryKeys.trim();
+  if(queryKeys.endsWith(',')) queryKeys = queryKeys.slice(0, -1);  //마지막 AND
+  queryValues = queryValues.trim();
+  if(queryValues.endsWith(',')) queryValues = queryValues.slice(0, -1);  //마지막 AND
+
+  var query = `INSERT INTO Store(${queryKeys}) `
+  query += `VALUES(${queryValues})`;
+  console.log(query);
+  connection.query(query, function(err, sqlResult) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title: "회원 등록 성공",
+        success: true,
+        message: '메시지',
+        recipeNo: sqlResult.insertId
       }
       common.setResult(req, result);
       next();
