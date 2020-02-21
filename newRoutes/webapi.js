@@ -14,6 +14,8 @@ var notices = require('../newControllers/notices');
 var banners = require('../newControllers/banners');
 var schedules = require('../newControllers/schedules');
 var faqs = require('../newControllers/faqs');
+var payments = require('../newControllers/payments');
+var calculations = require('../newControllers/calculations');
 // var stores = require('../newControllers/stores');
 // ...
 
@@ -166,6 +168,37 @@ router.route('/faq/:faqNo')
 .put(faqs.updateFaq, common.setResponse)        //faq 정보 가져오기
 .delete(faqs.deleteFaq, common.setResponse)     //faq 삭제
 .post(common.notImplementedError);
+
+// payments
+router.route('/payment')
+.all(function(req, res, next)  {next();})
+.get(payments.getPaymentList, common.setResponse) // 결제리스트 출력
+.post(payments.addPayment, common.setResponse)    // 결제 등록
+.put(common.notImplementedError)
+.delete(common.notImplementedError);
+
+router.route('/payment/:paymentNo')
+.all(function(req, res, next) {next();})
+.get(payments.getPaymentDetail, common.setResponse)     //결제 정보 출력
+.put(payments.updatePayment, common.setResponse)        //결제 정보 가져오기
+.delete(payments.deletePayment, common.setResponse)     //결제 삭제
+.post(common.notImplementedError);
+
+// calculation
+router.route('/calculation')
+.all(function(req, res, next)  {next();})
+.get(calculations.getCalculationList, common.setResponse) // 정산 리스트 출력
+.post(calculations.addCalculation, common.setResponse)    // 정산 등록
+.put(common.notImplementedError)
+.delete(common.notImplementedError);
+
+router.route('/calculation/:calculationNo')
+.all(function(req, res, next) {next();})
+.get(calculations.getCalculatinoDetail, common.setResponse)     //정산 정보 출력
+.put(calculations.updateCalculation, common.setResponse)        //정산 정보 가져오기
+.delete(calculations.deleteCalculation, common.setResponse)     //정산 삭제
+.post(common.notImplementedError);
+
 
 // 원래 코드 참고
 /*router.route('/')
