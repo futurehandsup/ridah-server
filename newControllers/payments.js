@@ -5,7 +5,7 @@ let connection = common.initDatabase();
 // 결제 리스트
 exports.getPaymentList = function(req, res, next) {
   let { page, userName } = req.query; // 조건 작성
-  let query = "SELECT SQL_CALC_FOUND_ROWS * FROM Payment "
+  let query = "SELECT * FROM Payment "
 
   query += "WHERE "
 
@@ -21,7 +21,7 @@ exports.getPaymentList = function(req, res, next) {
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }
-  query += "; SELECT FOUND_ROWS() AS rows;"
+  query += ";"
 
   console.log(query)
   connection.query(query, function (err, results) {
@@ -32,8 +32,7 @@ exports.getPaymentList = function(req, res, next) {
         title : "사용자 리스트",
         success : true,
         message : '메시지',
-        payments : results[0],
-        rows: results[1][0].rows
+        payments : results
       }
       common.setResult(req, result);
       next();

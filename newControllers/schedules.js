@@ -5,7 +5,7 @@ let connection = common.initDatabase();
 // 프로그램 일정 리스트
 exports.getSchedulesList = function(req, res, next) {
   let { page, userName } = req.query; // 조건 작성
-  let query = "SELECT SQL_CALC_FOUND_ROWS * FROM Schedules "
+  let query = "SELECT * FROM Schedules "
 
   query += "WHERE "
 
@@ -21,7 +21,6 @@ exports.getSchedulesList = function(req, res, next) {
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }
-  query += "; SELECT FOUND_ROWS() AS rows;"
 
   console.log(query)
   connection.query(query, function (err, results) {
@@ -32,8 +31,7 @@ exports.getSchedulesList = function(req, res, next) {
         title : "프로그램 운영 날짜 리스트",
         success : true,
         message : '메시지',
-        scheduless : results[0],
-        rows: results[1][0].rows
+        scheduless : results
       }
       common.setResult(req, result);
       next();

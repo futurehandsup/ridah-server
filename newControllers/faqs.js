@@ -5,7 +5,7 @@ let connection = common.initDatabase();
 // FAQ 리스트
 exports.getFaqList = function(req, res, next) {
   let { page, userName } = req.query; // 조건 작성
-  let query = "SELECT SQL_CALC_FOUND_ROWS * FROM Faq "
+  let query = "SELECT * FROM Faq "
 
   query += "WHERE "
 
@@ -21,7 +21,7 @@ exports.getFaqList = function(req, res, next) {
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }
-  query += "; SELECT FOUND_ROWS() AS rows;"
+  query += ";"
 
   console.log(query)
   connection.query(query, function (err, results) {
@@ -32,8 +32,7 @@ exports.getFaqList = function(req, res, next) {
         title : "FAQ 리스트",
         success : true,
         message : '메시지',
-        faqs : results[0],
-        rows: results[1][0].rows
+        faqs : results
       }
       common.setResult(req, result);
       next();
