@@ -12,6 +12,7 @@ var express = require('express'),
     flash = require('connect-flash'),
     multer = require('multer')    ;
 
+const COOKIE_HOUR = 6* 60 * 60 * 1000;//6*60분  = 6시간
 module.exports = function() {
     var app = express();
 
@@ -31,10 +32,22 @@ module.exports = function() {
     app.use(methodOverride());
     app.use(cookieParser());
 
+    // app.use(session({                        // 세션 사용
+    //     saveUninitialized : true,         //초기화되지 않은 세션정보도 저장되는지
+    //     resave : true,                    //같은 세션정보라도 다시 저장할건지
+    //     secret : config.sessionSecret     //비밀키 설정.
+    // }));
+    var MySQLStore = require('express-mysql-session')(session);
+    var common = require('../newControllers/common')
+    var connection = common.initDatabase(); // or mysql.createPool(options);
+    var sessionStore = new MySQLStore({ expiration: COOKIE_HOUR }/* session store options */, connection);
+
     app.use(session({                        // 세션 사용
         saveUninitialized : true,         //초기화되지 않은 세션정보도 저장되는지
         resave : true,                    //같은 세션정보라도 다시 저장할건지
-        secret : config.sessionSecret     //비밀키 설정.
+        secret : config.sessionSecret,     //비밀키 설정.
+        key: 'anymal',
+        store: sessionStore,
     }));
 
     // view engine setup
@@ -77,6 +90,7 @@ module.exports = function() {
     var calculationTaxs = require('../routes/calculationTaxs');
 
     var webapi = require('../newRoutes/webapi');
+    var mobileapi = require('../newRoutes/mobileapi');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
@@ -93,6 +107,7 @@ module.exports = function() {
 
     app.use('/', index);
     app.use('/apis/web', webapi);
+    app.use('/apis/mobile', mobileapi);
 
     //API Route : view 없음.
     app.use('/users', users);
