@@ -188,6 +188,16 @@ router.route('/etc/getNoticeDetail')
 .all(function(req, res, next) {  next();})
 .post(etcs.getNoticeDetail, common.setResponse)
 
+// FAQ 리스트 조회	R	etc/getFaqList
+router.route('/etc/getFaqList')
+.all(function(req, res, next) {  next();})
+.post(etcs.getFaqList, common.setResponse)
+
+// FAQ 상세	R	etc/getFaqDetail
+router.route('/etc/getFaqDetail')
+.all(function(req, res, next) {  next();})
+.post(etcs.getFaqDetail, common.setResponse)
+
 // 배너리스트 조회	R	etc/getBannerList
 router.route('/etc/getBannerList')
 .all(function(req, res, next) {  next();})

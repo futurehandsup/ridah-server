@@ -61,6 +61,61 @@ exports.getNoticeDetail = function(req, res, next){
   })
 }
 
+// faq 조회	R	etc/getFaqList
+exports.getFaqList = function(req, res, next){
+  let { userNo, page } = req.body;
+
+  var query = `SELECT * FROM Faq WHERE showYn = 1 `
+  query += `ORDER BY createDate `
+  if(page != null && page != ""){
+    query += `LIMIT  ${(page-1) * 10 }, 10 `
+  }
+
+  console.log(query);
+
+  connection.query(query, function (err, faqs) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "자주묻는질문 상세조회",
+        success : true,
+        message : '메시지',
+        faqs : faqs
+      }
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
+
+// faq 상세	R	etc/getFaqDetail
+exports.getFaqDetail = function(req, res, next){
+  let { userNo, faqNo } = req.body;
+
+  var query = `SELECT * FROM Faq WHERE faqNo = '${faqNo}' `
+  query += ` LIMIT 1 `
+
+  console.log(query);
+
+  connection.query(query, function (err, faq) {
+    if (err) {
+      return next(err);
+    }else if(!notice[0].showYn){
+      return next(new Error("삭제된 게시물입니다."));
+    } else {
+      var result = {
+        title : "공지사항 상세조회",
+        success : true,
+        message : '메시지',
+        faq : faq
+      }
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
+
 // 배너리스트 조회	R	etc/getBannerList
 exports.getBannerList = function(req, res, next){
   let { userNo } = req.body;
