@@ -19,15 +19,22 @@ exports.checkMemberKakao = function(req, res, next){
   //userPassword 암호화 필요!
   let query = `SELECT * FROM Member WHERE userKakaoKey='${decrypted}' AND leaveYn <> 1 LIMIT 1;`
   console.log(query);
-  connection.query(query, function (err, members) {
+  connection.query(query, function (err, member) {
     if (err) {
       return next(err);
     } else {
+      //패스워드, 암호해시만이라도 가리기
+      if(typeof member[0].password !="undefined"){
+        delete member[0].password;
+      }
+      if(typeof member[0].salt !="undefined"){
+        delete member[0].salt;
+      }
       var result = {
         title : "사용",
         success : true,
         message : '메시지',
-        member : members[0],
+        member : member[0],
       }
       common.setResult(req, result);
       next();
@@ -49,15 +56,22 @@ exports.checkMemberPhoneNumber = function(req, res, next){
       }
       //이상 없으면 user 반환
       let query = `SELECT *  FROM Member WHERE userPhoneNumber='${userPhoneNumber}' AND leaveYn <> 1 LIMIT 1;`
-      connection.query(query, function (err, members) {
-        if (err || members == null || members.length == 0) {
+      connection.query(query, function (err, member) {
+        if (err || member == null || member.length == 0) {
           return next(err);
         } else {
+          //패스워드, 암호해시만이라도 가리기
+          if(typeof member[0].password !="undefined"){
+            delete member[0].password;
+          }
+          if(typeof member[0].salt !="undefined"){
+            delete member[0].salt;
+          }
           var result = {
             title : "사용",
             success : true,
             message : '메시지',
-            member : members[0],
+            member : member[0],
           }
           common.setResult(req, result);
           next();
@@ -216,7 +230,7 @@ exports.getMemberDetail = function(req, res, next){
         title : "사용",
         success : true,
         message : '메시지',
-        member : member
+        member : member[0]
       }
       common.setResult(req, result);
       next();
@@ -248,6 +262,45 @@ exports.updateMember = function(req, res, next) {
     } else {
       var result = {
         title: "회원정보 수정 성공",
+        success: true,
+        message: '메시지',
+        userNo: userNo
+      }
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
+
+// 패스워드 변경	U	member/updatePassword
+exports.updatePassword = function(req, res, next) {
+  let { userNo, password } = req.body;
+
+  if(password == null){
+    //user.password = common.decipherPassword(user.userKakaoKey, next);
+    return next(new Error("비밀번호가 없습니다"));
+  }
+  console.log("유저패스워드 변환전" + password);
+  //회원가입시 암호화 로직 2019.01.25 - 김미래
+  //보안을 위해 salt 값 추가
+  let pw = password; // ???
+  salt = common.createSalt()
+  pw = common.hashPassword( password, salt);
+
+  console.log("유저패스워드 변환후" + pw);
+  let query = `UPDATE Member SET `;
+  query += ` updateDate = CURRENT_TIMESTAMP, `
+  query += ` password = '${pw}', salt = '${salt}' `
+
+  query += ` WHERE userNo = '${userNo}'`;
+
+  console.log(query);
+  connection.query(query, function(err, sqlResult) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title: "패스워드 수정 성공",
         success: true,
         message: '메시지',
         userNo: userNo
@@ -329,7 +382,7 @@ exports.getZzimStoreList = function(req, res, next){
   var query = ""
   query = `SELECT Store.*, Zzim.* FROM Zzim `;
   query += ` LEFT JOIN Store ON Store.storeNo = Zzim.storeNo `
-  query += ` WHERE Zzim.userNo = '${userNo}' `
+  query += ` WHERE Zzim.userNo = '${userNo}' AND Zzim.storeNO <> 0 `
   query += ` GROUP BY Store.storeNo `
   query += ` ORDER BY zzimNo DESC `
 
@@ -361,9 +414,9 @@ exports.getZzimProgramList = function(req, res, next){
   }
   var query = ""
   query = `SELECT Program.*, Zzim.* FROM Zzim `;
-  query += ` LEFT JOIN Program ON Program.programNo = Zzim.storeNo `
-  query += ` WHERE Zzim.userNo = '${userNo}' `
-  query += ` GROUP BY Program.programNo `
+  query += ` LEFT JOIN Program ON Program.programNo = Zzim.programNo `
+  query += ` WHERE Zzim.userNo = '${userNo}' AND Zzim.programNo <> 0 `
+  //query += ` GROUP BY Zzim.programNo `
   query += ` ORDER BY zzimNo DESC `
 
   if(page != null && page != ""){

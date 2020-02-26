@@ -14,7 +14,7 @@ exports.addReservation = function(req, res, next) {
   let queryKeys = "";
   let queryValues = "";
 
-  for (let item in user) {
+  for (let item in reservation) {
     queryKeys += `${item}, `
     queryValues += `'${reservation[item]}', `
   }
@@ -46,14 +46,14 @@ exports.addReservation = function(req, res, next) {
 
 // 예약 수정	U	 reservation/updateReservation
 exports.updateReservation = function(req, res, next) {
-  let { reservationNo, userNo, checkYn, checkDate, reservationState } = req.body;
+  let { reservationNo, userNo, checkYn, reservationStatus } = req.body;
   var query = `UPDATE Reservation SET `
 
   if(checkYn != null){
     query += ` checkYn = '${checkYn}' , checkDate = CURRENT_TIMESTAMP, `
   }
-  if(reservationState != null){
-    query += ` reservationState = '${reservationState}' `
+  if(reservationStatus != null){
+    query += ` reservationStatus = '${reservationStatus}' `
   }
   if(query.trim().endsWith(',')) query = query.trim().slice(0, -1);  //마지막
 
@@ -94,7 +94,7 @@ exports.getReservationDetail = function(req, res, next) {
         title : "게시물 상세 조회",
         success : true,
         message : '메시지',
-        reservation : reservation
+        reservation : reservation[0]
       }
       common.setResult(req, result);
       next();

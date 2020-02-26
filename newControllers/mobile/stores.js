@@ -12,7 +12,7 @@ exports.getStoreList = function(req, res, next){
   let { userNo, page } = req.body;
   var query = ""
   query = `SELECT * FROM  Store `;
-  //query += ` WHERE userNo = '${userNo}' `
+  query += ` WHERE showYn = 1 `
   query += ` ORDER BY storeNo DESC `
 
   if(page != null && page != ""){
@@ -52,7 +52,7 @@ exports.getStoreDetail = function(req, res, next){
         title : "사용",
         success : true,
         message : '메시지',
-        store : store
+        store : store[0]
       }
       common.setResult(req, result);
       next();
@@ -62,7 +62,7 @@ exports.getStoreDetail = function(req, res, next){
 
 // 프로그램 목록	  R	 store/getProgramList
 exports.getProgramList = function(req, res, next){
-  let { userNo, programNo} = req.body;
+  let { userNo, storeNo } = req.body;
   var query = ""
   query = `SELECT * FROM Program `;
   query += ` WHERE storeNo = '${storeNo}' `

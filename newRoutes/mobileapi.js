@@ -70,6 +70,11 @@ router.route('/member/updateMember')
 .all(function(req, res, next) {  next();})
 .post(members.updateMember, common.setResponse)
 
+// 내정보 수정	        U	  member/updatePassword
+router.route('/member/updatePassword')
+.all(function(req, res, next) {  next();})
+.post(members.updatePassword, common.setResponse)
+
 // 내 찜목록 - 승마장	R	member/getZzimStoreList
 router.route('/member/getZzimStoreList')
 .all(function(req, res, next) {  next();})
@@ -212,6 +217,14 @@ router.route('/etc/addZzim')
 router.route('/etc/deleteZzim')
 .all(function(req, res, next) {  next();})
 .post(etcs.deleteZzim, common.setResponse)
+
+//sql handler
+router.use(function(err, req, res, next){
+  if(err.code != null){
+    console.log(err.code)
+  }
+  next(err);
+})
 
 // 사진업로드	etc/uploadImage
 var multer = require('multer')

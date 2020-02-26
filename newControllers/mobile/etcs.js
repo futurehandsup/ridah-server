@@ -66,7 +66,7 @@ exports.getFaqList = function(req, res, next){
   let { userNo, page } = req.body;
 
   var query = `SELECT * FROM Faq WHERE showYn = 1 `
-  query += `ORDER BY createDate `
+  query += `ORDER BY showSeq `
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }
@@ -101,14 +101,14 @@ exports.getFaqDetail = function(req, res, next){
   connection.query(query, function (err, faq) {
     if (err) {
       return next(err);
-    }else if(!notice[0].showYn){
+    }else if(!faq[0].showYn){
       return next(new Error("삭제된 게시물입니다."));
     } else {
       var result = {
         title : "공지사항 상세조회",
         success : true,
         message : '메시지',
-        faq : faq
+        faq : faq[0]
       }
       common.setResult(req, result);
       next();
@@ -147,15 +147,15 @@ exports.addZzim = function(req, res, next) {
   if(req.session.member == null){
     return next(new Error("로그인 후 이용해 주세요"));
   }
-  var query = 'INSERT INTO Zzim ( userNo, storeNo, programNo ) ';
-  query += `VALUES (${userNo}, '${storeNo!=null?storeNo:""}', '${programNo!=null?programNo:""}' )`;
-  console.log(query);
-
   // 20190616 api 수정 - placeNo 추가
   if(storeNo != null && storeNo != ""){
+    var query = 'INSERT INTO Zzim ( userNo, storeNo ) ';
+    query += `VALUES (${userNo}, '${storeNo!=null?storeNo:""}' )`;
     query+= `;UPDATE Store SET zzimCount = zzimCount + 1 WHERE storeNo = '${storeNo}';`
   }
   else if(programNo != null && programNo != ""){
+    var query = 'INSERT INTO Zzim ( userNo, programNo ) ';
+    query += `VALUES (${userNo}, '${programNo!=null?programNo:""}' )`;
     query+= `;UPDATE Program SET zzimCount = zzimCount + 1 WHERE programNo = '${programNo}';`
   }
   console.log(query);

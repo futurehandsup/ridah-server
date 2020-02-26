@@ -34,22 +34,22 @@ exports.getReviewDetail = function(req, res, next) {
 
 // 리뷰업로드	C	 review/addReview
 exports.addReview = function(req, res, next) {
-  let {reviewNo, reservationNo, programNo,  storeNo, scheduleNo, reviewContents, reviewScore, userNo,
+  let { reservationNo, programNo,  storeNo, scheduleNo, reviewContents, reviewScore, userNo,
     reviewPic1, reviewPic2, reviewPic3, reviewPic4, reviewPic5} = req.body;
   console.log(req.body)
 
-  var query = 'INSERT INTO Review (reviewNo, reservationNo, programNo, storeNo, scheduleNo, reviewContents, reviewScore, userNo, reviewPic1, reviewPic2, reviewPic3, reviewPic4, reviewPic5 ) ';
-  query +=  `VALUES ( '${reviewNo}', '${reservationNo}', '${programNo}', '${storeNo}', '${scheduleNo}', '${reviewContents}', '${reviewScore}', '${userNo}', '${reviewPic1!=null?reviewPic1:""}', '${reviewPic2!=null?reviewPic2:""}', '${reviewPic3!=null?reviewPic3:""}', '${reviewPic4!=null?reviewPic4:""}', '${reviewPic5!=null?reviewPic5:""}') `;
+  var query = 'INSERT INTO Review (reservationNo, programNo, storeNo, scheduleNo, reviewContents, reviewScore, userNo, reviewPic1, reviewPic2, reviewPic3, reviewPic4, reviewPic5 ) ';
+  query +=  `VALUES ( '${reservationNo}', '${programNo}', '${storeNo}', '${scheduleNo}', '${reviewContents}', '${reviewScore}', '${userNo}', '${reviewPic1!=null?reviewPic1:""}', '${reviewPic2!=null?reviewPic2:""}', '${reviewPic3!=null?reviewPic3:""}', '${reviewPic4!=null?reviewPic4:""}', '${reviewPic5!=null?reviewPic5:""}') `;
 
   query += `;UPDATE Store, `
   query += `( SELECT AVG(reviewScore) AS reviewScore, COUNT(reviewNo) AS reviewCount FROM Review WHERE storeNo = '${storeNo}') T1 `;
   query += ` SET Store.reviewScore =  T1.reviewScore, Store.reviewCount =  T1.reviewCount  `;
-  query += `WHERE Store.storeNo = '${storeNo}';`
+  query += ` WHERE Store.storeNo = '${storeNo}'`
 
   query += `;UPDATE Program, `
   query += `( SELECT AVG(reviewScore) AS reviewScore, COUNT(reviewNo) AS reviewCount FROM Review WHERE programNo = '${programNo}') T2 `;
   query += ` SET Program.reviewScore =  T2.reviewScore, Program.reviewCount =  T2.reviewCount  `;
-  query += `WHERE Program.programNo = '${programNo}';`
+  query += ` WHERE Program.programNo = '${programNo}'`
 
   //한사람이 리뷰 2개 못올림/ 중복일시 삭제하고 새로올리거나 업데이트되게
   console.log(query);
@@ -61,7 +61,7 @@ exports.addReview = function(req, res, next) {
         title: "리뷰 등록 성공",
         success: true,
         message: '메시지',
-        reviewNo: sqlResult.insertId
+        reviewNo: sqlResult[0].insertId
       }
       common.setResult(req, result);
       next();
@@ -73,42 +73,47 @@ exports.addReview = function(req, res, next) {
 exports.updateReview = function(req, res, next) {
   let {reviewNo, reviewContents, reviewPic1, reviewPic2, reviewPic3, reviewPic4, reviewPic5, showYn,
     reviewScore, storeNo, programNo} = req.body
-  var query = `UPDATE Review SET`
-  query += ` reviewContents = '${reviewContents}'`
+  var query = `UPDATE Review SET `
 
+  if(reviewContents != null){
+    query += ` reviewContents = '${reviewContents}', `
+  }
   if(reviewPic1 != null){
-    query += ` , reviewPic1 = '${reviewPic1}'`
+    query += ` reviewPic1 = '${reviewPic1}', `
   }
   if(reviewPic2 != null){
-    query += ` , reviewPic2 = '${reviewPic2}'`
+    query += ` reviewPic2 = '${reviewPic2}', `
   }
   if(reviewPic3 != null){
-    query += ` , reviewPic3 = '${reviewPic3}'`
+    query += ` reviewPic3 = '${reviewPic3}', `
   }
   if(reviewPic4 != null){
-    query += ` , reviewPic4 = '${reviewPic4}'`
+    query += ` reviewPic4 = '${reviewPic4}', `
   }
   if(reviewPic5 != null){
-    query += ` , reviewPic5 = '${reviewPic5}'`
+    query += ` reviewPic5 = '${reviewPic5}', `
   }
   if(reviewScore != null){
-    query += ` , reviewScore = '${reviewScore}'`
+    query += ` reviewScore = '${reviewScore}', `
   }
   if(showYn != null){
-    query += ` , showYn = '${showYn}'`
+    query += ` showYn = '${showYn}'`
   }
+  query = query.trim();
+  if (query.endsWith(',')) query = query.slice(0, -1); //마지막 AND
+
   query += ` WHERE reviewNo = '${reviewNo}'`
 
   if(reviewScore != null){
     query += `;UPDATE Store SET reviewScore =   `;
     query += ` ( SELECT AVG(reviewScore) AS reviewScore `
     query += ` FROM Review WHERE storeNo = '${storeNo}') `
-    query += `WHERE storeNo = '${storeNo}';`
+    query += `WHERE storeNo = '${storeNo}'`
 
     query += `;UPDATE Program SET reviewScore =   `;
     query += ` ( SELECT AVG(reviewScore) AS reviewScore `
     query += ` FROM Review WHERE programNo = '${programNo}') `
-    query += `WHERE programNo = '${programNo}';`
+    query += `WHERE programNo = '${programNo}'`
   }
 
   console.log(query);

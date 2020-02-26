@@ -13,7 +13,7 @@ exports.getProgramList = function(req, res, next){
   let { userNo, page } = req.body;
   var query = ""
   query = `SELECT * FROM  Program `;
-  //query += ` WHERE userNo = '${userNo}' `
+  query += ` WHERE showYn = 1  `
   query += ` ORDER BY programNo DESC `
 
   if(page != null && page != ""){
@@ -53,7 +53,7 @@ exports.getProgramDetail = function(req, res, next){
         title : "사용",
         success : true,
         message : '메시지',
-        program : program
+        program : program[0]
       }
       common.setResult(req, result);
       next();
@@ -66,7 +66,7 @@ exports.getScheduleList = function(req, res, next){
   let { userNo, programNo } = req.body;
   var query = ""
   query = `SELECT * FROM Schedule `;
-  query += ` WHERE programNo = '${programNo}' `
+  query += ` WHERE programNo = '${programNo}'  AND showYn = 1 `
 
   console.log(query);
   connection.query(query, function (err, schedules) {
@@ -102,7 +102,7 @@ exports.getScheduleDetail = function(req, res, next){
         title : "사용",
         success : true,
         message : '메시지',
-        schedule : schedule
+        schedule : schedule[0]
       }
       common.setResult(req, result);
       next();
