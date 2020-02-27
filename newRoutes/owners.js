@@ -37,21 +37,21 @@ router.get('/login', common.renderPage('newowners/login'));
 
 router.get('/dashboard', common.setTitle('대시보드'), common.renderPage('newowners/dashboard/index'));
 
-router.get('/reservations/list', programs.getProgramList, reviews.getReviewList, common.setTitle('예약내역'), common.renderPage('newowners/reservations/list'));
+router.get('/reservations/list', reservations.getReservationList, common.setTitle('예약내역'), common.renderPage('newowners/reservations/list'));
 
 router.get('/programs/list', programs.getProgramList, common.setTitle('프로그램'), common.renderPage('newowners/programs/list'));
 
-router.get('/stores/detail', programs.getProgramList, reviews.getReviewList, faqs.getFaqList, common.setTitle('스케줄'), common.renderPage('newowners/stores/detail'));
+router.get('/stores/detail', stores.getStoreDetail, common.setTitle('스케줄'), common.renderPage('newowners/stores/detail'));
 
 router.get('/reviews/list', reviews.getReviewList, common.setTitle('후기관리'), common.renderPage('newowners/reviews/list'));
 
 router.get('/calculations/list', calculations.getCalculationList, common.setTitle('정산내역'), common.renderPage('newowners/calculations/list'));
 
-router.get('/notices/list', notices.getNoticeList, common.setTitle('전체 공지'), common.renderPage('newowners/notices/list'));
-router.get('/notices/detail', common.setTitle('전체 공지'), common.renderPage('newowners/notices/detail'));
+router.get('/notices/list', notices.getNoticeNormalList, common.setTitle('전체 공지'), common.renderPage('newowners/notices/list'));
+router.get('/notices/detail', notices.getNoticeDetail, common.setTitle('전체 공지'), common.renderPage('newowners/notices/detail'));
 
-router.get('/noticeOwners/list',notices.getNoticeList, common.setTitle('가맹점 공지'), common.renderPage('newowners/noticeOwners/list'));
-router.get('/noticeOwners/detail', common.setTitle('가맹점 공지'), common.renderPage('newowners/noticeOwners/detail'));
+router.get('/noticeOwners/list',notices.getNoticeOwnerList, common.setTitle('가맹점 공지'), common.renderPage('newowners/noticeOwners/list'));
+router.get('/noticeOwners/detail', notices.getNoticeDetail, common.setTitle('가맹점 공지'), common.renderPage('newowners/noticeOwners/detail'));
 
 // 이런식으로 아래에 계속 이어서 작성해 주세요
 

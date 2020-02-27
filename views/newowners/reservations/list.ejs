@@ -1,268 +1,126 @@
 <% include ../templates/head.ejs %>
-<!-- Modal -->
+<section>
+  <div class="container-fluid">
+    <p class="mb-3 subtitle">예약내역에서 전체 예약건을 쉽고 빠르게 조회할 수 있습니다</p>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <form action="" method="get">
+         <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
+         <%
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
 
-  <!--통계페이지-->
+              if(dd<10) {
+                dd='0'+dd
+                }
+              if(mm<10) {
+                mm='0'+mm
+                }
 
-<!--  <div class="container-fluid"> -->
-<h2 class="my-3">전체 예약내역 조회는 예약건을 쉽고 빠르게 조회할 수 있습니다.</h2>
-<div class="card">
-  <div class="card-body">
-    <form action="" method="get">
-    <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
-      <script type="text/javascript">
-        if(dd<10) {
-          dd='0'+dd
-          }
-        if(mm<10) {
-          mm='0'+mm
-          }
-
-          today = yyyy + '-' +mm + '-' +dd;
-      </script>
-
-  <!--     <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <span class="col-md-2">
-              조회기간
-            </div>
-            <div class="col-md-6">
-                <div>일간</div>
-                <div>주간</div>
-                <div>월간</div>
-            </div>
-            <div class="col-md-2">
-              <input type="date" name="date_from" value="<%=query.date_from%>" class = "form-control form-control-width">
-            </div>
-            <div class="col-md-2">
-              <button class="btn btn-success">검색</button>
-            </div>
-          </div>
-          </div> -->
+                today = yyyy + '-' +mm + '-' +dd;
+          %>
           <!--검색파트css : search_opt, search_btn, search_submit -->
-            <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
-              <!--날짜 검색 테이블-->
-              <div class="row">
-                  <div class="col-md-1 search label">예약일</div>
-                  <div class="col-md-5 search_cal_group">
-                    <i class="pe-7s-date"></i>
-                    <input type="date" name="date_from" class="search_calendar" value="<%=query.reserved_date_from%>">
-                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
-                    <i class="pe-7s-date"></i>
-                    <input type="date" name="date_until" class="search_calendar" value="<%=query.reserved_date_until = today%>">
-                  </div>
-                  <div class="col-md-1 search label">이용예정일</div>
-                  <div class="col-md-5 search_cal_group">
-                    <i class="pe-7s-date"></i>
-                    <input type="date" name="date_from" class="search_calendar" value="<%=query.usage_date_from%>">
-                    <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
-                    <i class="pe-7s-date"></i>
-                    <input type="date" name="date_until" class="search_calendar" value="<%=query.usage_date_until%>">
-                  </div>
-              </div>
-
-              <hr class="search_hr">
-              <!--조건 검색 테이블-->
-              <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
-              <div class="row" style="margin-bottom: 1.5%;">
-                <div class="col-md-1 search label">예약자명</div>
-                <div class="col-md-3"><input type="text" name="ownerName" value="<%=query.ownerName%>" class="form-control search_key" <%=query.search_ownerName =="예약자명"%> ></div>
-                <div class="col-md-1 search label">프로그램명</div>
-                <div class="col-md-3"><input type="text" name="programname" value="<%=query.programname%>" class="form-control search_key" <%=query.search_programname =="프로그램명"%>></div>
-                <div class="col-md-1 search label">예약번호</div>
-                <div class="col-md-3"><input type="text" name="_id" value="<%=query._id%>" class="form-control search_key" <%=query.search_id =="예약번호"%>></div>
-              </div>
-              <div class="row">
-                <div class="col-md-1 search label">번호뒷자리</div>
-                <div class="col-md-3"><input type="text" name="telephone" value="<%=query.telephone%>" class="form-control search_key" <%=query.search_telephone =="전화번호"%>></div>
-              </div>
-              <div class="row">
-                <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
-                <div class="col-md-2" style="align-items: right;">
-                  <p align="right"><button class="btn btn-success search_submit">검색</button></p>
-                </div>
-              </div>
+          <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
+           <!--날짜 검색 테이블-->
+           <div class="row">
+             <div class="col-md-1">예약일</div>
+             <div class="col-md-5 search_cal_group">
+               <i class="pe-7s-date"></i>
+               <input type="date" name="date_from" class="search_calendar" value="<%=query.date_from%>">
+               <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+               <i class="pe-7s-date"></i>
+               <input type="date" name="date_until" class="search_calendar" value="<%=query.date_until = today%>">
             </div>
 
-            <!--수정전, 버튼 검색 있었을 때-->
-<!--             <table width="80%" border="0">
-              <tr>
-                <td>
-                예약일
-                </td>
-                 <%
-                  var today = new Date();
-                  var dd = today.getDate();
-                  var mm = today.getMonth()+1; //January is 0!
-                  var yyyy = today.getFullYear();
-
-                  if(dd<10) {
-                      dd='0'+dd
-                  }
-                  if(mm<10) {
-                      mm='0'+mm
-                  }
-
-                  today = yyyy + '-' +mm + '-' +dd;
-                  date_from = today;
-
-                  %>
-                <td align="center">
-                  <button type="button" id="changeDate" name = "today" class="search_btn btn btn-default form-control form-control-width">오늘</button></td>
-                <td align="center">
-                  <button type="button" id="changeDate" name = "threedays" class="search_btn btn btn-default form-control form-control-width">3일</button></td>
-                <td align="center">
-                  <button type="button" id="changeDate" name = "oneweek" class="search_btn btn btn-default form-control form-control-width">1주일</button></td>
-                <td align="center">
-                  <button type="button" id="changeDate"  name ="onemonth" class="search_btn btn btn-default form-control form-control-width">1개월</button></td>
-                <td align="center">
-                  <button type="button" id="changeDate" name = "threemonths" class="search_btn btn btn-default form-control form-control-width">3개월</button></td>
-                <td class="search_seperate">ㅣ</td>
-                <td class="search_seperate"><i class="pe-7s-date"></i></td>
-                <td>
-                  <input type="date" id="date_from" name="date_from" value="<%=date_from%>" class = "search_calendar form-control form-control-width">
-                </td>
-                <td class="search_seperate">ㅡ</td>
-                <td class="search_seperate"><i class="pe-7s-date"></i></td>
-                <td><input type="date" id="date_until" name="date_until" value="<%= date_until = today%>" class ="search_calendar form-control form-control-width"></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>
-                이용일
-                </td>
-                <td align="center" colspan="5">검색 기간을 선택하세요</td>
-                <td class="search_seperate">ㅣ</td>
-                <td class="search_seperate"><i class="pe-7s-date"></i></td>
-                <td>
-                  <input type="date" name="date_from" value="<%=date_from = today %>"class = "search_calendar form-control form-control-width">
-                </td>
-                <td class="search_seperate">ㅡ</td>
-                <td class="search_seperate"><i class="pe-7s-date"></i></td>
-                <td><input type="date" name="date_until" value="<%=date_until%>" class ="search_calendar form-control form-control-width"></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td><select name="search_condition" class="form-control form-control-width search_opt">
-                        <option value="예약일">상세조건</option>
-                        <option value="이용일">예약번호</option>
-                        <option value="이용일">예약자명</option>
-                        <option value="이용일">확인번호</option>
-                      </select></td>
-                <td colspan="11"><input type="text" name="search_key" value="<%=query.search_key%>" class="search_bar form-control form-control-width"></td>
-                <td align="center"><button class="btn btn-success search_submit">검색</button></td>
-              </tr>
-            </table>
-
-            <!--수정전-->
-<!--             <table>
-                <tr>
-                  <td><select placeholder="검색조건" name="search_condition" class="form-control form-control-width search_opt">
-                        <option value="예약일">예약일</option>
-                        <option value="이용일">이용일</option>
-                      </select>
-                  </td>
-                  <td>
-                    <button class="select_opt2 btn btn-default form-control form-control-width">오늘</button>
-                      <button class="select_opt2 btn btn-default form-control form-control-width">3일</button>
-                      <button class="select_opt2 btn btn-default form-control form-control-width">1주일</button>
-                      <button class="select_opt2 btn btn-default form-control form-control-width">1개월</button>
-                      <button class="select_opt2 btn btn-default form-control form-control-width">3개월</button>
-                  </td>
-                  <td><input type="date" name="date_from" value="<%=query.date_from%>" class = "select_opt2 form-control form-control-width">
-                  </td>
-                  <td rowspan="2"><button class="btn btn-success search_submit">검색</button></td>
-                </tr>
-                <tr>
-                  <td><select placeholder="상세조건" class="form-control form-control-width select_opt">
-                        <option value="예약번호" <%=(query.search_condition=="예약번호")? "selected" : ""%>>예약번호</option>
-                        <option value="예약일시" <%=(query.search_condition=="예약일시")? "selected" : ""%>>예약일시</option>
-                        <option value="예약상태" <%=(query.search_condition=="예약상태")? "selected" : ""%>>예약상태</option>
-                        <option value="프로그램명" <%=(query.search_condition=="프로그램명")? "selected" : ""%>>프로그램명</option>
-                        <option value="예약자명" <%=(query.search_condition=="예약자명")? "selected" : ""%>>예약자명</option>
-                        <option value="전화번호" <%=(query.search_condition=="전화번호")? "selected" : ""%>>전화번호</option>
-                      </select>
-                  </td>
-                  <td><input type="text" name="search_key" value="<%=query.search_key%>" class="select_opt form-control form-control-width"></td>
-                  <td><input type="date" name="date_until" value="<%=query.date_until%>" class ="select_opt2 form-control form-control-width"></td>
-                  <td></td>
-                </tr>
-            </table> -->
+            <div class="col-md-1">이용예정일</div>
+            <div class="col-md-5 search_cal_group">
+              <i class="pe-7s-date"></i>
+              <input type="date" name="date_from" class="search_calendar" value="<%=query.date_from%>">
+              <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+              <i class="pe-7s-date"></i>
+              <input type="date" name="date_until" class="search_calendar" value="<%=query.date_until%>">
+            </div>
           </div>
-        </div>
 
-          <!--css등을 이용하여 버튼으로-->
-          <!-- <input type="date" name="date_from" value="<%=query.date_from%>" class = "form-control form-control-width">
-          <input type="date" name="date_until" value="<%=query.date_until%>" class = "form-control form-control-width">
-        </div>
+          <hr class="search_hr">
+          <!--조건 검색 테이블-->
+          <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
+          <div class="row" style="margin-bottom: 1.5%;">
+            <div class="col-md-1">예약자명</div>
+            <div class="col-md-3"><input type="text" name="reservationName" value="<%=query.reservationName%>" class="form-control search_key"></div>
+            <div class="col-md-1">프로그램명</div>
+            <div class="col-md-3"><input type="text" name="programName" value="<%=query.programName%>" class="form-control search_key"></div>
+            <div class="col-md-1">예약번호</div>
+            <div class="col-md-3"><input type="text" name="reservationCode" value="<%=query.reservationCode%>" class="form-control search_key"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-1">번호뒷자리</div>
+            <div class="col-md-3"><input type="text" name="reservationPhoneNumber" value="<%=query.reservationPhoneNumber%>" class="form-control search_key"></div>
+            <div class="col-md-1">예약상태</div>
+            <div class="col-md-3"><input type="text" name="reservationStatus" value="<%=query.reservationStatus%>" class="form-control search_key"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
+            <div class="col-md-2" style="align-items: right;">
+              <p align="right">
+                <button class="btn btn-success search_submit">검색</button>
+                <a href="list" class="btn btn-success search_submit">초기화</a>
+              </p>
+            </div>
+          </div>
+          </div>
+        </form>
       </div>
-    <div style="margin-top: 10px;">
-      <ul style="display: block; float: right;">
-        <button class="btn btn-success">검색</button>
-      </ul>
-      <select placeholder="상세조건" name="search_condition" class="form-control form-control-width">
-        <option value="예약번호" <%=(query.search_condition=="예약번호")? "selected" : ""%>>예약번호</option>
-        <option value="예약일시" <%=(query.search_condition=="예약일시")? "selected" : ""%>>예약일시</option>
-        <option value="예약상태" <%=(query.search_condition=="예약상태")? "selected" : ""%>>예약상태</option>
-        <option value="프로그램명" <%=(query.search_condition=="프로그램명")? "selected" : ""%>>프로그램명</option>
-        <option value="예약자명" <%=(query.search_condition=="예약자명")? "selected" : ""%>>예약자명</option>
-        <option value="전화번호" <%=(query.search_condition=="전화번호")? "selected" : ""%>>전화번호</option>
-      </select>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+      <table class="table table-default table-hover table-striped">
+        <thead>
 
-      <input type="text" name="search_key" value="<%=query.search_key%>" class="form-control form-control-width"> -->
-  </form>
-</div>
-<div class="card" style="margin-bottom: 20px;">
-  <!--예약취소, 환불버튼 만들기-->
-  (여기에 버튼)
-  <table class="table table-default table-hover table-striped">
-    <thead>
-      <% var keys = Object.keys(schema); %>
-      <th>선택</th>
-      <th>예약번호</th>
-      <th>예약일시</th>
-      <th>이용예정일</th>
-      <th>예약상태</th>
-      <th>프로그램명</th>
-      <th>인원</th>
-      <th>예약자명</th>
-      <th>전화번호</th>
-      <th>고객메모</th>
-    </thead>
-    <tbody>
-      <% %>
-      <% for(var i=0; i<reservations.length; i++){
-        var reservation = reservations[i];
-        %>
-        <tr>
-          <td><%=(i+1)%></td>
+          <th>선택</th>
+          <th>예약번호</th>
+          <th>프로그램명</th>
+          <th>스케줄날짜</th>
+          <th>스케줄시간</th>
+          <th>예약날짜</th>
+          <th>이용완료여부</th>
+          <th>이용완료일시</th>
+          <th>예약자명</th>
+          <th>예약자 전화번호</th>
+          <th>예약인원</th>
+          <th>예약상태</th>
+        </thead>
+        <tbody>
+          <% %>
+          <% for(var i=0; i<reservations.length; i++){
+            var reservation = reservations[i];
+            %>
+            <tr>
+              <td><%=(i+1)%></td>
 
-          <td><%=reservation['_id']%>
-          <td><%=reservation['created_at']%></td>
-          <td><%=reservation['reservationDate']%></td>
-          <td><%=reservation['status']%></td>
+              <td><%=reservation.reservationCode%></td>
+              <td><%=reservation.programName%></td>
+              <td><%=moment(reservation.scheduleDate).format("YYYY-MM-DD")%></td>
+              <td><%=reservation.scheduleTime%></td>
+              <td><%=moment(reservation.createDate).format("YYYY-MM-DD HH:mm:ss")%></td>
+              <td><%=reservation.checkYn%></td>
+              <td><%=moment(reservation.checkDate).format("YYYY-MM-DD HH:mm:ss")%></td>
+              <td><%=reservation.reservationName%></td>
+              <td><%=reservation.reservationPhoneNumber%></td>
+              <td><%=reservation.reservationAmount%></td>
+              <td><%=reservation.reservationStatus%></td>
 
-          <!-- 프로그램명 오류 -->
-          <td><%=reservation['program'].programname%></td>
+            </tr>
+          <% }%>
+        </tbody>
+      </table>
+    </div>
 
-          <td><%=reservation['howMany']%></td>
-
-          <td><%=reservation['ownerName']%></td>
-
-          <% var full= reservation['telephone']
-             var lastfour = full.split('-'); %>
-
-          <td><%=lastfour[2]%></td>
-          <td><%=reservation['customer_memo']%></td>
-          <!-- <td>
-            <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-            <a href="edit/<%=reservation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
-          </td>  -->
-        </tr>
-      <% }%>
-    </tbody>
-  </table>
-</div>
+</section>
 
 <% include ../templates/bottom.ejs %>
 <script>
@@ -300,73 +158,4 @@ $(document).ready(function(){
     });
   });
 });
-</script>
-<script>
-$(document).ready(function(){
-  $('.sidebar .nav .active').removeClass('active');
-  var path = "reservations-list" ;
-  $('#'+path).addClass('active');
-})
-</script>
-
-<script>
-
-  var date_from = '<%=date_from%>'
-  var dd = '<%=dd%>'
-  var mm = '<%=mm%>'
-  var yyyy = '<%=yyyy%>'
-  var date_until = date_from
-
-    // $("button[name=today]").click(function(){
-    //   date_from = date_until;
-    //   $('#date_from').val(date_from);
-    // })
-    $("button[name=threedays]").click(function(){
-      date_from = new Date('<%=date_from%>'); // 2014-03-01 - 월은 0에서부터 시작된다.
-      date_from.setDate(date_from.getDate() - 3);
-
-      var new_yy = date_from.getFullYear();
-      var new_mm = date_from.getMonth() + 1; new_mm = (new_mm < 10) ? '0' + new_mm : new_mm;
-      var new_dd = date_from.getDate(); new_dd = (new_dd < 10) ? '0' + new_dd : new_dd;
-
-      date_from = new_yy+ '-' + new_mm + '-' + new_dd;
-      $('#date_from').val(date_from);
-    })
-    // $("button[name=oneweek]").click(function(){
-    //   date_from = dateAddDel(date_until, '-7', 'd')
-    //   $('#date_from').val(date_from);
-    // })
-    // $("button[name=onemonth]").click(function(){
-    //   date_from = dateAddDel(date_until, '-1', 'm')
-    //   $('#date_from').val(date_from);
-    // })
-    // $("button[name=threemonths]").click(function(){
-    //   date_from = dateAddDel(date_until, '-3', 'm')
-    //   $('#date_from').val(date_from);
-    // })
-
-</script>
-
-<script>
-  // function dateAddDel(sDate, nNum, type) {
-  //   var yy = parseInt(sDate.substr(0, 4), 10);
-  //   var mm = parseInt(sDate.substr(5, 2), 10);
-  //   var dd = parseInt(sDate.substr(8), 10);
-
-  //   if (type == "d") {
-  //       _date = new Date(yy, mm - 1, dd + nNum);
-  //   }
-  //   else if (type == "m") {
-  //       _date = new Date(yy, mm - 1, dd + (nNum * 31));
-  //   }
-  //   else if (type == "y") {
-  //       _date = new Date(yy + nNum, mm - 1, dd);
-  //   }
-
-  //   yy = _date.getFullYear();
-  //   mm = _date.getMonth() + 1; mm = (mm < 10) ? '0' + mm : mm;
-  //   dd = _date.getDate(); dd = (dd < 10) ? '0' + dd : dd;
-
-  //   return yy + '-' +  mm  + '-' + dd;
-  // }
 </script>

@@ -53,6 +53,8 @@ module.exports = function() {
 
     app.locals.filterItems = require('./filterItems');
     app.locals.moment = require('moment');
+    app.locals.moment.locale('ko')
+    require('moment-timezone');
 
     var index = require('../routes/index');
     var users = require('../routes/users');

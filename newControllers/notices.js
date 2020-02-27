@@ -39,6 +39,80 @@ exports.getNoticeList = function(req, res, next) {
     }
   })
 }
+// 공지사항 리스트
+exports.getNoticeNormalList = function(req, res, next) {
+  let { page, userName } = req.query; // 조건 작성
+  let query = "SELECT * FROM Notice "
+
+  query += " WHERE noticeNormalYn = 1 "
+
+  //조건 검색 예시
+  if(userName != null && userName != ""){
+    query += ` userName = '${userName}' AND`
+  }
+  //... so on
+  if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
+  if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
+
+  query += ` ORDER BY noticeNo DESC `;
+  if(page != null && page != ""){
+    query += `LIMIT  ${(page-1) * 10 }, 10 `
+  }
+  query += ";"
+
+  console.log(query)
+  connection.query(query, function (err, results) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "공지사항 리스트",
+        success : true,
+        message : '메시지',
+        notices : results
+      }
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
+// 공지사항 리스트
+exports.getNoticeOwnerList = function(req, res, next) {
+  let { page, userName } = req.query; // 조건 작성
+  let query = "SELECT * FROM Notice "
+
+  query += " WHERE noticeOwnerYn = 1 "
+
+  //조건 검색 예시
+  if(userName != null && userName != ""){
+    query += ` userName = '${userName}' AND`
+  }
+  //... so on
+  if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
+  if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
+
+  query += ` ORDER BY noticeNo DESC `;
+  if(page != null && page != ""){
+    query += `LIMIT  ${(page-1) * 10 }, 10 `
+  }
+  query += ";"
+
+  console.log(query)
+  connection.query(query, function (err, results) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "공지사항 리스트",
+        success : true,
+        message : '메시지',
+        notices : results
+      }
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
 // 공지 상세 불러오기
 exports.getNoticeDetail = function(req, res, next) {
   let { userNo } = req.params;

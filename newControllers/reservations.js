@@ -4,14 +4,37 @@ let connection = common.initDatabase();
 
 // 예약 리스트
 exports.getReservationList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, reservationName, programName, reservationCode, reservationPhoneNumber, reservationStatus } = req.query; // 조건 작성
+  console.log(req.query);
   let query = "SELECT * FROM Reservation "
-
-  query += "WHERE "
+  query += " LEFT JOIN Program ON Reservation.programNo = Program.programNo "
+  query += " LEFT JOIN Schedule ON Reservation.scheduleNo = Schedule.scheduleNo "
+  query += " WHERE "
 
   //조건 검색 예시
   if(userName != null && userName != ""){
     query += ` userName = '${userName}' AND`
+  }
+  //예약자 이름 검색
+  if(reservationName != null && reservationName != ""){
+    query += ` reservationName = '${reservationName}' AND`
+  }
+  //프로그램 이름 검색
+  if(programName != null && programName != ""){
+    query += ` programName = '${programName}' AND`
+  }
+
+  //예약 번호 검색
+  if(reservationCode != null && reservationCode != ""){
+    query += ` reservationCode = '${reservationCode}' AND`
+  }
+  //예약자 핸드폰 번호 검색
+  if(reservationPhoneNumber!= null && reservationPhoneNumber != ""){
+    query += ` reservationPhoneNumber = '${reservationPhoneNumber}' AND`
+  }
+  //예약 상태 검색
+  if(reservationStatus != null && reservationStatus != ""){
+    query += ` reservationStatus = '${reservationStatus}' AND`
   }
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND

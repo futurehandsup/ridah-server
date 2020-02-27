@@ -20,6 +20,7 @@
     "jsonwebtoken": "^8.1.0",
     "method-override": "^2.3.10",
     "moment": "^2.23.0",
+    "moment-timezone": "^0.5.28",
     "mongoose": "^4.12.2",
     "mongoose-unique-validator": "^1.0.6",
     "morgan": "^1.9.1",
