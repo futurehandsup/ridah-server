@@ -44,6 +44,39 @@
             <td><%=program.requiredLevelMin%>~<%=program.requiredLevelMax%></td>
             <td><%=program.programInfo%></td>
             <td><%=program.coachName%></td>
+            <!-- <td>
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createModal" data-backdrop="false">
+              <%=program.coachName%>
+              </button>
+              <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+               <div class="modal-dialog">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <span><%=program.coachName%></span>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   </div>
+                   <div class="modal-body">
+                     <div class="content">
+                       <table class="table table-bordered refund">
+                         <tr>
+                           <th class="coachModalIndex">사진</th>
+                           <th class="coachModalIndex">이력</th>
+                         </tr>
+                         <tr>
+                           <td class="coachModal">
+                             <%=program.coachImage%>
+                           </td>
+                           <td>
+                             <%=program.coachHistory%>
+                           </td>
+                         </tr>
+                       </table>
+                     </div>
+                   </div>
+                   </div>
+               </div>
+              </div>
+            </td> -->
             <td><%=program.programNeeds%></td>
             <td><%=moment(program.createDate).format("YYYY-MM-DD")%></td>
             <td><%=program.updateDate%></td>
@@ -56,9 +89,6 @@
         <% }%>
       </tbody>
     </table>
-  </div>
-
-  <div class="card">
     <div class="card-body">
       <button type="button" name="button">프로그램 추가</button>
     </div>
@@ -87,10 +117,8 @@
 });
 </script>
 
-<script type="text/javascript">
-
+<script>
   function goBack(){
     window.history.back();
   }
-
 </script>
