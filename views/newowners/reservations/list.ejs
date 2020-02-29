@@ -75,50 +75,50 @@
           </div>
           </div>
         </form>
-      </div>
     </div>
-    <div class="card" style="margin-bottom: 20px;">
-      <table class="table table-default table-hover table-striped">
-        <thead>
+  </div>
+  <div class="card" style="margin-bottom: 20px;">
+    <table class="table table-default table-hover table-striped">
+      <thead>
 
-          <th>선택</th>
-          <th>예약번호</th>
-          <th>프로그램명</th>
-          <th>스케줄날짜</th>
-          <th>스케줄시간</th>
-          <th>예약날짜</th>
-          <th>이용완료여부</th>
-          <th>이용완료일시</th>
-          <th>예약자명</th>
-          <th>예약자 전화번호</th>
-          <th>예약인원</th>
-          <th>예약상태</th>
-        </thead>
-        <tbody>
-          <% %>
-          <% for(var i=0; i<reservations.length; i++){
-            var reservation = reservations[i];
-            %>
-            <tr>
-              <td><%=(i+1)%></td>
+        <th>선택</th>
+        <th>예약번호</th>
+        <th>프로그램명</th>
+        <th>스케줄날짜</th>
+        <th>스케줄시간</th>
+        <th>예약날짜</th>
+        <th>이용완료여부</th>
+        <th>이용완료일시</th>
+        <th>예약자명</th>
+        <th>예약자 전화번호</th>
+        <th>예약인원</th>
+        <th>예약상태</th>
+      </thead>
+      <tbody>
+        <% %>
+        <% for(var i=0; i<reservations.length; i++){
+          var reservation = reservations[i];
+          %>
+          <tr>
+            <td><%=(i+1)%></td>
 
-              <td><%=reservation.reservationCode%></td>
-              <td><%=reservation.programName%></td>
-              <td><%=moment(reservation.scheduleDate).format("YYYY-MM-DD")%></td>
-              <td><%=reservation.scheduleTime%></td>
-              <td><%=moment(reservation.createDate).format("YYYY-MM-DD HH:mm:ss")%></td>
-              <td><%=reservation.checkYn%></td>
-              <td><%=moment(reservation.checkDate).format("YYYY-MM-DD HH:mm:ss")%></td>
-              <td><%=reservation.reservationName%></td>
-              <td><%=reservation.reservationPhoneNumber%></td>
-              <td><%=reservation.reservationAmount%></td>
-              <td><%=reservation.reservationStatus%></td>
+            <td><%=reservation.reservationCode%></td>
+            <td><%=reservation.programName%></td>
+            <td><%=moment(reservation.scheduleDate).format("YYYY-MM-DD")%></td>
+            <td><%=reservation.scheduleTime%></td>
+            <td><%=moment(reservation.createDate).format("YYYY-MM-DD HH:mm:ss")%></td>
+            <td><%=reservation.checkYn%></td>
+            <td><%=moment(reservation.checkDate).format("YYYY-MM-DD HH:mm:ss")%></td>
+            <td><%=reservation.reservationName%></td>
+            <td><%=reservation.reservationPhoneNumber%></td>
+            <td><%=reservation.reservationAmount%></td>
+            <td><%=reservation.reservationStatus%></td>
 
-            </tr>
-          <% }%>
-        </tbody>
-      </table>
-    </div>
+          </tr>
+        <% }%>
+      </tbody>
+    </table>
+  </div>
 
 </section>
 

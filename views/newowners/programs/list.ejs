@@ -1,188 +1,80 @@
 <% include ../templates/head.ejs %>
-<!-- Modal -->
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">프로그램 추가</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <div class="content">
-          <form id="createForm" action="/programs" method="POST">
-         
-                  <div class="row">
-                    <div class="col-md-12">
-                     <div class="form-group">   
-                        <label>프로그램명</label>
-                        <input name="programname" type="text" class="form-control" placeholder="프로그램명" value="">
-                      </div>
-                    </div>
-                  </div>
 
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>시작시각(시)</label>
-                              <input name="time.start.hours" type="text" class="form-control" placeholder="0~23" value="">
-                            </div>
-                          </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>시작시각(분)</label>
-                              <input name="time.start.minutes" type="text" class="form-control" placeholder="0~59" value="">
-                            </div>
-                          </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>소요시간(분)</label>
-                              <input name="time.howLong" type="text" class="form-control" placeholder="분">
-                        </div>
-                       </div>
-                    </div>
-
-                    <div class="row">      
-                      <div class="col-md-6">
-                          <div class="form-group">   
-                          <label>가격(캐럿)</label>
-                          <input name="carrots" type="text" class="form-control" placeholder="캐럿" value="">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>기본수량</label>
-                          <input name="atLeast" type="text" class="form-control" placeholder="기본수량" value="">
-                        </div>
-                      </div>  
-                    </div>
-
-                    <div class="row">
-                    <div class="col-md-12">
-                     <div class="form-group">   
-                        <label>프로그램 소개</label>
-                        <textarea name="introduction" type="text" class="form-control" placeholder="프로그램 소개" value=""></textarea>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- label>프로그램명</label>
-                  <input name="programname" type="text" class="form-control" placeholder="프로그램명" value="">
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>프로그램 소개</label>
-                  <input name="introduction" type="text" class="form-control" placeholder="프로그램 소개" value="">
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>유형</label>
-                  <select name="programType" class="form-control" placeholder="프로그램명">
-                    <option value="체험일반">체험일반(50,000)</option>
-                    <option value="체험고급">체험고급(70,000)</option>
-                    <option value="자유기승">자유기승(50,000)</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <label>시작 시간(45분 소요)</label>
-                <div class="form-row">
-                  <div class="form-group col-6">
-                    <input name="time.start.hours" type="text" class="form-control" placeholder="시간(0~23)" value="">
-                  </div>
-                  <div class="form-group col-6">
-                    <input name="time.start.minutes" type="text" class="form-control" placeholder="분(0~59)" value="">
-                  </div> -->
-            
-            <div class="clearfix"></div>
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="createButton">저장</button>
-      </div>
-    </div>
+<section>
+  <div class="container-fluid">
+    <p class="mb-3 subtitle">프로그램을 간편하게 등록하고 관리할 수 있습니다</p>
   </div>
-</div>
 
-<div class="row">
-  <h2 class="my-3 col-md">프로그램 관리
-  </h2>
-  <!-- <button type="button" class="store_save" data-toggle="modal" data-target="#createModal" data-backdrop="false">
-  만들기
-  </button> -->
-</div>
-<div class="bg-white" >
-  <table class="table table-default table-striped">
+  <div class="card" style="margin-bottom: 20px;">
+    <table class="table table-default table-hover table-striped">
       <thead>
-        <tr>
-          <th>선택</th>
-          <th>프로그램명</th>
-          <th>검토여부</th>
-          <th>시작시간</th>
-          <th>소요시간(분)</th>
-          <th>가격(캐럿)</th>
-          <th>기본수량</th>
-          <!-- <th>유형</th> -->
-          <th>설명</th>
-          <th>관리</th>
-        </tr>
+        <th>번호</th>
+
+        <th>프로그램명</th>
+        <th>프로그램 한줄설명</th>
+        <th>가격</th>
+        <th>제공가격</th>
+        <th>할인율</th>
+        <th>소요시간</th>
+        <th>요구등급</th>
+        <th>안내사항</th>
+        <th>코치정보</th>
+        <th>준비물</th>
+        <th>등록일자</th>
+        <th>최종수정일자</th>
+        <th>노출여부</th>
+        <th>마감일</th>
+        <th>찜한갯수</th>
+        <th>리뷰</th>
       </thead>
       <tbody>
+        <% %>
         <% for(var i=0; i<programs.length; i++){
           var program = programs[i];
-          if (program['deleted'].is_deleted!=true) {
-        %>
-        <tr>
-          <td><input type="radio" name="selectedProgram"></td>
-          <td><%=program.programname%></td>
-          <td class='<%=program.ifChecked?"text-purple":"text-red"%>'><%=program.ifChecked?"검토완료":"검토중"%></td>
-          <td><%=program.time.start_at%></td>
-          <td><%=program.time.howLong%></td>
-          <td><%=program.carrots%></td>
-          <td><%=program.atLeast%></td>
-          <!-- <td><%=program.programType%></td> -->
-          <td><%=program.introduction%></td>
-          <td>
-            <a href="" data-item="<%=program.id%>" class="optionDelete deleteButton">삭제</a>
-            <a href="edit/<%=program.id%>" class="optionEdit">수정</button>
-          </td>
-        </tr>
-        <% } }%>
+          %>
+          <tr>
+            <td><%=(i+1)%></td>
+
+            <td><%=program.programName%></td>
+            <td><%=program.programDescription%></td>
+            <td><%=program.programOriginalPrice%></td>
+            <td><%=program.programPrice%></td>
+            <td><%=program.programDiscountRatio%></td>
+            <td><%=program.programTime%></td>
+            <td><%=program.requiredLevelMin%>~<%=program.requiredLevelMax%></td>
+            <td><%=program.programInfo%></td>
+            <td><%=program.coachName%></td>
+            <td><%=program.programNeeds%></td>
+            <td><%=moment(program.createDate).format("YYYY-MM-DD")%></td>
+            <td><%=program.updateDate%></td>
+            <td><%=program.showYn%></td>
+            <td><%=program.endDate%></td>
+            <td><%=program.zzimCount%></td>
+            <td><%=program.reviewCount%>개/<%=program.reviewScore%></td>
+
+          </tr>
+        <% }%>
       </tbody>
     </table>
-</div>
-    <div>
-      <button type="button" class="store_save" data-toggle="modal" data-target="#createModal" data-backdrop="false" style="margin-left: 25px;"> 프로그램 추가 </button>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <button type="button" name="button">프로그램 추가</button>
     </div>
+  </div>
+</section>
+
 <% include ../templates/bottom.ejs %>
+
 <script>
-$(document).ready(function(){
-  $('#createButton').click(function(){
-    var program =  $('#createForm').serializeObject();
-    program.store = '<%=store.id%>';
-
+  $(document).ready(function(){
+  $('#saveButton').click(function(){
+    var program =  $('#infoForm').serializeObject();
     $.ajax({
-      type:"POST",
-      url:'/programs',
+      type:"PUT",
+      url:'/programs/<%=program.id%>',
       data:program,
-      success:function(args){
-        alert("성공했습니다.");
-        location.reload();
-      },
-      error:function(e){
-          alert(e.responseText);
-      }
-    });
-  });
-  $('.deleteButton').click(function(){
-    var programId = $(this).data("item");
-    $.ajax({
-      type:"DELETE",
-      url:'/programs/'+programId,
-
       success:function(args){
         alert("성공했습니다.");
         location.reload();
@@ -194,11 +86,11 @@ $(document).ready(function(){
   });
 });
 </script>
-<script>
-$(document).ready(function(){
-  $('.sidebar .nav .active').removeClass('active');
-  var path = "programs" ;
-  $('#'+path).addClass('active');
-})
-</script>
 
+<script type="text/javascript">
+
+  function goBack(){
+    window.history.back();
+  }
+
+</script>
