@@ -1,195 +1,90 @@
 <% include ../templates/head.ejs %>
+
 <section style="background-color: #fafafa;">
-  <!-- <div class="jumbotron-fluid" style="background-image:url('<%=store.image%>');background-position: center; min-height: 200px;padding: 100px 15px; margin-bottom: 20px;">
-    <div class="container-fluid">
-
-    </div>
-  </div> -->
-  <div class="row">
-  <h2 class="my-3 col-md">승마장 정보를 간편하게 관리하실 수 있습니다.
-  </h2>
-</div>
+  <div class="container-fluid">
+    <p class="mb-3 subtitle">승마장 정보를 간편하게 관리할 수 있습니다</p>
+  </div>
   <div class="card" style="margin-bottom: 20px;">
-    <!-- <div class="card-header">
-      <span class="card-title info-card-title"> 승마장 정보 </span>
-      <a href="/newowners/stores/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
-    </div>
+    <table class="table table-default table-hover table-bordered">
+      <thead>
+        <th>승마장 정보</th>
+      </thead>
+      <tbody>
+          <tr>
+            <td class="info-head">승마장 이름</td>
+            <td class="info-info"><%=store.storeName%></td>
+          </tr>
+          <tr>
+            <td class="info-head">주소</td>
+            <td class="info-info"><input type="text" name="storeAddress1" value="<%=store.storeAddress1%>"></td>
+            <td class="info-info"><input type="text" name="storeAddress2" value="<%=store.storeAddress2%>"></td>
+            <td class="info-info"><input type="text" name="storeAddress3" value="<%=store.storeAddress3%>"></td>
+          </tr>
+          <tr>
+            <td class="info-head">사이트</td>
+            <td class="info-info"><%=store.storeWebsite%></td>
+          </tr>
+          <tr>
+            <td class="info-head">SNS</td>
+            <td class="info-info"><%=store.storeInstagram%></td>
+          </tr>
+          <tr>
+            <td class="info-head">전화번호</td>
+            <td class="info-info"><%=store.storePhoneNumber%></td>
+          </tr>
+          <tr>
+            <td class="info-head">이용시간</td>
+            <td class="info-info"><input type="text" name="storeOperationTime" value="<%=store.storeOperationTime%>"></td>
+          </tr>
+          <tr>
+            <td class="info-head">소개</td>
+            <td class="info-info"><input type="text" name="storeDescription" value="<%=store.storeDescription%>"></td>
+            <td class="info-info"><input type="text" name="storeContents" value="<%=store.storeContents%>"></td>
+          </tr>
+          <tr>
+            <td class="info-head">오시는 길</td>
+            <td class="info-info"><input type="text" name="storeWayCar" value="<%=store.storeWayCar%>"></td>
+            <td class="info-info"><input type="text" name="storeWayPublic" value="<%=store.storeWayPublic%>"></td>
+            <td class="info-info"><input type="text" name="storeWayShuttle" value="<%=store.storeWayShuttle%>"></td>
+          </tr>
+          <tr>
+            <td class="info-head">후기개수</td>
+            <td class="info-info"><%=store.reviewCount%></td>
+            <td class="info-head">조회수</td>
+            <td class="info-info"><%=store.viewCount%></td>
+            <td class="info-head">사용자평균평점</td>
+            <td class="info-info"><%=store.reviewScore%></td>
+          </tr>
+          <tr>
+            <td class="info-head">사업자번호</td>
+            <td class="info-info"><%=store.registerNo%></td>
+          </tr>
+          <tr>
+            <td class="info-head">승마장신고여부</td>
+            <td class="info-info"><%=store.registerNo%></td>
+          </tr>
+          <tr>
+            <td class="info-head">보험사</td>
+            <td class="info-info"><%=store.ensureCorp%></td>
+          </tr>
+          <tr>
+            <td class="info-head">입금은행</td>
+            <td class="info-info"><input type="text" name="website" value="<%=store.accountBank%>" placeholder="입금은행"></td>
+            <td class="info-head">계좌정보</td>
+            <td class="info-info"><input type="text" name="website" value="<%=store.accountInfo%>" placeholder="계좌정보"></td>
+          </tr>
+          <tr>
+            <td class="info-head">통장사본 이미지</td>
+            <td class="info-info"><input type="text" name="introduction" value="<%=store.accountImg%>" placeholder=""></td>
+          </tr>
+      </tbody>
+    </table>
     <div class="card-body">
-      <div class="row">
-        <span class="col-md-2 info-card-title2">승마장명</span>
-        <span class="col-md-10"><%=store.storename%></span>
-      </div>
-      <div class="row">
-        <span class="col-md-2 info-card-title2">주소</span>
-        <span class="col-md-10"><%=store.address%></span>
-      </div>
-      <div class="row">
-        <span class="col-md-2 info-card-title2">계좌번호</span>
-        <span class="col-md-1">[<%=store.account_bank%>]</span>
-        <span class="col-md-9"><%=store.account_address%></span>
-      </div>
-      <div class="row">
-        <span class="col-md-2 info-card-title2">승마장 설명</span>
-        <span class="col-md-10"><%=store.introduction%></span>
-      </div>
-  </div>
-
-  <div class="card" style="margin-bottom: 20px;">
-    <div class="card-header">
-      <span class="card-title info-card-title">연락처</span>
-      <a href="/newowners/stores/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
+      <button type="button" name="button">프로그램 추가</button>
     </div>
-    <div class="card-body">
-      <div class="row">
-        <span class="col-md-2 info-card-title2">전화번호</span>
-        <span class="col-md-10"><%=store.telephone%></span>
-      </div>
-      <div class="row">
-        <span class="col-md-2 info-card-title2">휴대전화</span>
-        <span class="col-md-10"><%=store.telephone%></span>
-      </div>
-      <div class="row">
-        <span class="col-md-2 info-card-title2">홈페이지</span>
-        <span class="col-md-9"><%=store.website%></span>
-      </div>
-      <div class="row">
-        <span class="col-md-2 info-card-title2">이메일</span>
-        <span class="col-md-10"><%=store.email%></span>
-      </div>
-  </div> -->
-  <div>
-    <form id="infoForm">
-     <table class="table table-default table-hover table-striped" style="margin-bottom: 0; width: 100%;">
-    <thead>
-      <tr>
-        <th class="info-head" style="border: 0;" colspan="2">승마장 정보</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td class="info-head">승마장 이름</td>
-          <td class="info-info"><%=store.storename%></td>
-        </tr>
-        <tr>
-          <td class="info-head">주소</td>
-          <td class="info-info"><%=store.address%></td>
-        </tr>
-        <tr>
-          <td class="info-head">대표번호</td>
-          <td class="info-info"><%=store.telephone%></td>
-        </tr>
-        <tr>
-          <td class="info-head">홈페이지</td>
-          <td class="info-info"><input type="text" name="website" value="<%=store.website%>" placeholder="승마장 홈페이지"></td>
-        </tr>
-        <tr>
-          <td class="info-head">승마장 소개</td>
-          <td class="info-info"><input type="text" name="introduction" value="<%=store.introduction%>" placeholder="승마장 소개"></td>
-        </tr>
-        <tr>
-          <td class="info-head">계좌정보</td>
-          <td class="info-info">
-            <%=store.account_bank%>
-            <input type="text" name="account_address" value="<%=store.account_address%>" placeholder="계좌번호">
-            <input type="text" name="account_owner" value="<%=store.account_owner%>" placeholder="예금주명">
-          </td>
-        </tr>
-        <tr>
-          <td class="info-head">통장사본</td>
-            <td class="info-info">
-                <input type="file" name="account_image">
-                <!-- <button class="btn btn-primary btn-sm">통장사본 저장</button> -->
-            </td>
-          </form>
-        </tr>
-    </tbody>
-  </table>
   </div>
-  <div style="padding: 20px;">
-<!--      <a href="newowners/stores/edit?storeId=<%=store.id%>"><button class="store_edit"> 정보수정 </button></a> -->
-      <button class="store_save" id="saveButton"> 저장 </button>
-  </div>
-
-<!--   <div class="card" style="margin-bottom: 20px;">
-    <div class="card-header">
-      <span class="card-title info-card-title">통장사본 업로드</span>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <form>
-          <div class="col-md-3"><input type="file" name="account_image"></div>
-          <button class="btn btn-success">통장사본 저장</button>
-        </form>
-      </div>
-  </div> -->
-
-<!--   <div class="card" style="margin-bottom: 20px;">
-    <div class="card-header">
-      <%var date=calendar.schedules[0].date;%>
-      <%=date%>일 프로그램
-      <a href="/newowners/programs/edit?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-pencil"></span> 수정</a>
-      <a href="/newowners/reservations/calendar?storeId=<%=store.id%>" class="card-link float-right pr-3"><span class="fa fa-cog"></span> 예약 관리</a>
-    </div>
-    <ul class="list-group list-group-flush">
-      <% for(var i=0; i<calendar.schedules[0].programs.length; i++){%>
-        <% var program = calendar.schedules[0].programs[i]; %>
-        <li class="list-group-item">
-          <%if(program.isReserved){ %>
-          <span class="text-danger pull-right">예약 불가</span>
-          <%}else{%>
-          <span class="text-primary pull-right">예약 가능</span>
-          <%}%>
-          <%=program.time.start_at%>
-          <h5><%=program.programname%></h5>
-        </li>
-      <%}%>
-    </ul>
-  </div>
-
-  <div class="card" style="margin-bottom: 20px;">
-    <div class="card-header">
-      리뷰 <%=reviews.length%>개
-      <a href="/newowners/reviews/list?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
-    </div>
-    <ul class="list-group list-group-flush">
-      <%if(reviews.length == 0){%>
-        <li class="list-group-item">후기가 없습니다</li>
-      <%}%>
-      <% for(var i=0; i<reviews.length; i++){%>
-        <% var review = reviews[i]; %>
-        <li class="list-group-item">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1"><%=review.reviewTitle%></h5>
-          </div>
-          <p class="mb-1"><%=review.reviewText%></p>
-          <small><%=(review.reviewWriter!=undefined) ? (review.reviewWriter.username) : "탈퇴한 사용자"%>님, <%=review.created_at%></small>
-        </li>
-      <%} %>
-    </ul>
-  </div>
-
-  <div class="card" style="margin-bottom: 20px;">
-    <div class="card-header">
-      문의 <%=qnas.length%>개
-      <a href="/newowners/qnas/list?storeId=<%=store.id%>" class="card-link float-right"><span class="fa fa-cog"></span> 관리</a>
-    </div>
-    <ul class="list-group list-group-flush">
-      <%if(qnas.length == 0){%>
-        <li class="list-group-item">문의가 없습니다</li>
-      <%}%>
-      <% for(var i=0; i<qnas.length; i++){%>
-        <% var qna = qnas[i]; %>
-        <li class="list-group-item">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1"><%=qna.qnaTitle%></h5>
-          </div>
-          <p class="mb-1"><%=qna.qnaText%></p>
-          <small><%=(qna.qnaWriter!=undefined) ? (qna.qnaWriter.username) : "탈퇴한 사용자"%>님, <%=qna.created_at%></small>
-        </li>
-      <%} %>
-    </ul>
-  </div> -->
 </section>
+
 <% include ../templates/bottom.ejs %>
 <script>
   $(document).ready(function(){

@@ -2,7 +2,7 @@ let common = require('./common')
 let connection = common.initDatabase();
 //common.test(connection);
 
-// 사용자 리스트
+// 가맹점 정보 리스트
 exports.getStoreList = function(req, res, next) {
   let { page, storeName } = req.query; // 조건 작성
   let query = "SELECT * FROM Store "
@@ -44,7 +44,7 @@ exports.getStoreList = function(req, res, next) {
   })
 }
 
-// 사용자 상세 불러오기
+// 가맹점 상세 불러오기
 exports.getStoreDetail = function(req, res, next) {
   let { storeNo } = req.params;
   let query = ` SELECT * `;
@@ -59,7 +59,7 @@ exports.getStoreDetail = function(req, res, next) {
       return next(err);
     } else {
       var result = {
-        title : "회원 상세 조회",
+        title : "가맹점 상세 조회",
         success : true,
         message : '메시지',
         store : results[0]
@@ -70,7 +70,7 @@ exports.getStoreDetail = function(req, res, next) {
   })
 }
 
-//회원 수정
+//가맹점 수정
 exports.updateStore = function(req, res, next) {
   let { storeNo } = req.params;
   if(!Object.keys(req.body)){
@@ -93,7 +93,7 @@ exports.updateStore = function(req, res, next) {
       return next(err);
     } else {
       var result = {
-        title: "회원정보 수정 성공",
+        title: "가맹점정보 수정 성공",
         success: true,
         message: '메시지',
         storeNo: storeNo
@@ -104,7 +104,7 @@ exports.updateStore = function(req, res, next) {
   })
 }
 
-// 회원 삭제
+// 가맹점 삭제
 exports.deleteStore = function(req, res, next) {
   let {storeNo} = req.params
   var query = `UPDATE Store SET leaveYn = 1, leaveDate = CURRENT_TIMESTAMP`
@@ -116,7 +116,7 @@ exports.deleteStore = function(req, res, next) {
       return next(err);
     } else {
       var result = {
-        title: "사용자 삭제 성공",
+        title: "가맹점 삭제 성공",
         success: true,
         message: '메시지'
       }
@@ -126,7 +126,7 @@ exports.deleteStore = function(req, res, next) {
   })
 }
 
-// 회원 만들기
+// 가맹점 만들기
 exports.addStore = function(req, res, next) {
   let store = req.body; //request의 내용을 가지고 옴.
 
@@ -149,7 +149,7 @@ exports.addStore = function(req, res, next) {
       return next(err);
     } else {
       var result = {
-        title: "회원 등록 성공",
+        title: "가맹점 등록 성공",
         success: true,
         message: '메시지',
         recipeNo: sqlResult.insertId

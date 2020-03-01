@@ -41,7 +41,7 @@ router.get('/reservations/list', reservations.getReservationList, common.setTitl
 
 router.get('/programs/list', programs.getProgramList, common.setTitle('프로그램'), common.renderPage('newowners/programs/list'));
 
-router.get('/stores/detail', stores.getStoreDetail, common.setTitle('스케줄'), common.renderPage('newowners/stores/detail'));
+router.get('/stores/detail', stores.getStoreList, common.setTitle('스케줄'), common.renderPage('newowners/stores/detail'));
 
 router.get('/reviews/list', reviews.getReviewList, common.setTitle('후기관리'), common.renderPage('newowners/reviews/list'));
 
