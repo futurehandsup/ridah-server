@@ -4,14 +4,19 @@ let connection = common.initDatabase();
 
 // 후기 리스트
 exports.getReviewList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, createDate, createDateMin, createDateMax } = req.query; // 조건 작성
   let query = "SELECT * FROM Review "
-
+  console.log(req.query);
   query += "WHERE "
 
   //조건 검색 예시
   if(userName != null && userName != ""){
     query += ` userName = '${userName}' AND`
+  }
+  //작성일 검색
+  if(createDateMin != null && createDateMin != "" && createDateMax != null && createDateMax != ""){
+    query  += ` createDate >= '${createDateMin}' AND`
+    query  += ` createDate <= '${createDateMax}' AND`
   }
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND

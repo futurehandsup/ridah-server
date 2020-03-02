@@ -6,6 +6,42 @@
       <a style="color: #008d87;"><%=reviews.length%></a> 개의 후기가 있습니다
     </p>
   </div>
+  <div class="card">
+    <div class="card-body">
+      <form action="" method="get">
+        <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
+        <%
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+
+              if(dd<10) {
+                dd='0'+dd
+                }
+              if(mm<10) {
+                mm='0'+mm
+                }
+
+                today = yyyy + '-' +mm + '-' +dd;
+          %>
+          <!--검색파트 css : search_opt, search_btn, search_submit -->
+          <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
+            <div class="row">
+             <div class="col-md-1">작성일</div>
+             <div class="col-md-5 search_cal_group">
+               <i class="pe-7s-date"></i>
+               <input type="date" name="createDateMin" class="search_calendar" value="<%=query.createDateMin%>">
+               <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+               <i class="pe-7s-date"></i>
+               <input type="date" name="createDateMax" class="search_calendar" value="<%=query.createDateMax%>">
+             </div>
+             <div class="col-md-1"><button class="btn btn-success search_submit">검색</button></div>
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
   <div class="card" style="margin-bottom: 20px;">
     <table class="table table-default table-hover table-bordered">
       <thead>
@@ -29,8 +65,8 @@
           <td><%=review.reviewContents%></td>
           <td><%=review.reviewScore%></td>
           <td><%=review.userNo%></td>
-          <td><%=review.createDate%></td>
-          <td><%=review.updateDate%></td>
+          <td><%=moment(review.createDate).format("YYYY-MM-DD")%></td>
+          <td><%=moment(review.updateDate).format("YYYY-MM-DD")%></td>
           <td><%=review.showYn%></td>
           <td><%=review.Pic1%> <%=review.Pic2%> <%=review.Pic3%></td>
         </tr>
