@@ -1,53 +1,99 @@
 <% include ../templates/head.ejs %>
+<!-- Modal -->
 
-<section>
-  <div class="container-fluid">
-    <p class="mb-3 subtitle">승마장의 정산내역 정보를 확인할 수 있습니다</p>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-4">나의 정산계좌</div>
-        <div class="col-md-4">정산예정일</div>
-        <div class="col-md-4">정산 기간 검색</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4"><%=store.accountInfo%> <%=store.accountBank%></div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">나중에 넣을게요</div>
-      </div>
+  <!--통계페이지-->
+
+<!--  <div class="container-fluid"> -->
+    <h2 class="my-3">정산내역 조회</h2>
+    <div class="card">
+
+    <div class="card" style="margin-bottom: 20px;">
+      <ul class="list-group list-group-flush">
+
+          <li class="list-group-item">
+            <table>
+              <tr>
+                <th rowspan="2"><i class="pe-7s-graph"></i></th>
+                <th>나의 정산 계좌</th>
+                <th rowspan="2"><i class="pe-7s-note2"></i></th>
+                <th>정산 예정일</th>
+              </tr>
+              <tr>
+                <td>(<%=store['account_bank']%>)<%=store['account_address']%></td>
+                <td>매달 15일</td>
+              </tr>
+            </table>
+          </li>
+
+      </ul>
     </div>
-  </div>
-  <div class="card">
-    <table class="table table-default table-hover table-striped">
-      <thead>
-        <th>정산번호</th>
-        <th>정산연도</th>
-        <th>정산월</th>
-        <th>정산예정일</th>
-        <th>정산완료일시</th>
-        <th>정산상태</th>
-        <th>정산금액</th>
-      </thead>
-      <tbody>
-        <% %>
-        <% for(var i=0; i<calculations.length;i++){
-          var calculation = calculations[i];
-          %>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-header">
+        정산예정일
+        <!--css등을 이용하여 버튼으로-->
+        <form>
+          <input type="date" name="date-from"  value="<%=query.date_from%>" class="form-control">
+          <input type="date" name="date-until" value="<%=query.date_until%>" class="form-control">
+
+          <ul style="display: block; float: right;">
+              <button class="btn btn-success">검색</button>
+          </ul>
+        </form>
+
+      </div>
+<!--     </div>  -->
+
+    <div class="card" style="margin-bottom: 20px;">
+       <table class="table table-striped">
+        <thead>
           <tr>
-            <td><%=calculation.calculationNo%></td>
-            <td><%=calculation.calculationYear%></td>
-            <td><%=calculation.calculationMonth%></td>
-            <td><%=moment(calculation.calculationDueDate).format("YYYY-MM-DD")%></td>
-            <td><%=moment(calculation.calcultaionDate).format("YYYY-MM-DD")%></td>
-            <td><%=calculation.calculationStatus%></td>
-            <td><%=calculation.calculationPrice%></td>
+            <th rowspan="2">정산예정일</th>
+            <th rowspan="2">정산상태</th>
+            <th rowspan="2">정산완료일</th>
+            <th rowspan="2">캐럿</th>
+            <th rowspan="2">정산금액(A+B)</th>
+            <th colspan="2">상세내역</th>
           </tr>
-        <%}%>
-      </tbody>
-    </table>
-  </div>
-</section>
+          <tr>
+            <th>결제금액(A)</th>
+            <th>수수료합계(B)</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% %>
+          <% for(var i=0; i<calculations.length; i++){
+            var calculation = calculations[i];
+            %>
+            <tr>
+              <td><%=moment(calculation['calculateDue_at']).format('YYYY-MM-DD')%></td>
+              <td><%=(calculation['calculate_at'])?"정산완료":'미지급'%></td>
+              <td><%=(calculation['calculate_at'])?moment(calculation['calculate_at']).format('YYYY-MM-DD'):null%></td>
+              <td><%=-calculation['carrots']%></td>
+              <td><%=calculation['calculateAmount']%></td>
+              <td><%=calculation['payment']%></td>
+              <td><%=calculation['fee']%></td>
+
+            </tr>
+          <% }%>
+          </tbody>
+          <!-- 샘플 -->
+          <!-- <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+          </tr> -->
+        </table>
+
+      <!-- <ul class="list-group list-group-flush">
+          <li class="list-group-item">그래프가 없습니다</li>
+      </ul> -->
+    </div>
+    </div>
+</div>
 
 <% include ../templates/bottom.ejs %>
 <script>
