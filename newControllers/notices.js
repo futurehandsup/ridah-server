@@ -4,10 +4,8 @@ let connection = common.initDatabase();
 
 // 공지사항 리스트
 exports.getNoticeList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, noticeNormalYn } = req.query; // 조건 작성
   let query = "SELECT * FROM Notice "
-
-  query += "WHERE "
 
   //조건 검색 예시
   if(userName != null && userName != ""){
@@ -39,7 +37,7 @@ exports.getNoticeList = function(req, res, next) {
     }
   })
 }
-// 공지사항 리스트
+// 전체 공지사항 리스트
 exports.getNoticeNormalList = function(req, res, next) {
   let { page, userName } = req.query; // 조건 작성
   let query = "SELECT * FROM Notice "
@@ -76,7 +74,7 @@ exports.getNoticeNormalList = function(req, res, next) {
     }
   })
 }
-// 공지사항 리스트
+// 가맹점 공지사항 리스트
 exports.getNoticeOwnerList = function(req, res, next) {
   let { page, userName } = req.query; // 조건 작성
   let query = "SELECT * FROM Notice "
@@ -115,12 +113,12 @@ exports.getNoticeOwnerList = function(req, res, next) {
 }
 // 공지 상세 불러오기
 exports.getNoticeDetail = function(req, res, next) {
-  let { userNo } = req.params;
+  let { userNo, noticeNo } = req.params;
   query += ` SELECT * `;
 
   query += ` FROM Notice `
 
-  query += ` WHERE userNo = '${userNo}';`
+  query += ` WHERE noticeNo = '${noticeNo}';`
 
   console.log(query);
   connection.query(query, function (err, results) {

@@ -48,10 +48,10 @@ router.get('/reviews/list', reviews.getReviewList, common.setTitle('이용후기
 router.get('/calculations/list', calculations.getCalculationList, common.setTitle('정산 내역'), common.renderPage('newowners/calculations/list'));
 
 router.get('/notices/list', notices.getNoticeNormalList, common.setTitle('전체 공지'), common.renderPage('newowners/notices/list'));
-router.get('/notices/detail', notices.getNoticeDetail, common.setTitle('전체 공지'), common.renderPage('newowners/notices/detail'));
+router.get('/notices/detail/:noticeNo', notices.getNoticeDetail, common.setTitle('전체 공지'), common.renderPage('newowners/notices/detail'));
 
 router.get('/noticeOwners/list',notices.getNoticeOwnerList, common.setTitle('가맹점 공지'), common.renderPage('newowners/noticeOwners/list'));
-router.get('/noticeOwners/detail', notices.getNoticeDetail, common.setTitle('가맹점 공지'), common.renderPage('newowners/noticeOwners/detail'));
+router.get('/noticeOwners/detail/:noticeNo', notices.getNoticeDetail, common.setTitle('가맹점 공지'), common.renderPage('newowners/noticeOwners/detail'));
 
 // 이런식으로 아래에 계속 이어서 작성해 주세요
 

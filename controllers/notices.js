@@ -31,7 +31,7 @@ exports.getSchemas = function(req, res, next){
   next();
 }
 
-exports.getList = function(req, res, next){
+exports.getList = function(req, res, next, noticeNormalYn){
   Notice.find()
   .populate('noticeWriter')
   .exec(function(err, notices) {
