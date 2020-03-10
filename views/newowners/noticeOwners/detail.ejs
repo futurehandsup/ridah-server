@@ -11,10 +11,6 @@
         <th>가맹점 공지 세부</th>
       </thead>
       <tbody>
-        <% %>
-        <% for(var i=0;i<notices.length;i++){
-          var notice = notices[i];
-        %>
           <tr>
             <td class="info-head">공지제목</td>
             <td class="info-info"><%=notice.noticeTitle%></td>
@@ -29,13 +25,12 @@
           </tr>
           <tr>
             <td class="info-head">등록일</td>
-            <td class="info-info"><%=notice.createDate%></td>
+            <td class="info-info"><%=moment(notice.createDate).format("YYYY-MM-DD HH:mm:ss")%></td>
           </tr>
           <tr>
             <td class="info-head">최종수정일</td>
-            <td class="info-info"><%=notice.updateDate%></td>
+            <td class="info-info"><%==moment(notice.updateDate).format("YYYY-MM-DD HH:mm:ss"%></td>
           </tr>
-          <% } %>
       </tbody>
     </table>
   </div>

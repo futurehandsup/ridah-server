@@ -5,83 +5,85 @@
     <p class="mb-3 subtitle">승마장 정보를 간편하게 관리할 수 있습니다</p>
   </div>
   <div class="card" style="margin-bottom: 20px;">
-    <table class="table table-default table-hover table-bordered">
-      <thead>
-        <th>승마장 정보</th>
-      </thead>
-      <tbody>
-          <tr>
-            <td class="info-head">승마장 이름</td>
-            <td class="info-info"><%=store.storeName%></td>
-          </tr>
-          <tr>
-            <td class="info-head">주소</td>
-            <td class="info-info"><input type="text" name="storeAddress1" value="<%=store.storeAddress1%>"></td>
-            <td class="info-info"><input type="text" name="storeAddress2" value="<%=store.storeAddress2%>"></td>
-            <td class="info-info"><input type="text" name="storeAddress3" value="<%=store.storeAddress3%>"></td>
-          </tr>
-          <tr>
-            <td class="info-head">사이트</td>
-            <td class="info-info"><%=store.storeWebsite%></td>
-          </tr>
-          <tr>
-            <td class="info-head">SNS</td>
-            <td class="info-info"><%=store.storeInstagram%></td>
-          </tr>
-          <tr>
-            <td class="info-head">전화번호</td>
-            <td class="info-info"><%=store.storePhoneNumber%></td>
-          </tr>
-          <tr>
-            <td class="info-head">이용시간</td>
-            <td class="info-info"><input type="text" name="storeOperationTime" value="<%=store.storeOperationTime%>"></td>
-          </tr>
-          <tr>
-            <td class="info-head">소개</td>
-            <td class="info-info"><input type="text" name="storeDescription" value="<%=store.storeDescription%>"></td>
-            <td class="info-info"><input type="text" name="storeContents" value="<%=store.storeContents%>"></td>
-          </tr>
-          <tr>
-            <td class="info-head">오시는 길</td>
-            <td class="info-info"><input type="text" name="storeWayCar" value="<%=store.storeWayCar%>"></td>
-            <td class="info-info"><input type="text" name="storeWayPublic" value="<%=store.storeWayPublic%>"></td>
-            <td class="info-info"><input type="text" name="storeWayShuttle" value="<%=store.storeWayShuttle%>"></td>
-          </tr>
-          <tr>
-            <td class="info-head">후기개수</td>
-            <td class="info-info"><%=store.reviewCount%></td>
-            <td class="info-head">조회수</td>
-            <td class="info-info"><%=store.viewCount%></td>
-            <td class="info-head">사용자평균평점</td>
-            <td class="info-info"><%=store.reviewScore%></td>
-          </tr>
-          <tr>
-            <td class="info-head">사업자번호</td>
-            <td class="info-info"><%=store.registerNo%></td>
-          </tr>
-          <tr>
-            <td class="info-head">승마장신고여부</td>
-            <td class="info-info"><%=store.registerNo%></td>
-          </tr>
-          <tr>
-            <td class="info-head">보험사</td>
-            <td class="info-info"><%=store.ensureCorp%></td>
-          </tr>
-          <tr>
-            <td class="info-head">입금은행</td>
-            <td class="info-info"><input type="text" name="website" value="<%=store.accountBank%>" placeholder="입금은행"></td>
-            <td class="info-head">계좌정보</td>
-            <td class="info-info"><input type="text" name="website" value="<%=store.accountInfo%>" placeholder="계좌정보"></td>
-          </tr>
-          <tr>
-            <td class="info-head">통장사본 이미지</td>
-            <td class="info-info"><input type="text" name="introduction" value="<%=store.accountImg%>" placeholder=""></td>
-          </tr>
-      </tbody>
-    </table>
-    <div class="card-body">
-      <button class="store_save" id="saveButton"> 정보 저장 </button>
-    </div>
+    <form id="infoForm">
+      <table class="table table-default table-hover table-bordered">
+        <thead>
+          <th>승마장 정보</th>
+        </thead>
+        <tbody>
+            <tr>
+              <td class="info-head">승마장 이름</td>
+              <td class="info-info"><%=store.storeName%></td>
+            </tr>
+            <tr>
+              <td class="info-head">주소</td>
+              <td class="info-info"><input type="text" name="storeAddress1" value="<%=store.storeAddress1%>"></td>
+              <td class="info-info"><input type="text" name="storeAddress2" value="<%=store.storeAddress2%>"></td>
+              <td class="info-info"><input type="text" name="storeAddress3" value="<%=store.storeAddress3%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">사이트</td>
+              <td class="info-info"><input type="text" name="storeWebsite" value="<%=store.storeWebsite%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">SNS</td>
+              <td class="info-info"><input type="text" name="storeInstagram" value="<%=store.storeInstagram%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">전화번호</td>
+              <td class="info-info"><input type="text" name="storePhoneNumber" value="<%=store.storePhoneNumber%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">이용시간</td>
+              <td class="info-info"><input type="text" name="storeOperationTime" value="<%=store.storeOperationTime%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">소개</td>
+              <td class="info-info"><input type="text" name="storeDescription" value="<%=store.storeDescription%>"></td>
+              <td class="info-info"><input type="text" name="storeContents" value="<%=store.storeContents%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">오시는 길</td>
+              <td class="info-info"><input type="text" name="storeWayCar" value="<%=store.storeWayCar%>"></td>
+              <td class="info-info"><input type="text" name="storeWayPublic" value="<%=store.storeWayPublic%>"></td>
+              <td class="info-info"><input type="text" name="storeWayShuttle" value="<%=store.storeWayShuttle%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">후기개수</td>
+              <td class="info-info"><%=store.reviewCount%></td>
+              <td class="info-head">조회수</td>
+              <td class="info-info"><%=store.viewCount%></td>
+              <td class="info-head">사용자평균평점</td>
+              <td class="info-info"><%=store.reviewScore%></td>
+            </tr>
+            <tr>
+              <td class="info-head">사업자번호</td>
+              <td class="info-info"><%=store.registerNo%></td>
+            </tr>
+            <tr>
+              <td class="info-head">승마장신고여부</td>
+              <td class="info-info"><%=store.registerNo%></td>
+            </tr>
+            <tr>
+              <td class="info-head">보험사</td>
+              <td class="info-info"><%=store.ensureCorp%></td>
+            </tr>
+            <tr>
+              <td class="info-head">입금은행</td>
+              <td class="info-info"><input type="text" name="accountBank" value="<%=store.accountBank%>" placeholder="입금은행"></td>
+              <td class="info-head">계좌정보</td>
+              <td class="info-info"><input type="text" name="accountInfo" value="<%=store.accountInfo%>" placeholder="계좌정보"></td>
+            </tr>
+            <tr>
+              <td class="info-head">통장사본 이미지</td>
+              <td class="info-info"><input type="text" name="accountImage" value="<%=store.accountImage%>" placeholder=""></td>
+            </tr>
+        </tbody>
+      </table>
+      <div class="card-body">
+        <button class="store_save" id="saveButton"> 정보 저장 </button>
+      </div>
+    </form>
   </div>
 </section>
 
@@ -92,7 +94,7 @@
     var store =  $('#infoForm').serializeObject();
     $.ajax({
       type:"PUT",
-      url:'/stores/<%=store.id%>',
+      url:'/apis/web/store/<%=store.storeNo%>',
       data:store,
       success:function(args){
         alert("성공했습니다.");

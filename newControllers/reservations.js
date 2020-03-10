@@ -11,26 +11,34 @@ exports.getReservationList = function(req, res, next) {
   query += " LEFT JOIN Schedule ON Reservation.scheduleNo = Schedule.scheduleNo "
   query += " WHERE "
 
+  //예약일 검색 예시
+  if(userName != null && userName != ""){
+    query += ` userName LIKE '%${userName}%' AND`
+  }
+  //이용예정일 검색 예시
+  if(userName != null && userName != ""){
+    query += ` userName LIKE '%${userName}%' AND`
+  }
   //조건 검색 예시
   if(userName != null && userName != ""){
-    query += ` userName = '${userName}' AND`
+    query += ` userName LIKE '%${userName}%' AND`
   }
   //예약자 이름 검색
   if(reservationName != null && reservationName != ""){
-    query += ` reservationName = '${reservationName}' AND`
+    query += ` reservationName LIKE '%${reservationName}%' AND`
   }
   //프로그램 이름 검색
   if(programName != null && programName != ""){
-    query += ` programName = '${programName}' AND`
+    query += ` programName LIKE '%${programName}%' AND`
   }
 
   //예약 번호 검색
   if(reservationCode != null && reservationCode != ""){
-    query += ` reservationCode = '${reservationCode}' AND`
+    query += ` reservationCode LIKE '%${reservationCode}%' AND`
   }
   //예약자 핸드폰 번호 검색
   if(reservationPhoneNumber!= null && reservationPhoneNumber != ""){
-    query += ` reservationPhoneNumber = '${reservationPhoneNumber}' AND`
+    query += ` reservationPhoneNumber LIKE '%${reservationPhoneNumber}%' AND`
   }
   //예약 상태 검색
   if(reservationStatus != null && reservationStatus != ""){

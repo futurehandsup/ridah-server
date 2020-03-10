@@ -66,8 +66,8 @@
           <td><%=review.reviewScore%></td>
           <td><%=review.userNo%></td>
           <td><%=moment(review.createDate).format("YYYY-MM-DD")%></td>
-          <td><%=moment(review.updateDate).format("YYYY-MM-DD")%></td>
-          <td><%=review.showYn%></td>
+          <td><%=(review.updateDate == null || review.updateDate == "") ? "" : moment(review.updateDate).format("YYYY-MM-DD")%></td>
+          <td><%=(review.showYn == '1') ? "노출" : "노출안함"%></td>
           <td><%=review.Pic1%> <%=review.Pic2%> <%=review.Pic3%></td>
         </tr>
         <% } %>

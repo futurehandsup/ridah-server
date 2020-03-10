@@ -113,8 +113,9 @@ exports.getNoticeOwnerList = function(req, res, next) {
 }
 // 공지 상세 불러오기
 exports.getNoticeDetail = function(req, res, next) {
-  let { userNo, noticeNo } = req.params;
-  query += ` SELECT * `;
+  let { noticeNo } = req.params;
+
+  let query = ` SELECT * `;
 
   query += ` FROM Notice `
 

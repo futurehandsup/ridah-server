@@ -14,9 +14,11 @@ exports.getReviewList = function(req, res, next) {
     query += ` userName = '${userName}' AND`
   }
   //작성일 검색
-  if(createDateMin != null && createDateMin != "" && createDateMax != null && createDateMax != ""){
-    query  += ` createDate >= '${createDateMin}' AND`
-    query  += ` createDate <= '${createDateMax}' AND`
+  if(createDateMin != null && createDateMin != ""){
+    query  += ` date_format(createDate, '%Y-%m-%d') >= '${createDateMin}' AND`
+  }
+  if(createDateMax != null && createDateMax != ""){
+    query  += ` date_format(createDate, '%Y-%m-%d') <= '${createDateMax}' AND`
   }
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
