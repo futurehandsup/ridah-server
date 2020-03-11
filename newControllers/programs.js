@@ -4,15 +4,51 @@ let connection = common.initDatabase();
 
 // 프로그램 리스트
 exports.getProgramList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, createDate, createDateMax, createDateMin, endDate, endDateMax, endDateMin,
+    programName, showYn, programOriginalPrice, programOriginalPriceMax, programOriginalPriceMin} = req.query; // 조건 작성
   let query = "SELECT * FROM Program "
 
   query += "WHERE "
 
+  // 등록일 검색
+  if(createDateMin != null && createDateMin != ""){
+    query  += ` date_format(createDate, '%Y-%m-%d') >= '${createDateMin}' AND`
+  }
+  if(createDateMax != null && createDateMax != ""){
+    query  += ` date_format(createDate, '%Y-%m-%d') <= '${createDateMax}' AND`
+  }
+  // 마감일 검색
+  if(endDateMin != null && endDateMin != ""){
+    query  += ` date_format(endDate, '%Y-%m-%d') >= '${endDateMin}' AND`
+  }
+  if(endDateMax != null && endDateMax != ""){
+    query  += ` date_format(endDate, '%Y-%m-%d') <= '${endDateMax}' AND`
+  }
+  // 프로그램명 검색
+  if(programName != null && programName != ""){
+    query  +=  ` programName LIKE '%${programName}%' AND`
+  }
+  // 노출여부 검색
+  if(showYn == "노출"){
+    query  +=  ` showYn = 1 AND`
+  }
+  if(showYn == "노출안함"){
+    query  +=  ` showYn = 0 AND`
+  }
+  // 가격 최소 검색
+  if(programOriginalPriceMin != null && programOriginalPriceMin != ""){
+    query  +=  ` programOriginalPrice >= '${programOriginalPriceMin}' AND`
+  }
+  // 가격 최대 검색
+  if(programOriginalPriceMax != null && programOriginalPriceMax != ""){
+    query  +=  ` programOriginalPrice <= '${programOriginalPriceMax}' AND`
+  }
   //프로그램 검색 예시
   if(userName != null && userName != ""){
     query += ` userName = '${userName}' AND`
   }
+
+  console.log(query)
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND

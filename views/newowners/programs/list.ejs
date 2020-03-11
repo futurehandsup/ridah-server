@@ -4,6 +4,95 @@
   <div class="container-fluid">
     <p class="mb-3 subtitle">프로그램을 간편하게 등록하고 관리할 수 있습니다</p>
   </div>
+  <div class="card">
+    <div class="card-body">
+      <form action="" method="get">
+         <input type="hidden" name="storeNo" value="<%=store.storeNo%>"><!--필수-->
+         <%
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+
+              if(dd<10) {
+                dd='0'+dd
+                }
+              if(mm<10) {
+                mm='0'+mm
+                }
+
+                today = yyyy + '-' +mm + '-' +dd;
+          %>
+          <!--검색파트css : search_opt, search_btn, search_submit -->
+          <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
+            <!--날짜 검색 테이블-->
+            <div class="row">
+              <div class="col-md-1">등록일</div>
+              <div class="col-md-5 search_cal_group">
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="createDateMin" class="search_calendar" value="<%=query.createDateMin%>">
+                 <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="createDateMax" class="search_calendar" value="<%=query.createDateMax%>">
+              </div>
+              <div class="col-md-1">마감일</div>
+              <div class="col-md-5 search_cal_group">
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="endDateMin" class="search_calendar" value="<%=query.endDateMin%>">
+                 <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="endDateMax" class="search_calendar" value="<%=query.endDateMax%>">
+              </div>
+            </div>
+
+            <hr class="search_hr">
+            <!--조건 검색 테이블-->
+            <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
+            <div class="row" style="margin-bottom: 1.5%;">
+              <div class="col-md-1">프로그램명</div>
+              <div class="col-md-3"><input type="text" name="programName" value="<%=query.programName%>" class="form-control search_key"></div>
+              <div class="col-md-1">노출여부</div>
+              <div class="col-md-3">
+                <select name="showYn" class="form-control search_key">
+                  <option value=""></option>
+                  <option value="노출">노출</option>
+                  <option value="노출안함">노출안함</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">가격최소</div>
+              <div class="col-md-3"><input type="text" name="programOriginalPriceMin" value="<%=query.programOriginalPriceMin%>" class="form-control search_key"></div>
+              <div class="col-md-1">가격최대</div>
+              <div class="col-md-3"><input type="text" name="programOriginalPriceMax" value="<%=query.programOriginalPriceMax%>" class="form-control search_key"></div>
+            </div>
+            <!-- 검색사항 추가
+            <div class="row">
+              <div class="col-md-1">할인가격최소</div>
+              <div class="col-md-3"><input type="text" name="programPriceMin" value="<%=query.programPriceMin%>" class="form-control search_key"></div>
+              <div class="col-md-1">할인가격최대</div>
+              <div class="col-md-3"><input type="text" name="programPriceMax" value="<%=query.programPriceMax%>" class="form-control search_key"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">할인율최소</div>
+              <div class="col-md-3"><input type="text" name="programDiscountRatioMin" value="<%=query.programDiscountRatioMin%>" class="form-control search_key"></div>
+              <div class="col-md-1">할인최대</div>
+              <div class="col-md-3"><input type="text" name="programDiscountRatioMax" value="<%=query.programDiscountRatioMax%>" class="form-control search_key"></div>
+            </div>
+            -->
+            <div class="row">
+              <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
+              <div class="col-md-2" style="align-items: right;">
+                <p align="right">
+                  <button class="btn btn-success search_submit">검색</button>
+                  <a href="list" class="btn btn-success search_submit">초기화</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
 
   <div class="card" style="margin-bottom: 20px;">
     <table class="table table-default table-hover table-striped">
@@ -79,9 +168,9 @@
             </td> -->
             <td><%=program.programNeeds%></td>
             <td><%=moment(program.createDate).format("YYYY-MM-DD")%></td>
-            <td><%=program.updateDate%></td>
-            <td><%=program.showYn%></td>
-            <td><%=program.endDate%></td>
+            <td><%=(program.updateDate == null || program.updateDate == "") ? "" : moment(program.updateDate).format("YYYY-MM-DD")%></td>
+            <td><%=(program.showYn == 1) ? "노출" : "노출안함" %></td>
+            <td><%=(program.endDate == null || program.endDate == "") ? "" : moment(program.endDate).format("YYYY-MM-DD")%></td>
             <td><%=program.zzimCount%></td>
             <td><%=program.reviewCount%>개/<%=program.reviewScore%></td>
 
@@ -93,6 +182,7 @@
       <button type="button" name="button">프로그램 추가</button>
     </div>
   </div>
+
 </section>
 
 <% include ../templates/bottom.ejs %>
@@ -102,8 +192,8 @@
   $('#saveButton').click(function(){
     var program =  $('#infoForm').serializeObject();
     $.ajax({
-      type:"PUT",
-      url:'/programs/<%=program.id%>',
+      type:"POST",
+      url:'/programs/',
       data:program,
       success:function(args){
         alert("성공했습니다.");

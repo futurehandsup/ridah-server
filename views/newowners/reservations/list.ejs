@@ -27,22 +27,22 @@
           <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
            <!--날짜 검색 테이블-->
            <div class="row">
-             <div class="col-md-1">예약일</div>
+             <div class="col-md-1">스케줄날짜</div>
              <div class="col-md-5 search_cal_group">
                <i class="pe-7s-date"></i>
-               <input type="date" name="date_from" class="search_calendar" value="<%=query.date_from%>">
+               <input type="date" name="scheduleDateMin" class="search_calendar" value="<%=query.scheduleDateMin%>">
                <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
                <i class="pe-7s-date"></i>
-               <input type="date" name="date_until" class="search_calendar" value="<%=query.date_until = today%>">
+               <input type="date" name="scheduleDateMax" class="search_calendar" value="<%=query.scheduleDateMax = today%>">
             </div>
 
-            <div class="col-md-1">이용예정일</div>
+            <div class="col-md-1">예약날짜</div>
             <div class="col-md-5 search_cal_group">
               <i class="pe-7s-date"></i>
-              <input type="date" name="date_from" class="search_calendar" value="<%=query.date_from%>">
+              <input type="date" name="createDateMin" class="search_calendar" value="<%=query.createDateMin%>">
               <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
               <i class="pe-7s-date"></i>
-              <input type="date" name="date_until" class="search_calendar" value="<%=query.date_until%>">
+              <input type="date" name="createDateMax" class="search_calendar" value="<%=query.createDateMax%>">
             </div>
           </div>
 
@@ -122,6 +122,7 @@
 </section>
 
 <% include ../templates/bottom.ejs %>
+
 <script>
 $(document).ready(function(){
   $('#createButton').click(function(){
