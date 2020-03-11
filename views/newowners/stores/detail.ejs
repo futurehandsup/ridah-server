@@ -16,9 +16,15 @@
               <td class="info-info"><%=store.storeName%></td>
             </tr>
             <tr>
-              <td class="info-head">주소</td>
+              <td class="info-head">주소1</td>
               <td class="info-info"><input type="text" name="storeAddress1" value="<%=store.storeAddress1%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">주소2</td>
               <td class="info-info"><input type="text" name="storeAddress2" value="<%=store.storeAddress2%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">주소3</td>
               <td class="info-info"><input type="text" name="storeAddress3" value="<%=store.storeAddress3%>"></td>
             </tr>
             <tr>
@@ -39,20 +45,33 @@
             </tr>
             <tr>
               <td class="info-head">소개</td>
-              <td class="info-info"><input type="text" name="storeDescription" value="<%=store.storeDescription%>"></td>
-              <td class="info-info"><input type="text" name="storeContents" value="<%=store.storeContents%>"></td>
+              <td class="info-info"><textarea name="storeDescription" rows="3" cols="100" placeholder="<%=store.storeDescription%>" value="<%=store.storeDescription%>"></textarea></td>
             </tr>
             <tr>
-              <td class="info-head">오시는 길</td>
+              <td class="info-head">상세소개</td>
+              <td class="info-info"><textarea name="storeContents" rows="5" cols="100" placeholder="<%=store.storeContents%>" value="<%=store.storeContents%>"></textarea></td>
+            </tr>
+            <tr>
+              <td class="info-head">오시는 길 (차량)</td>
               <td class="info-info"><input type="text" name="storeWayCar" value="<%=store.storeWayCar%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">오시는 길 (대중교통)</td>
               <td class="info-info"><input type="text" name="storeWayPublic" value="<%=store.storeWayPublic%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">오시는 길 (셔틀버스)</td>
               <td class="info-info"><input type="text" name="storeWayShuttle" value="<%=store.storeWayShuttle%>"></td>
             </tr>
             <tr>
               <td class="info-head">후기개수</td>
               <td class="info-info"><%=store.reviewCount%></td>
+            </tr>
+            <tr>
               <td class="info-head">조회수</td>
               <td class="info-info"><%=store.viewCount%></td>
+            </tr>
+            <tr>
               <td class="info-head">사용자평균평점</td>
               <td class="info-info"><%=store.reviewScore%></td>
             </tr>
@@ -71,6 +90,8 @@
             <tr>
               <td class="info-head">입금은행</td>
               <td class="info-info"><input type="text" name="accountBank" value="<%=store.accountBank%>" placeholder="입금은행"></td>
+            </tr>
+            <tr>
               <td class="info-head">계좌정보</td>
               <td class="info-info"><input type="text" name="accountInfo" value="<%=store.accountInfo%>" placeholder="계좌정보"></td>
             </tr>

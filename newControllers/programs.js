@@ -48,7 +48,6 @@ exports.getProgramList = function(req, res, next) {
     query += ` userName = '${userName}' AND`
   }
 
-  console.log(query)
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
