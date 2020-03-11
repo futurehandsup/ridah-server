@@ -36,7 +36,35 @@
                <i class="pe-7s-date"></i>
                <input type="date" name="createDateMax" class="search_calendar" value="<%=query.createDateMax%>">
              </div>
-             <div class="col-md-1"><button class="btn btn-success search_submit">검색</button></div>
+            </div>
+
+            <hr class="search_hr">
+            <!--조건 검색 테이블-->
+            <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
+            <div class="row" style="margin-bottom: 1.5%;">
+              <div class="col-md-1">후기번호</div>
+              <div class="col-md-3"><input type="text" name="reviewNo" value="<%=query.reviewNo%>" class="form-control search_key"></div>
+              <div class="col-md-1">후기내용</div>
+              <div class="col-md-3"><input type="text" name="reviewContents" value="<%=query.reviewContents%>" class="form-control search_key"></div>
+              <div class="col-md-1">사용자번호</div>
+              <div class="col-md-3"><input type="text" name="userNo" value="<%=query.userNo%>" class="form-control search_key"></div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1">평점최소</div>
+              <div class="col-md-3"><input type="text" name="reviewScoreMin" value="<%=query.reviewScoreMin%>" class="form-control search_key"></div>
+              <div class="col-md-1">평점최대</div>
+              <div class="col-md-3"><input type="text" name="reviewScoreMax" value="<%=query.reviewScoreMax%>" class="form-control search_key"></div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
+              <div class="col-md-2" style="align-items: right;">
+                <p align="right">
+                  <button class="btn btn-success search_submit">검색</button>
+                  <a href="list" class="btn btn-success search_submit">초기화</a>
+                </p>
+              </div>
             </div>
           </div>
       </form>

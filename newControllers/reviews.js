@@ -4,22 +4,40 @@ let connection = common.initDatabase();
 
 // 후기 리스트
 exports.getReviewList = function(req, res, next) {
-  let { page, userName, createDate, createDateMin, createDateMax } = req.query; // 조건 작성
+  let { page, userName, createDate, createDateMin, createDateMax,
+    reviewNo, reviewContents, userNo, reviewScore, reviewScoreMin, reviewScoreMax } = req.query; // 조건 작성
   let query = "SELECT * FROM Review "
-  console.log(req.query);
-  query += "WHERE "
+  // query += " LEFT JOIN Member ON Review.userNo = Member.userNo "
+  query += " WHERE "
 
-  //조건 검색 예시
-  if(userName != null && userName != ""){
-    query += ` userName = '${userName}' AND`
-  }
   //작성일 검색
   if(createDateMin != null && createDateMin != ""){
-    query  += ` date_format(createDate, '%Y-%m-%d') >= '${createDateMin}' AND`
+    query += ` date_format(createDate, '%Y-%m-%d') >= '${createDateMin}' AND`
   }
   if(createDateMax != null && createDateMax != ""){
-    query  += ` date_format(createDate, '%Y-%m-%d') <= '${createDateMax}' AND`
+    query += ` date_format(createDate, '%Y-%m-%d') <= '${createDateMax}' AND`
   }
+  // 후기번호 검색
+  if(reviewNo != null && reviewNo != ""){
+   query += ` reviewNo = '${reviewNo}' AND`
+  }
+  // 후기내용 검색
+  if(reviewContents != null && reviewContents != ""){
+    query += ` reviewContents LIKE '%${reviewContents}%' AND`
+  }
+  // 사용자번호 검색
+  if(userNo != null && userNo != ""){
+    query += ` userNo = '${userNo}' AND`
+  }
+  // 평점 최소 검색
+  if(reviewScoreMin != null && reviewScoreMin != ""){
+    query += ` reviewScore >= '${reviewScoreMin}' AND`
+  }
+  // 평점 최대 검색
+  if(reviewScoreMax != null && reviewScoreMax != ""){
+    query += ` reviewScore <= '${reviewScoreMax}' AND`
+  }
+
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
