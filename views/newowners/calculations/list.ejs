@@ -4,17 +4,87 @@
   <div class="container-fluid">
     <p class="mb-3 subtitle">승마장의 정산내역 정보를 확인할 수 있습니다</p>
   </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form action="" method="get">
+         <input type="hidden" name="storeNo" value="<%=store.storeNo%>"><!--필수-->
+         <%
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+
+              if(dd<10) {
+                dd='0'+dd
+                }
+              if(mm<10) {
+                mm='0'+mm
+                }
+
+                today = yyyy + '-' +mm + '-' +dd;
+          %>
+          <!--검색파트css : search_opt, search_btn, search_submit -->
+          <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
+            <!--날짜 검색 테이블-->
+            <div class="row">
+              <div class="col-md-1">정산예정일</div>
+              <div class="col-md-5 search_cal_group">
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="calculationDueDateMin" class="search_calendar" value="<%=query.calculationDueDateMin%>">
+                 <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="calculationDueDateMax" class="search_calendar" value="<%=query.calculationDueDateMax%>">
+              </div>
+              <div class="col-md-1">정산완료일</div>
+              <div class="col-md-5 search_cal_group">
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="calculationDateMin" class="search_calendar" value="<%=query.calculationDateMin%>">
+                 <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="calculationDateMax" class="search_calendar" value="<%=query.calculationDateMax%>">
+              </div>
+            </div>
+
+            <hr class="search_hr">
+            <!--조건 검색 테이블-->
+            <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
+            <div class="row" style="margin-bottom: 1.5%;">
+              <div class="col-md-1">정산년도</div>
+              <div class="col-md-3"><input type="text" name="calculationYear" value="<%=query.calculationYear%>" class="form-control search_key"></div>
+              <div class="col-md-1">정산월</div>
+              <div class="col-md-3"><input type="text" name="calculationMonth" value="<%=query.calculationMonth%>" class="form-control search_key"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">정산금액최소</div>
+              <div class="col-md-3"><input type="text" name="calculationPriceMin" value="<%=query.calculationPriceMin%>" class="form-control search_key"></div>
+              <div class="col-md-1">정산금액최대</div>
+              <div class="col-md-3"><input type="text" name="calculationPriceMax" value="<%=query.calculationPriceMax%>" class="form-control search_key"></div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
+              <div class="col-md-2" style="align-items: right;">
+                <p align="right">
+                  <button class="btn btn-success search_submit">검색</button>
+                  <a href="list" class="btn btn-success search_submit">초기화</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-4">나의 정산계좌</div>
-        <div class="col-md-4">정산예정일</div>
-        <div class="col-md-4">정산 기간 검색</div>
+        <div class="col-md-6">나의 정산계좌</div>
+        <div class="col-md-6">정산예정일</div>
       </div>
       <div class="row">
-        <div class="col-md-4"><%=store.accountInfo%> <%=store.accountBank%></div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">나중에 넣을게요</div>
+        <div class="col-md-6"><%=store.accountInfo%> <%=store.accountBank%></div>
+        <div class="col-md-6"></div>
       </div>
     </div>
   </div>

@@ -4,7 +4,9 @@ let connection = common.initDatabase();
 
 // 정산 리스트
 exports.getCalculationList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, calculationDueDate, calculationDueDateMin, calculationDueDateMax,
+  calculationDate, calculationDateMin, calculationDateMax, calculationYear, calculationMonth,
+  calculationPrice, calculationPriceMin, calculationPriceMax } = req.query; // 조건 작성
   let query = "SELECT * FROM Calculation "
 
   query += "WHERE "
@@ -12,6 +14,36 @@ exports.getCalculationList = function(req, res, next) {
   //조건 검색 예시
   if(userName != null && userName != ""){
     query += ` userName = '${userName}' AND`
+  }
+  //정산예정일 검색
+  if(calculationDueDateMin != null && calculationDueDateMin != ""){
+    query += ` calculationDueDate >= '${calculationDueDateMin}' AND`
+  }
+  if(calculationDueDateMax != null && calculationDueDateMax != ""){
+    query += ` calculationDueDate <= '${calculationDueDateMax}' AND`
+  }
+  //정산완료일 검색
+  if(calculationDateMin != null && calculationDateMin != ""){
+    query += ` calculationDate = '${calculationDateMin}' AND`
+  }
+  if(calculationDateMax != null && calculationDateMax != ""){
+    query += ` calculationDate = '${calculationDateMax}' AND`
+  }
+  //정산년도 검색
+  if(calculationYear != null && calculationYear != ""){
+    query += ` calculationYear = '${calculationYear}' AND`
+  }
+  //정산월 검색
+  if(calculationMonth != null && calculationMonth != ""){
+    query += ` calculationMonth = '${calculationMonth}' AND`
+  }
+  // 정산금액 최소검색
+  if(calculationPriceMin != null && calculationPriceMin != ""){
+    query += ` calculationPrice >= '${calculationPriceMin}' AND`
+  }
+  // 정산금액 최대검색
+  if(calculationPriceMax != null && calculationPriceMax != ""){
+    query += ` calculationPrice <= '${calculationPriceMax}' AND`
   }
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND

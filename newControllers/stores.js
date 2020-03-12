@@ -26,7 +26,6 @@ exports.getStoreList = function(req, res, next) {
   }
   query += ";"
 
-  console.log(query)
   connection.query(query, function (err, results) {
     if (err) {
       return next(err);
@@ -53,7 +52,6 @@ exports.getStoreDetail = function(req, res, next) {
 
   query += ` WHERE storeNo = '${storeNo}';`
 
-  console.log(query);
   connection.query(query, function (err, results) {
     if (err) {
       return next(err);
@@ -87,7 +85,6 @@ exports.updateStore = function(req, res, next) {
 
   query += ` WHERE storeNo = '${storeNo}'`;
 
-  console.log(query);
   connection.query(query, function(err, sqlResult) {
     if (err) {
       return next(err);
