@@ -1,0 +1,41 @@
+<% include ../templates/head.ejs %>
+
+<section style="background-color: #fafafa;">
+  <div class="card" style="margin-bottom: 20px;">
+    <form id="infoForm">
+      <table class="table table-default table-hover table-bordered">
+        <thead>
+          <th>프로그램 상세</th>
+        </thead>
+        <tbody>
+            <tr>
+              <td class="info-head">프로그램명</td>
+              <td class="info-info"><%=program.programName%></td>
+            </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</section>
+
+<% include ../templates/bottom.ejs %>
+
+<script>
+  $(document).ready(function(){
+  $('#saveButton').click(function(){
+    var program =  $('#infoForm').serializeObject();
+    $.ajax({
+      type:"PUT",
+      url:'/apis/web/program',
+      data:program,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

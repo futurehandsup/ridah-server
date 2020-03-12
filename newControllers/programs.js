@@ -76,12 +76,13 @@ exports.getProgramList = function(req, res, next) {
 }
 // 프로그램 상세 불러오기
 exports.getProgramDetail = function(req, res, next) {
-  let { userNo } = req.params;
-  query += ` SELECT * `;
+  let { programNo } = req.params;
+
+  let query = ` SELECT * `;
 
   query += ` FROM Program `
 
-  query += ` WHERE userNo = '${userNo}';`
+  query += ` WHERE programNo = '${programNo}';`
 
   console.log(query);
   connection.query(query, function (err, results) {
