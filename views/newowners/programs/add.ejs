@@ -1,0 +1,77 @@
+<% include ../templates/head.ejs %>
+
+<section style="background-color: #fafafa;">
+  <div class="card" style="margin-bottom: 20px;">
+    <form id="infoForm">
+      <table class="table table-default table-hover table-bordered">
+        <thead>
+          <th>새로운 프로그램</th>
+        </thead>
+        <tbody>
+            <tr>
+              <td class="info-head">프로그램명</td>
+              <td class="info-info"><input type="text" name="programName" value="<%=program.programName%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">승마장번호</td> <!-- 이 항목 추후 삭제 -->
+              <td class="info-info"><input type="text" name="storeNo" value="<%=program.storeNo%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">프로그램 한줄설명</td>
+              <td class="info-info"><input type="text" name="programDescription" value="<%=program.programDescription%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">가격</td>
+              <td class="info-info"><input type="text" name="programOriginalPrice" value="<%=program.programOriginalPrice%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">소요시간</td>
+              <td class="info-info"><input type="text" name="programTime" value="<%=program.programTime%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">요구등급</td>
+              <td class="info-info">최소<input type="text" name="requiredLevelMin" value="<%=program.requiredLevelMin%>"></td>
+              <td class="info-info">최대<input type="text" name="requiredLevelMax" value="<%=program.requiredLevelMax%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">안내사항</td>
+              <td class="info-info"><input type="text" name="programInfo" value="<%=program.programInfo%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">코치</td>
+              <td class="info-info"><input type="text" name="coachName" value="<%=program.coachName%>"></td>
+            </tr>
+            <tr>
+              <td class="info-head">준비물</td>
+              <td class="info-info"><input type="text" name="programNeeds" value="<%=program.programNeeds%>"></td>
+            </tr>
+        </tbody>
+      </table>
+      <div class="card-body">
+        <button class="store_save" id="saveButton"> 프로그램 저장 </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<% include ../templates/bottom.ejs %>
+
+<script>
+  $(document).ready(function(){
+  $('#saveButton').click(function(){
+    var program =  $('#infoForm').serializeObject();
+    $.ajax({
+      type:"PUT",
+      url:'/apis/web/program',
+      data:program,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

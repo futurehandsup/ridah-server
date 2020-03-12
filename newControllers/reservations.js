@@ -5,27 +5,38 @@ let connection = common.initDatabase();
 // 예약 리스트
 exports.getReservationList = function(req, res, next) {
   let { page, userName, reservationName, programName, reservationCode, reservationPhoneNumber, reservationStatus,
-    scheduleDateMin, scheduleDateMax, scheduleDate, createDateMin, createDateMax, createDate } = req.query; // 조건 작성
+    scheduleDateMin, scheduleDateMax, scheduleDate, createDateMin, createDateMax, createDate, scheduleTime, scheduleTimeMin, scheduleTimeMax } = req.query; // 조건 작성
   // console.log(req.query);
   let query = "SELECT * FROM Reservation "
   query += " LEFT JOIN Program ON Reservation.programNo = Program.programNo "
   query += " LEFT JOIN Schedule ON Reservation.scheduleNo = Schedule.scheduleNo "
   query += " WHERE "
 
-  //스케줄날짜 검색 예시
+  //예약날짜 검색 예시
+  // if(createDateMin != null && createDateMin != ""){
+  //   query  += ` date_format(createDate, '%Y-%m-%d') >= '${createDateMin}' AND`
+  // }
+  // if(createDateMax != null && createDateMax != ""){
+  //   query  += ` date_format(createDate, '%Y-%m-%d') <= '${createDateMax}' AND`
+  // }
+  //이용예정일 검색 예시
+
+  // 스케줄날짜 검색 예시
   if(scheduleDateMin != null && scheduleDateMin != ""){
     query  += ` date_format(scheduleDate, '%Y-%m-%d') >= '${scheduleDateMin}' AND`
   }
   if(scheduleDateMax != null && scheduleDateMax != ""){
     query  += ` date_format(scheduleDate, '%Y-%m-%d') <= '${scheduleDateMax}' AND`
   }
-  //예약날짜 검색 예시
-  if(createDateMin != null && createDateMin != ""){
-    query  += ` date_format(createDate, '%Y-%m-%d') >= '${createDateMin}' AND`
+
+  // 스케줄시간
+  if(scheduleTimeMin != null && scheduleTimeMin != ""){
+    query  += ` scheduleTime >= '${scheduleTimeMin}' AND`
   }
-  if(createDateMax != null && createDateMax != ""){
-    query  += ` date_format(createDate, '%Y-%m-%d') <= '${createDateMax}' AND`
+  if(scheduleTimeMax != null && scheduleTimeMax != ""){
+    query  += ` scheduleTime <= '${scheduleTimeMax}' AND`
   }
+
   //조건 검색 예시
   if(userName != null && userName != ""){
     query += ` userName LIKE '%${userName}%' AND`
