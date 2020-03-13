@@ -29,7 +29,7 @@
           </tr>
           <tr>
             <td class="info-head">최종수정일</td>
-            <td class="info-info"><%==moment(notice.updateDate).format("YYYY-MM-DD HH:mm:ss"%></td>
+            <td class="info-info"><%=(notice.updateDate == null || notice.updateDate == "") ? "" : moment(notice.updateDate).format("YYYY-MM-DD HH:mm:ss"%></td>
           </tr>
       </tbody>
     </table>
