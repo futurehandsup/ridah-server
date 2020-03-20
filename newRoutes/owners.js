@@ -40,7 +40,7 @@ router.get('/dashboard', common.setTitle('대시보드'), common.renderPage('new
 router.get('/reservations/list', reservations.getReservationList, common.setTitle('예약내역'), common.renderPage('newowners/reservations/list'));
 
 router.get('/programs/list', programs.getProgramList, common.setTitle('프로그램'), common.renderPage('newowners/programs/list'));
-router.get('/programs/add', programs.addProgram, common.setTitle('프로그램 추가'), common.renderPage('newowners/programs/add'));
+router.get('/programs/add', common.setTitle('프로그램 추가'), common.renderPage('newowners/programs/add'));
 router.get('/programs/detail/:programNo', programs.getProgramDetail, common.setTitle('프로그램 상세'), common.renderPage('newowners/programs/detail'));
 
 router.get('/stores/detail', stores.getStoreList, common.setTitle('승마장 정보 관리'), common.renderPage('newowners/stores/detail'));

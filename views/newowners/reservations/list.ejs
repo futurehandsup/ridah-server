@@ -47,7 +47,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-1">스케줄날짜</div>
+            <div class="col-md-1">이용예정일</div>
             <div class="col-md-5 search_cal_group">
               <i class="pe-7s-date"></i>
               <input type="date" name="scheduleDateMin" class="search_calendar" value="<%=query.scheduleDateMin%>">
@@ -56,7 +56,7 @@
               <input type="date" name="scheduleDateMax" class="search_calendar" value="<%=query.scheduleDateMax = today%>">
            </div>
 
-           <div class="col-md-1">스케줄시간</div>
+           <div class="col-md-1">이용예정시간</div>
            <div class="col-md-5 search_cal_group">
              <i class="pe-7s-clock"></i>
              <input type="time" name="scheduleTimeMin" class="search_calendar" value="<%=query.scheduleTimeMin%>">
@@ -101,11 +101,10 @@
   <div class="card" style="margin-bottom: 20px;">
     <table class="table table-default table-hover table-striped">
       <thead>
-        <th>선택</th>
         <th>예약번호</th>
         <th>프로그램명</th>
-        <th>스케줄날짜</th>
-        <th>스케줄시간</th>
+        <th>이용예정일</th>
+        <th>이용예정시간</th>
         <th>예약날짜</th>
         <th>이용완료여부</th>
         <th>이용완료일시</th>
@@ -120,8 +119,6 @@
           var reservation = reservations[i];
           %>
           <tr>
-            <td><%=(i+1)%></td>
-
             <td><%=reservation.reservationCode%></td>
             <td><%=reservation.programName%></td>
             <td><%=moment(reservation.scheduleDate).format("YYYY-MM-DD")%></td>

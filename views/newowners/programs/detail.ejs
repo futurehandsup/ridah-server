@@ -12,6 +12,90 @@
               <td class="info-head">프로그램명</td>
               <td class="info-info"><%=program.programName%></td>
             </tr>
+            <tr>
+              <td class="info-head">한줄설명</td>
+              <td class="info-info"><%=program.programDescription%></td>
+            </tr>
+            <tr>
+              <td class="info-head">상세소개</td>
+              <td class="info-info"><%=program.programContents%></td>
+            </tr>
+            <tr>
+              <td class="info-head">이미지</td>
+              <td class="info-info"><%=program.programThumbnail%></td>
+            </tr>
+            <tr>
+              <td class="info-head">기본가격</td>
+              <td class="info-info"><%=program.programOriginalPrice%></td>
+            </tr>
+            <tr>
+              <td class="info-head">제공가격</td>
+              <td class="info-info"><%=program.programPrice%></td>
+            </tr>
+            <tr>
+              <td class="info-head">할인율</td>
+              <td class="info-info"><%=program.programDiscountRatio%></td>
+            </tr>
+            <tr>
+              <td class="info-head">소요시간</td>
+              <td class="info-info"><%=program.programTime%></td>
+            </tr>
+            <tr>
+              <td class="info-head">요구등급 최소</td>
+              <td class="info-info"><%=program.requiredLevelMin%></td>
+            </tr>
+            <tr>
+              <td class="info-head">요구등급 최대</td>
+              <td class="info-info"><%=program.requiredLevelMax%></td>
+            </tr>
+            <tr>
+              <td class="info-head">프로그램 안내사항</td>
+              <td class="info-info"><%=program.programInfo%></td>
+            </tr>
+            <tr>
+              <td class="info-head">코치정보/사진</td>
+              <td class="info-info"><%=program.cooachImage%></td>
+            </tr>
+            <tr>
+              <td class="info-head">코치정보/이름</td>
+              <td class="info-info"><%=program.coachName%></td>
+            </tr>
+            <tr>
+              <td class="info-head">코치정보/이력</td>
+              <td class="info-info"><%=program.coachHistory%></td>
+            </tr>
+            <tr>
+              <td class="info-head">준비물</td>
+              <td class="info-info"><%=program.programNeeds%></td>
+            </tr>
+            <tr>
+              <td class="info-head">등록일자</td>
+              <td class="info-info"><%=moment(program.createDate).format("YYYY-MM-DD HH:mm:ss")%>%></td>
+            </tr>
+            <tr>
+              <td class="info-head">최종수정일자</td>
+              <td class="info-info"><%=(program.updateDate != null || program.updateDate != "" ) ? "" : moment(program.createDate).format("YYYY-MM-DD HH:mm:ss")%>%></td>
+            </tr>
+            <tr>
+              <td class="info-head">노출여부</td>
+              <td class="info-info"><%= (program.showYn == 1) ? "노출" : "노출안함"%></td>
+            </tr>
+            <tr>
+              <td class="info-head">마감일</td>
+              <td class="info-info"><%=program.endDate%></td>
+            </tr>
+            <tr>
+              <td class="info-head">찜한갯수</td>
+              <td class="info-info"><%=program.zzimCount%></td>
+            </tr>
+            <tr>
+              <td class="info-head">리뷰개수</td>
+              <td class="info-info"><%=program.reviewCount%></td>
+            </tr>
+            <tr>
+              <td class="info-head">리뷰평균점수</td>
+              <td class="info-info"><%=program.reviewScore%></td>
+            </tr>
         </tbody>
       </table>
     </form>

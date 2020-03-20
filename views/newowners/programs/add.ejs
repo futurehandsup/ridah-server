@@ -3,6 +3,7 @@
 <section style="background-color: #fafafa;">
   <div class="card" style="margin-bottom: 20px;">
     <form id="infoForm">
+      <input type="hidden" name="storeNo" value="<%=store.storeNo%>">
       <table class="table table-default table-hover table-bordered">
         <thead>
           <th>새로운 프로그램</th>
@@ -10,40 +11,63 @@
         <tbody>
             <tr>
               <td class="info-head">프로그램명</td>
-              <td class="info-info"><input type="text" name="programName" value="<%=program.programName%>"></td>
+              <td class="info-info"><input type="text" name="programName"></td>
             </tr>
             <tr>
-              <td class="info-head">승마장번호</td> <!-- 이 항목 추후 삭제 -->
-              <td class="info-info"><input type="text" name="storeNo" value="<%=program.storeNo%>"></td>
+              <td class="info-head">한줄설명</td>
+              <td class="info-info"><input type="text" name="programDescription"></td>
             </tr>
             <tr>
-              <td class="info-head">프로그램 한줄설명</td>
-              <td class="info-info"><input type="text" name="programDescription" value="<%=program.programDescription%>"></td>
+              <td class="info-head">상세소개</td>
+              <td class="info-info"><textarea name="programContents" rows="8" cols="80"></textarea></td>
             </tr>
             <tr>
-              <td class="info-head">가격</td>
-              <td class="info-info"><input type="text" name="programOriginalPrice" value="<%=program.programOriginalPrice%>"></td>
+              <td class="info-head">이미지</td>
+              <td class="info-info"><input type="text" name="programThumbnail"></td>
+            </tr>
+            <tr>
+              <td class="info-head">기본가격</td>
+              <td class="info-info"><input type="text" name="programOriginalPrice"></td>
+            </tr>
+            <tr>
+              <td class="info-head">제공가격</td>
+              <td class="info-info"><input type="text" name="programPrice"></td>
+            </tr>
+            <tr>
+              <td class="info-head">할인율</td>
+              <td class="info-info"><input type="text" name="programDiscountRatio"></td>
             </tr>
             <tr>
               <td class="info-head">소요시간</td>
-              <td class="info-info"><input type="text" name="programTime" value="<%=program.programTime%>"></td>
+              <td class="info-info"><input type="text" name="programTime"></td>
             </tr>
             <tr>
-              <td class="info-head">요구등급</td>
-              <td class="info-info">최소<input type="text" name="requiredLevelMin" value="<%=program.requiredLevelMin%>"></td>
-              <td class="info-info">최대<input type="text" name="requiredLevelMax" value="<%=program.requiredLevelMax%>"></td>
+              <td class="info-head">요구등급 최소</td>
+              <td class="info-info"><input type="text" name="requiredLevelMin"></td>
+            </tr>
+            <tr>
+              <td class="info-head">요구등급 최대</td>
+              <td class="info-info"><input type="text" name="requiredLevelMax"></td>
             </tr>
             <tr>
               <td class="info-head">안내사항</td>
-              <td class="info-info"><input type="text" name="programInfo" value="<%=program.programInfo%>"></td>
+              <td class="info-info"><textarea name="programInfo" rows="8" cols="80"></textarea></td>
             </tr>
             <tr>
-              <td class="info-head">코치</td>
-              <td class="info-info"><input type="text" name="coachName" value="<%=program.coachName%>"></td>
+              <td class="info-head">코치정보/사진</td>
+              <td class="info-info"><input type="text" name="coachName"></td>
+            </tr>
+            <tr>
+              <td class="info-head">코치정보/이름</td>
+              <td class="info-info"><input type="text" name="coachName"></td>
+            </tr>
+            <tr>
+              <td class="info-head">코치정보/이력</td>
+              <td class="info-info"><textarea name="coachName" rows="8" cols="80"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">준비물</td>
-              <td class="info-info"><input type="text" name="programNeeds" value="<%=program.programNeeds%>"></td>
+              <td class="info-info"><textarea name="programNeeds" rows="8" cols="80"></textarea></td>
             </tr>
         </tbody>
       </table>
@@ -61,7 +85,7 @@
   $('#saveButton').click(function(){
     var program =  $('#infoForm').serializeObject();
     $.ajax({
-      type:"PUT",
+      type:"POST",
       url:'/apis/web/program',
       data:program,
       success:function(args){

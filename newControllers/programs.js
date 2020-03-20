@@ -159,6 +159,8 @@ exports.deleteProgram = function(req, res, next) {
 
 // 프로그램 만들기
 exports.addProgram = function(req, res, next) {
+
+  let { page, storeNo } = req.query; // 조건 작성
   let program = req.body; //request의 내용을 가지고 옴.
 
   let queryKeys = "";
