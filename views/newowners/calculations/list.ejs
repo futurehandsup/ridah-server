@@ -51,15 +51,40 @@
             <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
             <div class="row" style="margin-bottom: 1.5%;">
               <div class="col-md-1">정산년도</div>
-              <div class="col-md-3"><input type="text" name="calculationYear" value="<%=query.calculationYear%>" class="form-control search_key"></div>
+              <div class="col-md-3">
+                <select name="calculationYear" class="form-control search_key">
+                  <option value="2020">2020</option>
+                  <option value="2019">2019</option>
+                  <option value="2018">2018</option>
+                  <option value="2017">2017</option>
+                  <option value="2016">2016</option>
+                </select>
+              </div>
               <div class="col-md-1">정산월</div>
-              <div class="col-md-3"><input type="text" name="calculationMonth" value="<%=query.calculationMonth%>" class="form-control search_key"></div>
+              <div class="col-md-3">
+                <select name="calculationMonth" class="form-control search_key">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-1">정산금액최소</div>
               <div class="col-md-3"><input type="text" name="calculationPriceMin" value="<%=query.calculationPriceMin%>" class="form-control search_key"></div>
               <div class="col-md-1">정산금액최대</div>
               <div class="col-md-3"><input type="text" name="calculationPriceMax" value="<%=query.calculationPriceMax%>" class="form-control search_key"></div>
+              <div class="col-md-1">정산상태</div>
+              <div class="col-md-3"><input type="text" name="calculationStatus" value="<%=query.calculationPriceStatus%>" class="form-control search_key"></div>
             </div>
 
             <div class="row">

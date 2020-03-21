@@ -6,7 +6,7 @@ let connection = common.initDatabase();
 exports.getCalculationList = function(req, res, next) {
   let { page, userName, calculationDueDate, calculationDueDateMin, calculationDueDateMax,
   calculationDate, calculationDateMin, calculationDateMax, calculationYear, calculationMonth,
-  calculationPrice, calculationPriceMin, calculationPriceMax } = req.query; // 조건 작성
+  calculationPrice, calculationPriceMin, calculationPriceMax, calculationStatus } = req.query; // 조건 작성
   let query = "SELECT * FROM Calculation "
 
   query += "WHERE "
@@ -44,6 +44,10 @@ exports.getCalculationList = function(req, res, next) {
   // 정산금액 최대검색
   if(calculationPriceMax != null && calculationPriceMax != ""){
     query += ` calculationPrice <= '${calculationPriceMax}' AND`
+  }
+  // 정산상태 검색
+  if(calculationStatus != null && calculationStatus != ""){
+    query += ` calculationStatus = '${calculationStatus}' AND`
   }
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
