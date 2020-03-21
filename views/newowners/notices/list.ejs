@@ -23,8 +23,8 @@
           <td><a href="../notices/detail/<%=notice.noticeNo%>"><%=notice.noticeTitle%></a></td>
           <td><%=notice.userNo%></td>
           <td><%=(notice.noticeOwnerYn == 1) ? "O" : "X" %></td>
-          <td><%=moment(notice.createDate).format("YYYY-MM-DD")%></td>
           <td><%=(notice.showYn == 1) ? "노출" : "노출안함" %></td>
+          <td><%=moment(notice.createDate).format("YYYY-MM-DD")%></td>
           <td><%=(notice.updateDate == null || notice.updateDate == "") ? "" : moment(notice.updateDate).format("YYYY-MM-DD")%></td>
         </tr>
         <% } %>
