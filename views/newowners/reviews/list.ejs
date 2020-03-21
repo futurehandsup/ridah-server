@@ -55,6 +55,15 @@
               <div class="col-md-3"><input type="text" name="reviewScoreMin" value="<%=query.reviewScoreMin%>" class="form-control search_key"></div>
               <div class="col-md-1">평점최대</div>
               <div class="col-md-3"><input type="text" name="reviewScoreMax" value="<%=query.reviewScoreMax%>" class="form-control search_key"></div>
+              <div class="col-md-1">노출여부</div>
+              <div class="col-md-3">
+                <select name="showYn" class="form-control search_key">
+                  <option value="">전체</option>
+                  <option value="노출">노출</option>
+                  <option value="노출안함">노출안함</option>
+                </select>
+              </div>
+
             </div>
 
             <div class="row">
