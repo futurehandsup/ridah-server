@@ -154,6 +154,13 @@ router.route('/program/:programNo')
 .delete(programs.deleteProgram, common.setResponse)     //프로그램 삭제
 .post(common.notImplementedError);
 
+router.route('/program/schedule')
+.all(function(req, res, next)  {next();})
+.get(schedules.getSchedulesList, common.setResponse) //스케줄 리스트 출력
+.post(schedules.addSchedules, common.setResponse)    //스케줄 등록
+.put(common.notImplementedError)
+.delete(common.notImplementedError);
+
 // faqs
 router.route('/faq')
 .all(function(req, res, next)  {next();})

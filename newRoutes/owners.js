@@ -43,9 +43,12 @@ router.get('/programs/list', programs.getProgramList, common.setTitle('프로그
 router.get('/programs/add', common.setTitle('프로그램 추가'), common.renderPage('newowners/programs/add'));
 router.get('/programs/detail/:programNo', programs.getProgramDetail, common.setTitle('프로그램 상세'), common.renderPage('newowners/programs/detail'));
 
+router.get('/programs/schedule', schedules.getSchedulesList, common.setTitle('스케줄'), common.renderPage('newowners/programs/schedule'));
+
 router.get('/stores/detail', stores.getStoreList, common.setTitle('승마장 정보 관리'), common.renderPage('newowners/stores/detail'));
 
 router.get('/reviews/list', reviews.getReviewList, common.setTitle('이용후기 관리'), common.renderPage('newowners/reviews/list'));
+router.get('/reviews/detail/:reviewNo', reviews.getReviewDetail, common.setTitle('이용후기 상세'), common.renderPage('newowners/reviews/detail'));
 
 router.get('/calculations/list', calculations.getCalculationList, common.setTitle('정산 내역'), common.renderPage('newowners/calculations/list'));
 

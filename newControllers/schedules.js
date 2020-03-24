@@ -4,14 +4,27 @@ let connection = common.initDatabase();
 
 // 프로그램 일정 리스트
 exports.getSchedulesList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
-  let query = "SELECT * FROM Schedules "
+  let { page, userName, scheduleDate, scheduleDateMin, scheduleDateMax, programName, amountNow } = req.query; // 조건 작성
 
-  query += "WHERE "
+  let query = "SELECT * FROM Schedule "
+  query += " LEFT JOIN Program ON Schedule.programNo = Program.programNo "
 
-  //조건 검색 예시
-  if(userName != null && userName != ""){
-    query += ` userName = '${userName}' AND`
+  query += " WHERE "
+
+  //수업일 검색
+  if(scheduleDateMin != null && scheduleDateMin != ""){
+    query  += ` 'scheduleDate' >= '${scheduleDateMin}' AND`
+  }
+  if(scheduleDateMax != null && scheduleDateMax != ""){
+    query  += ` 'scheduleDate' <= '${scheduleDateMax}' AND`
+  }
+  //프로그램명 검색
+  if(programName != null && programName != ""){
+    query  +=  ` programName LIKE '%${programName}%' AND`
+  }
+  //신청인원 검색
+  if(amountNow != null && amountNow != ""){
+    query +=  ` 'amountNow' = '${amountNow}' AND`
   }
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
@@ -21,6 +34,7 @@ exports.getSchedulesList = function(req, res, next) {
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }
+  query += ";"
 
   console.log(query)
   connection.query(query, function (err, results) {

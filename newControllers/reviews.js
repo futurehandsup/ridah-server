@@ -73,12 +73,13 @@ exports.getReviewList = function(req, res, next) {
 }
 // 후기 상세 불러오기
 exports.getReviewDetail = function(req, res, next) {
-  let { userNo } = req.params;
-  query += ` SELECT * `;
+  let { reviewNo } = req.params;
+
+  let query = ` SELECT * `;
 
   query += ` FROM Review `
 
-  query += ` WHERE userNo = '${userNo}';`
+  query += ` WHERE reviewNo = '${reviewNo}';`
 
   console.log(query);
   connection.query(query, function (err, results) {

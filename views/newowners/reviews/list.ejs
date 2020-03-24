@@ -97,7 +97,7 @@
           var review = reviews[i];
           %>
         <tr>
-          <td><%=review.reviewNo%></td>
+          <td><a href="../reviews/detail/<%=review.reviewNo%>"><%=review.reviewNo%></a></td>
           <td><%=review.reservationNo%></td>
           <td><%=review.reviewContents%></td>
           <td><%=review.reviewScore%></td>

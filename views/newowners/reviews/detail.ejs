@@ -1,0 +1,75 @@
+<% include ../templates/head.ejs %>
+
+<section>
+  <div class="container-fluid">
+    <p class="mb-3 subtitle"></p>
+  </div>
+
+  <div class="card" style="margin-bottom: 20px;">
+    <table class="table table-default table-hover table-bordered">
+      <thead>
+        <th><a style="color: #008d87;"><%=review.reviewNo%></a> 번 후기 상세</th>
+      </thead>
+      <tbody>
+          <tr>
+            <td class="info-head">예약번호</td>
+            <td class="info-info"><%=review.reservationNo%></td>
+          </tr>
+          <tr>
+            <td class="info-head">프로그램번호</td>
+            <td class="info-info"><%=review.programNo%></td>
+          </tr>
+          <tr>
+            <td class="info-head">스케줄번호</td>
+            <td class="info-info"><%=review.scheduleNo%></td>
+          </tr>
+          <tr>
+            <td class="info-head">후기내용</td>
+            <td class="info-info"><%=review.reviewContents%></td>
+          </tr>
+          <tr>
+            <td class="info-head">평점</td>
+            <td class="info-info"><%=review.reviewScore%></td>
+          </tr>
+          <tr>
+            <td class="info-head">사용자번호</td>
+            <td class="info-info"><%=review.userNo%></td>
+          </tr>
+          <tr>
+            <td class="info-head">후기작성날짜</td>
+            <td class="info-info"><%=moment(review.createDate).format("YYYY-MM-DD HH:mm:ss")%></td>
+          </tr>
+          <tr>
+            <td class="info-head">최종수정일</td>
+            <td class="info-info"><%=(review.updateDate == null || review.updateDate == "") ? "" : moment(review.updateDate).format("YYYY-MM-DD HH:mm:ss")%></td>
+          </tr>
+          <tr>
+            <td class="info-head">후기노출여부</td>
+            <td class="info-info"><%=(review.showYn == 1) ? "노출" : "노출안함"%></td>
+          </tr>
+          <tr>
+            <td class="info-head">사진1</td>
+            <td class="info-info"><%=review.reviewPic1%></td>
+          </tr>
+          <tr>
+            <td class="info-head">사진2</td>
+            <td class="info-info"><%=review.reviewPic2%></td>
+          </tr>
+          <tr>
+            <td class="info-head">사진3</td>
+            <td class="info-info"><%=review.reviewPic3%></td>
+          </tr>
+          <tr>
+            <td class="info-head">사진4</td>
+            <td class="info-info"><%=review.reviewPic4%></td>
+          </tr>
+          <tr>
+            <td class="info-head">사진5</td>
+            <td class="info-info"><%=review.reviewPic5%></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<% include ../templates/bottom.ejs %>

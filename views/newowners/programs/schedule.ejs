@@ -1,0 +1,124 @@
+<% include ../templates/head.ejs %>
+
+<section>
+  <div class="container-fluid">
+    <p class="mb-3 subtitle">수업 스케줄을 관리할 수 있습니다</p>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <form action="" method="get">
+         <input type="hidden" name="storeNo" value="<%=store.storeNo%>"><!--필수-->
+         <%
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+
+              if(dd<10) {
+                dd='0'+dd
+                }
+              if(mm<10) {
+                mm='0'+mm
+                }
+
+                today = yyyy + '-' +mm + '-' +dd;
+          %>
+          <!--검색파트css : search_opt, search_btn, search_submit -->
+          <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
+            <!--날짜 검색 테이블-->
+            <div class="row">
+              <div class="col-md-1">수업일</div>
+              <div class="col-md-5 search_cal_group">
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="scheduleDateMin" class="search_calendar" value="<%=query.scheduleDateMin%>">
+                 <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
+                 <i class="pe-7s-date"></i>
+                 <input type="date" name="scheduleDateMax" class="search_calendar" value="<%=query.scheduleDateMax%>">
+              </div>
+            </div>
+
+            <hr class="search_hr">
+            <!--조건 검색 테이블-->
+            <div style="color: #7d7d7d; margin-bottom: 15px; font-size: 80%;">상세조건검색</div>
+            <div class="row" style="margin-bottom: 1.5%;">
+              <div class="col-md-1">프로그램명</div>
+              <div class="col-md-3"><input type="text" name="programName" value="<%=query.programName%>" class="form-control search_key"></div>
+              <div class="col-md-1">신청인원</div>
+              <div class="col-md-3"><input type="text" name="amountNow" value="<%=query.amountNow%>" class="form-control search_key"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">보기</div>
+              <!-- <div class="col-md-3"><input type="text" name="programOriginalPriceMin" value="<%=query.programOriginalPriceMin%>" class="form-control search_key"></div> -->
+              <div class="col-md-1">정렬</div>
+              <!-- <div class="col-md-3"><input type="text" name="programOriginalPriceMax" value="<%=query.programOriginalPriceMax%>" class="form-control search_key"></div> -->
+            </div>
+            <div class="row">
+              <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
+              <div class="col-md-2" style="align-items: right;">
+                <p align="right">
+                  <button class="btn btn-success search_submit">검색</button>
+                  <a href="list" class="btn btn-success search_submit">초기화</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 20px;">
+    <table class="table table-default table-hover table-striped">
+      <thead>
+        <th>수업날짜</th>
+        <th>수업시간</th>
+        <th>프로그램명</th>
+        <th>신청인원</th>
+        <th>최대인원</th>
+        <th>노출여부</th>
+      </thead>
+      <tbody>
+        <% %>
+        <% for(var i=0; i<schedules.length; i++){
+          var schedule = schedules[i];
+          %>
+          <tr>
+            <td><%=schedule.scheduleDate%></td>
+            <td><%=schedule.scheduleTime%></td>
+            <td><%=schedule.programName%></td>
+            <td><%=schedule.amountNow%></td>
+            <td><%=schedule.amountLimitMax%></td>
+            <td><%=(schedule.showYn == 1) ? "노출" : "노출안함" %></td>
+          </tr>
+          <%}%>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<% include ../templates/bottom.ejs %>
+<script>
+  $(document).ready(function(){
+  $('#saveButton').click(function(){
+    var schedule =  $('#infoForm').serializeObject();
+    $.ajax({
+      type:"POST",
+      url:'/programs/schedule/',
+      data:schedule,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
+
+<script>
+  function goBack(){
+    window.history.back();
+  }
+</script>
