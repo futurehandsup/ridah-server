@@ -4,7 +4,8 @@ let connection = common.initDatabase();
 
 // 프로그램 일정 리스트
 exports.getSchedulesList = function(req, res, next) {
-  let { page, userName, scheduleDate, scheduleDateMin, scheduleDateMax, programName, amountNow } = req.query; // 조건 작성
+  let { page, userName, scheduleDate, scheduleDateMin, scheduleDateMax, programName, amountNow,
+   showSchedules, orderSchedule} = req.query; // 조건 작성
 
   let query = "SELECT * FROM Schedule "
   query += " LEFT JOIN Program ON Schedule.programNo = Program.programNo "
@@ -13,10 +14,10 @@ exports.getSchedulesList = function(req, res, next) {
 
   //수업일 검색
   if(scheduleDateMin != null && scheduleDateMin != ""){
-    query  += ` 'scheduleDate' >= '${scheduleDateMin}' AND`
+    query  += ` date_format(scheduleDate, '%Y-%m-%d') >= '${scheduleDateMin}' AND`
   }
   if(scheduleDateMax != null && scheduleDateMax != ""){
-    query  += ` 'scheduleDate' <= '${scheduleDateMax}' AND`
+    query  += ` date_format(scheduleDate, '%Y-%m-%d') <= '${scheduleDateMax}' AND`
   }
   //프로그램명 검색
   if(programName != null && programName != ""){
@@ -26,11 +27,25 @@ exports.getSchedulesList = function(req, res, next) {
   if(amountNow != null && amountNow != ""){
     query +=  ` 'amountNow' = '${amountNow}' AND`
   }
+  //보기
+  if(showSchedules == "futureSchedule"){
+    query += ` date_format(scheduleDate, '%Y-%m-%d') >= '${showSchedules}' AND`
+  }
+  if(showSchedules == "pastSchedule"){
+    query += ` date_format(scheduleDate, '%Y-%m-%d') <= '${showSchedules}' AND`
+  }
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
 
-  query += ` ORDER BY scheduleNo DESC `;
+  // 정렬
+  if(orderSchedule == "descDate"){
+    query += ` ORDER BY scheduleNo DESC `;
+  }
+  if(orderSchedule == "ascDate"){
+    query += ` ORDER BY scheduleNo ASC `;
+  }
+
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }
@@ -45,7 +60,7 @@ exports.getSchedulesList = function(req, res, next) {
         title : "프로그램 운영 날짜 리스트",
         success : true,
         message : '메시지',
-        scheduless : results
+        schedules : results
       }
       common.setResult(req, result);
       next();

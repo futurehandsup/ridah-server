@@ -48,16 +48,27 @@
             </div>
             <div class="row">
               <div class="col-md-1">보기</div>
-              <!-- <div class="col-md-3"><input type="text" name="programOriginalPriceMin" value="<%=query.programOriginalPriceMin%>" class="form-control search_key"></div> -->
+              <div class="col-md-3">
+                <select name="showSchedules" class="form-control search_key">
+                  <option value="">전체보기</option>
+                  <option value="futureSchedule">예정수업</option>
+                  <option value="pastSchedule">지난수업</option>
+                </select>
+              </div>
               <div class="col-md-1">정렬</div>
-              <!-- <div class="col-md-3"><input type="text" name="programOriginalPriceMax" value="<%=query.programOriginalPriceMax%>" class="form-control search_key"></div> -->
+              <div class="col-md-3">
+                <select name="orderSchedule" class="form-control search_key">
+                  <option value="descDate" selected>최신순</option>
+                  <option value="ascDate">오래된순</option>
+                </select>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
               <div class="col-md-2" style="align-items: right;">
                 <p align="right">
                   <button class="btn btn-success search_submit">검색</button>
-                  <a href="list" class="btn btn-success search_submit">초기화</a>
+                  <a href="schedule" class="btn btn-success search_submit">초기화</a>
                 </p>
               </div>
             </div>
@@ -82,7 +93,7 @@
           var schedule = schedules[i];
           %>
           <tr>
-            <td><%=schedule.scheduleDate%></td>
+            <td><%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%></td>
             <td><%=schedule.scheduleTime%></td>
             <td><%=schedule.programName%></td>
             <td><%=schedule.amountNow%></td>
