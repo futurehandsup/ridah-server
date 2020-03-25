@@ -7,7 +7,9 @@ exports.getReviewList = function(req, res, next) {
   let { page, userName, createDate, createDateMin, createDateMax,
     reviewNo, reviewContents, userNo, reviewScore, reviewScoreMin, reviewScoreMax, showYn } = req.query; // 조건 작성
   let query = "SELECT * FROM Review "
-  // query += " LEFT JOIN Member ON Review.userNo = Member.userNo "
+  query += " LEFT JOIN Member ON Review.userNo = Member.userNo "
+  query += " LEFT JOIN Program ON Review.programNo = Program.programNo "
+  query += " LEFT JOIN Reservation ON Review.reservationNo = Reservation.reservationNo "
   query += " WHERE "
 
   //작성일 검색
@@ -78,6 +80,10 @@ exports.getReviewDetail = function(req, res, next) {
   let query = ` SELECT * `;
 
   query += ` FROM Review `
+  query += ` LEFT JOIN Member ON Review.userNo = Member.userNo `
+  query += ` LEFT JOIN Program ON Review.programNo = Program.programNo `
+  query += ` LEFT JOIN Reservation ON Review.reservationNo = Reservation.reservationNo `
+  query += ` LEFT JOIN Schedule ON Review.scheduleNo = Schedule.scheduleNo`
 
   query += ` WHERE reviewNo = '${reviewNo}';`
 

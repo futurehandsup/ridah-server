@@ -12,16 +12,16 @@
       </thead>
       <tbody>
           <tr>
-            <td class="info-head">예약번호</td>
-            <td class="info-info"><%=review.reservationNo%></td>
+            <td class="info-head">예약코드</td>
+            <td class="info-info"><%=review.reservationCode%></td>
           </tr>
           <tr>
-            <td class="info-head">프로그램번호</td>
-            <td class="info-info"><%=review.programNo%></td>
+            <td class="info-head">프로그램명</td>
+            <td class="info-info"><%=review.programName%></td>
           </tr>
           <tr>
-            <td class="info-head">스케줄번호</td>
-            <td class="info-info"><%=review.scheduleNo%></td>
+            <td class="info-head">스케줄 날짜/시간</td>
+            <td class="info-info"><%=moment(review.scheduleDate).format("YYYY-MM-DD")%> <%=review.scheduleTime%></td>
           </tr>
           <tr>
             <td class="info-head">후기내용</td>
@@ -32,8 +32,8 @@
             <td class="info-info"><%=review.reviewScore%></td>
           </tr>
           <tr>
-            <td class="info-head">사용자번호</td>
-            <td class="info-info"><%=review.userNo%></td>
+            <td class="info-head">사용자명</td>
+            <td class="info-info"><%=review.userName%></td>
           </tr>
           <tr>
             <td class="info-head">후기작성날짜</td>

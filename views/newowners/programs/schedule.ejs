@@ -50,16 +50,16 @@
               <div class="col-md-1">보기</div>
               <div class="col-md-3">
                 <select name="showSchedules" class="form-control search_key">
-                  <option value="">전체보기</option>
-                  <option value="futureSchedule">예정수업</option>
-                  <option value="pastSchedule">지난수업</option>
+                  <option value="" <%=("selected") ? "selected":null%>>전체보기</option>
+                  <option value="futureSchedule" <%=("selected") ? "selected":null%>>예정수업</option>
+                  <option value="pastSchedule" <%=("selected") ? "selected":null%>>지난수업</option>
                 </select>
               </div>
               <div class="col-md-1">정렬</div>
               <div class="col-md-3">
                 <select name="orderSchedule" class="form-control search_key">
-                  <option value="descDate" selected>최신순</option>
-                  <option value="ascDate">오래된순</option>
+                  <option value="descDate" <%=("selected") ? "selected":null%>>최신순</option>
+                  <option value="ascDate" <%=("selected") ? "selected":null%>>오래된순</option>
                 </select>
               </div>
             </div>
@@ -93,9 +93,9 @@
           var schedule = schedules[i];
           %>
           <tr>
-            <td><%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%></td>
-            <td><%=schedule.scheduleTime%></td>
-            <td><%=schedule.programName%></td>
+            <td><a href="../reservations/list?scheduleDateMin=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>&scheduleDateMax=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>"><%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%></a></td>
+            <td><a href="../reservations/list?scheduleDateMin=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>&scheduleDateMax=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>scheduleTimeMin=<%=schedule.scheduleTime%>&scheduleTimeMax=<%=schedule.scheduleTime%>"><%=schedule.scheduleTime%></a></td>
+            <td><a href="../reservations/list?programName=<%=schedule.programName%>"><%=schedule.programName%></a></td>
             <td><%=schedule.amountNow%></td>
             <td><%=schedule.amountLimitMax%></td>
             <td><%=(schedule.showYn == 1) ? "노출" : "노출안함" %></td>

@@ -40,11 +40,12 @@ exports.getSchedulesList = function(req, res, next) {
 
   // 정렬
   if(orderSchedule == "descDate"){
-    query += ` ORDER BY scheduleNo DESC `;
+    query += ` ORDER BY scheduleDate, scheduleTime DESC `;
   }
   if(orderSchedule == "ascDate"){
-    query += ` ORDER BY scheduleNo ASC `;
+    query += ` ORDER BY scheduleDate, scheduleTime ASC `;
   }
+  console.log(query);
 
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
