@@ -77,42 +77,47 @@
                   <option value="12">12</option>
                 </select>
               </div>
+              <div class="col-md-1">정산상태</div>
+              <div class="col-md-3"><input type="text" name="calculationStatus" value="<%=query.calculationPriceStatus%>" class="form-control search_key"></div>
             </div>
             <div class="row">
               <div class="col-md-1">정산금액최소</div>
               <div class="col-md-3"><input type="text" name="calculationPriceMin" value="<%=query.calculationPriceMin%>" class="form-control search_key"></div>
               <div class="col-md-1">정산금액최대</div>
               <div class="col-md-3"><input type="text" name="calculationPriceMax" value="<%=query.calculationPriceMax%>" class="form-control search_key"></div>
-              <div class="col-md-1">정산상태</div>
-              <div class="col-md-3"><input type="text" name="calculationStatus" value="<%=query.calculationPriceStatus%>" class="form-control search_key"></div>
             </div>
-
-            <div class="row">
-              <div class="col-md-10"></div> <!--검색버튼을 위한 그냥 공백-->
-              <div class="col-md-2" style="align-items: right;">
-                <p align="right">
-                  <button class="btn btn-success search_submit">검색</button>
-                  <a href="list" class="btn btn-success search_submit">초기화</a>
-                </p>
-              </div>
+            <div class="row search_submit_wrap">
+              <button class="btn search_submit">검색</button>
+              <a href="list" class="btn search_submit search_reset">초기화</a>
             </div>
           </div>
         </form>
     </div>
   </div>
 
+  <hr class="search_hr">
+
   <div class="card">
     <div class="card-body">
-      <div class="row">
-        <div class="col-md-6">나의 정산계좌</div>
-        <div class="col-md-6">정산예정일</div>
-      </div>
-      <div class="row">
-        <div class="col-md-6"><%=store.accountInfo%> <%=store.accountBank%></div>
-        <div class="col-md-6"></div>
+      <div style="margin-left: 3%; margin-right: 3%;">
+        <div class="row" style = "color: #008D87;">
+          <div class="col-md-1"></div>
+          <div class="col-md-5 text-center" style="margin: 0px 0px 5px 0px;">나의 정산계좌</div>
+          <div class="col-md-5 text-center" style="margin: 0px 0px 5px 0px;">정산예정일</div>
+          <div class="col-md-1"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-5 text-center"><%=store.accountInfo%> <%=store.accountBank%></div>
+          <div class="col-md-5 text-center">15일</div>
+          <div class="col-md-1"></div>
+        </div>
       </div>
     </div>
   </div>
+
+  <hr class="search_hr">
+
   <div class="card">
     <table class="table table-default table-hover table-striped">
       <thead>

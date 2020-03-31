@@ -4,75 +4,76 @@
   <div class="card" style="margin-bottom: 20px;">
     <form id="infoForm">
       <input type="hidden" name="storeNo" value="<%=store.storeNo%>">
-      <table class="table table-default table-hover table-bordered">
+      <table class="table table-default table-bordered">
         <thead>
-          <th>새로운 프로그램</th>
+          <th style="color : #008d87; text-align : left;">새로운 프로그램</th>
+          <th></th>
         </thead>
         <tbody>
             <tr>
               <td class="info-head">프로그램명</td>
-              <td class="info-info"><input type="text" name="programName"></td>
+              <td class="info-info"><input type="text" name="programName" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">한줄설명</td>
-              <td class="info-info"><input type="text" name="programDescription"></td>
+              <td class="info-info"><input type="text" name="programDescription" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">상세소개</td>
-              <td class="info-info"><textarea name="programContents" rows="8" cols="80"></textarea></td>
+              <td class="info-info"><textarea name="programContents" rows="8" cols="80" class="info-text"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">이미지</td>
-              <td class="info-info"><input type="text" name="programThumbnail"></td>
+              <td class="info-info"><input type="text" name="programThumbnail" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">기본가격</td>
-              <td class="info-info"><input type="text" name="programOriginalPrice"></td>
+              <td class="info-info"><input type="text" name="programOriginalPrice" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">제공가격</td>
-              <td class="info-info"><input type="text" name="programPrice"></td>
+              <td class="info-info"><input type="text" name="programPrice" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">할인율</td>
-              <td class="info-info"><input type="text" name="programDiscountRatio"></td>
+              <td class="info-info"><input type="text" name="programDiscountRatio" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">소요시간</td>
-              <td class="info-info"><input type="text" name="programTime"></td>
+              <td class="info-info"><input type="text" name="programTime" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">요구등급 최소</td>
-              <td class="info-info"><input type="text" name="requiredLevelMin"></td>
+              <td class="info-info"><input type="text" name="requiredLevelMin" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">요구등급 최대</td>
-              <td class="info-info"><input type="text" name="requiredLevelMax"></td>
+              <td class="info-info"><input type="text" name="requiredLevelMax" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">안내사항</td>
-              <td class="info-info"><textarea name="programInfo" rows="8" cols="80"></textarea></td>
+              <td class="info-info"><textarea name="programInfo" rows="8" cols="80" class="info-text"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">코치정보/사진</td>
-              <td class="info-info"><input type="text" name="coachName"></td>
+              <td class="info-info"><input type="text" name="coachName" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">코치정보/이름</td>
-              <td class="info-info"><input type="text" name="coachName"></td>
+              <td class="info-info"><input type="text" name="coachName" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">코치정보/이력</td>
-              <td class="info-info"><textarea name="coachName" rows="8" cols="80"></textarea></td>
+              <td class="info-info"><textarea name="coachName" rows="8" cols="80" class="info-text"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">준비물</td>
-              <td class="info-info"><textarea name="programNeeds" rows="8" cols="80"></textarea></td>
+              <td class="info-info"><textarea name="programNeeds" rows="8" cols="80" class="info-text"></textarea></td>
             </tr>
         </tbody>
       </table>
       <div class="card-body">
-        <button class="store_save" id="saveButton"> 프로그램 저장 </button>
+        <button class="btn search_submit" id="saveButton"> 프로그램 저장 </button>
       </div>
     </form>
   </div>

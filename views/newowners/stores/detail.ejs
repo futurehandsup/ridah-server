@@ -6,9 +6,10 @@
   </div>
   <div class="card" style="margin-bottom: 20px;">
     <form id="infoForm">
-      <table class="table table-default table-hover table-bordered">
+      <table class="table table-default table-bordered">
         <thead>
-          <th>승마장 정보</th>
+          <th style="color : #008d87; text-align : left;">승마장 정보</th>
+          <th></th>
         </thead>
         <tbody>
             <tr>
@@ -17,51 +18,51 @@
             </tr>
             <tr>
               <td class="info-head">주소1</td>
-              <td class="info-info"><input type="text" name="storeAddress1" value="<%=store.storeAddress1%>"></td>
+              <td class="info-info"><input type="text" name="storeAddress1" value="<%=store.storeAddress1%>" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">주소2</td>
-              <td class="info-info"><input type="text" name="storeAddress2" value="<%=store.storeAddress2%>"></td>
+              <td class="info-info"><input type="text" name="storeAddress2" value="<%=store.storeAddress2%>" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">주소3</td>
-              <td class="info-info"><input type="text" name="storeAddress3" value="<%=store.storeAddress3%>"></td>
+              <td class="info-info"><input type="text" name="storeAddress3" value="<%=store.storeAddress3%>" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">사이트</td>
-              <td class="info-info"><input type="text" name="storeWebsite" value="<%=store.storeWebsite%>"></td>
+              <td class="info-info"><input type="text" name="storeWebsite" value="<%=store.storeWebsite%>" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">SNS</td>
-              <td class="info-info"><input type="text" name="storeInstagram" value="<%=store.storeInstagram%>"></td>
+              <td class="info-info"><input type="text" name="storeInstagram" value="<%=store.storeInstagram%>" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">전화번호</td>
-              <td class="info-info"><input type="text" name="storePhoneNumber" value="<%=store.storePhoneNumber%>"></td>
+              <td class="info-info"><input type="text" name="storePhoneNumber" value="<%=store.storePhoneNumber%>" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">이용시간</td>
-              <td class="info-info"><textarea name="storeOperationTime" rows="3" cols="100" placeholder="<%=store.storeOperationTime%>" value="<%=store.storeOperationTime%>"></textarea></td>
+              <td class="info-info"><textarea name="storeOperationTime" rows="3" cols="100" placeholder="<%=store.storeOperationTime%>" value="<%=store.storeOperationTime%>" class="info-text"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">소개</td>
-              <td class="info-info"><textarea name="storeDescription" rows="3" cols="100" placeholder="<%=store.storeDescription%>" value="<%=store.storeDescription%>"></textarea></td>
+              <td class="info-info"><textarea name="storeDescription" rows="3" cols="100" placeholder="<%=store.storeDescription%>" value="<%=store.storeDescription%>" class="info-text"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">상세소개</td>
-              <td class="info-info"><textarea name="storeContents" rows="5" cols="100" placeholder="<%=store.storeContents%>" value="<%=store.storeContents%>"></textarea></td>
+              <td class="info-info"><textarea name="storeContents" rows="5" cols="100" placeholder="<%=store.storeContents%>" value="<%=store.storeContents%>" class="info-text"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">오시는 길 (차량)</td>
-              <td class="info-info"><textarea name="storeWayCar" rows="3" cols="100" placeholder="<%=store.storeWayCar%>" value="<%=store.storeWayCar%>"></textarea></td>
+              <td class="info-info"><textarea name="storeWayCar" rows="3" cols="100" placeholder="<%=store.storeWayCar%>" value="<%=store.storeWayCar%>" class="info-text"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">오시는 길 (대중교통)</td>
-              <td class="info-info"><textarea name="storeWayPublic" rows="3" cols="100" placeholder="<%=store.storeWayPublic%>" value="<%=store.storeWayPublic%>"></textarea></td>
+              <td class="info-info"><textarea name="storeWayPublic" rows="3" cols="100" placeholder="<%=store.storeWayPublic%>" value="<%=store.storeWayPublic%>" class="info-text"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">오시는 길 (셔틀버스)</td>
-              <td class="info-info"><textarea name="storeWayShuttle" rows="3" cols="100" placeholder="<%=store.storeWayShuttle%>" value="<%=store.storeWayShuttle%>"></textarea></td>
+              <td class="info-info"><textarea name="storeWayShuttle" rows="3" cols="100" placeholder="<%=store.storeWayShuttle%>" value="<%=store.storeWayShuttle%>" class="info-text"></textarea></td>
             </tr>
             <tr>
               <td class="info-head">후기개수</td>
@@ -89,20 +90,20 @@
             </tr>
             <tr>
               <td class="info-head">입금은행</td>
-              <td class="info-info"><input type="text" name="accountBank" value="<%=store.accountBank%>" placeholder="입금은행"></td>
+              <td class="info-info"><input type="text" name="accountBank" value="<%=store.accountBank%>" placeholder="입금은행" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">계좌정보</td>
-              <td class="info-info"><input type="text" name="accountInfo" value="<%=store.accountInfo%>" placeholder="계좌정보"></td>
+              <td class="info-info"><input type="text" name="accountInfo" value="<%=store.accountInfo%>" placeholder="계좌정보" class="info-input"></td>
             </tr>
             <tr>
               <td class="info-head">통장사본 이미지</td>
-              <td class="info-info"><input type="text" name="accountImage" value="<%=store.accountImage%>" placeholder=""></td>
+              <td class="info-info"><input type="text" name="accountImage" value="<%=store.accountImage%>" placeholder="" class="info-input"></td>
             </tr>
         </tbody>
       </table>
       <div class="card-body">
-        <button class="store_save" id="saveButton"> 정보 저장 </button>
+        <button class="btn btn-warning search_submit" style="width : 130px;" id="saveButton"> 정보 저장 </button>
       </div>
     </form>
   </div>

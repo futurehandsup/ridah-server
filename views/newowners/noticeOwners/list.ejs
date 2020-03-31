@@ -20,7 +20,8 @@
           var notice = notices[i];
           %>
         <tr>
-          <td><a href="../notices/detail/<%=notice.noticeNo%>"><%=notice.noticeTitle%></a></td>
+          <td><a href="../noticeowners/detail/<%=notice.noticeNo%>">
+            <%=notice.noticeTitle%></a></td>
           <td><%=notice.userNo%></td>
           <td><%=(notice.noticeNormalYn == 1) ? "O" : "X"%></td>
           <td><%=(notice.showYn == 1) ? "노출" : "노출안함"%></td>

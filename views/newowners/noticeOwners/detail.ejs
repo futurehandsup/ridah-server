@@ -8,7 +8,8 @@
   <div class="card" style="margin-bottom: 20px;">
     <table class="table table-default table-hover table-bordered">
       <thead>
-        <th>가맹점 공지 세부</th>
+        <th style="color : #008d87; text-align : left;">가맹점 공지 세부</th>
+        <th></th>
       </thead>
       <tbody>
           <tr>
@@ -29,7 +30,7 @@
           </tr>
           <tr>
             <td class="info-head">최종수정일</td>
-            <td class="info-info"><%=(notice.updateDate == null || notice.updateDate == "") ? "" : moment(notice.updateDate).format("YYYY-MM-DD HH:mm:ss"%></td>
+            <td class="info-info"><%=(notice.updateDate == null || notice.updateDate == "") ? "" : moment(notice.updateDate).format("YYYY-MM-DD HH:mm:ss")%></td>
           </tr>
       </tbody>
     </table>
