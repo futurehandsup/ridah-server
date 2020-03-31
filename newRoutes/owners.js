@@ -1,23 +1,23 @@
 var express = require('express');
 var router = express.Router();
 
-var common = require('../newControllers/common');
+var common = require('../newControllers/owners/common');
 
 // 컨트롤러 변수 선언
-let stores = require('../newControllers/stores');
-let banners = require('../newControllers/banners');
-let calculations = require('../newControllers/calculations');
-let faqs = require('../newControllers/faqs');
-let members = require('../newControllers/members');
-let notices = require('../newControllers/notices');
-let payments = require('../newControllers/payments');
-let programs = require('../newControllers/programs');
-let reservations = require('../newControllers/reservations');
-let reviews = require('../newControllers/reviews');
-let schedules = require('../newControllers/schedules');
-let zzims = require('../newControllers/zzims');
+let stores = require('../newControllers/owners/stores');
+let banners = require('../newControllers/owners/banners');
+let calculations = require('../newControllers/owners/calculations');
+let faqs = require('../newControllers/owners/faqs');
+let members = require('../newControllers/owners/members');
+let notices = require('../newControllers/owners/notices');
+let payments = require('../newControllers/owners/payments');
+let programs = require('../newControllers/owners/programs');
+let reservations = require('../newControllers/owners/reservations');
+let reviews = require('../newControllers/owners/reviews');
+let schedules = require('../newControllers/owners/schedules');
+let zzims = require('../newControllers/owners/zzims');
 
-//let members = require('../newControllers/members');
+//let members = require('../newControllers/owners/members');
 
 
 
