@@ -1,0 +1,130 @@
+<% include ../templates/header.ejs %>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">예약 정보 수정</h4>
+          </div>
+          <div class="content">
+            <form id="editForm">
+              <div class="row">
+              <% var keys = Object.keys(schema); %>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>승마장명</label>
+                    <input name="store" type="text" class="form-control" placeholder="store" value="<%=reservation['store']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>프로그램명</label>
+                    <input name="program" type="text" class="form-control" placeholder="program" value="<%=reservation['program']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약날짜</label>
+                    <input name="reservationDate" type="text" class="form-control" placeholder="reservationDate" value="<%=reservation['reservationDate']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약ID</label>
+                    <input name="owner" type="text" class="form-control" placeholder="owner" value="<%=reservation['owner']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약자</label>
+                    <input name="ownername" type="text" class="form-control" placeholder="ownername" value="<%=reservation['ownername']%>">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>연락처</label>
+                    <input name="telephone" type="text" class="form-control" placeholder="telephone" value="<%=reservation['telephone']%>">
+                  </div>
+                </div>
+
+               <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약인원</label>
+                    <input name="howMany" type="text" class="form-control" placeholder="howMany" value="<%=reservation['howMany']%>">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <label>쿠폰</label>
+                    <input name="coupon" type="text" class="form-control" placeholder="coupon" value="<%=reservation['coupon']%>">
+                  </div>
+                </div>
+
+              <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+              <a href="../list" type="button" class="btn btn-info pull-right">이전으로</a>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-user">
+          <div class="image">
+            <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
+          </div>
+          <div class="content">
+            <div class="author">
+              <a href="#">
+                              <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
+
+                                <h4 class="title">Mike Andrew<br />
+                                   <small>michael24</small>
+                                </h4>
+                              </a>
+            </div>
+            <p class="description text-center"> "Lamborghini Mercy <br> Your chick she so thirsty <br> I'm in that two seat Lambo"
+            </p>
+          </div>
+          <hr>
+          <div class="text-center">
+            <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
+            <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
+            <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#editButton').click(function(){
+    var review =  $('#editForm').serializeObject();
+
+    $.ajax({
+      type:"PUT",
+      url:'/reviews/<%=review.id%>',
+      data:review,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

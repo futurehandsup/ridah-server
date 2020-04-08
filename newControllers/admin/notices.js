@@ -7,6 +7,9 @@ exports.getNoticeList = function(req, res, next) {
   let { page, userName, noticeNormalYn } = req.query; // 조건 작성
   let query = "SELECT * FROM Notice "
 
+  query += "LEFT JOIN Member ON Notice.userNo = Member.userNo "
+  query += "WHERE "
+
   //조건 검색 예시
   if(userName != null && userName != ""){
     query += ` userName = '${userName}' AND`

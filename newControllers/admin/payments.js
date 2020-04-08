@@ -7,6 +7,8 @@ exports.getPaymentList = function(req, res, next) {
   let { page, userName } = req.query; // 조건 작성
   let query = "SELECT * FROM Payment "
 
+  query += "LEFT JOIN Member ON Payment.userNo = Member.userNo "
+  query += "LEFT JOIN Reservation ON Payment.reservationNo = Reservation.reservationNo"
   query += "WHERE "
 
   //조건 검색 예시

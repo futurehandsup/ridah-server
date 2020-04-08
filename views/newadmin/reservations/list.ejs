@@ -1,0 +1,181 @@
+<% include ../templates/header.ejs %>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 class="title"><%=title%>
+              <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
+              만들기
+              </button></h4>
+            <p class="category">Here is a subtitle for this table</p>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">예약 등록</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="content">
+                    <form id="createForm" action="/reservations" method="POST">
+                      <div class="row">
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>승마장명</label>
+                            <input name="storename" type="text" class="form-control" placeholder="승마장명" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>프로그램명</label>
+                            <input name="program" type="text" class="form-control" placeholder="프로그램명" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>예약날짜</label>
+                            <input name="reservationDate" type="text" class="form-control" placeholder="yyyy-mm-dd" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>예약ID</label>
+                            <input name="owner" type="text" class="form-control" placeholder="예약ID" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>예약자</label>
+                            <input name="ownerName" type="text" class="form-control" placeholder="예약자" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>연락처</label>
+                            <input name="telephone" type="text" class="form-control" placeholder="연락처" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>예약인원</label>
+                            <input name="howMany" type="text" class="form-control" placeholder="예약인원" value="">
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="coupon">쿠폰</label><br>
+                            <select name="coupon" id="coupon">
+
+                             <!-- for()문으로 현재 보유하고 있는 쿠폰 가지고 오기 -->
+
+                            </select>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="clearfix"></div>
+                    </form>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="createButton">저장</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+                <th>ID</th>
+                
+                <th>예약코드</th>
+                <th>사용자명</th>
+                <th>승마장명</th>
+                <th>프로그램명</th>
+                <th>예약일</th>
+                <th>예약자명</th>
+                <th>예약자연락처</th>
+                <th>예약인원</th>
+
+                <th>작업</th>
+
+              </thead>
+              <tbody>
+                <% %>
+                <% for(var i=0; i<reservations.length; i++){
+                  var reservation = reservations[i];
+                  %>
+                  <tr>
+                    <td><%=i%></td>
+
+                    <td><%=reservation.reservationCode%></td>
+                    <td><%=reservation.userName%></td>
+                    <td><%=reservation.storeName%></td>
+                    <td><%=reservation.programName%></td>
+                    <td><%=reservation.createDate%></td>
+                    <td><%=reservation.reservationName%></td>
+                    <td><%=reservation.reservationPhoneNumber%></td>
+                    <td><%=reservation.reservationAmount%></td>
+
+                    <td>
+                      <button data-item="<%=reservation.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
+                      <a href="edit/<%=reservation.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
+                    </td>
+                  </tr>
+                <% }%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#createButton').click(function(){
+    var reservation =  $('#createForm').serializeObject();
+    $.ajax({
+      type:"POST",
+      url:'/reservations',
+      data:reservation,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+  $('.deleteButton').click(function(){
+    var reservationId = $(this).data("item");
+    $.ajax({
+      type:"DELETE",
+      url:'/reservations/'+reservationId,
+
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

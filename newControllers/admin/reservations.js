@@ -10,6 +10,8 @@ exports.getReservationList = function(req, res, next) {
   let query = "SELECT * FROM Reservation "
   query += " LEFT JOIN Program ON Reservation.programNo = Program.programNo "
   query += " LEFT JOIN Schedule ON Reservation.scheduleNo = Schedule.scheduleNo "
+  query += " LEFT JOIN Member ON Reservation.userNo = Member.userNo "
+  query += " LEFT JOIN Store ON Reservation.storeNo = Store.storeNo "
   query += " WHERE "
 
   //예약날짜 검색 예시

@@ -79,11 +79,14 @@ module.exports = function() {
     var calculationTaxs = require('../routes/calculationTaxs');
 
     var webapi = require('../newRoutes/webapi');
+    var adminapi = require('../newRoutes/adminapi');
 
     var admin = require('../routes/admin'); // 관리자 페이지
     var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
     var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
+
     var newOwners = require('../newRoutes/owners'); // 업주용 페이지 -->개발 예정
+    var newAdmin = require('../newRoutes/admin'); // 관리자 페이지 --> 개발 예정
 
     var modules = require('../routes/modules'); // 기타 기능 -- 파일 업로드 등
 
@@ -95,6 +98,7 @@ module.exports = function() {
 
     app.use('/', index);
     app.use('/apis/web', webapi);
+    app.use('/apis/admin', adminapi);
 
     //API Route : view 없음.
     app.use('/users', users);
@@ -125,6 +129,7 @@ module.exports = function() {
     //owners Route : /views/customers/* view 사용
     app.use('/owners', owners);
     app.use('/newowners', newOwners);
+    app.use('/newadmin', newAdmin);
 
     //owners Route : /views/customers/* view 사용
     app.use('/modules', modules);

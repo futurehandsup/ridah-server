@@ -1,0 +1,109 @@
+<% include ../templates/header.ejs %>
+
+<div class="content">
+  <form id="createForm" action="/stores" method="POST">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>승마장명</label>
+          <input name="storename" type="text" class="form-control" placeholder="승마장명" value="">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>대표자</label>
+          <input name="owner" type="text" class="form-control" placeholder="대표자" value="">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>이메일</label>
+          <input name="email" type="text" class="form-control" placeholder="이메일" value="">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>주소</label>
+          <input name="address" type="text" class="form-control" placeholder="주소" value="">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>사이트</label>
+          <input name="website" type="text" class="form-control" placeholder="사이트" value="">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>전화</label>
+          <input name="telephone" type="text" class="form-control" placeholder="전화" value="">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>소개글</label>
+          <input name="introduction" type="text" class="form-control" placeholder="소개글" value="">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>이미지</label>
+          <input name="image" type="text" class="form-control" placeholder="이미지" value="">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>태그</label>
+          <input name="tag" type="text" class="form-control" placeholder="태그" value="">
+        </div>
+      </div>
+
+    </div>
+
+    <button type="button" class="btn btn-primary" id="createButton">저장</button>
+
+  </form>
+</div>
+
+<script>
+$(document).ready(function(){
+  $('#createButton').click(function(){
+    var store =  $('#createForm').serializeObject();
+    $.ajax({
+      type:"POST",
+      url:'/stores',
+      data:store,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+  $('.deleteButton').click(function(){
+    var storeId = $(this).data("item");
+    $.ajax({
+      type:"DELETE",
+      url:'/stores/'+storeId,
+
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

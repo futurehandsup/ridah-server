@@ -4,19 +4,19 @@ var router = express.Router();
 var common = require('../newControllers/common');
 
 //컨트롤러 파일 추가!
-var members = require('../newControllers/owners/members');
-var zzims = require('../newControllers/owners/zzims');
-var reservations = require('../newControllers/owners/reservations');
-var reviews = require('../newControllers/owners/reviews');
-var stores = require('../newControllers/owners/stores');
-var programs = require('../newControllers/owners/programs');
-var notices = require('../newControllers/owners/notices');
-var banners = require('../newControllers/owners/banners');
-var schedules = require('../newControllers/owners/schedules');
-var faqs = require('../newControllers/owners/faqs');
-var payments = require('../newControllers/owners/payments');
-var calculations = require('../newControllers/owners/calculations');
-// var stores = require('../newControllers/owners/stores');
+var stores = require('../newControllers/admin/stores');
+var programs = require('../newControllers/admin/programs');
+var schedules = require('../newControllers/admin/schedules');
+var reservations = require('../newControllers/admin/reservations');
+var reviews = require('../newControllers/admin/reviews');
+var calculations = require('../newControllers/admin/calculations');
+var payments = require('../newControllers/admin/payments');
+var members = require('../newControllers/admin/members');
+var banners = require('../newControllers/admin/banners');
+var faqs = require('../newControllers/admin/faqs');
+var notices = require('../newControllers/admin/notices');
+
+// var stores = require('../newControllers/admin/stores');
 // ...
 
 // members
@@ -34,20 +34,20 @@ router.route('/member/:userNo')
 .delete(members.deleteMember, common.setResponse)     //사용자 삭제
 .post(common.notImplementedError);
 
-// zzims
-router.route('/zzim')
-.all(function(req, res, next)  {next();})
-.get(zzims.getZzimList, common.setResponse) // 찜 리스트 출력
-.post(zzims.addZzim, common.setResponse)    // 찜 등록
-.put(common.notImplementedError)
-.delete(common.notImplementedError);
-
-router.route('/zzim/:zzimNo')
-.all(function(req, res, next) {next();})
-.get(zzims.getZzimDetail, common.setResponse)     //찜 정보 출력
-.put(zzims.updateZzim, common.setResponse)        //찜 정보 가져오기
-.delete(zzims.deleteZzim, common.setResponse)     //찜 삭제
-.post(common.notImplementedError);
+// // zzims
+// router.route('/zzim')
+// .all(function(req, res, next)  {next();})
+// .get(zzims.getZzimList, common.setResponse) // 찜 리스트 출력
+// .post(zzims.addZzim, common.setResponse)    // 찜 등록
+// .put(common.notImplementedError)
+// .delete(common.notImplementedError);
+//
+// router.route('/zzim/:zzimNo')
+// .all(function(req, res, next) {next();})
+// .get(zzims.getZzimDetail, common.setResponse)     //찜 정보 출력
+// .put(zzims.updateZzim, common.setResponse)        //찜 정보 가져오기
+// .delete(zzims.deleteZzim, common.setResponse)     //찜 삭제
+// .post(common.notImplementedError);
 
 // reservations
 router.route('/reservation')
@@ -77,21 +77,6 @@ router.route('/review/:reviewNo')
 .get(reviews.getReviewDetail, common.setResponse)     //후기 정보 출력
 .put(reviews.updateReview, common.setResponse)        //후기 정보 가져오기
 .delete(reviews.deleteReview, common.setResponse)     //후기 삭제
-.post(common.notImplementedError);
-
-// stores
-router.route('/store')
-.all(function(req, res, next)  {next();})
-.get(stores.getStoreList, common.setResponse) //가맹점 리스트 출력
-.post(stores.addStore, common.setResponse)    //가맹점 등록
-.put(common.notImplementedError)
-.delete(common.notImplementedError);
-
-router.route('/store/:storeNo')
-.all(function(req, res, next) {next();})
-.get(stores.getStoreDetail, common.setResponse)     //가맹점 정보 출력
-.put(stores.updateStore, common.setResponse)        //가맹점 정보 가져오기
-.delete(stores.deleteStore, common.setResponse)     //가맹점 삭제
 .post(common.notImplementedError);
 
 // programs
