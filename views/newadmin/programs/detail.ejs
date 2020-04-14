@@ -1,107 +1,175 @@
 <% include ../templates/header.ejs %>
+
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="header">
-            <h4 class="title">프로그램 수정</h4>
-          </div>
-          <div class="content">
-            <form id="editForm">
+      <form id="editForm">
+        <div class="col-md-8"> <!--왼쪽 승마장 상세정보-->
+          <div class="card">
+            <div class="content">
               <div class="row">
-              <% var keys = Object.keys(schema); %>
-
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>프로그램명</label>
-                    <input name="programname" type="text" class="form-control" placeholder="programname" value="<%=program['programname']%>">
+                    <!-- <p class="form-control-static"><%=program.programName%></p> -->
+                    <input name="programName" type="text" class="form-control" value="<%=program.programName%>">
                   </div>
                 </div>
-
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>승마장명</label>
-                    <input name="program" type="text" class="form-control" placeholder="program" value="<%=program['program']%>">
+                    <p class="form-control-static"><%=program.storeName%></p>
+                    <!-- <input name="storeName" type="text" class="form-control" placeholder="대표자" value="<%=program.storeName%>"> -->
                   </div>
                 </div>
-
-                <div class="col-md-4">
+                <div class="col-md-12">
                   <div class="form-group">
-                    <label>소개</label>
-                    <input name="introduction" type="text" class="form-control" placeholder="introduction" value="<%=program['introduction']%>">
+                    <label>프로그램 한줄 설명</label>
+                    <textarea name="programDescription" rows="1" class="form-control" placeholder="프로그램 한줄 설명" value="<%=program.programDescription%>"></textarea>
                   </div>
                 </div>
-
-                <div class="col-md-4">
+                <div class="col-md-12">
                   <div class="form-group">
-                    <label>타입</label>
-                    <input name="programtype" type="text" class="form-control" placeholder="programtype" value="<%=program['programtype']%>">
+                    <label>프로그램 상세소개</label>
+                    <textarea name="programContents" rows="6" class="form-control" placeholder="프로그램 상세소개" value="<%=program.programContents%>"></textarea>
+                    <!-- <input name="programContents" type="text" class="form-control" value="상세한 소개"> -->
                   </div>
                 </div>
               </div>
-
-              <div class="col-md-4">
-                  <div class="form-group">
-                    <label>프로그램 시작시각</label>
-                    <input name="time.start.hours" type="text" class="form-control" placeholder="time.start.hours" value="<%=program['time.start.hours']%>">
-                  </div>
-                </div>
-
+              <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>프로그램 진행시간</label>
-                    <input name="time.howlong" type="text" class="form-control" placeholder="time.howlong" value="<%=program['time.howlong']%>">
+                    <label>가격</label>
+                    <input name="programOriginalPrice" type="text" class="form-control" placeholder="원래가격" value="<%=program.programOriginalPrice%>">
                   </div>
                 </div>
-
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>예약</label>
-                    <input name="reservations" type="text" class="form-control" placeholder="reservations" value="<%=program['reservations']%>">
+                    <label>현재가격</label>
+                    <input name="programPrice" type="text" class="form-control" placeholder="현재가격" value="<%=program.programPrice%>">
                   </div>
                 </div>
-                
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>할인율</label>
+                    <input name="programDiscountRatio" type="text" class="form-control" placeholder="할인율" value="<%=program.programDiscountRatio%>">
+                  </div>
+                </div>
               </div>
-
-              <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
-              <a href="../list" type="button" class="btn btn-info pull-right">이전으로</a>
-              <div class="clearfix"></div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card card-user">
-          <div class="image">
-            <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
-          </div>
-          <div class="content">
-            <div class="author">
-              <a href="#">
-                              <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
-
-                                <h4 class="title">Mike Andrew<br />
-                                   <small>michael24</small>
-                                </h4>
-                              </a>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>시간(분)</label>
+                    <input name="programTime" type="text" class="form-control" value="<%=program.programTime%>">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>최소요구등급</label>
+                    <input name="requiredLevelMin" type="text" class="form-control" value="<%=program.requiredLevelMin%>">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>최대요구등급</label>
+                    <input name="requiredLevelMax" type="text" class="form-control" value="<%=program.requiredLevelMax%>">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>프로그램 안내사항</label>
+                    <textarea name="programInfo" rows="4" class="form-control" placeholder="프로그램 안내사항" value="<%=program.programInfo%>"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>프로그램 준비물</label>
+                    <textarea name="programNeeds" rows="4" class="form-control" placeholder="프로그램 준비물" value="<%=program.programNeeds%>"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>노출여부</label>
+                  <select class="form-control" name="showYn" value="<%=program.showYn%>">
+                    <option value="1">노출</option>
+                    <option value="0">노출 안함</option>
+                  </select>
+                </div>
+                <!-- <div class="col-md-6">
+                  <label>마감일</label>
+                  <input type="date" name="endDate" class="form-control pull-bottom" value="<%=program.endDate%>">
+                </div> -->
+              </div>
             </div>
-            <p class="description text-center"> "Lamborghini Mercy <br> Your chick she so thirsty <br> I'm in that two seat Lambo"
-            </p>
-          </div>
-          <hr>
-          <div class="text-center">
-            <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-            <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-            <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-
           </div>
         </div>
-      </div>
+        <div class="col-md-4"> <!--오른쪽 승마장 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label>후기개수</label>
+                  <p class="form-control-static"><%=program.reviewCount%></p>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>평점</label>
+                  <p class="form-control-static"><%=program.reviewScore%></p>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>찜개수</label>
+                  <p class="form-control-static"><%=program.zzimCount%></p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>등록일</label>
+                  <p class="form-control-static"><%=moment(program.createDate).format("YYYY-MM-DD")%></p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>수정일</label>
+                  <p class="form-control-static"><%=(program.updateDate == null || program.updateDate == "") ? " " : moment(program.updateDate).format("YYYY-MM-DD")%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>코치 사진</label>
+                  <img id="<%=program.coachImage%>" src="" alt="" class="showImage">
+                  <input name="coachImage" type="file" accept="image/*" id="<%=program.coachImage%>" class="form-control" placeholder="코치 사진" value="<%=program.coachImage%>">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>코치 이름</label>
+                  <input name="coachName" type="text" class="form-control" placeholder="코치 이름" value="<%=program.coachName%>">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>코치 경력</label>
+                  <input name="coachHistory" type="text" class="form-control" placeholder="코치 경력" value="<%=program.coachHistory%>">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12">
+            <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+            <a href="../list" type="button" class="btn btn-info pull-left">이전으로</a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
 
     </div>
   </div>
 </div>
+
 <% include ../templates/bottom.ejs %>
 <script>
 $(document).ready(function(){
@@ -110,7 +178,7 @@ $(document).ready(function(){
 
     $.ajax({
       type:"PUT",
-      url:'/programs/<%=program.id%>',
+      url:'/apis/admin/program/<%=program.programNo%>',
       data:program,
       success:function(args){
         alert("성공했습니다.");
@@ -122,4 +190,31 @@ $(document).ready(function(){
     });
   });
 });
+
+var sel_file;
+
+$(document).ready(function(){
+  $("#input_img").on("change", handleImgFileSelect);
+});
+
+function handleImgFileSelect(e){
+  var files = e.target.files;
+  var filesArr = Array.prototype.slice.call(files);
+
+  filesArr.forEach(function(f){
+    if(!f.type.match("image.*")){
+      alert("확장자는 이미지 확장자만 가능합니다.");
+      return;
+    }
+
+    sel_file = f;
+
+    var reader = new FileReader();
+    reader.onload = function(e){
+      $("img").attr("src",e.target.result);
+    }
+    reader.readAsDataURL(f);
+  });
+}
+
 </script>

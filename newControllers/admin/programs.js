@@ -4,29 +4,27 @@ let connection = common.initDatabase();
 
 // 프로그램 리스트
 exports.getProgramList = function(req, res, next) {
-  let { page, userName, createDate, createDateMax, createDateMin, endDate, endDateMax, endDateMin,
-    programName, showYn, programOriginalPrice, programOriginalPriceMax, programOriginalPriceMin} = req.query; // 조건 작성
+  let { page, userName, programName, storeName, programTimeMin, programTimeMax, showYn} = req.query; // 조건 작성
   let query = "SELECT * FROM Program "
+  query += "LEFT JOIN Store ON Program.storeNo = Store.storeNo "
 
   query += "WHERE "
 
-  // 등록일 검색
-  if(createDateMin != null && createDateMin != ""){
-    query  += ` date_format(createDate, '%Y-%m-%d') >= '${createDateMin}' AND`
-  }
-  if(createDateMax != null && createDateMax != ""){
-    query  += ` date_format(createDate, '%Y-%m-%d') <= '${createDateMax}' AND`
-  }
-  // 마감일 검색
-  if(endDateMin != null && endDateMin != ""){
-    query  += ` date_format(endDate, '%Y-%m-%d') >= '${endDateMin}' AND`
-  }
-  if(endDateMax != null && endDateMax != ""){
-    query  += ` date_format(endDate, '%Y-%m-%d') <= '${endDateMax}' AND`
-  }
   // 프로그램명 검색
   if(programName != null && programName != ""){
     query  +=  ` programName LIKE '%${programName}%' AND`
+  }
+  // 승마장명 검색
+  if(storeName != null && storeName != ""){
+    query  +=  ` storeName LIKE '%${storeName}%' AND`
+  }
+  // 가격 최소 검색
+  if(programTimeMin != null && programTimeMin != ""){
+    query  +=  ` programTime >= '${programTimeMin}' AND`
+  }
+  // 가격 최대 검색
+  if(programTimeMax != null && programTimeMax != ""){
+    query  +=  ` programTime <= '${programTimeMax}' AND`
   }
   // 노출여부 검색
   if(showYn == "노출"){
@@ -34,14 +32,6 @@ exports.getProgramList = function(req, res, next) {
   }
   if(showYn == "노출안함"){
     query  +=  ` showYn = 0 AND`
-  }
-  // 가격 최소 검색
-  if(programOriginalPriceMin != null && programOriginalPriceMin != ""){
-    query  +=  ` programOriginalPrice >= '${programOriginalPriceMin}' AND`
-  }
-  // 가격 최대 검색
-  if(programOriginalPriceMax != null && programOriginalPriceMax != ""){
-    query  +=  ` programOriginalPrice <= '${programOriginalPriceMax}' AND`
   }
   //프로그램 검색 예시
   if(userName != null && userName != ""){
@@ -78,9 +68,8 @@ exports.getProgramList = function(req, res, next) {
 exports.getProgramDetail = function(req, res, next) {
   let { programNo } = req.params;
 
-  let query = ` SELECT * `;
-
-  query += ` FROM Program `
+  let query = ` SELECT * FROM Program `
+  query += ` LEFT JOIN Store ON Program.storeNo = Store.storeNo `
 
   query += ` WHERE programNo = '${programNo}';`
 
@@ -103,20 +92,20 @@ exports.getProgramDetail = function(req, res, next) {
 
 //프로그램 수정
 exports.updateProgram = function(req, res, next) {
-  let { userNo } = req.params;
+  let { programNo } = req.params;
   if(!Object.keys(req.body)){
     return next(new Error("값이 없으므로 수정할 수 없습니다."));
   }
   let query = `UPDATE Program SET `;
   query += ` updateDate = CURRENT_TIMESTAMP, `
   for(let item in req.body){
-    if(item == "userNo") continue;
+    if(item == "programNo") continue;
     query += `${item} = '${req.body[item]}', `
   }
   query = query.trim();
   if(query.endsWith(',')) query = query.slice(0, -1);  //마지막 AND
 
-  query += ` WHERE userNo = '${userNo}'`;
+  query += ` WHERE programNo = '${programNo}'`;
 
   console.log(query);
   connection.query(query, function(err, sqlResult) {
@@ -127,7 +116,7 @@ exports.updateProgram = function(req, res, next) {
         title: "프로그램 수정 성공",
         success: true,
         message: '메시지',
-        userNo: userNo
+        programNo: programNo
       }
       common.setResult(req, result);
       next();

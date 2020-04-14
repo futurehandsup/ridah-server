@@ -245,7 +245,6 @@
 $(document).ready(function(){
   $('#editButton').click(function(){
     var store =  $('#editForm').serializeObject();
-    console.log(store)
     $.ajax({
       type:"PUT",
       url:'/apis/admin/store/<%=store.storeNo%>',
