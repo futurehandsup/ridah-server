@@ -68,7 +68,8 @@ exports.getReservationList = function(req, res, next) {
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
 
-  query += ` ORDER BY reservationNo DESC `;
+  query += ` ORDER BY reservationNo ASC `;
+
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }

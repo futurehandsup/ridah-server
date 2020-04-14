@@ -9,6 +9,7 @@ exports.getCalculationList = function(req, res, next) {
   calculationPrice, calculationPriceMin, calculationPriceMax, calculationStatus } = req.query; // 조건 작성
   let query = "SELECT * FROM Calculation "
 
+  query += "LEFT JOIN Store ON Calculation.storeNo = Store.storeNo "
   query += "WHERE "
 
   //조건 검색 예시

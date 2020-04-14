@@ -34,6 +34,21 @@ router.route('/member/:userNo')
 .delete(members.deleteMember, common.setResponse)     //사용자 삭제
 .post(common.notImplementedError);
 
+// stores
+router.route('/store')
+.all(function(req, res, next)  {next();})
+.get(stores.getStoreList, common.setResponse) // 사용자 리스트 출력
+.post(stores.addStore, common.setResponse)    // 사용자 등록
+.put(common.notImplementedError)
+.delete(common.notImplementedError);
+
+router.route('/store/:storeNo')
+.all(function(req, res, next) {next();})
+.get(stores.getStoreDetail, common.setResponse)     //사용자 정보 출력
+.put(stores.updateStore, common.setResponse)        //사용자 정보 가져오기
+.delete(stores.deleteStore, common.setResponse)     //사용자 삭제
+.post(common.notImplementedError);
+
 // // zzims
 // router.route('/zzim')
 // .all(function(req, res, next)  {next();})

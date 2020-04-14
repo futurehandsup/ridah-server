@@ -4,14 +4,25 @@ let connection = common.initDatabase();
 
 // 가맹점 정보 리스트
 exports.getStoreList = function(req, res, next) {
-  let { page, storeName } = req.query; // 조건 작성
+  let { page, storeName, storeOwner, storePhoneNumber, storeAddress } = req.query; // 조건 작성
   let query = "SELECT * FROM Store "
 
   query += "WHERE "
 
   //조건 검색 예시
   if(storeName != null && storeName != ""){
-    query += ` storeName = '${storeName}' AND`
+    query += ` storeName LIKE '%${storeName}%' AND`
+  }
+  if(storeOwner != null && storeOwner != ""){
+    query += ` storeOwner LIKE '%${storeOwner}%' AND`
+  }
+  if(storePhoneNumber != null && storePhoneNumber != ""){
+    query += ` storePhoneNumber LIKE '%${storePhoneNumber}%' AND`
+  }
+  if(storeAddress != null && storeAddress != ""){
+    query += ` storeAddress1 LIKE '%${storeAddress}%' OR`
+    query += ` storeAddress2 LIKE '%${storeAddress}%' OR`
+    query += ` storeAddress3 LIKE '%${storeAddress}%' AND`
   }
 
   //... so on
@@ -20,7 +31,7 @@ exports.getStoreList = function(req, res, next) {
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
 
-  query += ` ORDER BY storeNo DESC `;
+  query += ` ORDER BY storeNo ASC `;
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }
@@ -84,6 +95,8 @@ exports.updateStore = function(req, res, next) {
   if(query.endsWith(',')) query = query.slice(0, -1);  //마지막 AND
 
   query += ` WHERE storeNo = '${storeNo}'`;
+
+  console.log(req.body)
 
   connection.query(query, function(err, sqlResult) {
     if (err) {

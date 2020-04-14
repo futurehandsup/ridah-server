@@ -11,103 +11,18 @@
               </button></h4>
             <p class="category">Here is a subtitle for this table</p>
           </div>
-          <!-- Modal -->
-          <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">프로그램 등록</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="content">
-                    <form id="createForm" action="/schedules" method="POST">
-                      <div class="row">
 
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label>프로그램명</label>
-                            <input name="schedulename" type="text" class="form-control" placeholder="프로그램명" value="">
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label>소개</label>
-                            <input name="introduction" type="text" class="form-control" placeholder="소개" value="">
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label>승마장</label>
-                            <input name="store" type="text" class="form-control" placeholder="승마장명" value="">
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-
-                           <label for="scheduleType">타입</label><br>
-
-                            <select name="scheduleType" id="scheduleType" class="form-control">
-                              <option value="체험일반">체험일반</option>
-                              <option value="체험고급">체험고급</option>
-                              <option value="자유기승">자유기승</option>
-                            </select>
-
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label>시작시각(시)</label>
-                            <input name="time.start.hours" type="text" class="form-control" placeholder="시작시각(시)" value="">
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label>시작시각(분)</label>
-                            <input name="time.start.minutes" type="text" class="form-control" placeholder="시작시각(분)" value="">
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label>진행시간</label>
-                            <input name="time.howLong" type="text" class="form-control" placeholder="진행시간" value="">
-                          </div>
-                        </div>
-
-
-                      </div>
-                      <div class="clearfix"></div>
-                    </form>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" id="createButton">저장</button>
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="content table-responsive table-full-width">
             <table class="table table-hover table-striped">
               <thead>
-                <th>ID</th>
-
-                <th>스케줄</th>
-                <th>스케줄날짜</th>
-                <th>스케줄시간</th>
+                <th>번호</th>
+                <th>프로그램명</th>
+                <th>날짜</th>
+                <th>시간</th>
                 <th>최소수량</th>
+                <th>현재수량</th>
                 <th>최대수량</th>
-                <th>생성날짜</th>
-                <th>수정날짜</th>
-
-                <th>작업</th>
-
+                <th>등록일</th>
               </thead>
               <tbody>
                 <% %>
@@ -115,20 +30,14 @@
                   var schedule = schedules[i];
                   %>
                   <tr>
-                    <td><%=i%></td>
-
                     <td><%=schedule.scheduleNo%></td>
-                    <td><%=schedule.scheduleDate%></td>
+                    <td><a href="../program/detail/<%=schedule.programNo%>"><%=schedule.programName%></a></td>
+                    <td><%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%></td>
                     <td><%=schedule.scheduleTime%></td>
-                    <td><%=schedule.amountLimitMax%></td>
                     <td><%=schedule.amountLimitMin%></td>
-                    <td><%=schedule.createDate%></td>
-                    <td><%=schedule.updateDate%></td>
-
-                    <td>
-                      <button data-item="<%=schedule.id%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-                      <a href="edit/<%=schedule.id%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
-                    </td>
+                    <td><a href="detail/<%=schedule.scheduleNo%>"><%=schedule.amountNow%></a></td>
+                    <td><%=schedule.amountLimitMax%></td>
+                    <td><%=moment(schedule.createDate).format("YYYY-MM-DD")%></td>
                   </tr>
                 <% }%>
               </tbody>

@@ -5,101 +5,38 @@
       <div class="col-md-12">
         <div class="card">
           <div class="header">
-            <h4 class="title">notice
+            <h4 class="title"><%=title%>
               <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
               만들기
               </button></h4>
             <p class="category">Here is a subtitle for this table</p>
-              <div class="category">
-                <tr>카테고리</th>
-                <th><select>
-                  <option>전체</option>
-                  <option value="예약">예약</option>
-                  <option value="결제">결제</option>
-                  <option value="기타">기타</option>
-                </select></th>
-              </div>
           </div>
-          <!-- Modal -->
-          <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">FAQ 등록</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="content">
-                    <form id="createForm" action="/notices" method="POST">
-                      <div class="row">
 
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label>FAQTitle</label>
-                            <input name="FAQTitle" type="text" class="form-control" placeholder="FAQTitle" value="">
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label>FAQText</label>
-                            <input name="FAQText" type="text" class="form-control" placeholder="FAQText" value="">
-                          </div>
-                        </div>
-
-                       <div class="col-md-4">
-                          <div class="form-group">
-                            <label>FAQCategory</label>
-                              <div><select>
-                                <option>전체</option>
-                                <option value="예약">예약</option>
-                                <option value="결제">결제</option>
-                                <option value="기타">기타</option>
-                              </select></div>
-                          </div>
-                        </div>
-
-                      </div>
-                      <div class="clearfix"></div>
-                    </form>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" id="createButton">저장</button>
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="content table-responsive table-full-width">
             <table class="table table-hover table-striped">
               <thead>
-                <th>질문</th>
-                <th>답변</th>
-                <th>카테고리</th>
-                <th>작성일</th>
+                <th>번호</th>
+                <th>제목</th>
                 <th>작성자</th>
-
-                <th>작업</th>
-
+                <th>작성일</th>
+                <th>전체</th>
+                <th>가맹점</th>
+                <th>노출여부</th>
               </thead>
               <tbody>
                 <% %>
                 <% for(var i=0; i<notices.length; i++){
                   var notice = notices[i];
                   %>
-                  <tr>
-                    <td><%=notice.noticeNo%></td>
-                    <td><%=notice.noticeTitle%></td>
-                    <td><%=notice.showYn%></td>
-                    <td><%=notice.createDate%></td>
-                    <td><%=notice.userName%></td>
-
-                    <td>
-                      <button data-item="<%=notice.noticeNo%>" class="btn btn-danger btn-fill btn-sm deleteButton"><span class="fa fa-trash"></span></button>
-                      <a href="edit/<%=notice.noticeNo%>" class="btn btn-info btn-fill btn-sm"><span class="fa fa-pencil"></span></button>
-                    </td>
-                  </tr>
+                <tr>
+                  <td><%=notice.noticeNo%></td>
+                  <td><a href="detail/<%=notice.noticeNo%>"><%=notice.noticeTitle%></a></td>
+                  <td><%=notice.userName%></td>
+                  <td><%=notice.createDate%></td>
+                  <td><%=(notice.noticeNormalYn == 1) ? "O" : "X"%></td>
+                  <td><%=(notice.noticeOwnerYn == 1) ? "O" : "X"%></td>
+                  <td><%=notice.showYn%></td>
+                </tr>
                 <% }%>
               </tbody>
             </table>

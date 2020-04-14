@@ -1,76 +1,186 @@
 <% include ../templates/header.ejs %>
 
 <div class="content">
-  <form id="createForm" action="/stores" method="POST">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>승마장명</label>
-          <input name="storename" type="text" class="form-control" placeholder="승마장명" value="">
+      <form id="editForm">
+        <div class="col-md-8"> <!--왼쪽 승마장 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>승마장 이름</label>
+                    <input name="storeName" type="text" class="form-control" placeholder="이름">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>승마장 대표자</label>
+                    <input name="storeOwner" type="text" class="form-control" placeholder="대표자">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>승마장 썸네일</label>
+                    <input name="storeThumbnail" type="file" class="form-control" placeholder="썸네일">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>주소1</label>
+                    <input name="storeAddress1" type="text" class="form-control" placeholder="주소1">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>주소2</label>
+                    <input name="storeAddress2" type="text" class="form-control" placeholder="주소2">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>주소3</label>
+                    <input name="storeAddress3" type="text" class="form-control" placeholder="주소3">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>이용시간</label>
+                    <textarea name="storeOperationTime" rows="2" class="form-control" placeholder="이용시간"></textarea>
+                    <!-- <input name="storeOperationTime" type="text" class="form-control" placeholder="이용시간"> -->
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>소개</label>
+                    <input name="storeDescription" type="text" class="form-control" placeholder="간략한 소개">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>상세소개</label>
+                    <textarea name="storeContents" rows="6" cols="80" class="form-control"></textarea>
+                    <!-- <input name="storeContents" type="text" class="form-control" placeholder="상세한 소개"> -->
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>오시는길(차량)</label>
+                    <textarea name="storeWayCar" rows="4" class="form-control"></textarea>
+                    <!-- <input name="storeWayCar" type="text" class="form-control" placeholder="차량"> -->
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>오시는길(대중교통)</label>
+                    <textarea name="storeWayPublic" rows="4" class="form-control"></textarea>
+                    <!-- <input name="storeWayPublic" type="text" class="form-control" placeholder="대중교통"> -->
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>오시는길(셔틀버스)</label>
+                    <textarea name="storeWayShuttle" rows="4" class="form-control"></textarea>
+                    <!-- <input name="storeWayShuttle" type="text" class="form-control" placeholder="셔틀버스"> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="col-md-4"> <!--오른쪽 승마장 상세정보-->
+          <div class="card">
+            <div class="content">
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>사이트</label>
+                    <input name="storeWebsite" type="text" class="form-control" placeholder="사이트">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>SNS</label>
+                    <input name="storeInstagram" type="text" class="form-control" placeholder="SNS">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>전화번호</label>
+                    <input name="storePhoneNumber" type="text" class="form-control" placeholder="전화번호">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>사업자번호</label>
+                    <input name="registerNo" type="text" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>승마장신고여부</label>
+                    <select class="form-control" name="registerYn">
+                      <option value="1">신고</option>
+                      <option value="0">미신고</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>보험여부</label>
+                    <select class="form-control" name="ensureYn">
+                      <option value="1">있음</option>
+                      <option value="0">없음</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>보험사</label>
+                    <input name="ensureCorp" type="text" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>입금은행</label>
+                    <input name="accountBank" type="text" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>계좌정보</label>
+                    <input name="accountInfo" type="text" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>통장사본 이미지</label>
+                    <input name="accountImage" type="file" class="form-control" placeholder="" accept="image/*">
+                  </div>
+                </div>
 
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>대표자</label>
-          <input name="owner" type="text" class="form-control" placeholder="대표자" value="">
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>이메일</label>
-          <input name="email" type="text" class="form-control" placeholder="이메일" value="">
+        <div class="row">
+          <div class="form-group col-md-12">
+            <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+            <a href="../list" type="button" class="btn btn-info pull-left">이전으로</a>
+            <div class="clearfix"></div>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>주소</label>
-          <input name="address" type="text" class="form-control" placeholder="주소" value="">
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>사이트</label>
-          <input name="website" type="text" class="form-control" placeholder="사이트" value="">
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>전화</label>
-          <input name="telephone" type="text" class="form-control" placeholder="전화" value="">
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>소개글</label>
-          <input name="introduction" type="text" class="form-control" placeholder="소개글" value="">
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>이미지</label>
-          <input name="image" type="text" class="form-control" placeholder="이미지" value="">
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>태그</label>
-          <input name="tag" type="text" class="form-control" placeholder="태그" value="">
-        </div>
-      </div>
+      </form>
 
     </div>
-
-    <button type="button" class="btn btn-primary" id="createButton">저장</button>
-
-  </form>
+  </div>
 </div>
 
 <script>
@@ -81,21 +191,6 @@ $(document).ready(function(){
       type:"POST",
       url:'/stores',
       data:store,
-      success:function(args){
-        alert("성공했습니다.");
-        location.reload();
-      },
-      error:function(e){
-          alert(e.responseText);
-      }
-    });
-  });
-  $('.deleteButton').click(function(){
-    var storeId = $(this).data("item");
-    $.ajax({
-      type:"DELETE",
-      url:'/stores/'+storeId,
-
       success:function(args){
         alert("성공했습니다.");
         location.reload();

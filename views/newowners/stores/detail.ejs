@@ -17,6 +17,18 @@
               <td class="info-info"><%=store.storeName%></td>
             </tr>
             <tr>
+              <td class="info-head">승마장 대표자</td>
+              <td class="info-info"><%=store.storeOwner%></td>
+            </tr>
+            <tr>
+              <td class="info-head">썸네일 이미지</td>
+              <td class="info-info"><%=store.storeThumbnail%></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="info-info"><input type="file" accpet="image/*" name="storeThumbnail" value="<%=store.storeThumbnail%>"></td>
+            </tr>
+            <tr>
               <td class="info-head">주소1</td>
               <td class="info-info"><input type="text" name="storeAddress1" value="<%=store.storeAddress1%>" class="info-input"></td>
             </tr>
