@@ -42,9 +42,20 @@ exports.getProgramList = function(req, res, next){
 exports.getProgramDetail = function(req, res, next){
   let { userNo, programNo } = req.body;
   var query = ""
-  query = `SELECT Program.*, Store.storeName, Store.storeThumbnail, Store.storeAddress1, Store.storeAddress2, Store.storeAddress3 FROM  Program `;
+  query = `SELECT Program.*, Store.storeName, Store.storeThumbnail, Store.storeAddress1, Store.storeAddress2, Store.storeAddress3`
+  query += ` , COUNT(DISTINCT Zzim.programNo) AS zzimYn `
+  query += ` FROM  Program `;
   query += ` LEFT JOIN Store ON Store.storeNo = Program.storeNo `
-  query += ` WHERE programNo = '${programNo}' `
+
+  if(userNo != null && userNo != "") {
+    query += ` LEFT JOIN Zzim ON Zzim.programNo = Program.programNo AND Zzim.userNo = '${userNo}' `;
+  } else {
+    query += ` LEFT JOIN Zzim ON Zzim.programNo = Program.programNo AND Zzim.userNo = '' `;
+  }
+
+  query += ` WHERE Program.programNo = '${programNo}' `
+
+  query +=  ` GROUP BY Program.programNo `
   query += ` LIMIT 1 `
 
   console.log(query);

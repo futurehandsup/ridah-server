@@ -56,8 +56,17 @@ exports.getStoreDetail = function(req, res, next){
   var query = ""
   query = `SELECT Store.*, `;
   query += `(SELECT COUNT(programNo) from Program WHERE storeNo = '${storeNo}' AND showYn = 1) AS programCount `
+  query += ` , COUNT(DISTINCT Zzim.storeNo) AS zzimYn `
   query += ` FROM  Store `;
-  query += ` WHERE storeNo = '${storeNo}' `
+
+  if(userNo != null && userNo != "") {
+    query += ` LEFT JOIN Zzim ON Zzim.storeNo = Store.storeNo AND Zzim.userNo = '${userNo}' `;
+  } else {
+    query += ` LEFT JOIN Zzim ON Zzim.storeNo = Store.storeNo AND Zzim.userNo = '' `;
+  }
+  query += ` WHERE Store.storeNo = '${storeNo}' `
+  query +=  ` GROUP BY Store.storeNo `
+
   query += ` LIMIT 1 `
 
   console.log(query);
