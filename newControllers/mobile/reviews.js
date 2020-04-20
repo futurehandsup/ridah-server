@@ -24,7 +24,7 @@ exports.getReviewDetail = function(req, res, next) {
         title : "리뷰 상세 조회",
         success : true,
         message : '메시지',
-        review : review
+        review : review[0]
       }
       common.setResult(req, result);
       next();

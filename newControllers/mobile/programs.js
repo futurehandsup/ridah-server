@@ -12,8 +12,10 @@ let connection = common.initDatabase();
 exports.getProgramList = function(req, res, next){
   let { userNo, page } = req.body;
   var query = ""
-  query = `SELECT * FROM  Program `;
-  query += ` WHERE showYn = 1  `
+  query = `SELECT Program.*, Store.storeName, Store.storeAddress1, Store.storeAddress2 `
+  query += ` FROM  Program `;
+  query += ` LEFT JOIN Store ON Store.storeNo = Program.storeNo `
+  query += ` WHERE Program.showYn = 1  `
   query += ` ORDER BY programNo DESC `
 
   if(page != null && page != ""){
@@ -40,7 +42,8 @@ exports.getProgramList = function(req, res, next){
 exports.getProgramDetail = function(req, res, next){
   let { userNo, programNo } = req.body;
   var query = ""
-  query = `SELECT * FROM  Program `;
+  query = `SELECT Program.*, Store.storeName, Store.storeThumbnail, Store.storeAddress1, Store.storeAddress2, Store.storeAddress3 FROM  Program `;
+  query += ` LEFT JOIN Store ON Store.storeNo = Program.storeNo `
   query += ` WHERE programNo = '${programNo}' `
   query += ` LIMIT 1 `
 

@@ -204,7 +204,6 @@ exports.addMember = function(req, res, next) {
 // 회원정보 상세	R	member/getMemberDetail
 exports.getMemberDetail = function(req, res, next){
   let { userNo } = req.body;
-
   var query = ""
   if(userNo != null && userNo != ""){
     query = `SELECT * FROM Member WHERE userNo = '${userNo}' ;`
@@ -318,8 +317,10 @@ exports.getReviewList = function(req, res, next){
     return next(new Error("사용자 키를 입력해주세요"))
   }
   var query = ""
-  query = `SELECT * FROM Review `;
-  query += ` WHERE userNo = '${userNo}' `
+  query = `SELECT Review.*, Program.programName, Member.nickname, Member.userProfilePic FROM Review `;
+  query += ` LEFT JOIN Program ON Program.programNo = Review.programNo `
+  query += ` LEFT JOIN Member ON Member.userNo = Review.userNo `
+  query += ` WHERE Review.userNo = '${userNo}' `
   query += ` ORDER BY reviewNo DESC `
 
   if(page != null && page != ""){
@@ -344,14 +345,26 @@ exports.getReviewList = function(req, res, next){
 
 // 내 예약목록	R	member/getReservationList
 exports.getReservationList = function(req, res, next){
-  let { userNo, page } = req.body;
+  let { userNo, page, checkYn } = req.body;
   if(userNo == null || userNo == ""){
     return next(new Error("사용자 키를 입력해주세요"))
   }
   var query = ""
-  query = `SELECT * FROM Reservation `;
-  query += ` WHERE userNo = '${userNo}' `
-  query += ` ORDER BY reservationNo DESC `
+  query = `SELECT Reservation.*, Store.storeName, Program.programName, Program.programThumbnail, Schedule.scheduleTime, Schedule.scheduleDate, Payment.paymentPrice, Review.reviewNo `
+  query += ` FROM Reservation `;
+  query += ` LEFT JOIN Store ON Reservation.storeNo = Store.storeNo `
+  query += ` LEFT JOIN Program ON Reservation.programNo = Program.programNo `
+  query += ` LEFT JOIN Schedule ON Schedule.scheduleNo = Reservation.ScheduleNo `
+  query += ` LEFT JOIN Payment ON Payment.reservationNo = Reservation.reservationNo `
+  query += ` LEFT JOIN Review ON Review.reservationNo = Reservation.reservationNo `
+
+  query += ` WHERE Reservation.userNo = '${userNo}' `
+
+  if(checkYn != "" && checkYn != null ){
+    query += ` AND Reservation.checkYn = '${checkYn}'`
+  }
+
+  query += ` ORDER BY Reservation.reservationNo DESC `
 
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
@@ -367,6 +380,7 @@ exports.getReservationList = function(req, res, next){
         message : '메시지',
         reservations : reservations
       }
+      console.log(reservations)
       common.setResult(req, result);
       next();
     }
@@ -413,8 +427,9 @@ exports.getZzimProgramList = function(req, res, next){
     return next(new Error("사용자 키를 입력해주세요"))
   }
   var query = ""
-  query = `SELECT Program.*, Zzim.* FROM Zzim `;
+  query = `SELECT Program.*, Zzim.*, Store.storeName FROM Zzim `;
   query += ` LEFT JOIN Program ON Program.programNo = Zzim.programNo `
+  query += ` LEFT JOIN Store ON Store.storeNo = Program.storeNo `
   query += ` WHERE Zzim.userNo = '${userNo}' AND Zzim.programNo <> 0 `
   //query += ` GROUP BY Zzim.programNo `
   query += ` ORDER BY zzimNo DESC `

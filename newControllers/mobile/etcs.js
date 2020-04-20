@@ -11,7 +11,7 @@ exports.getNoticeList = function(req, res, next){
   let { userNo, page } = req.body;
 
   var query = `SELECT * FROM Notice WHERE showYn = 1 `
-  query += `ORDER BY createDate `
+  query += `ORDER BY createDate DESC `
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `
   }
@@ -53,7 +53,7 @@ exports.getNoticeDetail = function(req, res, next){
         title : "공지사항 상세조회",
         success : true,
         message : '메시지',
-        notice : notice
+        notice : notice[0]
       }
       common.setResult(req, result);
       next();

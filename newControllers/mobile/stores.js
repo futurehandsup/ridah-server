@@ -9,11 +9,25 @@ let connection = common.initDatabase();
 / =========================================== */
 // 상점 목록	     R	store/getStoreList
 exports.getStoreList = function(req, res, next){
-  let { userNo, page } = req.body;
+  let { userNo, page, latitude, longitude, orderBy } = req.body;
+
+  if(latitude ==null || latitude == "") latitude = "37.325941";
+  if(longitude ==null || longitude == "") longitude = "126.952008";
+
   var query = ""
-  query = `SELECT * FROM  Store `;
+  query = `SELECT Store.* `
+  if(orderBy == "distance"){
+    query += ` , ST_DISTANCE_SPHERE(POINT(${longitude}, ${latitude}), storeGps)/1000 AS distance `
+  }
+  query += ` FROM  Store `;
   query += ` WHERE showYn = 1 `
-  query += ` ORDER BY storeNo DESC `
+
+  if(orderBy == "distance"){
+    query += ` ORDER BY distance `
+  }
+  else{
+    query += ` ORDER BY storeNo DESC `
+  }
 
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 20 }, 20 `
@@ -29,6 +43,7 @@ exports.getStoreList = function(req, res, next){
         message : '메시지',
         stores : stores
       }
+      console.log(stores)
       common.setResult(req, result);
       next();
     }
@@ -39,7 +54,9 @@ exports.getStoreList = function(req, res, next){
 exports.getStoreDetail = function(req, res, next){
   let { userNo, storeNo } = req.body;
   var query = ""
-  query = `SELECT * FROM  Store `;
+  query = `SELECT Store.*, `;
+  query += `(SELECT COUNT(programNo) from Program WHERE storeNo = '${storeNo}' AND showYn = 1) AS programCount `
+  query += ` FROM  Store `;
   query += ` WHERE storeNo = '${storeNo}' `
   query += ` LIMIT 1 `
 
@@ -64,8 +81,10 @@ exports.getStoreDetail = function(req, res, next){
 exports.getProgramList = function(req, res, next){
   let { userNo, storeNo } = req.body;
   var query = ""
-  query = `SELECT * FROM Program `;
-  query += ` WHERE storeNo = '${storeNo}' `
+  query = `SELECT Program.*, Store.storeName, Store.storeAddress1, Store.storeAddress2 `
+  query += ` FROM  Program `;
+  query += ` LEFT JOIN Store ON Store.storeNo = Program.storeNo `
+  query += ` WHERE Program.storeNo = '${storeNo}' `
 
   console.log(query);
   connection.query(query, function (err, programs) {
@@ -87,8 +106,10 @@ exports.getProgramList = function(req, res, next){
 exports.getReviewList = function(req, res, next){
   let { userNo, storeNo, page } = req.body;
   var query = ""
-  query = `SELECT * FROM Review `;
-  query += ` WHERE storeNo = '${storeNo}' `
+  query = `SELECT Review.*, Program.programName, Member.nickname FROM Review `;
+  query += ` LEFT JOIN Program ON Program.programNo = Review.programNo `
+  query += ` LEFT JOIN Member ON Member.userNo = Review.userNo `
+  query += ` WHERE Review.storeNo = '${storeNo}' `
 
   if(page != null && page != ""){
     query += `LIMIT  ${(page-1) * 10 }, 10 `

@@ -79,10 +79,19 @@ exports.updateReservation = function(req, res, next) {
 // 예약상세	  R	  reservation/getReservationDetail
 exports.getReservationDetail = function(req, res, next) {
   let {reservationNo, userNo} = req.body;
-  let query = ""
-  query += ` SELECT * FROM Reservation `;
 
-  query += ` WHERE reservationNo = '${reservationNo}'`
+  query = `SELECT Reservation.*, Store.storeName, Store.storeAddress3, Store.storeThumbnail, Store.storePhoneNumber,
+   Program.*,
+   Schedule.scheduleTime, Schedule.scheduleDate,
+   Payment.paymentPrice, Review.reviewNo `
+  query += ` FROM Reservation `;
+  query += ` LEFT JOIN Store ON Reservation.storeNo = Store.storeNo `
+  query += ` LEFT JOIN Program ON Reservation.programNo = Program.programNo `
+  query += ` LEFT JOIN Schedule ON Schedule.scheduleNo = Reservation.ScheduleNo `
+  query += ` LEFT JOIN Payment ON Payment.reservationNo = Reservation.reservationNo `
+  query += ` LEFT JOIN Review ON Review.reservationNo = Reservation.reservationNo `
+
+  query += ` WHERE Reservation.reservationNo = '${reservationNo}'`
   query += ` LIMIT 1 `
 
   console.log(query);
