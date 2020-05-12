@@ -1,0 +1,99 @@
+<% include ../templates/header.ejs %>
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <form id="createForm">
+        <div class="col-md-8"> <!--왼쪽 승마장 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>제목</label>
+                    <input name="noticeTitle" type="text" class="form-control" placeholder="제목">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>작성자 회원번호</label>
+                    <input name="userNo" type="text" class="form-control" placeholder="회원번호">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>공지내용</label>
+                    <textarea name="noticeContents" rows="10" class="form-control"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>공지 첨부파일</label>
+                    <input name="noticeAttach1" type="file" class="form-control-static">
+                    <input name="noticeAttach2" type="file" class="form-control-static">
+                    <input name="noticeAttach3" type="file" class="form-control-static">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4"> <!--오른쪽 승마장 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>일반공지</label>
+                  <select class="form-control" name="noticeNormalYn">
+                    <option value="1">해당</option>
+                    <option value="0">미해당</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>가맹점공지</label>
+                  <select class="form-control" name="noticeOwnerYn">
+                    <option value="1">해당</option>
+                    <option value="0">미해당</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12">
+            <button id="createButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+            <a href="../list" type="button" class="btn btn-info pull-left">이전으로</a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#createButton').click(function(){
+    var notice =  $('#createForm').serializeObject();
+    console.log(notice);
+
+    $.ajax({
+      type:"POST",
+      url:'/apis/admin/notice',
+      data:notice,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

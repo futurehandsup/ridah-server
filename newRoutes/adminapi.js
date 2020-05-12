@@ -49,21 +49,6 @@ router.route('/store/:storeNo')
 .delete(stores.deleteStore, common.setResponse)     //사용자 삭제
 .post(common.notImplementedError);
 
-// // zzims
-// router.route('/zzim')
-// .all(function(req, res, next)  {next();})
-// .get(zzims.getZzimList, common.setResponse) // 찜 리스트 출력
-// .post(zzims.addZzim, common.setResponse)    // 찜 등록
-// .put(common.notImplementedError)
-// .delete(common.notImplementedError);
-//
-// router.route('/zzim/:zzimNo')
-// .all(function(req, res, next) {next();})
-// .get(zzims.getZzimDetail, common.setResponse)     //찜 정보 출력
-// .put(zzims.updateZzim, common.setResponse)        //찜 정보 가져오기
-// .delete(zzims.deleteZzim, common.setResponse)     //찜 삭제
-// .post(common.notImplementedError);
-
 // reservations
 router.route('/reservation')
 .all(function(req, res, next)  {next();})

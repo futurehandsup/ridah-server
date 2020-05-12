@@ -188,10 +188,11 @@
 $(document).ready(function(){
   $('#createButton').click(function(){
     var store =  $('#createForm').serializeObject();
+    console.log(schedule);
 
     $.ajax({
       type:"POST",
-      url:'/apis/admin/stores',
+      url:'stores',
       data:store,
       success:function(args){
         alert("성공했습니다.");

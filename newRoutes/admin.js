@@ -55,6 +55,8 @@ router.get('/schedules/add', common.setTitle('스케줄 추가'), common.renderP
 
 router.get('/reservations/list', reservations.getReservationList, common.setTitle('예약내역'), common.renderPage('newadmin/reservations/list'));
 router.get('/reservations/detail/:reservationNo', reservations.getReservationDetail, common.setTitle('예약내역 상세'), common.renderPage('newadmin/reservations/detail'));
+router.get('/reservations/add', common.setTitle('예약내역 추가'), common.renderPage('newadmin/reservations/add'));
+
 
 router.get('/reviews/list', reviews.getReviewList, common.setTitle('이용후기'), common.renderPage('newadmin/reviews/list'));
 router.get('/reviews/detail/:reviewNo', reviews.getReviewDetail, common.setTitle('이용후기 상세'), common.renderPage('newadmin/reviews/detail'));

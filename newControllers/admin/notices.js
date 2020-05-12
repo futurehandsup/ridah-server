@@ -5,7 +5,7 @@ let connection = common.initDatabase();
 // 공지사항 리스트
 exports.getNoticeList = function(req, res, next) {
   let { page, noticeTo, noticeTitle, userName, showYn } = req.query; // 조건 작성
-  let query = "SELECT * FROM Notice "
+  let query = "SELECT Notice.*, Member.userName FROM Notice "
 
   query += "LEFT JOIN Member ON Notice.userNo = Member.userNo "
   query += "WHERE "
