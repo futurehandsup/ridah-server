@@ -2,52 +2,70 @@
 <% include ../templates/header.ejs %>
 <div class="content">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="header">
-            <h4 class="title"><%=title%>
-              <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
-              만들기
-              </button>
-            </h4>
-            <p class="category">Here is a subtitle for this table</p>
+    <div class="card"> <!--검색-->
+      <div class="content">
+        <form action="" method="get">
+          <div class="row">
+            <div class="col-md-3">
+              <label>제목</label>
+              <input type="text" name="bannerTitle" value="<%=query.bannerTitle%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>등록일(부터)</label>
+              <input type="date" name="createDateMin" value="<%=query.createDate%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>등록일(까지)</label>
+              <input type="date" name="createDateMax" value="<%=query.createDate%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>노출여부</label>
+              <select class="form-control search_key" name="showYn">
+                <option value="1">노출</option>
+                <option value="0">노출안함</option>
+              </select>
+            </div>
           </div>
 
-          <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
-              <thead>
-                <th>번호</th>
-                <th>제목</th>
-                <th>상세</th>
-                <th>URL</th>
-                <th>등록일</th>
-                <th>노출여부</th>
-                <th>노출순서</th>
-              </thead>
-              <tbody>
-                <% %>
-                <% for(var i=0; i<banners.length; i++){
-                  var banner = banners[i];
-                  %>
-                  <tr>
-                    <td><%=banner.bannerNo%></td>
-                    <td><%=banner.bannerTitle%></td>
-                    <td><%=banner.bannerDescription%></td>
-                    <td><%=banner.bannerUrl%></td>
-                    <td><%=moment(banner.createDate).format("YYYY-MM-DD")%></td>
-                    <td><%=banner.showYn%></td>
-                    <td><%=banner.showSeq%></td>
-                  </tr>
-                <% }%>
-              </tbody>
-            </table>
+          <div class="row">
+            <div class="col-md-3 pull-left">
+              <button class="btn search_submit">검색</button>
+              <a href="list" class="btn search_submit search_reset">초기화</a>
+            </div>
           </div>
-        </div>
+        </form>
+      </div>
 
-        <!--new-->
-
-        </div>
+    </div>
+    <div class="card">
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover table-striped">
+          <thead>
+            <th>번호</th>
+            <th>제목</th>
+            <th>상세</th>
+            <th>URL</th>
+            <th>등록일</th>
+            <th>노출여부</th>
+            <th>노출순서</th>
+          </thead>
+          <tbody>
+            <% %>
+            <% for(var i=0; i<banners.length; i++){
+              var banner = banners[i];
+              %>
+              <tr>
+                <td><%=banner.bannerNo%></td>
+                <td><a href="detail/<%=banner.bannerNo%>"><%=banner.bannerTitle%></a></td>
+                <td><%=banner.bannerDescription%></td>
+                <td><%=banner.bannerUrl%></td>
+                <td><%=moment(banner.createDate).format("YYYY-MM-DD")%></td>
+                <td><%=banner.showYn%></td>
+                <td><%=banner.showSeq%></td>
+              </tr>
+            <% }%>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

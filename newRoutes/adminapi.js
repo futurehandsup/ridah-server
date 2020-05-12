@@ -140,26 +140,19 @@ router.route('/banner/:bannerNo')
 .post(common.notImplementedError);
 
 // schedules
-router.route('/program')
-.all(function(req, res, next)  {next();})
-.get(programs.getProgramList, common.setResponse) //프로그램 리스트 출력
-.post(programs.addProgram, common.setResponse)    //프로그램 등록
-.put(common.notImplementedError)
-.delete(common.notImplementedError);
-
-router.route('/program/:programNo')
-.all(function(req, res, next) {next();})
-.get(programs.getProgramDetail, common.setResponse)     //프로그램 정보 출력
-.put(programs.updateProgram, common.setResponse)        //프로그램 정보 가져오기
-.delete(programs.deleteProgram, common.setResponse)     //프로그램 삭제
-.post(common.notImplementedError);
-
-router.route('/program/schedule')
+router.route('/schedule')
 .all(function(req, res, next)  {next();})
 .get(schedules.getSchedulesList, common.setResponse) //스케줄 리스트 출력
 .post(schedules.addSchedules, common.setResponse)    //스케줄 등록
 .put(common.notImplementedError)
 .delete(common.notImplementedError);
+
+router.route('/schedule/:scheduleNo')
+.all(function(req, res, next) {next();})
+.get(schedules.getSchedulesDetail, common.setResponse)     //스케줄 정보 출력
+.put(schedules.updateSchedules, common.setResponse)        //스케줄 정보 가져오기
+.delete(schedules.deleteSchedules, common.setResponse)     //스케줄 삭제
+.post(common.notImplementedError);
 
 // faqs
 router.route('/faq')

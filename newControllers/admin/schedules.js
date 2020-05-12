@@ -4,14 +4,22 @@ let connection = common.initDatabase();
 
 // 프로그램 일정 리스트
 exports.getSchedulesList = function(req, res, next) {
-  let { page, userName, scheduleDate, scheduleDateMin, scheduleDateMax, programName, amountNow,
-   showSchedules, orderSchedule} = req.query; // 조건 작성
+  let { page, userName, programName, storeName, scheduleDateMin, scheduleDateMax, scheduleTimeMin, scheduleTimeMax,
+    amountLimitMin, amountLimitMax, amountNeed} = req.query; // 조건 작성
 
   let query = "SELECT * FROM Schedule "
   query += " LEFT JOIN Program ON Schedule.programNo = Program.programNo "
-
+  query += " LEFT JOIN Store ON Program.storeNo = Store.storeNo "
   query += " WHERE "
 
+  //프로그램명 검색
+  if(programName != null && programName != ""){
+    query  +=  ` programName LIKE '%${programName}%' AND`
+  }
+  //프로그램명 검색
+  if(storeName != null && storeName != ""){
+    query  +=  ` storeName LIKE '%${storeName}%' AND`
+  }
   //수업일 검색
   if(scheduleDateMin != null && scheduleDateMin != ""){
     query  += ` date_format(scheduleDate, '%Y-%m-%d') >= '${scheduleDateMin}' AND`
@@ -19,20 +27,16 @@ exports.getSchedulesList = function(req, res, next) {
   if(scheduleDateMax != null && scheduleDateMax != ""){
     query  += ` date_format(scheduleDate, '%Y-%m-%d') <= '${scheduleDateMax}' AND`
   }
-  //프로그램명 검색
-  if(programName != null && programName != ""){
-    query  +=  ` programName LIKE '%${programName}%' AND`
+  //프로그램 시간 검색
+  if(scheduleTimeMin != null && scheduleTimeMin != ""){
+    query  += ` scheduleTime >= '${scheduleTimeMin}' AND`
   }
-  //신청인원 검색
-  if(amountNow != null && amountNow != ""){
-    query +=  ` 'amountNow' = '${amountNow}' AND`
+  if(scheduleTimeMax != null && scheduleTimeMax != ""){
+    query  += ` scheduleTime <= '${scheduleTimeMax}' AND`
   }
-  //보기
-  if(showSchedules == "futureSchedule"){
-    query += ` date_format(scheduleDate, '%Y-%m-%d') >= '${showSchedules}' AND`
-  }
-  if(showSchedules == "pastSchedule"){
-    query += ` date_format(scheduleDate, '%Y-%m-%d') <= '${showSchedules}' AND`
+  //수량 검색
+  if(amountNeed != null && amountNeed != ""){
+    query  += ` (amountLimitMax - amountNow) >= '${amountNeed}' AND`
   }
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
@@ -63,14 +67,19 @@ exports.getSchedulesList = function(req, res, next) {
 }
 // 프로그램 알정 상세 불러오기
 exports.getSchedulesDetail = function(req, res, next) {
-  let { userNo } = req.params;
-  query += ` SELECT * `;
+  let { scheduleNo } = req.params;
 
-  query += ` FROM Schedules `
+  query = ` SELECT * `
 
-  query += ` WHERE userNo = '${userNo}';`
+  query += ` FROM Schedule `
+
+  query += " LEFT JOIN Program ON Schedule.programNo = Program.programNo "
+  query += " LEFT JOIN Store ON Program.storeNo = Store.storeNo "
+
+  query += ` WHERE scheduleNo = '${scheduleNo}';`
 
   console.log(query);
+
   connection.query(query, function (err, results) {
     if (err) {
       return next(err);
@@ -79,7 +88,7 @@ exports.getSchedulesDetail = function(req, res, next) {
         title : "프로그램 운영 날짜 상세 조회",
         success : true,
         message : '메시지',
-        schedules : results[0]
+        schedule : results[0]
       }
       common.setResult(req, result);
       next();
@@ -89,20 +98,20 @@ exports.getSchedulesDetail = function(req, res, next) {
 
 // 프로그램 일정 수정
 exports.updateSchedules = function(req, res, next) {
-  let { userNo } = req.params;
+  let { scheduleNo } = req.params;
   if(!Object.keys(req.body)){
     return next(new Error("값이 없으므로 수정할 수 없습니다."));
   }
-  let query = `UPDATE Schedules SET `;
+  let query = `UPDATE Schedule SET `;
   query += ` updateDate = CURRENT_TIMESTAMP, `
   for(let item in req.body){
-    if(item == "userNo") continue;
+    if(item == "scheduleNo") continue;
     query += `${item} = '${req.body[item]}', `
   }
   query = query.trim();
   if(query.endsWith(',')) query = query.slice(0, -1);  //마지막 AND
 
-  query += ` WHERE userNo = '${userNo}'`;
+  query += ` WHERE scheduleNo = '${scheduleNo}'`;
 
   console.log(query);
   connection.query(query, function(err, sqlResult) {
@@ -113,7 +122,7 @@ exports.updateSchedules = function(req, res, next) {
         title: "프로그램 운영 날짜 수정 성공",
         success: true,
         message: '메시지',
-        userNo: userNo
+        scheduleNo: scheduleNo
       }
       common.setResult(req, result);
       next();

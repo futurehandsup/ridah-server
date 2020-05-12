@@ -1,0 +1,148 @@
+<% include ../templates/header.ejs %>
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <form id="editForm">
+        <div class="col-md-8"> <!--왼쪽 스케줄 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>후기번호</label>
+                    <p class="form-control-static"><%=review.reviewNo%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약코드</label>
+                    <p class="form-control-static"><%=review.reservationCode%></p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>후기내용</label>
+                    <input type="textarea" class="form-control" name="reviewContents" value="<%=review.reviewContents%>" readonly>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>점수</label>
+                    <p class="form-control-static"><%=review.reviewScore%></p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>작성자명</label>
+                    <p name="userName" class="form-control-static"><%=review.userName%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>작성자번호</label>
+                    <p><%=review.userNo%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>닉네임</label>
+                    <p><%=review.nickname%></p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>리뷰사진</label>
+                    <input type="file" class="form-control" name="reviewPic1" value="<%=review.reviewPic1%>">
+                    <input type="file" class="form-control" name="reviewPic2" value="<%=review.reviewPic2%>">
+                    <input type="file" class="form-control" name="reviewPic3" value="<%=review.reviewPic3%>">
+                    <input type="file" class="form-control" name="reviewPic4" value="<%=review.reviewPic4%>">
+                    <input type="file" class="form-control" name="reviewPic5" value="<%=review.reviewPic5%>">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4"> <!--오른쪽 스케줄 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>등록일</label>
+                  <p class="form-control-static"><%=moment(review.createDate).format("YYYY-MM-DD")%></p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>수정일</label>
+                  <p class="form-control-static"><%=moment(review.updateDate).format("YYYY-MM-DD")%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>승마장명</label>
+                  <p class="form-control-static"><a href="../../stores/detail/<%=review.storeNo%>"><%=review.storeName%></a></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>프로그램명</label>
+                  <p class="form-control-static"><a href="../../programs/detail/<%=review.programNo%>"><%=review.programName%></a></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>스케줄번호</label>
+                  <p class="form-control-static"><a href="../../schedules/detail/<%=review.scheduleNo%>"><%=review.scheduleNo%></a></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>노출여부</label>
+                  <select class="form-control" name="showYn">
+                    <option value="1">노출</option>
+                    <option value="0">노출안함</option>
+                  </select>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12">
+            <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+            <a href="../list" type="button" class="btn btn-info pull-left">이전으로</a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#editButton').click(function(){
+    var review =  $('#editForm').serializeObject();
+
+    $.ajax({
+      type:"PUT",
+      url:'/apis/admin/review/<%=review.reviewNo%>',
+      data:review,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

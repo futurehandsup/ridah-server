@@ -1,0 +1,114 @@
+<% include ../templates/header.ejs %>
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <form id="editForm">
+        <div class="col-md-8"> <!--왼쪽 스케줄 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>예약번호</label>
+                    <p class="form-control-static"><%=payment.reservationCode%></p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>사용자명</label>
+                    <p class="form-control-static"><%=payment.userName%></p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>결제번호</label>
+                    <p class="form-control-static"><%=payment.paymentNo%></p>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>결제금액</label>
+                    <p class="form-control-static"><%=payment.paymentPrice%></p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>PG결제번호</label>
+                    <p class="form-control-static"><%=payment.paymentPGNo%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>결제정보</label>
+                    <p class="form-control-static"><%=payment.paymentInfo%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>결제수단</label>
+                    <p class="form-control-static"><%=payment.paymentType%></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4"> <!--오른쪽 스케줄 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>승마장명</label>
+                  <p class="form-control-static"><%=payment.storeName%></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>프로그램명</label>
+                  <p class="form-control-static"><%=payment.programName%></p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12">
+            <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+            <a href="../list" type="button" class="btn btn-info pull-left">이전으로</a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#editButton').click(function(){
+    var payment =  $('#editForm').serializeObject();
+
+    $.ajax({
+      type:"PUT",
+      url:'/apis/admin/payment/<%=payment.paymentNo%>',
+      data:payment,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

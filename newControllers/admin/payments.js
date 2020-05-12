@@ -4,7 +4,7 @@ let connection = common.initDatabase();
 
 // 결제 리스트
 exports.getPaymentList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, reservationCode, paymentType, paymentDateMin, paymentDateMax } = req.query; // 조건 작성
   let query = "SELECT * FROM Payment "
 
   query += "LEFT JOIN Member ON Payment.userNo = Member.userNo "
@@ -13,8 +13,25 @@ exports.getPaymentList = function(req, res, next) {
 
   //조건 검색 예시
   if(userName != null && userName != ""){
-    query += ` userName = '${userName}' AND`
+    query += ` userName LIKE '%${userName}%' AND`
   }
+  //예약코드 검색
+  if(reservationCode != null && reservationCode != ""){
+    query += ` reservationCode LIKE '%${reservationCode}%' AND`
+  }
+  //결제일자
+  if(paymentDateMin != null && paymentDateMin != ""){
+    query  += ` paymentDate >= '${paymentDateMin}' AND`
+  }
+  if(paymentDateMax != null && paymentDateMax != ""){
+    query  += ` paymentDate <= '${paymentDateMax}' AND`
+  }
+
+  //타입
+  if(paymentType != null && paymentType != ""){
+    query += ` paymentType = '${paymentType}' AND`
+  }
+
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
@@ -43,14 +60,18 @@ exports.getPaymentList = function(req, res, next) {
 }
 // 결제 내용 상세 불러오기
 exports.getPaymentDetail = function(req, res, next) {
-  let { userNo } = req.params;
-  query += ` SELECT * `;
+  let { paymentNo } = req.params;
+  query = ` SELECT * FROM Payment`;
 
-  query += ` FROM Payment `
+  query += ` LEFT JOIN Member ON Payment.userNo = Member.userNo`
+  query += ` LEFT JOIN Reservation ON Payment.reservationNo = Reservation.reservationNo`
+  query += ` LEFT JOIN Store ON Reservation.storeNo = Store.storeNo`
+  query += ` LEFT JOIN Program ON Reservation.programNo = Program.programNo`
 
-  query += ` WHERE userNo = '${userNo}';`
+  query += ` WHERE paymentNo = '${paymentNo}';`
 
   console.log(query);
+
   connection.query(query, function (err, results) {
     if (err) {
       return next(err);

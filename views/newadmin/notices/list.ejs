@@ -1,47 +1,74 @@
 <% include ../templates/header.ejs %>
 <div class="content">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="header">
-            <h4 class="title"><%=title%>
-              <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
-              만들기
-              </button></h4>
-            <p class="category">Here is a subtitle for this table</p>
+    <div class="card"> <!--검색-->
+      <div class="content">
+        <form action="" method="get">
+          <div class="row">
+            <div class="col-md-3">
+              <label>분류</label>
+              <select class="form-control search_key" name="noticeTo">
+                <option value="all">전체</option>
+                <option value="normal">일반</option>
+                <option value="owner">가맹점</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label>제목</label>
+              <input type="text" name="noticeTitle" value="<%=query.noticeTitle%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>작성자</label>
+              <input type="text" name="userName" value="<%=query.userName%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>노출여부</label>
+              <select class="form-control search_key" name="showYn">
+                <option value="1">노출</option>
+                <option value="0">노출안함</option>
+              </select>
+            </div>
           </div>
 
-          <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
-              <thead>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>전체</th>
-                <th>가맹점</th>
-                <th>노출여부</th>
-              </thead>
-              <tbody>
-                <% %>
-                <% for(var i=0; i<notices.length; i++){
-                  var notice = notices[i];
-                  %>
-                <tr>
-                  <td><%=notice.noticeNo%></td>
-                  <td><a href="detail/<%=notice.noticeNo%>"><%=notice.noticeTitle%></a></td>
-                  <td><%=notice.userName%></td>
-                  <td><%=notice.createDate%></td>
-                  <td><%=(notice.noticeNormalYn == 1) ? "O" : "X"%></td>
-                  <td><%=(notice.noticeOwnerYn == 1) ? "O" : "X"%></td>
-                  <td><%=notice.showYn%></td>
-                </tr>
-                <% }%>
-              </tbody>
-            </table>
+          <div class="row">
+            <div class="col-md-3 pull-left">
+              <button class="btn search_submit">검색</button>
+              <a href="list" class="btn search_submit search_reset">초기화</a>
+            </div>
           </div>
-        </div>
+        </form>
+      </div>
+
+    </div>
+    <div class="card">
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover table-striped">
+          <thead>
+            <th>공지번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>일반</th>
+            <th>가맹점</th>
+            <th>노출여부</th>
+          </thead>
+          <tbody>
+            <% %>
+            <% for(var i=0; i<notices.length; i++){
+              var notice = notices[i];
+              %>
+            <tr>
+              <td><%=notice.noticeNo%></td>
+              <td><a href="detail/<%=notice.noticeNo%>"><%=notice.noticeTitle%></a></td>
+              <td><%=notice.userName%></td>
+              <td><%=moment(notice.createDate).format("YYYY-MM-DD")%></td>
+              <td><%=(notice.noticeNormalYn == 1) ? "O" : "X"%></td>
+              <td><%=(notice.noticeOwnerYn == 1) ? "O" : "X"%></td>
+              <td><%=(notice.showYn == 1) ? "노출" : "노출안함"%></td>
+            </tr>
+            <% }%>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

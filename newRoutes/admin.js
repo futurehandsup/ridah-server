@@ -57,11 +57,11 @@ router.get('/reservations/list', reservations.getReservationList, common.setTitl
 router.get('/reservations/detail/:reservationNo', reservations.getReservationDetail, common.setTitle('예약내역 상세'), common.renderPage('newadmin/reservations/detail'));
 
 router.get('/reviews/list', reviews.getReviewList, common.setTitle('이용후기'), common.renderPage('newadmin/reviews/list'));
-router.get('/reviews/detail/:reservationNo', reviews.getReviewDetail, common.setTitle('이용후기 상세'), common.renderPage('newadmin/reviews/detail'));
+router.get('/reviews/detail/:reviewNo', reviews.getReviewDetail, common.setTitle('이용후기 상세'), common.renderPage('newadmin/reviews/detail'));
 router.get('/reviews/add', common.setTitle('이용후기 추가'), common.renderPage('newadmin/reviews/add'));
 
 router.get('/calculations/list', calculations.getCalculationList, common.setTitle('정산내역'), common.renderPage('newadmin/calculations/list'));
-router.get('/calculations/detail/:calculationNo', calculations.getCalculationDetail, common.setTitle('정산내역 상세'), common.renderPage('newadmin/caculations/detail'))
+router.get('/calculations/detail/:calculationNo', calculations.getCalculationDetail, common.setTitle('정산내역 상세'), common.renderPage('newadmin/calculations/detail'))
 router.get('/calculations/add', common.setTitle('정산내역 추가'), common.renderPage('newadmin/calculations/add'));
 
 router.get('/payments/list', payments.getPaymentList, common.setTitle('결제관리'), common.renderPage('newadmin/payments/list'));

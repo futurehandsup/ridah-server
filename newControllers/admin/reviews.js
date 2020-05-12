@@ -4,47 +4,36 @@ let connection = common.initDatabase();
 
 // 후기 리스트
 exports.getReviewList = function(req, res, next) {
-  let { page, userName, createDate, createDateMin, createDateMax,
-    reviewNo, reviewContents, userNo, reviewScore, reviewScoreMin, reviewScoreMax, showYn } = req.query; // 조건 작성
+  let { page, reservationCode, userName, storeName, programName, createDate, createDateMin, createDateMax,
+  showYn } = req.query; // 조건 작성
   let query = "SELECT * FROM Review "
   query += " LEFT JOIN Member ON Review.userNo = Member.userNo "
   query += " LEFT JOIN Program ON Review.programNo = Program.programNo "
   query += " LEFT JOIN Reservation ON Review.reservationNo = Reservation.reservationNo "
   query += " WHERE "
 
+  // 에약코드 검색
+  if(reservationCode != null && reservationCode != ""){
+    query += ` reservationCode LIKE '%${reservationCode}%' AND`
+  }
+  // 작성자명
+  if(userName != null && userName != ""){
+    query += ` userName LIKE '%${userName}%' AND`
+  }
+  // 승마장명 검색
+  if(storeName != null && storeName != ""){
+   query += ` storeName = '${storeName}' AND`
+  }
+  // 프로그램명 검색
+  if(programName != null && programName != ""){
+   query += ` programName = '${programName}' AND`
+  }
   //작성일 검색
   if(createDateMin != null && createDateMin != ""){
-    query += ` date_format(createDate, '%Y-%m-%d') >= '${createDateMin}' AND`
+    query += ` date_format(review.createDate, '%Y-%m-%d') >= '${createDateMin}' AND`
   }
   if(createDateMax != null && createDateMax != ""){
-    query += ` date_format(createDate, '%Y-%m-%d') <= '${createDateMax}' AND`
-  }
-  // 후기번호 검색
-  if(reviewNo != null && reviewNo != ""){
-   query += ` reviewNo = '${reviewNo}' AND`
-  }
-  // 후기내용 검색
-  if(reviewContents != null && reviewContents != ""){
-    query += ` reviewContents LIKE '%${reviewContents}%' AND`
-  }
-  // 사용자번호 검색
-  if(userNo != null && userNo != ""){
-    query += ` userNo = '${userNo}' AND`
-  }
-  // 평점 최소 검색
-  if(reviewScoreMin != null && reviewScoreMin != ""){
-    query += ` reviewScore >= '${reviewScoreMin}' AND`
-  }
-  // 평점 최대 검색
-  if(reviewScoreMax != null && reviewScoreMax != ""){
-    query += ` reviewScore <= '${reviewScoreMax}' AND`
-  }
-  // 노출여부 검색
-  if(showYn == "노출"){
-    query  +=  ` showYn = 1 AND`
-  }
-  if(showYn == "노출안함"){
-    query  +=  ` showYn = 0 AND`
+    query += ` date_format(review.createDate, '%Y-%m-%d') <= '${createDateMax}' AND`
   }
 
   //... so on
@@ -58,7 +47,6 @@ exports.getReviewList = function(req, res, next) {
   }
   query += ";"
 
-  console.log(query)
   connection.query(query, function (err, results) {
     if (err) {
       return next(err);
@@ -85,6 +73,7 @@ exports.getReviewDetail = function(req, res, next) {
   query += ` LEFT JOIN Program ON Review.programNo = Program.programNo `
   query += ` LEFT JOIN Reservation ON Review.reservationNo = Reservation.reservationNo `
   query += ` LEFT JOIN Schedule ON Review.scheduleNo = Schedule.scheduleNo`
+  query += ` LEFT JOIN Store ON Reservation.storeNo = Store.storeNo`
 
   query += ` WHERE reviewNo = '${reviewNo}';`
 
@@ -108,20 +97,20 @@ exports.getReviewDetail = function(req, res, next) {
 // 그런데 말입니다... 가맹점주가 후기를 수정, 삭제, 등록하여도 되는건가요..?
 //후기 수정
 exports.updateReview = function(req, res, next) {
-  let { userNo } = req.params;
+  let { reviewNo } = req.params;
   if(!Object.keys(req.body)){
     return next(new Error("값이 없으므로 수정할 수 없습니다."));
   }
   let query = `UPDATE Review SET `;
   query += ` updateDate = CURRENT_TIMESTAMP, `
   for(let item in req.body){
-    if(item == "userNo") continue;
+    if(item == "reviewNo") continue;
     query += `${item} = '${req.body[item]}', `
   }
   query = query.trim();
   if(query.endsWith(',')) query = query.slice(0, -1);  //마지막 AND
 
-  query += ` WHERE userNo = '${userNo}'`;
+  query += ` WHERE reviewNo = '${reviewNo}'`;
 
   console.log(query);
   connection.query(query, function(err, sqlResult) {
@@ -132,7 +121,7 @@ exports.updateReview = function(req, res, next) {
         title: "후기 수정 성공",
         success: true,
         message: '메시지',
-        userNo: userNo
+        reviewNo: reviewNo
       }
       common.setResult(req, result);
       next();

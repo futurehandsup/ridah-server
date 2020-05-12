@@ -4,15 +4,29 @@ let connection = common.initDatabase();
 
 // 배너 리스트
 exports.getBannerList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, bannerTitle, createDateMin, createDateMax, showYn } = req.query; // 조건 작성
   let query = "SELECT * FROM Banner "
 
   query += "WHERE "
 
   //배너 조건 검색 예시
-  if(userName != null && userName != ""){
-    query += ` userName = '${userName}' AND`
+  if(bannerTitle != null && bannerTitle != ""){
+    query += ` bannerTitle = '${bannerTitle}' AND`
   }
+
+  //등록일 검색
+  if(createDateMin != null && createDateMin != ""){
+    query  += ` createDate >= '${createDateMin}' AND`
+  }
+  if(createDateMax != null && createDateMax != ""){
+    query  += ` createDate <= '${createDateMax}' AND`
+  }
+
+  //노출여부 검색
+  if(showYn != null && showYn != ""){
+    query += ` showYn = '${showYn}' AND`
+  }
+
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
@@ -41,12 +55,12 @@ exports.getBannerList = function(req, res, next) {
 }
 // 배너 상세 불러오기
 exports.getBannerDetail = function(req, res, next) {
-  let { userNo } = req.params;
-  query += ` SELECT * `;
+  let { bannerNo } = req.params;
+  query = ` SELECT * `;
 
   query += ` FROM Banner `
 
-  query += ` WHERE userNo = '${userNo}';`
+  query += ` WHERE bannerNo = '${bannerNo}';`
 
   console.log(query);
   connection.query(query, function (err, results) {
@@ -67,20 +81,20 @@ exports.getBannerDetail = function(req, res, next) {
 
 //배너 수정
 exports.updateBanner = function(req, res, next) {
-  let { userNo } = req.params;
+  let { bannerNo } = req.params;
   if(!Object.keys(req.body)){
     return next(new Error("값이 없으므로 수정할 수 없습니다."));
   }
   let query = `UPDATE Banner SET `;
   query += ` updateDate = CURRENT_TIMESTAMP, `
   for(let item in req.body){
-    if(item == "userNo") continue;
+    if(item == "bannerNo") continue;
     query += `${item} = '${req.body[item]}', `
   }
   query = query.trim();
   if(query.endsWith(',')) query = query.slice(0, -1);  //마지막 AND
 
-  query += ` WHERE userNo = '${userNo}'`;
+  query += ` WHERE bannerNo = '${bannerNo}'`;
 
   console.log(query);
   connection.query(query, function(err, sqlResult) {
@@ -91,7 +105,7 @@ exports.updateBanner = function(req, res, next) {
         title: "배너 수정 성공",
         success: true,
         message: '메시지',
-        userNo: userNo
+        bannerNo: bannerNo
       }
       common.setResult(req, result);
       next();

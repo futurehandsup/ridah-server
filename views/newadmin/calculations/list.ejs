@@ -1,58 +1,106 @@
 <% include ../templates/header.ejs %>
 <div class="content">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="header">
-            <h4 class="title"><%=title%>
-              <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
-              만들기
-              </button>
-            </h4>
-            <p class="category">Here is a subtitle for this table</p>
+    <div class="card"> <!--검색-->
+      <div class="content">
+        <form action="" method="get">
+          <div class="row">
+            <div class="col-md-3">
+              <label>정산연도</label>
+              <input type="text" name="calculationYear" value="<%=query.calculationYear%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>정산월</label>
+              <input type="text" name="calculationMonth" value="<%=query.calculationMonth%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>정산상태</label>
+              <input type="text" name="calculationStatus" value="<%=query.calculationStatus%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>승마장명</label>
+              <input type="text" name="storeName" value="<%=query.storeName%>" class="form-control search_key">
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <label>정산기한(부터)</label>
+              <input type="date" name="calculationDueDateMin" value="<%=query.calculationDueDate%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>정산기한(까지)</label>
+              <input type="date" name="calculationDueDateMax" value="<%=query.calculationDueDate%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>정산날짜(부터)</label>
+              <input type="date" name="calculationDateMin" value="<%=query.calculationDate%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>정산날짜(까지)</label>
+              <input type="date" name="calculationDateMax" value="<%=query.calculationDate%>" class="form-control search_key">
+            </div>
           </div>
 
-          <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
-              <thead>
-                <th>번호</th>
-                <th>정산연도</th>
-                <th>정산월</th>
-                <th>정산기한</th>
-                <th>정산날짜</th>
-                <th>정산상태</th>
-                <th>정산금액</th>
-                <th>승마장명</th>
-              </thead>
-              <tbody>
-                <% %>
-                <% for(var i=0; i<calculations.length; i++){
-                  var calculation = calculations[i];
-                  %>
-                <tr>
-                  <td><a href="detail/<%=calculation.calculationNo%>"><%=calculation.calculationNo%></a></td>
-                  <td><%=calculation.calculationYear%></td>
-                  <td><%=calculation.calculationMonth%></td>
-                  <td><%=moment(calculation.calculationDueDate).format("YYYY-MM-DD")%></td>
-                  <td><%=moment(calculation.calculationDate).format("YYYY-MM-DD")%></td>
-                  <td><%=calculation.calculationStatus%></td>
-                  <td><%=calculation.calculationPrice%></td>
-                  <td><%=calculation.storeName%></td>
-                </tr>
-                <% }%>
-              </tbody>
-            </table>
+          <div class="row">
+            <div class="col-md-3">
+              <label>정산금액(최소)</label>
+              <input type="text" name="calculationPriceMin" value="<%=query.calculationPrice%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>정산금액(최대)</label>
+              <input type="text" name="calculationPriceMax" value="<%=query.calculationPrice%>" class="form-control search_key">
+            </div>
           </div>
-        </div>
 
-        <!--new-->
+          <div class="row">
+            <div class="col-md-3 pull-left">
+              <button class="btn search_submit">검색</button>
+              <a href="list" class="btn search_submit search_reset">초기화</a>
+            </div>
+          </div>
+        </form>
+      </div>
 
-        </div>
+    </div>
+    <div class="card"> <!--테이블-->
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover table-striped">
+          <thead>
+            <th>정산번호</th>
+            <th>정산연도</th>
+            <th>정산월</th>
+            <th>정산기한</th>
+            <th>정산상태</th>
+            <th>정산날짜</th>
+            <th>정산금액</th>
+            <th>승마장명</th>
+          </thead>
+          <tbody>
+            <% %>
+            <% for(var i=0; i<calculations.length; i++){
+              var calculation = calculations[i];
+              %>
+            <tr>
+              <td><a href="detail/<%=calculation.calculationNo%>"><%=calculation.calculationNo%></a></td>
+              <td><%=calculation.calculationYear%></td>
+              <td><%=calculation.calculationMonth%></td>
+              <td><%=moment(calculation.calculationDueDate).format("YYYY-MM-DD")%></td>
+              <td><%=calculation.calculationStatus%></td>
+              <td><%=(calculation.calculationDate == "" || calculation.calculationDate == null) ? "" : moment(calculation.calculationDate).format("YYYY-MM-DD")%></td>
+              <td><%=calculation.calculationPrice%></td>
+              <td><%=calculation.storeName%></td>
+            </tr>
+            <% }%>
+          </tbody>
+        </table>
       </div>
     </div>
+
+    <a href="../calculations/add"><button type="button" class="btn btn-primary pull-left">만들기</button></a>
+
+    </div>
   </div>
-</div>
 
 <% include ../templates/bottom.ejs %>
 <script>

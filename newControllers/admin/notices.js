@@ -4,16 +4,32 @@ let connection = common.initDatabase();
 
 // 공지사항 리스트
 exports.getNoticeList = function(req, res, next) {
-  let { page, userName, noticeNormalYn } = req.query; // 조건 작성
+  let { page, noticeTo, noticeTitle, userName, showYn } = req.query; // 조건 작성
   let query = "SELECT * FROM Notice "
 
   query += "LEFT JOIN Member ON Notice.userNo = Member.userNo "
   query += "WHERE "
 
-  //조건 검색 예시
-  if(userName != null && userName != ""){
-    query += ` userName = '${userName}' AND`
+  // 분류
+  if(noticeTo == "normal"){
+    query += ` noticeNormalYn = 1 AND`
   }
+  if(noticeTo == "owner"){
+    query += ` noticeOwnerYn = 1 AND`
+  }
+  // 제목 검색
+  if(noticeTitle != null && noticeTitle != ""){
+    query += ` noticeTitle LIKE '%${noticeTitle}%' AND`
+  }
+  // 작성자 검색
+  if(userName != null && userName != ""){
+    query += ` userName LIKE '%${userName}%' AND`
+  }
+  // 노출여부 검색
+  if(showYn != null && showYn != ""){
+    query += ` showYn = '${showYn}' AND`
+  }
+
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
@@ -118,10 +134,9 @@ exports.getNoticeOwnerList = function(req, res, next) {
 exports.getNoticeDetail = function(req, res, next) {
   let { noticeNo } = req.params;
 
-  let query = ` SELECT * `;
+  let query = ` SELECT * FROM Notice `
 
-  query += ` FROM Notice `
-
+  query += ` LEFT JOIN Member ON Notice.userNo = Member.userNo`
   query += ` WHERE noticeNo = '${noticeNo}';`
 
   console.log(query);
@@ -143,20 +158,20 @@ exports.getNoticeDetail = function(req, res, next) {
 
 //공지사항 수정
 exports.updateNotice = function(req, res, next) {
-  let { userNo } = req.params;
+  let { noticeNo } = req.params;
   if(!Object.keys(req.body)){
     return next(new Error("값이 없으므로 수정할 수 없습니다."));
   }
   let query = `UPDATE Notice SET `;
   query += ` updateDate = CURRENT_TIMESTAMP, `
   for(let item in req.body){
-    if(item == "userNo") continue;
+    if(item == "noticeNo") continue;
     query += `${item} = '${req.body[item]}', `
   }
   query = query.trim();
   if(query.endsWith(',')) query = query.slice(0, -1);  //마지막 AND
 
-  query += ` WHERE userNo = '${userNo}'`;
+  query += ` WHERE noticeNo = '${noticeNo}'`;
 
   console.log(query);
   connection.query(query, function(err, sqlResult) {
@@ -167,7 +182,7 @@ exports.updateNotice = function(req, res, next) {
         title: "공지사항 수정 성공",
         success: true,
         message: '메시지',
-        userNo: userNo
+        noticeNo: noticeNo
       }
       common.setResult(req, result);
       next();

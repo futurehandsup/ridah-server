@@ -1,0 +1,84 @@
+<% include ../templates/header.ejs %>
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <form id="createForm">
+        <div class="col-md-12"> <!--왼쪽 승마장 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>프로그램 번호</label>
+                    <input name="programNo" type="text" class="form-control" placeholder="프로그램 번호">
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>스케줄 날짜</label>
+                    <input name="scheduleDate" type="date" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>스케줄 시간</label>
+                    <input name="scheduleDate" type="time" class="form-control" placeholder="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>최소수량</label>
+                    <input name="amountLimitMin" type="text" class="form-control" placeholder="최소수량">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>최대수량</label>
+                    <input name="amountLimitMax" type="text" class="form-control" placeholder="최대수량">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12">
+            <button id="createButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+            <a href="../list" type="button" class="btn btn-info pull-left">이전으로</a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#createButton').click(function(){
+    var schedule =  $('#createForm').serializeObject();
+    console.log(schedule);
+
+    $.ajax({
+      type:"POST",
+      url:'schedules',
+      data:schedule,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

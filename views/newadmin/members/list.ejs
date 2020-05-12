@@ -1,52 +1,71 @@
 <% include ../templates/header.ejs %>
 <div class="content">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="header">
-            <h4 class="title"><%=title%>
-              <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal" data-backdrop="false">
-              만들기
-              </button>
-            </h4>
-            <p class="category">Here is a subtitle for this table</p>
+    <div class="card"> <!--검색-->
+      <div class="content">
+        <form action="" method="get">
+          <div class="row">
+            <div class="col-md-3">
+              <label>분류</label>
+              <select class="form-control search_key" name="userRole">
+                <option value="admin">관리자</option>
+                <option value="owner">가맹점주</option>
+                <option value="user">일반 사용자</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label>이름</label>
+              <input type="text" name="userName" value="<%=query.userName%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>별명</label>
+              <input type="text" name="nickname" value="<%=query.reservationName%>" class="form-control search_key">
+            </div>
+            <div class="col-md-3">
+              <label>연락처</label>
+              <input type="text" name="userPhoneNumber" value="<%=query.storeName%>" class="form-control search_key">
+            </div>
           </div>
 
-          <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
-              <thead>
-                <th>번호</th>
-                <th>분류</th>
-                <th>이름</th>
-                <th>별명</th>
-                <th>이메일</th>
-                <th>연락처</th>
-                <th>가입일</th>
-              </thead>
-              <tbody>
-                <% %>
-                <% for(var i=0; i< members.length; i++){
-                  var  member =  members[i];
-                  %>
-                  <tr>
-                    <td><%=member.userNo%></td>
-                    <td><%=member.userRole%></td>
-                    <td><%=member.userName%></td>
-                    <td><a href="detail/<%=member.userNo%>"><%=member.nickname%></a></td>
-                    <td><%=member.email%></td>
-                    <td><%=member.PhoneNumber%></td>
-                    <td><%=moment(member.createDate).format("YYYY-MM-DD")%></td>
-                  </tr>
-                <% }%>
-              </tbody>
-            </table>
+          <div class="row">
+            <div class="col-md-3 pull-left">
+              <button class="btn search_submit">검색</button>
+              <a href="list" class="btn search_submit search_reset">초기화</a>
+            </div>
           </div>
-        </div>
+        </form>
+      </div>
 
-        <!--new-->
-
-        </div>
+    </div>
+    <div class="card">
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover table-striped">
+          <thead>
+            <th>사용자번호</th>
+            <th>분류</th>
+            <th>이름</th>
+            <th>별명</th>
+            <th>이메일</th>
+            <th>연락처</th>
+            <th>가입일</th>
+          </thead>
+          <tbody>
+            <% %>
+            <% for(var i=0; i< members.length; i++){
+              var  member =  members[i];
+              %>
+              <tr>
+                <td><a href="detail/<%=member.userNo%>"><%=member.userNo%></a></td>
+                <td><%=member.userRole%></td>
+                <td><%=member.userName%></td>
+                <td><%=member.nickname%></td>
+                <td><%=member.email%></td>
+                <td><%=member.PhoneNumber%></td>
+                <td><%=moment(member.createDate).format("YYYY-MM-DD")%></td>
+              </tr>
+            <% }%>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -59,7 +78,7 @@ $(document).ready(function(){
     var  member =  $('#createForm').serializeObject();
     $.ajax({
       type:"POST",
-      url:'/ members',
+      url:'/members',
       data: {
          member:  member
       },

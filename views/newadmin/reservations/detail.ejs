@@ -8,62 +8,58 @@
           <div class="card">
             <div class="content">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label>스케줄 번호</label>
-                    <p class="form-control-static"><%=schedule.scheduleNo%></p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>승마장명</label>
-                    <p class="form-control-static"><a href="../../stores/detail/<%=schedule.storeNo%>"><%=schedule.storeName%></a></p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>프로그램명</label>
-                    <p class="form-control-static"><a href="../../programs/detail/<%=schedule.programNo%>"><%=schedule.programName%></a></p>
+                    <label>예약코드</label>
+                    <p class="form-control-static"><%=reservation.reservationCode%></p>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>날짜</label>
-                    <input name="scheduleDate" type="date" class="form-control" placeholder="YYYY-MM-DD" value="<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>">
+                    <label>사용자명</label>
+                    <p class="form-control-static"><%=reservation.userName%></p>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>시간</label>
-                    <input name="scheduleTime" type="time" class="form-control" value="<%=schedule.scheduleTime%>">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>진행시간(분)</label>
-                    <p class="form-control-static"><%=schedule.programTime%></p>
+                    <label>사용자번호</label>
+                    <p class="form-control-static"><%=reservation.userNo%></p>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>최소인원</label>
-                    <input class="form-control" type="text" name="amountLimitMin" value="<%=schedule.amountLimitMin%>">
+                    <label>예약자명</label>
+                    <input name="reservationName" type="text" class="form-control" placeholder="예약자명" value="<%=reservation.reservationName%>">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>최대인원</label>
-                    <input class="form-control" type="text" name="amountLimitMax" value="<%=schedule.amountLimitMax%>">
+                    <label>예약자 전화번호</label>
+                    <input name="reservationPhoneNumber" type="text" class="form-control" placeholder="전화번호" value="<%=reservation.reservationPhoneNumber%>">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>예약인원</label>
+                    <input name="reservationAmount" type="text" class="form-control" placeholder="예약인원" value="<%=reservation.reservationAmount%>">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>현재인원</label>
-                    <p class="form-control-static"><%=schedule.amountNow%></p>
+                    <label>예약상태</label>
+                    <input name="reservationStatus" type="text" class="form-control" value="<%=reservation.reservationStatus%>">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>이용완료여부</label>
+                    <p class="form-control-static"><%= (reservation.checkYn == 0) ? "N" : moment(reservation.checkDate).format("YYYY-MM-DD") %></p>
                   </div>
                 </div>
               </div>
@@ -76,18 +72,25 @@
               <div class="row">
                 <div class="form-group col-md-6">
                   <label>등록일</label>
-                  <p class="form-control-static"><%=moment(schedule.createDate).format("YYYY-MM-DD")%></p>
+                  <p class="form-control-static"><%=moment(reservation.createDate).format("YYYY-MM-DD")%></p>
                 </div>
                 <div class="form-group col-md-6">
                   <label>수정일</label>
-                  <p class="form-control-static"><%=moment(schedule.updateDate).format("YYYY-MM-DD")%></p>
+                  <p class="form-control-static"><%=moment(reservation.updateDate).format("YYYY-MM-DD")%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>승마장명</label>
+                  <p class="form-control-static"><a href="../../stores/detail/<%=reservation.storeNo%>"><%=reservation.storeName%></a></p>
                 </div>
                 <div class="form-group col-md-12">
-                  <label>노출여부</label>
-                  <select class="form-control" name="showYn">
-                    <option value="1">노출</option>
-                    <option value="0">노출안함</option>
-                  </select>
+                  <label>프로그램명</label>
+                  <p class="form-control-static"><a href="../../programs/detail/<%=reservation.programNo%>"><%=reservation.programName%></a></p>
                 </div>
               </div>
             </div>
@@ -112,12 +115,12 @@
 <script>
 $(document).ready(function(){
   $('#editButton').click(function(){
-    var schedule =  $('#editForm').serializeObject();
+    var reservation =  $('#editForm').serializeObject();
 
     $.ajax({
       type:"PUT",
-      url:'/apis/admin/schedule/<%=schedule.scheduleNo%>',
-      data:schedule,
+      url:'/apis/admin/reservation/<%=reservation.reservationNo%>',
+      data:reservation,
       success:function(args){
         alert("성공했습니다.");
         location.reload();

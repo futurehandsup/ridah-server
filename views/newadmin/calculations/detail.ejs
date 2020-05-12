@@ -1,0 +1,129 @@
+<% include ../templates/header.ejs %>
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <form id="editForm">
+        <div class="col-md-8"> <!--왼쪽 스케줄 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>정산번호</label>
+                    <p class="form-control-static"><%=calculation.calculationNo%></p>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label>정산금액</label>
+                    <input type="text" class="form-control" name="calculation.calculationPrice" value="<%=calculation.calculationPrice%>">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>정산연도</label>
+                    <p class="form-control-static"><%=calculation.calculationYear%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>정산월</label>
+                    <p class="form-control-static"><%=calculation.calculationMonth%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>정산기한</label>
+                    <p class="form-control-static"><%=moment(calculation.calculationDueDate).format("YYYY-MM-DD")%></p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>정산상태</label>
+                    <input type="text" class="form-control" name="calculationStatus" value="<%=calculation.calculationStatus%>">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>정산날짜</label>
+                    <p class="form-control-static"><%=moment(calculation.calculationDate).format("YYYY-MM-DD")%></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4"> <!--오른쪽 스케줄 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>등록일</label>
+                  <p class="form-control-static"><%=moment(calculation.createDate).format("YYYY-MM-DD")%></a></p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>수정일</label>
+                  <p class="form-control-static"><%=moment(calculation.updateDate).format("YYYY-MM-DD")%></p>
+                </div>
+              </div>
+          </div>
+          </div>
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>승마장명</label>
+                  <p class="form-control-static"><a href="../../stores/detail/<%=calculation.storeNo%>"><%=calculation.storeName%></a></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>입금은행</label>
+                  <p class="form-control-static"><%=calculation.accountBank%></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>계좌번호</label>
+                  <p class="form-control-static"><%=calculation.accountInfo%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+            <a href="../list" type="button" class="btn btn-info pull-left">이전으로</a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#editButton').click(function(){
+    var calculation =  $('#editForm').serializeObject();
+
+    $.ajax({
+      type:"PUT",
+      url:'/apis/admin/calculation/<%=calculation.calculationNo%>',
+      data:calculation,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

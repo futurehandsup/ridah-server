@@ -6,7 +6,7 @@ let connection = common.initDatabase();
 exports.getCalculationList = function(req, res, next) {
   let { page, userName, calculationDueDate, calculationDueDateMin, calculationDueDateMax,
   calculationDate, calculationDateMin, calculationDateMax, calculationYear, calculationMonth,
-  calculationPrice, calculationPriceMin, calculationPriceMax, calculationStatus } = req.query; // 조건 작성
+  calculationPrice, calculationPriceMin, calculationPriceMax, calculationStatus, storeName } = req.query; // 조건 작성
   let query = "SELECT * FROM Calculation "
 
   query += "LEFT JOIN Store ON Calculation.storeNo = Store.storeNo "
@@ -15,6 +15,22 @@ exports.getCalculationList = function(req, res, next) {
   //조건 검색 예시
   if(userName != null && userName != ""){
     query += ` userName = '${userName}' AND`
+  }
+  //정산년도 검색
+  if(calculationYear != null && calculationYear != ""){
+    query += ` calculationYear = '${calculationYear}' AND`
+  }
+  //정산월 검색
+  if(calculationMonth != null && calculationMonth != ""){
+    query += ` calculationMonth = '${calculationMonth}' AND`
+  }
+  // 정산상태 검색
+  if(calculationStatus != null && calculationStatus != ""){
+    query += ` calculationStatus = '${calculationStatus}' AND`
+  }
+  // 승마장명 검색
+  if(storeName != null && storeName != ""){
+    query += ` storeName = '${storeName}' AND`
   }
   //정산예정일 검색
   if(calculationDueDateMin != null && calculationDueDateMin != ""){
@@ -30,14 +46,6 @@ exports.getCalculationList = function(req, res, next) {
   if(calculationDateMax != null && calculationDateMax != ""){
     query += ` calculationDate = '${calculationDateMax}' AND`
   }
-  //정산년도 검색
-  if(calculationYear != null && calculationYear != ""){
-    query += ` calculationYear = '${calculationYear}' AND`
-  }
-  //정산월 검색
-  if(calculationMonth != null && calculationMonth != ""){
-    query += ` calculationMonth = '${calculationMonth}' AND`
-  }
   // 정산금액 최소검색
   if(calculationPriceMin != null && calculationPriceMin != ""){
     query += ` calculationPrice >= '${calculationPriceMin}' AND`
@@ -46,10 +54,7 @@ exports.getCalculationList = function(req, res, next) {
   if(calculationPriceMax != null && calculationPriceMax != ""){
     query += ` calculationPrice <= '${calculationPriceMax}' AND`
   }
-  // 정산상태 검색
-  if(calculationStatus != null && calculationStatus != ""){
-    query += ` calculationStatus = '${calculationStatus}' AND`
-  }
+
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
   if(query.trim().endsWith('WHERE')) query = query.slice(0, -6);  //마지막 AND
@@ -78,12 +83,11 @@ exports.getCalculationList = function(req, res, next) {
 }
 // 정산 상세 불러오기
 exports.getCalculationDetail = function(req, res, next) {
-  let { userNo } = req.params;
-  query += ` SELECT * `;
+  let { calculationNo } = req.params;
+  query = ` SELECT Calculation.*, Store.storeName FROM Calculation `
 
-  query += ` FROM Calculation `
-
-  query += ` WHERE userNo = '${userNo}';`
+  query += ` LEFT JOIN Store ON Calculation.storeNo = Store.storeNo `
+  query += ` WHERE calculationNo = '${calculationNo}';`
 
   console.log(query);
   connection.query(query, function (err, results) {
@@ -104,20 +108,20 @@ exports.getCalculationDetail = function(req, res, next) {
 
 //정산 수정
 exports.updateCalculation = function(req, res, next) {
-  let { userNo } = req.params;
+  let { calculationNo } = req.params;
   if(!Object.keys(req.body)){
     return next(new Error("값이 없으므로 수정할 수 없습니다."));
   }
   let query = `UPDATE Calculation SET `;
   query += ` updateDate = CURRENT_TIMESTAMP, `
   for(let item in req.body){
-    if(item == "userNo") continue;
+    if(item == "calculationNo") continue;
     query += `${item} = '${req.body[item]}', `
   }
   query = query.trim();
   if(query.endsWith(',')) query = query.slice(0, -1);  //마지막 AND
 
-  query += ` WHERE userNo = '${userNo}'`;
+  query += ` WHERE calculationNo = '${calculationNo}'`;
 
   console.log(query);
   connection.query(query, function(err, sqlResult) {
@@ -128,7 +132,7 @@ exports.updateCalculation = function(req, res, next) {
         title: "회원정보 수정 성공",
         success: true,
         message: '메시지',
-        userNo: userNo
+        calculationNo: calculationNo
       }
       common.setResult(req, result);
       next();
@@ -175,13 +179,13 @@ exports.addCalculation = function(req, res, next) {
 
   var query = `INSERT INTO Calculation(${queryKeys}) `
   query += `VALUES(${queryValues})`;
-  console.log(query);
+
   connection.query(query, function(err, sqlResult) {
     if (err) {
       return next(err);
     } else {
       var result = {
-        title: "회원 등록 성공",
+        title: "정산 등록 성공",
         success: true,
         message: '메시지',
         recipeNo: sqlResult.insertId

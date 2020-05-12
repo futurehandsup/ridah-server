@@ -4,14 +4,29 @@ let connection = common.initDatabase();
 
 // 사용자 리스트
 exports.getMemberList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, userRole, nickname, userPhoneNumber } = req.query; // 조건 작성
   let query = "SELECT * FROM Member "
 
   query += "WHERE "
 
   //조건 검색 예시
   if(userName != null && userName != ""){
-    query += ` userName = '${userName}' AND`
+    query += ` userName LIKE '%${userName}%' AND`
+  }
+
+  // 분류 검색
+  if(userRole != null && userRole != ""){
+    query += ` userRole = '${userRole}' AND`
+  }
+
+ // 별명 검색
+  if(nickname != null && nickname != ""){
+    query += ` nickname LIKE '%${nickname}%' AND`
+  }
+
+  // 전화번호 검색
+  if(userPhoneNumber != null && userPhoneNumber != ""){
+    query += ` userPhoneNumber LIKE '%${userPhoneNumber}%' AND`
   }
   //... so on
   if(query.trim().endsWith('AND')) query = query.slice(0, -4);  //마지막 AND
@@ -42,7 +57,7 @@ exports.getMemberList = function(req, res, next) {
 // 사용자 상세 불러오기
 exports.getMemberDetail = function(req, res, next) {
   let { userNo } = req.params;
-  query += ` SELECT * `;
+  query = ` SELECT * `;
 
   query += ` FROM Member `
 

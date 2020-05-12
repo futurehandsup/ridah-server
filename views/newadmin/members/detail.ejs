@@ -1,0 +1,143 @@
+<% include ../templates/header.ejs %>
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <form id="editForm">
+        <div class="col-md-8"> <!--왼쪽 스케줄 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>사용자 번호</label>
+                    <p class="form-control-static"><%=member.userNo%></p>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label>프로필사진</label>
+                    <input type="file" class="form-control-static" name="userProfilePic" value="<%=member.userProfilePic%>">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>분류</label>
+                    <p class="form-control-static"><%=member.userRole%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>이름</label>
+                    <p class="form-control-static"><%=member.userName%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>별명</label>
+                    <input type="text" class="form-control" name="nickname" value="<%=member.nickname%>">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>전화번호</label>
+                    <input type="text" class="form-control" name="userPhoneNumber" value="<%=member.userPhoneNumber%>">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>이메일</label>
+                    <input type="text" class="form-control" name="email" value="<%=member.email%>">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>카카오톡Key</label>
+                    <input type="text" class="form-control" name="userKakaoKey" value="<%=member.userKakaoKey%>">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4"> <!--오른쪽 스케줄 상세정보-->
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>가입일</label>
+                  <p class="form-control-static"><%=moment(member.createDate).format("YYYY-MM-DD")%></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>최종수정일</label>
+                  <p class="form-control-static"><%=(member.updateDate != null || member.updateDate != "" ) ? "N/N" : moment(member.updateDate).format("YYYY-MM-DD")%></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>탈퇴여부</label>
+                  <p class="form-control-static"><%=(member.leaveDate == 1) ? "탈퇴" : "활동중" %></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>탈퇴일자</label>
+                  <p class="form-control-static"><%=(member.leaveDate != null || member.leaveDate != "" ) ? "N/N" : moment(member.leaveDate).format("YYYY-MM-DD")%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>푸시동의여부</label>
+                  <p class="form-control-static"><%=(member.pushAgreementYn == 1) ? "동의함" : "동의하지 않음"%></a></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>푸시동의일자</label>
+                  <p class="form-control-static"><%=moment(member.pushAgreementDate).format("YYYY-MM-DD")%></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>푸시토큰값</label>
+                  <p class="form-control-static"><%=member.pushToken%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <button id="editButton" type="button" class="btn btn-info btn-fill pull-right">저장</button>
+            <a href="../list" type="button" class="btn btn-info pull-left">이전으로</a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+  $('#editButton').click(function(){
+    var member =  $('#editForm').serializeObject();
+
+    $.ajax({
+      type:"PUT",
+      url:'/apis/admin/member/<%=member.userNo%>',
+      data:member,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
