@@ -154,20 +154,20 @@ exports.deleteSchedules = function(req, res, next) {
 
 // 프로그램 일정 만들기
 exports.addSchedules = function(req, res, next) {
-  let schedules = req.body; //request의 내용을 가지고 옴.
+  let schedule = req.body; //request의 내용을 가지고 옴.
 
   let queryKeys = "";
   let queryValues = "";
-  for(let item in schedules){
+  for(let item in schedule){
     queryKeys += `${item}, `
-    queryValues += `'${schedules[item]}', `
+    queryValues += `'${schedule[item]}', `
   }
   queryKeys = queryKeys.trim();
   if(queryKeys.endsWith(',')) queryKeys = queryKeys.slice(0, -1);  //마지막 AND
   queryValues = queryValues.trim();
   if(queryValues.endsWith(',')) queryValues = queryValues.slice(0, -1);  //마지막 AND
 
-  var query = `INSERT INTO Schedules(${queryKeys}) `
+  var query = `INSERT INTO Schedule(${queryKeys}) `
   query += `VALUES(${queryValues})`;
   console.log(query);
   connection.query(query, function(err, sqlResult) {

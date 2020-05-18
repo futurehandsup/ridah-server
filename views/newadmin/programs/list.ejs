@@ -22,10 +22,10 @@
               <input type="text" name="programTimeMax" value="<%=query.programTimeMax%>" class="form-control search_key">
             </div>
             <div class="col-md-2">
-              <label>노출여부</label>
+              <label>공개여부</label>
               <select name="showYn" class="form-control">
-                <option value="1">노출</option>
-                <option value="0">노출안함</option>
+                <option value="1">공개</option>
+                <option value="0">비공개</option>
               </select>
           </div>
 
@@ -51,7 +51,7 @@
             <th>시간</th>
             <th>등록일</th>
             <th>코치이름</th>
-            <th>노출여부</th>
+            <th>공개여부</th>
           </thead>
           <tbody>
             <% %>
@@ -66,13 +66,16 @@
               <td><%=program.programTime%></td>
               <td><%=moment(program.createDate).format("YYYY-MM-DD")%></td>
               <td><%=program.coachName%></td>
-              <td><%=(program.showYn == 1) ? "노출" : "노출안함" %></td>
+              <td><%=(program.showYn == 1) ? "공개" : "비공개" %></td>
             </tr>
             <% }%>
           </tbody>
         </table>
       </div>
     </div>
+
+    <a href="../programs/add"><button type="button" class="btn btn-primary pull-left">만들기</button></a>
+
   </div>
 </div>
 <% include ../templates/bottom.ejs %>

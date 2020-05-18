@@ -10,10 +10,10 @@
               <input type="text" name="faqTitle" value="<%=query.faqTitle%>" class="form-control search_key">
             </div>
             <div class="col-md-3">
-              <label>노출여부</label>
+              <label>공개여부</label>
               <select class="form-control search_key" name="showYn">
-                <option value="1">노출</option>
-                <option value="0">노출안함</option>
+                <option value="1">공개</option>
+                <option value="0">비공개</option>
               </select>
             </div>
             <div class="col-md-3">
@@ -44,7 +44,7 @@
             <th>제목</th>
             <th>작성일</th>
             <th>수정일</th>
-            <th>노출여부</th>
+            <th>공개여부</th>
             <th>노출순서</th>
             <th>조회수</th>
           </thead>
@@ -57,8 +57,8 @@
                 <td><%=faq.faqNo%></td>
                 <td><a href="detail/<%=faq.faqNo%>"><%=faq.faqTitle%></a></td>
                 <td><%=moment(faq.createDate).format("YYYY-MM-DD")%></td>
-                <td><%=moment(faq.updateDate).format("YYYY-MM-DD")%></td>
-                <td><%=(faq.showYn == 1) ? "노출" : "노출안함"%></td>
+                <td><%=(faq.updateDate == null || faq.updateDate == "") ? "" : moment(faq.updateDate).format("YYYY-MM-DD")%></td>
+                <td><%=(faq.showYn == 1) ? "공개" : "비공개"%></td>
                 <td><%=faq.showSeq%></td>
                 <td><%=faq.viewCount%></td>
               </tr>

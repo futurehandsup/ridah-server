@@ -6,10 +6,12 @@ let connection = common.initDatabase();
 exports.getReviewList = function(req, res, next) {
   let { page, reservationCode, userName, storeName, programName, createDate, createDateMin, createDateMax,
   showYn } = req.query; // 조건 작성
-  let query = "SELECT * FROM Review "
+
+  let query = "SELECT Review.*, Member.userName,  Program.programName, Reservation.reservationCode, Store.storeName FROM Review "
   query += " LEFT JOIN Member ON Review.userNo = Member.userNo "
   query += " LEFT JOIN Program ON Review.programNo = Program.programNo "
   query += " LEFT JOIN Reservation ON Review.reservationNo = Reservation.reservationNo "
+  query += " LEFT JOIN Store ON Review.storeNo = Store.storeNo "
   query += " WHERE "
 
   // 에약코드 검색

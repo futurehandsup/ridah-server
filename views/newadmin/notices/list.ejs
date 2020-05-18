@@ -22,10 +22,10 @@
               <input type="text" name="userName" value="<%=query.userName%>" class="form-control search_key">
             </div>
             <div class="col-md-3">
-              <label>노출여부</label>
+              <label>공개여부</label>
               <select class="form-control search_key" name="showYn">
-                <option value="1">노출</option>
-                <option value="0">노출안함</option>
+                <option value="1">공개</option>
+                <option value="0">비공개</option>
               </select>
             </div>
           </div>
@@ -50,7 +50,7 @@
             <th>작성일</th>
             <th>일반</th>
             <th>가맹점</th>
-            <th>노출여부</th>
+            <th>공개여부</th>
           </thead>
           <tbody>
             <% %>
@@ -64,7 +64,7 @@
               <td><%=moment(notice.createDate).format("YYYY-MM-DD")%></td>
               <td><%=(notice.noticeNormalYn == 1) ? "O" : "X"%></td>
               <td><%=(notice.noticeOwnerYn == 1) ? "O" : "X"%></td>
-              <td><%=(notice.showYn == 1) ? "노출" : "노출안함"%></td>
+              <td><%=(notice.showYn == 1) ? "공개" : "비공개"%></td>
             </tr>
             <% }%>
           </tbody>

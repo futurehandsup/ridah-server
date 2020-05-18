@@ -55,6 +55,7 @@
             <th>작성일</th>
             <th>승마장명</th>
             <th>프로그램명</th>
+            <th>공개여부</th>
           </thead>
           <tbody>
             <% %>
@@ -70,6 +71,7 @@
               <td><%=(review.createDate == "" || review.createDate == null) ? "" : moment(review.createDate).format("YYYY-MM-DD") %></td>
               <td><a href="../store/detail/<%=review.storeNo%>"><%=review.storeName%></a></td>
               <td><%=review.programName%></td>
+              <td><%=(review.showYn == 1) ? "공개" : "비공개" %></td>
             </tr>
             <% }%>
           </tbody>

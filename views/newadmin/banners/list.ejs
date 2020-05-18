@@ -19,10 +19,10 @@
               <input type="date" name="createDateMax" value="<%=query.createDate%>" class="form-control search_key">
             </div>
             <div class="col-md-3">
-              <label>노출여부</label>
+              <label>공개여부</label>
               <select class="form-control search_key" name="showYn">
-                <option value="1">노출</option>
-                <option value="0">노출안함</option>
+                <option value="1">공개</option>
+                <option value="0">비공개</option>
               </select>
             </div>
           </div>
@@ -46,7 +46,7 @@
             <th>상세</th>
             <th>URL</th>
             <th>등록일</th>
-            <th>노출여부</th>
+            <th>공개여부</th>
             <th>노출순서</th>
           </thead>
           <tbody>
@@ -60,7 +60,7 @@
                 <td><%=banner.bannerDescription%></td>
                 <td><%=banner.bannerUrl%></td>
                 <td><%=moment(banner.createDate).format("YYYY-MM-DD")%></td>
-                <td><%=banner.showYn%></td>
+                <td><%=(banner.showYn == "1") ? "공개" : "비공개"%></td>
                 <td><%=banner.showSeq%></td>
               </tr>
             <% }%>
