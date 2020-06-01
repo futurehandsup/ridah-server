@@ -5,7 +5,7 @@ let connection = common.initDatabase();
 // 프로그램 리스트
 exports.getProgramList = function(req, res, next) {
   let { page, userName, programName, storeName, programTimeMin, programTimeMax, showYn} = req.query; // 조건 작성
-  let query = "SELECT * FROM Program "
+  let query = "SELECT Program.*, Store.storeName FROM Program "
   query += "LEFT JOIN Store ON Program.storeNo = Store.storeNo "
 
   query += "WHERE "
@@ -68,7 +68,7 @@ exports.getProgramList = function(req, res, next) {
 exports.getProgramDetail = function(req, res, next) {
   let { programNo } = req.params;
 
-  let query = ` SELECT * FROM Program `
+  let query = ` SELECT Program.*, Store.storeName FROM Program `
   query += ` LEFT JOIN Store ON Program.storeNo = Store.storeNo `
 
   query += ` WHERE programNo = '${programNo}';`

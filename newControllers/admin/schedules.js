@@ -69,9 +69,7 @@ exports.getSchedulesList = function(req, res, next) {
 exports.getSchedulesDetail = function(req, res, next) {
   let { scheduleNo } = req.params;
 
-  query = ` SELECT * `
-
-  query += ` FROM Schedule `
+  query = ` SELECT Schedule.*, Program.programName, Program.programTime, Store.storeName FROM Schedule `
 
   query += " LEFT JOIN Program ON Schedule.programNo = Program.programNo "
   query += " LEFT JOIN Store ON Program.storeNo = Store.storeNo "

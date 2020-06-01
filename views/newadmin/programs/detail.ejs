@@ -66,13 +66,25 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>최소요구등급</label>
-                    <input name="requiredLevelMin" type="text" class="form-control" value="<%=program.requiredLevelMin%>">
+                    <select class="form-control" name="requiredLevelMin">
+                      <option value="0" <%=(program.requiredLevelMin == "0")? "selected" : ""%>>-</option>
+                      <option value="1" <%=(program.requiredLevelMin == "1")? "selected" : ""%>>1</option>
+                      <option value="2" <%=(program.requiredLevelMin == "2")? "selected" : ""%>>2</option>
+                      <option value="3" <%=(program.requiredLevelMin == "3")? "selected" : ""%>>3</option>
+                      <option value="4" <%=(program.requiredLevelMin == "4")? "selected" : ""%>>4</option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>최대요구등급</label>
-                    <input name="requiredLevelMax" type="text" class="form-control" value="<%=program.requiredLevelMax%>">
+                    <select class="form-control" name="requiredLevelMax">
+                      <option value="0" <%=(program.requiredLevelMax == "0")? "selected" : ""%>>-</option>
+                      <option value="1" <%=(program.requiredLevelMax == "1")? "selected" : ""%>>1</option>
+                      <option value="2" <%=(program.requiredLevelMax == "2")? "selected" : ""%>>2</option>
+                      <option value="3" <%=(program.requiredLevelMax == "3")? "selected" : ""%>>3</option>
+                      <option value="4" <%=(program.requiredLevelMax == "4")? "selected" : ""%>>4</option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -92,8 +104,8 @@
                 <div class="col-md-6">
                   <label>공개여부</label>
                   <select class="form-control" name="showYn" value="<%=program.showYn%>">
-                    <option value="1">공개</option>
-                    <option value="0">비공개</option>
+                    <option value="1" <%=(program.showYn == "1") ? "selected" : "" %>>공개</option>
+                    <option value="0" <%=(program.showYn == "0") ? "selected" : "" %>>비공개</option>
                   </select>
                 </div>
                 <!-- <div class="col-md-6">

@@ -119,6 +119,7 @@ exports.updateCalculation = function(req, res, next) {
     query += `${item} = '${req.body[item]}', `
   }
   query = query.trim();
+  
   if(query.endsWith(',')) query = query.slice(0, -1);  //마지막 AND
 
   query += ` WHERE calculationNo = '${calculationNo}'`;

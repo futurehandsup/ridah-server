@@ -24,7 +24,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>승마장 썸네일</label>
-                    <input name="storeThumbnail" type="file" class="form-control" placeholder="썸네일" value="<%=store.storeThumbnail%>">
+                    <input name="storeThumbnail" type="file" class="form-control-static" placeholder="썸네일" value="<%=store.storeThumbnail%>">
                   </div>
                 </div>
               </div>
@@ -101,7 +101,7 @@
             <div class="content">
               <div class="row">
                 <div class="form-group col-md-4">
-                  <label>후기개수</label>
+                  <label>후기</label>
                   <p class="form-control-static"><%=store.reviewCount%></p>
                 </div>
                 <div class="form-group col-md-4">
@@ -153,8 +153,8 @@
                   <div class="form-group col-md-12">
                     <label>승마장신고여부</label>
                     <select class="form-control" name="registerYn">
-                      <option value="1">신고</option>
-                      <option value="0">미신고</option>
+                      <option value="1" <%=(store.registerYn == "1") ? "selected" : "" %>>신고</option>
+                      <option value="0" <%=(store.registerYn == "0") ? "selected" : "" %>>미신고</option>
                     </select>
                   </div>
                 </div>
@@ -162,8 +162,8 @@
                   <div class="form-group col-md-12">
                     <label>보험여부</label>
                     <select class="form-control" name="ensureYn">
-                      <option value="1">있음</option>
-                      <option value="0">없음</option>
+                      <option value="1" <%=(store.ensureYn == "1")? "selected" : "" %>>있음</option>
+                      <option value="0" <%=(store.ensureYn == "0")? "selected" : "" %>>없음</option>
                     </select>
                   </div>
                 </div>
@@ -176,7 +176,17 @@
                 <div class="row">
                   <div class="form-group col-md-12">
                     <label>입금은행</label>
-                    <input name="accountBank" type="text" class="form-control" placeholder="입금은행" value="<%=store.accountBank%>">
+                    <select class="form-control" name="accountBank">
+                      <option value="신한은행" <%=(store.accountBank == "신한은행") ? "selected" : "" %>>신한은행</option>
+                      <option value="우리은행" <%=(store.accountBank == "우리은행") ? "selected" : "" %>>우리은행</option>
+                      <option value="국민은행" <%=(store.accountBank == "국민은행") ? "selected" : "" %>>국민은행</option>
+                      <option value="하나은행" <%=(store.accountBank == "하나은행") ? "selected" : "" %>>하나은행</option>
+                      <option value="기업은행" <%=(store.accountBank == "기업은행") ? "selected" : "" %>>기업은행</option>
+                      <option value="SC제일은행" <%=(store.accountBank == "SC제일은행") ? "selected" : "" %>>SC제일은행</option>
+                      <option value="수협" <%=(store.accountBank == "수협") ? "selected" : "" %>>수협</option>
+                      <option value="농협" <%=(store.accountBank == "농협") ? "selected" : "" %>>농협</option>
+                      <option value="산업은행" <%=(store.accountBank == "산업은행") ? "selected" : "" %>>산업은행</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row">
@@ -188,7 +198,7 @@
                 <div class="row">
                   <div class="form-group col-md-12">
                     <label>통장사본 이미지</label>
-                    <input name="accountImage" type="file" class="form-control" placeholder="" accept="image/*" value="<%=store.accountImage%>">
+                    <input name="accountImage" type="file" class="form-control-static" placeholder="" accept="image/*" value="<%=store.accountImage%>">
                   </div>
                 </div>
 

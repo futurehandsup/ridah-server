@@ -15,7 +15,10 @@
             </div>
             <div class="col-md-3">
               <label>정산상태</label>
-              <input type="text" name="calculationStatus" value="<%=query.calculationStatus%>" class="form-control search_key">
+              <select class="form-control" name="calculationStatus">
+                <option value="정산대기">정산대기</option>
+                <option value="정산완료">정산완료</option>
+              </select>
             </div>
             <div class="col-md-3">
               <label>승마장명</label>

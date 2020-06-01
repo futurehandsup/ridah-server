@@ -68,13 +68,12 @@ exports.getReviewList = function(req, res, next) {
 exports.getReviewDetail = function(req, res, next) {
   let { reviewNo } = req.params;
 
-  let query = ` SELECT * `;
+  let query = ` SELECT Review.*, Member.userName, Program.programName, Reservation.reservationCode, Store.storeName `;
 
   query += ` FROM Review `
   query += ` LEFT JOIN Member ON Review.userNo = Member.userNo `
   query += ` LEFT JOIN Program ON Review.programNo = Program.programNo `
   query += ` LEFT JOIN Reservation ON Review.reservationNo = Reservation.reservationNo `
-  query += ` LEFT JOIN Schedule ON Review.scheduleNo = Schedule.scheduleNo`
   query += ` LEFT JOIN Store ON Reservation.storeNo = Store.storeNo`
 
   query += ` WHERE reviewNo = '${reviewNo}';`

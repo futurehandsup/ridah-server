@@ -85,8 +85,8 @@
                 <div class="form-group col-md-12">
                   <label>공개여부</label>
                   <select class="form-control" name="showYn">
-                    <option value="1">공개</option>
-                    <option value="0">비공개</option>
+                    <option value="1" <%=(schedule.showYn == "1") ? "selected" : "" %>>공개</option>
+                    <option value="0" <%=(schedule.showYn == "0") ? "selected" : "" %>>비공개</option>
                   </select>
                 </div>
               </div>

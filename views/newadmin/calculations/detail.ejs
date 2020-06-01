@@ -45,13 +45,16 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>정산상태</label>
-                    <input type="text" class="form-control" name="calculationStatus" value="<%=calculation.calculationStatus%>">
+                    <select class="form-control" name="calculationStatus">
+                      <option value="정산대기" <%=(calculation.calculationStatus == "정산대기") ? "selected" : ""%>>정산대기</option>
+                      <option value="정산완료" <%=(calculation.calculationStatus == "정산완료") ? "selected" : ""%>>정산완료</option>
+                    </select>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                   <div class="form-group">
                     <label>정산날짜</label>
-                    <p class="form-control-static"><%=moment(calculation.calculationDate).format("YYYY-MM-DD")%></p>
+                    <input type="date" name="calculationDate" value="<%=(calculation.calculationDate == "" || calculation.calculationDate == null) ? "" : moment(calculation.calculationDate).format("YYYY-MM-DD")%>" class="form-control">
                   </div>
                 </div>
               </div>
@@ -82,11 +85,21 @@
                 </div>
                 <div class="form-group col-md-12">
                   <label>입금은행</label>
-                  <p class="form-control-static"><%=calculation.accountBank%></p>
+                  <select class="form-control" name="accountBank">
+                    <option value="신한은행" <%=(calculation.accountBank == "신한은행") ? "selected" : "" %>>신한은행</option>
+                    <option value="우리은행" <%=(calculation.accountBank == "우리은행") ? "selected" : "" %>>우리은행</option>
+                    <option value="국민은행" <%=(calculation.accountBank == "국민은행") ? "selected" : "" %>>국민은행</option>
+                    <option value="하나은행" <%=(calculation.accountBank == "하나은행") ? "selected" : "" %>>하나은행</option>
+                    <option value="기업은행" <%=(calculation.accountBank == "기업은행") ? "selected" : "" %>>기업은행</option>
+                    <option value="SC제일은행" <%=(calculation.accountBank == "SC제일은행") ? "selected" : "" %>>SC제일은행</option>
+                    <option value="수협" <%=(calculation.accountBank == "수협") ? "selected" : "" %>>수협</option>
+                    <option value="농협" <%=(calculation.accountBank == "농협") ? "selected" : "" %>>농협</option>
+                    <option value="산업은행" <%=(calculation.accountBank == "산업은행") ? "selected" : "" %>>산업은행</option>
+                  </select>
                 </div>
                 <div class="form-group col-md-12">
                   <label>계좌번호</label>
-                  <p class="form-control-static"><%=calculation.accountInfo%></p>
+                  <input type="text" class="form-control" name="accountInfo" value="<%=calculation.accountInfo%>">
                 </div>
               </div>
             </div>

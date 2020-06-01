@@ -5,7 +5,7 @@ let connection = common.initDatabase();
 // 예약 리스트
 exports.getReservationList = function(req, res, next) {
   let { page, reservationCode, userName, reservationName, storeName, programName,
-    createDateMin, createDateMax, createDate } = req.query; // 조건 작성
+    createDateMin, createDateMax, createDate, reservationStatus } = req.query; // 조건 작성
   // console.log(req.query);
   let query = "SELECT * FROM Reservation "
   query += " LEFT JOIN Program ON Reservation.programNo = Program.programNo "
@@ -42,7 +42,7 @@ exports.getReservationList = function(req, res, next) {
   if(createDateMax != null && createDateMax != ""){
     query  += ` createDate <= '${createDateMax}' AND`
   }
-
+  
   //조건 검색 예시
   if(userName != null && userName != ""){
     query += ` userName LIKE '%${userName}%' AND`
@@ -108,7 +108,7 @@ exports.getReservationDetail = function(req, res, next) {
 
 //예약 수정
 exports.updateReservation = function(req, res, next) {
-  let { reservationNo } = req.params;
+  let { reservationNo, reservationStatus, checkDate } = req.params;
   if(!Object.keys(req.body)){
     return next(new Error("값이 없으므로 수정할 수 없습니다."));
   }

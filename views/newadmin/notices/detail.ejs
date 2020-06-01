@@ -40,18 +40,24 @@
                     <p class="form-control-static"><%=notice.userName%></p>
                   </div>
                 </div>
-                <div class="col-md-12">
+              </div>
+              <div class="row">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>일반공지</label>
-                    <input type="radio" name="noticeNormalYn" value="1" class="form-control-static"> 공지함
-                      <input type="radio" name="noticeNormalYn" value="0" class="form-control-static"> 공지안함
+                    <select class="form-control" name="noticeNormalYn">
+                      <option value="1" <%=(notice.noticeNormalYn == "1") ? "selected" : ""%>>공개</option>
+                      <option value="0" <%=(notice.noticeNormalYn == "0") ? "selected" : ""%>>비공개</option>
+                    </select>
                   </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>가맹점공지</label>
-                    <input type="radio" name="noticeOwnerYn" value="1" class="form-control-static"> 공지함
-                    <input type="radio" name="noticeOwnerYn" value="0" class="form-control-static"> 공지안함
+                    <select class="form-control" name="noticeOwnerYn">
+                      <option value="1" <%=(notice.noticeOwnerYn == "1") ? "selected" : ""%>>공개</option>
+                      <option value="0" <%=(notice.noticeOwnerYn == "0") ? "selected" : ""%>>비공개</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -73,8 +79,8 @@
                 <div class="form-group col-md-12">
                   <label>공개여부</label>
                   <select class="form-control" name="showYn">
-                    <option value="1">공개</option>
-                    <option value="0">비공개</option>
+                    <option value="1" <%=(notice.showYn == "1") ? "selected" : ""%>>공개</option>
+                    <option value="0" <%=(notice.showYn == "0") ? "selected" : ""%>>비공개</option>
                   </select>
                 </div>
               </div>

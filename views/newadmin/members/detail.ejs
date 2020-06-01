@@ -24,12 +24,6 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>분류</label>
-                    <p class="form-control-static"><%=member.userRole%></p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
                     <label>이름</label>
                     <p class="form-control-static"><%=member.userName%></p>
                   </div>
@@ -38,6 +32,26 @@
                   <div class="form-group">
                     <label>별명</label>
                     <input type="text" class="form-control" name="nickname" value="<%=member.nickname%>">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>분류</label>
+                    <p class="form-control-static"><%=member.userRole%></p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>등급</label>
+                    <select class="form-control" name="userLevel">
+                      <option value="0" <%=(member.userLevel == "0")? "selected" : ""%>>-</option>
+                      <option value="1" <%=(member.userLevel == "1")? "selected" : ""%>>1</option>
+                      <option value="2" <%=(member.userLevel == "2")? "selected" : ""%>>2</option>
+                      <option value="3" <%=(member.userLevel == "3")? "selected" : ""%>>3</option>
+                      <option value="4" <%=(member.userLevel == "4")? "selected" : ""%>>4</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -57,7 +71,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>카카오톡Key</label>
-                    <input type="text" class="form-control" name="userKakaoKey" value="<%=member.userKakaoKey%>">
+                    <p class="form-control-static"><%=member.userKakaoKey%></p>
                   </div>
                 </div>
               </div>
