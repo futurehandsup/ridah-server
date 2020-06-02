@@ -53,7 +53,7 @@ router.route('/store/:storeNo')
 router.route('/reservation')
 .all(function(req, res, next)  {next();})
 .get(reservations.getReservationList, common.setResponse) //예약 리스트 출력
-.post(reservations.addReservation, common.setResponse)    //예약 등록
+.post(reservations.addReservation, reservations.createReservationCode, common.setResponse)    //예약 등록
 .put(common.notImplementedError)
 .delete(common.notImplementedError);
 

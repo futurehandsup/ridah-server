@@ -134,7 +134,7 @@ exports.getNoticeOwnerList = function(req, res, next) {
 exports.getNoticeDetail = function(req, res, next) {
   let { noticeNo } = req.params;
 
-  let query = ` SELECT * FROM Notice `
+  let query = ` SELECT Notice.*, Member.userNo FROM Notice `
 
   query += ` LEFT JOIN Member ON Notice.userNo = Member.userNo`
   query += ` WHERE noticeNo = '${noticeNo}';`

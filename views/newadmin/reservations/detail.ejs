@@ -96,6 +96,14 @@
                   <label>프로그램명</label>
                   <p class="form-control-static"><a href="../../programs/detail/<%=reservation.programNo%>"><%=reservation.programName%></a></p>
                 </div>
+                <div class="form-group col-md-12">
+                  <label>날짜</label>
+                  <p class="form-control-static"><a href="../../programs/detail/<%=reservation.scheduleNo%>"><%=moment(reservation.scheduleDate).format("YYYY-MM-DD")%></a></p>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>시간</label>
+                  <p class="form-control-static"><%=reservation.scheduleTime%></p>
+                </div>
               </div>
             </div>
           </div>
