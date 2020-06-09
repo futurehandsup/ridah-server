@@ -123,6 +123,11 @@ exports.test = function (con) {
     }
   })
 }
+exports.makeReservationCode = function(){
+  let reservationCode = ""
+
+  return reservationCode;
+}
 exports.createSalt = function(){
   let crypto = require('crypto');
   let salt = crypto.randomBytes(64).toString ('base64');
@@ -134,11 +139,12 @@ exports.hashPassword = function(password, salt){
   let hashed;
   let crypto = require('crypto');
   //암호화 로직 작성
+  console.log(password, salt)
   // hashed = crypto.pbkdf2Sync(password, salt, 10392, 64).toString('base64');
   hashed = crypto.pbkdf2Sync(password, salt, 10392, 64, 'sha512').toString('base64');
   return hashed;
 }
-const CIPHER_KEY = "bBq!ChickeN!GoldeN!fRied!JMT!jmt";
+const CIPHER_KEY = "bBq!ChickeN!GoldeN!olIvE!JMT!jmt";
 const CIPHER_IV = new Buffer("goLdEn@olIVe$bBq");
 exports.cipherPassword = function(password){
   let crypto = require('crypto');
