@@ -122,7 +122,13 @@
             </tr>
             <tr>
               <td class="info-head">통장사본 이미지</td>
-              <td class="info-info"><input type="text" name="accountImage" value="<%=store.accountImage%>" placeholder="" class="info-input"></td>
+              <td class="info-info">
+                <img class="form-img-preview" width="70" src="<%=store.accountImage%>">
+                <p>
+                  <button type="button" class="btn btn-default form-img-change-btn">변경</button>
+                  <input name="accountImage" class="form-control info-input form-img" placeholder="통장사본" data-foldername="storeImg/<%=store.storeNo%>" value="<%=store.accountImage%>">
+                </p>
+              </td>
             </tr>
         </tbody>
       </table>
