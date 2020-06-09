@@ -135,7 +135,7 @@
           var calculation = calculations[i];
           %>
           <tr>
-            <td><%=calculation.calculationNo%></td>
+            <td><a href="detail/<%=calculation.calculationNo%>"><%=calculation.calculationNo%></a></td>
             <td><%=calculation.calculationYear%></td>
             <td><%=calculation.calculationMonth%></td>
             <td><%=moment(calculation.calculationDueDate).format("YYYY-MM-DD")%></td>

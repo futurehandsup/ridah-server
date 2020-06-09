@@ -37,7 +37,7 @@
         </tbody>
       </table>
       <div class="card-body">
-        <button class="btn search_submit" id="saveButton"> 프로그램 저장 </button>
+        <button class="btn search_submit" id="saveButton"> 예약내역 추가 </button>
       </div>
     </form>
   </div>
@@ -55,12 +55,13 @@
       data:reservation,
       success:function(args){
         alert("성공했습니다.");
-        location.reload();
+        location.href = '/list';
       },
       error:function(e){
           alert(e.responseText);
       }
     });
+
   });
 });
 </script>
