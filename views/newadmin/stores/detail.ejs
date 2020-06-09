@@ -197,9 +197,12 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-md-12">
-                    <label>통장사본 이미지</label>
-                    <input name="accountImage" type="file" class="form-control-static" placeholder="" accept="image/*" value="<%=store.accountImage%>">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>통장사본 이미지</label>
+                      <p><img width="70" src="<%=store.accountImage%>"></p>
+                      <input name="accountImage" class="form-control form-img" placeholder="통장사본" data-foldername="accountImg/<%=store.storeNo%>" value="<%=store.accountImage%>">
+                    </div>
                   </div>
                 </div>
 

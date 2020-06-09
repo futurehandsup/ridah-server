@@ -24,6 +24,13 @@
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
+                    <label>프로그램 썸네일</label>
+                    <p><img width="70" src="<%=program.programThumbnail%>"></p>
+                    <input name="programThumbnail" class="form-control form-img" placeholder="썸네일" data-foldername="programImg/<%=program.programNo%>" value="<%=program.programThumbnail%>">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
                     <label>프로그램 한줄 설명</label>
                     <textarea name="programDescription" rows="1" class="form-control" placeholder="프로그램 한줄 설명" value="<%=program.programDescription%>"></textarea>
                   </div>
@@ -146,10 +153,12 @@
           <div class="card">
             <div class="content">
               <div class="row">
-                <div class="form-group col-md-12">
-                  <label>코치 사진</label>
-                  <img id="<%=program.coachImage%>" src="" alt="" class="showImage">
-                  <input name="coachImage" type="file" accept="image/*" id="<%=program.coachImage%>" class="form-control" placeholder="코치 사진" value="<%=program.coachImage%>">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>코치 사진</label>
+                    <p><img width="70" src="<%=program.coachImage%>"></p>
+                    <input name="coachImage" class="form-control form-img" placeholder="코치" data-foldername="coachImg/<%=program.programNo%>" value="<%=program.coachImage%>">
+                  </div>
                 </div>
               </div>
               <div class="row">

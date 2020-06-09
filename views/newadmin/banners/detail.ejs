@@ -25,7 +25,8 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>배너 이미지</label>
-                    <input type="file" class="form-control-static" name="bannerImage" value="<%=banner.bannerImage%>">
+                    <p><img width="70" src="<%=banner.bannerImage%>"></p>
+                    <input name="bannerImage" class="form-control form-img" placeholder="배너이미지" data-foldername="bannerImg/<%=banner.bannerNo%>" value="<%=banner.bannerImg%>">
                   </div>
                 </div>
                 <div class="col-md-6">

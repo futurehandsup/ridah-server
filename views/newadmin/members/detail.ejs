@@ -17,7 +17,8 @@
                 <div class="col-md-8">
                   <div class="form-group">
                     <label>프로필사진</label>
-                    <input type="file" class="form-control-static" name="userProfilePic" value="<%=member.userProfilePic%>">
+                    <p><img width="70" src="<%=member.userProfilePic%>"></p>
+                    <input name="userProfilePic" class="form-control form-img" placeholder="프로필사진" data-foldername="memberImg/<%=member.userNo%>" value="<%=member.userProfilePic%>">                  </div>
                   </div>
                 </div>
               </div>

@@ -59,11 +59,16 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>리뷰사진</label>
-                    <input type="file" class="form-control-static" name="reviewPic1" value="<%=review.reviewPic1%>">
-                    <input type="file" class="form-control-static" name="reviewPic2" value="<%=review.reviewPic2%>">
-                    <input type="file" class="form-control-static" name="reviewPic3" value="<%=review.reviewPic3%>">
-                    <input type="file" class="form-control-static" name="reviewPic4" value="<%=review.reviewPic4%>">
-                    <input type="file" class="form-control-static" name="reviewPic5" value="<%=review.reviewPic5%>">
+                    <p><img width="70" src="<%=review.reviewPic1%>"></p>
+                    <input name="reviewPic1" class="form-control form-img" placeholder="리뷰사진 1" data-foldername="reviewImg/<%=review.reviewNo%>" value="<%=review.reviewPic1%>">
+                    <p><img width="70" src="<%=review.reviewPic2%>"></p>
+                    <input name="reviewPic2" class="form-control form-img" placeholder="리뷰사진 2" data-foldername="reviewImg/<%=review.reviewNo%>" value="<%=review.reviewPic2%>">
+                    <p><img width="70" src="<%=review.reviewPic3%>"></p>
+                    <input name="reviewPic3" class="form-control form-img" placeholder="리뷰사진 3" data-foldername="reviewImg/<%=review.reviewNo%>" value="<%=review.reviewPic3%>">
+                    <p><img width="70" src="<%=review.reviewPic4%>"></p>
+                    <input name="reviewPic4" class="form-control form-img" placeholder="리뷰사진 4" data-foldername="reviewImg/<%=review.reviewNo%>" value="<%=review.reviewPic4%>">
+                    <p><img width="70" src="<%=review.reviewPic5%>"></p>
+                    <input name="reviewPic5" class="form-control form-img" placeholder="리뷰사진 5" data-foldername="reviewImg/<%=review.reviewNo%>" value="<%=review.reviewPic5%>">
                   </div>
                 </div>
               </div>
