@@ -50,16 +50,16 @@
               <div class="col-md-1">보기</div>
               <div class="col-md-3">
                 <select name="showSchedules" class="form-control search_key">
-                  <option value="" <%=("selected") ? "selected":null%>>전체보기</option>
-                  <option value="futureSchedule" <%=("selected") ? "selected":null%>>예정수업</option>
-                  <option value="pastSchedule" <%=("selected") ? "selected":null%>>지난수업</option>
+                  <option value="" <%=(query.showSchedules == "") ? "selected" : "" %>>전체보기</option>
+                  <option value="futureSchedule" <%=(query.showSchedules == "futureSchedule") ? "selected" : "" %>>예정수업</option>
+                  <option value="pastSchedule" <%=(query.showSchedules == "pastSchedule") ? "selected" : "" %>>지난수업</option>
                 </select>
               </div>
               <div class="col-md-1">정렬</div>
               <div class="col-md-3">
                 <select name="orderSchedule" class="form-control search_key">
-                  <option value="descDate" <%=("selected") ? "selected":null%>>최신순</option>
-                  <option value="ascDate" <%=("selected") ? "selected":null%>>오래된순</option>
+                  <option value="descDate" <%=(query.orderSchedule == "descDate") ? "selected" : ""%>>최신순</option>
+                  <option value="ascDate" <%=(query.orderSchedule == "ascDate") ? "selected" : ""%>>오래된순</option>
                 </select>
               </div>
             </div>
@@ -77,8 +77,8 @@
   <div class="card" style="margin-bottom: 20px;">
     <table class="table table-default table-hover table-striped">
       <thead>
-        <th>수업날짜</th>
-        <th>수업시간</th>
+        <th>스케줄코드</th>
+        <th>수업일시</th>
         <th>프로그램명</th>
         <th>신청인원</th>
         <th>최대인원</th>
@@ -90,8 +90,12 @@
           var schedule = schedules[i];
           %>
           <tr>
-            <td><a href="../reservations/list?scheduleDateMin=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>&scheduleDateMax=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>"><%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%></a></td>
-            <td><a href="../reservations/list?scheduleDateMin=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>&scheduleDateMax=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>scheduleTimeMin=<%=schedule.scheduleTime%>&scheduleTimeMax=<%=schedule.scheduleTime%>"><%=schedule.scheduleTime%></a></td>
+            <td>
+              <a href="../reservations/list?scheduleDateMin=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>&scheduleDateMax=<%=moment(schedule.scheduleDate).format("YYYY-MM-DD")%>&scheduleTimeMin=<%=schedule.scheduleTime%>&scheduleTimeMax=<%=schedule.scheduleTime%>">
+                <%=schedule.scheduleNo%>
+              </a>
+            </td>
+            <td><%=moment(schedule.scheduleDate).format("YYYY년 MM월 DD일")%> <%=schedule.scheduleTime%></td>
             <td><a href="../reservations/list?programName=<%=schedule.programName%>"><%=schedule.programName%></a></td>
             <td><%=schedule.amountNow%></td>
             <td><%=schedule.amountLimitMax%></td>

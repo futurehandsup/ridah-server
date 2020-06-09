@@ -1,0 +1,66 @@
+<% include ../templates/head.ejs %>
+
+<section style="background-color: #fafafa;">
+  <div class="card" style="margin-bottom: 20px;">
+    <form id="infoForm">
+      <input type="hidden" name="storeNo" value="<%=store.storeNo%>">
+      <table class="table table-default table-bordered">
+        <thead>
+          <th style="color : #008d87; text-align : left;">새로운 예약</th>
+          <th></th>
+        </thead>
+        <tbody>
+            <tr>
+              <td class="info-head">사용자번호</td>
+              <td class="info-info"><input type="text" name="userNo" class="info-input"></td>
+            </tr>
+            <tr>
+              <td class="info-head">프로그램번호</td>
+              <td class="info-info"><input type="text" name="programNo" class="info-input"></td>
+            </tr>
+            <tr>
+              <td class="info-head">스케줄번호</td>
+              <td class="info-info"><input type="text" name="scheduleNo" class="info-input"></td>
+            </tr>
+            <tr>
+              <td class="info-head">예약자명</td>
+              <td class="info-info"><input type="text" name="reservationName" class="info-input"></td>
+            </tr>
+            <tr>
+              <td class="info-head">연락처</td>
+              <td class="info-info"><input type="text" name="reservationPhoneNumber" class="info-input"></td>
+            </tr>
+            <tr>
+              <td class="info-head">예약수량</td>
+              <td class="info-info"><input type="text" name="reservationAmount" class="info-input"></td>
+            </tr>
+        </tbody>
+      </table>
+      <div class="card-body">
+        <button class="btn search_submit" id="saveButton"> 프로그램 저장 </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<% include ../templates/bottom.ejs %>
+
+<script>
+  $(document).ready(function(){
+  $('#saveButton').click(function(){
+    var reservation =  $('#infoForm').serializeObject();
+    $.ajax({
+      type:"POST",
+      url:'/apis/web/reservation',
+      data:reservation,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>

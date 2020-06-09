@@ -55,12 +55,12 @@
               <div class="col-md-3"><input type="text" name="reviewScoreMin" value="<%=query.reviewScoreMin%>" class="form-control search_key"></div>
               <div class="col-md-1">평점최대</div>
               <div class="col-md-3"><input type="text" name="reviewScoreMax" value="<%=query.reviewScoreMax%>" class="form-control search_key"></div>
-              <div class="col-md-1">노출여부</div>
+              <div class="col-md-1">공개여부</div>
               <div class="col-md-3">
                 <select name="showYn" class="form-control search_key">
                   <option value="">전체</option>
-                  <option value="노출">노출</option>
-                  <option value="노출안함">노출안함</option>
+                  <option value="공개" <%=(query.showYn == "공개" ) ? "selected" : "" %>>공개</option>
+                  <option value="비공개" <%=(query.showYn == "비공개" ) ? "selected" : "" %>>비공개</option>
                 </select>
               </div>
             </div>
@@ -75,7 +75,7 @@
     </div>
   </div>
   <div class="card" style="margin-bottom: 20px;">
-    <table class="table table-default table-hover table-bordered">
+    <table class="table table-default table-hover table-striped">
       <thead>
         <th>후기번호</th>
         <th>예약번호</th>
@@ -84,7 +84,7 @@
         <th>사용자번호</th>
         <th>작성날짜</th>
         <th>수정날짜</th>
-        <th>후기노출여부</th>
+        <th>공개여부</th>
         <th>사진</th>
       </thead>
       <tbody>
@@ -99,7 +99,7 @@
           <td><%=review.userNo%></td>
           <td><%=(review.createDate == null || review.createDate == "") ? "" : moment(review.createDate).format("YYYY-MM-DD")%></td>
           <td><%=(review.updateDate == null || review.updateDate == "") ? "" : moment(review.updateDate).format("YYYY-MM-DD")%></td>
-          <td><%=(review.showYn == '1') ? "노출" : "노출안함"%></td>
+          <td><%=(review.showYn == '1') ? "공개" : "비공개"%></td>
           <td><%=review.Pic1%> <%=review.Pic2%> <%=review.Pic3%></td>
         </tr>
         <% } %>

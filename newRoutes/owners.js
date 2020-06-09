@@ -38,6 +38,9 @@ router.get('/login', common.renderPage('newowners/login'));
 router.get('/dashboard', common.setTitle('대시보드'), common.renderPage('newowners/dashboard/index'));
 
 router.get('/reservations/list', reservations.getReservationList, common.setTitle('예약내역'), common.renderPage('newowners/reservations/list'));
+router.get('/reservations/detail/:reservationNo', reservations.getReservationDetail, common.setTitle('예약내역 상세'), common.renderPage('newowners/reservations/detail'));
+router.get('/reservations/add', common.setTitle('예약내역 추가'), common.renderPage('newowners/reservations/add'));
+
 
 router.get('/programs/list', programs.getProgramList, common.setTitle('프로그램'), common.renderPage('newowners/programs/list'));
 router.get('/programs/add', common.setTitle('프로그램 추가'), common.renderPage('newowners/programs/add'));

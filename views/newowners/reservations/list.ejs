@@ -73,7 +73,13 @@
             <div class="col-md-1">번호뒷자리</div>
             <div class="col-md-3"><input type="text" name="reservationPhoneNumber" value="<%=query.reservationPhoneNumber%>" class="form-control search_key"></div>
             <div class="col-md-1">예약상태</div>
-            <div class="col-md-3"><input type="text" name="reservationStatus" value="<%=query.reservationStatus%>" class="form-control search_key"></div>
+            <div class="col-md-3">
+              <select class="form-control search_key" name="reservationStatus">
+                <option value="예약완료" <%=(query.reservationStatus == "예약완료") ? "selected" : "" %>>예약완료</option>
+                <option value="이용완료" <%=(query.reservationStatus == "이용완료") ? "selected" : "" %>>이용완료</option>
+                <option value="예약취소" <%=(query.reservationStatus == "예약취소") ? "selected" : "" %>>예약취소</option>
+              </select>
+            </div>
           </div>
 
           <div class="row search_submit_wrap" style="text-align : right;">
@@ -88,41 +94,38 @@
   <div class="card" style="margin-bottom: 20px;">
     <table class="table table-default table-hover table-striped">
       <thead>
-        <th>예약번호</th>
+        <th>예약코드</th>
         <th>프로그램명</th>
-        <th>이용예정일</th>
-        <th>이용예정시간</th>
-        <th>예약날짜</th>
-        <th>이용완료여부</th>
-        <th>이용완료일시</th>
         <th>예약자명</th>
-        <th>예약자 전화번호</th>
-        <th>예약인원</th>
+        <th>예약날짜</th>
         <th>예약상태</th>
+        <th>이용예정일시</th>
+        <th>이용상태</th>
+        <th>이용완료일</th>
+
       </thead>
       <tbody>
         <% %>
         <% for(var i=0; i<reservations.length; i++){
           var reservation = reservations[i];
-          %>
-          <tr>
-            <td><%=reservation.reservationCode%></td>
-            <td><%=reservation.programName%></td>
-            <td><%=moment(reservation.scheduleDate).format("YYYY-MM-DD")%></td>
-            <td><%=reservation.scheduleTime%></td>
-            <td><%=moment(reservation.createDate).format("YYYY-MM-DD HH:mm:ss")%></td>
-            <td><%=reservation.checkYn%></td>
-            <td><%=moment(reservation.checkDate).format("YYYY-MM-DD HH:mm:ss")%></td>
-            <td><%=reservation.reservationName%></td>
-            <td><%=reservation.reservationPhoneNumber%></td>
-            <td><%=reservation.reservationAmount%></td>
-            <td><%=reservation.reservationStatus%></td>
-
-          </tr>
+        %>
+        <tr>
+          <td><a href="detail/<%=reservation.reservationNo%>"><%=reservation.reservationCode%></a></td>
+          <td><%=reservation.programName%></td>
+          <td><%=reservation.reservationName%></td>
+          <td><%=moment(reservation.createDate).format("YYYY-MM-DD")%></td>
+          <td><%=reservation.reservationStatus%></td>
+          <td><%=moment(reservation.scheduleDate).format("YYYY-MM-DD")%> <%=reservation.scheduleTime%></td>
+          <td><%=(reservation.checkYn == "1")? "이용완료" : "이용 전"%></td>
+          <td><%=(reservation.checkDate == "" || reservation.checkDate == null) ? "-" : moment(reservation.checkDate).format("YYYY-MM-DD") %></td>
+        </tr>
         <% }%>
       </tbody>
     </table>
   </div>
+
+  <a href="add"><button class="btn btn-warning search_submit" style="width : 130px;"> 예약 추가 </button></a>
+
 </section>
 
 <% include ../templates/bottom.ejs %>

@@ -6,7 +6,7 @@ let connection = common.initDatabase();
 exports.getReviewList = function(req, res, next) {
   let { page, userName, createDate, createDateMin, createDateMax,
     reviewNo, reviewContents, userNo, reviewScore, reviewScoreMin, reviewScoreMax, showYn } = req.query; // 조건 작성
-  let query = "SELECT * FROM Review "
+  let query = "SELECT Review.* , Member.* , Program.programName, Reservation.* FROM Review"
   query += " LEFT JOIN Member ON Review.userNo = Member.userNo "
   query += " LEFT JOIN Program ON Review.programNo = Program.programNo "
   query += " LEFT JOIN Reservation ON Review.reservationNo = Reservation.reservationNo "
@@ -40,10 +40,10 @@ exports.getReviewList = function(req, res, next) {
     query += ` reviewScore <= '${reviewScoreMax}' AND`
   }
   // 노출여부 검색
-  if(showYn == "노출"){
+  if(showYn == "공개"){
     query  +=  ` showYn = 1 AND`
   }
-  if(showYn == "노출안함"){
+  if(showYn == "비공개"){
     query  +=  ` showYn = 0 AND`
   }
 

@@ -29,10 +29,10 @@ exports.getProgramList = function(req, res, next) {
     query  +=  ` programName LIKE '%${programName}%' AND`
   }
   // 노출여부 검색
-  if(showYn == "노출"){
+  if(showYn == "1"){
     query  +=  ` showYn = 1 AND`
   }
-  if(showYn == "노출안함"){
+  if(showYn == "0"){
     query  +=  ` showYn = 0 AND`
   }
   // 가격 최소 검색

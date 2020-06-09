@@ -102,7 +102,19 @@
             </tr>
             <tr>
               <td class="info-head">입금은행</td>
-              <td class="info-info"><input type="text" name="accountBank" value="<%=store.accountBank%>" placeholder="입금은행" class="info-input"></td>
+              <td class="info-info">
+                <select class="form-control" name="accountBank" style="width : 10%;">
+                  <option value="신한은행" <%=(store.accountBank == "신한은행") ? "selected" : "" %>>신한은행</option>
+                  <option value="우리은행" <%=(store.accountBank == "우리은행") ? "selected" : "" %>>우리은행</option>
+                  <option value="국민은행" <%=(store.accountBank == "국민은행") ? "selected" : "" %>>국민은행</option>
+                  <option value="하나은행" <%=(store.accountBank == "하나은행") ? "selected" : "" %>>하나은행</option>
+                  <option value="기업은행" <%=(store.accountBank == "기업은행") ? "selected" : "" %>>기업은행</option>
+                  <option value="SC제일은행" <%=(store.accountBank == "SC제일은행") ? "selected" : "" %>>SC제일은행</option>
+                  <option value="수협" <%=(store.accountBank == "수협") ? "selected" : "" %>>수협</option>
+                  <option value="농협" <%=(store.accountBank == "농협") ? "selected" : "" %>>농협</option>
+                  <option value="산업은행" <%=(store.accountBank == "산업은행") ? "selected" : "" %>>산업은행</option>
+                </select>
+              </td>
             </tr>
             <tr>
               <td class="info-head">계좌정보</td>

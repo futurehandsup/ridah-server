@@ -51,12 +51,12 @@
             <div class="row" style="margin-bottom: 1.5%;">
               <div class="col-md-1">프로그램명</div>
               <div class="col-md-3"><input type="text" name="programName" value="<%=query.programName%>" class="form-control search_key"></div>
-              <div class="col-md-1">노출여부</div>
+              <div class="col-md-1">공개여부</div>
               <div class="col-md-3">
                 <select name="showYn" class="form-control search_key">
                   <option value="">전체</option>
-                  <option value="노출">노출</option>
-                  <option value="노출안함">노출안함</option>
+                  <option value="1" <%=(query.showYn == "1")? "selected" : ""%>>공개</option>
+                  <option value="0" <%=(query.showYn == "0")? "selected" : ""%>>비공개</option>
                 </select>
               </div>
             </div>
@@ -93,21 +93,18 @@
     <table class="table table-default table-hover table-striped">
       <thead>
         <th>프로그램명</th>
-        <th>프로그램 한줄설명</th>
+
         <th>기본가격</th>
         <th>제공가격</th>
         <th>할인율</th>
         <th>소요시간</th>
         <th>요구등급</th>
-        <th>안내사항</th>
         <th>코치정보</th>
-        <th>준비물</th>
         <th>등록일자</th>
         <th>최종수정일자</th>
-        <th>노출여부</th>
+        <th>공개여부</th>
         <th>마감일</th>
-        <th>찜한갯수</th>
-        <th>리뷰</th>
+        <th>평점</th>
       </thead>
       <tbody>
         <% %>
@@ -116,13 +113,11 @@
           %>
           <tr>
             <td><a href="../programs/detail/<%=program.programNo%>"><%=program.programName%></a></td>
-            <td><%=program.programDescription%></td>
             <td><%=program.programOriginalPrice%></td>
             <td><%=program.programPrice%></td>
             <td><%=program.programDiscountRatio%></td>
             <td><%=program.programTime%></td>
             <td><%=program.requiredLevelMin%>~<%=program.requiredLevelMax%></td>
-            <td><%=program.programInfo%></td>
             <td><%=program.coachName%></td>
             <!-- <td>
               <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createModal" data-backdrop="false">
@@ -157,13 +152,11 @@
                </div>
               </div>
             </td> -->
-            <td><%=program.programNeeds%></td>
             <td><%=moment(program.createDate).format("YYYY-MM-DD")%></td>
             <td><%=(program.updateDate == null || program.updateDate == "") ? "" : moment(program.updateDate).format("YYYY-MM-DD")%></td>
-            <td><%=(program.showYn == 1) ? "노출" : "노출안함" %></td>
+            <td><%=(program.showYn == 1) ? "공개" : "비공개" %></td>
             <td><%=(program.endDate == null || program.endDate == "") ? "" : moment(program.endDate).format("YYYY-MM-DD")%></td>
-            <td><%=program.zzimCount%></td>
-            <td><%=program.reviewCount%>개/<%=program.reviewScore%></td>
+            <td><%=program.reviewScore%> (<%=program.reviewCount%>)</td>
 
           </tr>
          <%}%>

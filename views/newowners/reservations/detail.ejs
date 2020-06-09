@@ -1,0 +1,120 @@
+<% include ../templates/head.ejs %>
+
+<section style="background-color: #fafafa;">
+  <div class="container-fluid">
+    <p class="mb-3 subtitle">예약내역을 상세하게 확인할 수 있습니다</p>
+  </div>
+  <div class="card" style="margin-bottom: 20px;">
+    <form id="infoForm">
+      <div class="row">
+        <div class="col-md-6">
+          <table class="table table-default table-bordered">
+            <thead>
+              <th style="color : #008d87; text-align : left;">예약정보</th>
+              <th></th>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="info-head">예약코드</td>
+                <td class="info-info"><%=reservation.reservationCode%></td>
+              </tr>
+              <tr>
+                <td class="info-head">프로그램명</td>
+                <td class="info-info"><%=reservation.programName%></td>
+              </tr>
+              <tr>
+                <td class="info-head">사용자 이름</td>
+                <td class="info-info"><%=reservation.reservation%></td>
+              </tr>
+              <tr>
+                <td class="info-head">예약자 이름</td>
+                <td class="info-info"><input type="text" name="reservationName" value="<%=reservation.reservationName%>" class="info-input"></td>
+              </tr>
+              <tr>
+                <td class="info-head">예약자 연락처</td>
+                <td class="info-info"><input type="text" name="reservationPhoneNumber" value="<%=reservation.reservationPhoneNumber%>" class="info-input"></td>
+              </tr>
+              <tr>
+                <td class="info-head">예약인원</td>
+                <td class="info-info"><input type="text" name="reservationAmount" value="<%=reservation.reservationAmount%>" class="info-input"></td>
+              </tr>
+              <tr>
+                <td class="info-head">예약상태</td>
+                <td class="info-info">
+                  <select class="info-input" name="reservationStatus">
+                    <option value="예약완료" <%=(reservation.reservationStatus == "예약완료") ? "selected" : "" %>>예약완료</option>
+                    <option value="이용완료" <%=(reservation.reservationStatus == "이용완료") ? "selected" : "" %>>이용완료</option>
+                    <option value="예약취소" <%=(reservation.reservationStatus == "예약취소") ? "selected" : "" %>>예약취소</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="info-head">예약일</td>
+                <td class="info-info"><%=moment(reservation.createDate).format("YYYY-MM-DD HH:mm:ss")%></td>
+              </tr>
+              <tr>
+                <td class="info-head">수정일</td>
+                <td class="info-info"><%=moment(reservation.updateDate).format("YYYY-MM-DD HH:mm:ss")%></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <table class="table table-default table-bordered">
+            <thead>
+              <th style="color : #008d87; text-align : left;">이용정보</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="info-head">이용상태</td>
+                <td class="info-info">
+                  <select class="info-input" name="checkYn">
+                    <option value="1" <%=(reservation.checkYn == "1") ? "selected" : "" %>>이용완료</option>
+                    <option value="0" <%=(reservation.checkYn == "0") ? "selected" : "" %>>이용 전</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="info-head">이용예정일</td>
+                <td class="info-info"><%=(reservation.scheduleDate == "" || reservation.scheduleDate == null) ? "-" : moment(reservation.scheduleDate).format("YYYY-MM-DD")%> <%=reservation.scheduleTime%></td>
+              </tr>
+              <tr>
+                <td class="info-head">이용완료일</td>
+                <td class="info-info"><%=(reservation.checkDate == "" || reservation.checkDate == null) ? "-" : moment(reservation.createDate).format("YYYY-MM-DD HH:mm:ss")%></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-body">
+        <button class="btn btn-warning search_submit" style="width : 130px;" id="saveButton"> 정보 저장 </button>
+        <a href="../list" type="button" class="btn search_submit search_reset" style="width : 130px;">이전으로</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<% include ../templates/bottom.ejs %>
+
+<script>
+  $(document).ready(function(){
+  $('#saveButton').click(function(){
+    var reservationNo =  $('#infoForm').serializeObject();
+    $.ajax({
+      type:"PUT",
+      url:'/apis/web/reservation/<%=reservation.reservationNo%>',
+      data:reservationNo,
+      success:function(args){
+        alert("성공했습니다.");
+        location.reload();
+      },
+      error:function(e){
+          alert(e.responseText);
+      }
+    });
+  });
+});
+</script>
