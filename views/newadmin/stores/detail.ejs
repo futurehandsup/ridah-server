@@ -24,7 +24,8 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>승마장 썸네일</label>
-                    <input name="storeThumbnail" type="file" class="form-control-static" placeholder="썸네일" value="<%=store.storeThumbnail%>">
+                    <p><img width="70" src="<%=store.storeThumbnail%>"></p>
+                    <input name="storeThumbnail" class="form-control form-img" placeholder="썸네일" data-foldername="storeImg/<%=store.storeNo%>" value="<%=store.storeThumbnail%>">
                   </div>
                 </div>
               </div>

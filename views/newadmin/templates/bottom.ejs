@@ -27,11 +27,17 @@
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="/javascripts/demo.js"></script>
 
+<!-- 이미지 업로드 -->
+<script src="/javascripts/jquery.img-upload-modal.js"></script>
+
+
 <script type="text/javascript">
 $(document).ready(function() {
   $('.sidebar-wrapper .nav .active').removeClass('active');
   var path= location.pathname.split('/')[2] ;
   $('#'+path).addClass('active');
+
+  $('.form-img').imgUploadModal();//이미지 업로드
 // demo.initChartist();
 //
 // $.notify({
