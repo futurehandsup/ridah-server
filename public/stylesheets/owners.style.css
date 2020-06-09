@@ -787,3 +787,6 @@ table td{
 .coachModalIndex{
   text-align: center;
 }
+.form-img{
+  display:none;
+}
