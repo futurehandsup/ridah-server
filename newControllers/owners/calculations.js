@@ -7,6 +7,7 @@ exports.getCalculationList = function(req, res, next) {
   let { page, userName, calculationDueDate, calculationDueDateMin, calculationDueDateMax,
   calculationDate, calculationDateMin, calculationDateMax, calculationYear, calculationMonth,
   calculationPrice, calculationPriceMin, calculationPriceMax, calculationStatus } = req.query; // 조건 작성
+
   let query = "SELECT * FROM Calculation "
 
   query += "WHERE "
@@ -77,12 +78,11 @@ exports.getCalculationList = function(req, res, next) {
 }
 // 정산 상세 불러오기
 exports.getCalculationDetail = function(req, res, next) {
-  let { userNo } = req.params;
-  query += ` SELECT * `;
+  let { calculationNo } = req.params;
 
-  query += ` FROM Calculation `
+  query = ` SELECT * FROM Calculation `
 
-  query += ` WHERE userNo = '${userNo}';`
+  query += ` WHERE calculationNo = '${calculationNo}';`
 
   console.log(query);
   connection.query(query, function (err, results) {

@@ -53,6 +53,7 @@ router.get('/reviews/list', reviews.getReviewList, common.setTitle('이용후기
 router.get('/reviews/detail/:reviewNo', reviews.getReviewDetail, common.setTitle('이용후기 상세'), common.renderPage('newowners/reviews/detail'));
 
 router.get('/calculations/list', calculations.getCalculationList, common.setTitle('정산 내역'), common.renderPage('newowners/calculations/list'));
+router.get('/calculations/detail/:calculationNo', calculations.getCalculationDetail, common.setTitle('정산 내역 상세'), common.renderPage('newowners/calculations/detail'));
 
 router.get('/notices/list', notices.getNoticeNormalList, common.setTitle('전체 공지'), common.renderPage('newowners/notices/list'));
 router.get('/notices/detail/:noticeNo', notices.getNoticeDetail, common.setTitle('공지 상세'), common.renderPage('newowners/notices/detail'));
