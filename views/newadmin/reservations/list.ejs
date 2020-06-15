@@ -58,6 +58,7 @@
             <th>프로그램명</th>
             <th>예약일</th>
             <th>예약자명</th>
+            <th>이용예정일</th>
             <th>이용완료</th>
           </thead>
           <tbody>
@@ -72,6 +73,7 @@
                 <td><%=reservation.programName%></td>
                 <td><%=moment(reservation.createDate).format("YYYY-MM-DD")%></td>
                 <td><%=reservation.reservationName%></td>
+                <td><%=moment(reservation.scheduleDate).format("YYYY-MM-DD")%></td>
                 <td><%= (reservation.checkYn == 0) ? "N" : moment(reservation.checkDate).format("YYYY-MM-DD") %></td>
               </tr>
             <% }%>

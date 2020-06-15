@@ -7,7 +7,7 @@ exports.getSchedulesList = function(req, res, next) {
   let { page, userName, programName, storeName, scheduleDateMin, scheduleDateMax, scheduleTimeMin, scheduleTimeMax,
     amountLimitMin, amountLimitMax, amountNeed} = req.query; // 조건 작성
 
-  let query = "SELECT * FROM Schedule "
+  let query = "SELECT Schedule.*, Program.programName, Store.storeName FROM Schedule "
   query += " LEFT JOIN Program ON Schedule.programNo = Program.programNo "
   query += " LEFT JOIN Store ON Program.storeNo = Store.storeNo "
   query += " WHERE "

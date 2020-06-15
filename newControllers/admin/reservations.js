@@ -7,11 +7,12 @@ exports.getReservationList = function(req, res, next) {
   let { page, reservationCode, userName, reservationName, storeName, programName,
     createDateMin, createDateMax, createDate, reservationStatus } = req.query; // 조건 작성
   // console.log(req.query);
-  let query = "SELECT * FROM Reservation "
+  let query = "SELECT Reservation.*, Program.programName, Member.userName, Store.storeName, Schedule.scheduleDate FROM Reservation "
   query += " LEFT JOIN Program ON Reservation.programNo = Program.programNo "
-  query += " LEFT JOIN Schedule ON Reservation.scheduleNo = Schedule.scheduleNo "
   query += " LEFT JOIN Member ON Reservation.userNo = Member.userNo "
   query += " LEFT JOIN Store ON Reservation.storeNo = Store.storeNo "
+  query += " LEFT JOIN Schedule ON Reservation.scheduleNo = Schedule.scheduleNo "
+
   query += " WHERE "
 
   //예약 번호 검색

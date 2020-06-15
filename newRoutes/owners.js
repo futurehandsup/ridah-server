@@ -4,6 +4,7 @@ var router = express.Router();
 var common = require('../newControllers/common');
 
 // 컨트롤러 변수 선언
+let dashboard = require('../newControllers/owners/dashboard');
 let stores = require('../newControllers/owners/stores');
 let banners = require('../newControllers/owners/banners');
 let calculations = require('../newControllers/owners/calculations');
@@ -35,7 +36,7 @@ router.get('/', stores.getStoreList, common.renderPage('newowners/index'));
 // 로그인 아직 덜 만듬
 router.get('/login', common.renderPage('newowners/login'));
 
-router.get('/dashboard', common.setTitle('대시보드'), common.renderPage('newowners/dashboard/index'));
+router.get('/dashboard', reservations.getReservationList, reviews.getReviewList, schedules.getSchedulesList, notices.getNoticeList, common.setTitle('대시보드'), common.renderPage('newowners/dashboard/index'));
 
 router.get('/reservations/list', reservations.getReservationList, common.setTitle('예약내역'), common.renderPage('newowners/reservations/list'));
 router.get('/reservations/detail/:reservationNo', reservations.getReservationDetail, common.setTitle('예약내역 상세'), common.renderPage('newowners/reservations/detail'));

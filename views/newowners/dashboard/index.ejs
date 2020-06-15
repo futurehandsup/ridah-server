@@ -1,88 +1,147 @@
 <% include ../templates/head.ejs %>
+<%
+   var today = new Date();
+   var dd = today.getDate();
+   var mm = today.getMonth()+1; //January is 0!
+   var yyyy = today.getFullYear();
+
+     if(dd<10) {
+       dd='0'+dd
+       }
+     if(mm<10) {
+       mm='0'+mm
+       }
+
+       today = yyyy + '-' +mm + '-' +dd;
+       _today = yyyy + '년 ' + mm + '월 ' + dd + '일';
+ %>
+
 <section>
   <div class="container-fluid">
-    <p class="mb-3 subtitle">메인화면에서 전체정보를 빠르게 확인해 보세요</p>
-  </div>
-  <div class="container-fluid bg-white dashboard_box" >
-    <div class="row dashboard_box1">
-      <div class="col-sm-3">
-        신규예약
-      </div>
-      <div class="col-sm-3">
-        예약취소
-      </div>
-      <div class="col-sm-3">
-        당일예약
-      </div>
-      <div class="col-sm-3">
-        입장승인
-      </div>
-    </div>
-    <div class="row dashboard_box2">
-      <div class="col-sm-3">
-        <span class="dashboard_box_data"></span>건
-      </div>
-      <div class="col-sm-3">
-        <span class="dashboard_box_data">10</span>건
-      </div>
-      <div class="col-sm-3">
-        <span class="dashboard_box_data">10</span>건
-      </div>
-      <div class="col-sm-3">
-        <span class="dashboard_box_data">10</span>건
-      </div>
-    </div>
+    <p class="mb-3 subtitle">전체정보를 빠르게 확인해 보세요</p>
   </div>
 
-  <div class="row dashboard_table_title">
-    <div class="col-sm-3">
-      예약일정
-    </div>
-    <div class="col-sm-4">
-      고객관리
-    </div>
-    <div class="col-sm-5">
-      공지사항
+  <div class="card">
+    <div class="card-body">
+      <form action="" method="get">
+        <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
+        <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
+          <div class="container-fluid bg-white dashboard_box" >
+
+            <div class="row dashboard_box0">
+              <%=_today%>
+            </div>
+
+            <div class="row dashboard_box1">
+              <div class="col-sm-3">
+                이용예정
+              </div>
+              <div class="col-sm-3">
+                신규예약
+              </div>
+              <div class="col-sm-3">
+                새로운 후기
+              </div>
+              <div class="col-sm-3">
+                예정 스케줄
+              </div>
+            </div>
+
+            <% %>
+            <%
+            var t_reservation = 0; // 오늘 이용예정 건수
+            var n_reservation = 0; // 오늘 추가된 건수
+            var n_review = 0; // 오늘 추가된 후기
+            var t_schedule = 0; // 오늘 스케줄 건수
+
+            for(var i = 0; i<reservations.length;i++){
+              if(moment(reservations[i].scheduleDate).format("YYYY-MM-DD") == today)
+                t_reservation++;
+              if(moment(reservations[i].createDate).format("YYYY-MM-DD") == today)
+                n_reservation++;
+            }
+
+            for(var i = 0; i<reviews.length;i++){
+              if(moment(reviews[i].createDate).format("YYYY-MM-DD") == today)
+                n_review++;
+            }
+
+            for(var i = 0; i<schedules.length;i++){
+              if(moment(schedules[i].scheduleDate).format("YYYY-MM-DD") == today)
+                t_schedule++;
+            }%>
+
+            <div class="row dashboard_box2">
+              <div class="col-sm-3">
+                <span class="dashboard_box_data"><%=t_reservation%></span>건
+              </div>
+              <div class="col-sm-3">
+                <span class="dashboard_box_data"><%=n_reservation%></span>건
+              </div>
+              <div class="col-sm-3">
+                <span class="dashboard_box_data"><%=n_review%></span>건
+              </div>
+              <div class="col-sm-3">
+                <span class="dashboard_box_data"><%=t_schedule%></span>건
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
+  <div class="card" style="margin-bottom: 20px;">
+    <div class="container-fluid bg-white dashboard_box" >
+      <div class="row">
+        <div class="col-md-6">
+          <table class="table table-hover">
+            <thead class="dashboard_table_title">
+              <th>일반공지</th>
+            </thead>
+            <tbody>
+              <% %>
+              <% for(var i=0; i<notices.length; i++){
+                var notice = notices[i];
+                if(notice.noticeNormalYn == 1){
+              %>
+              <tr>
+                <td><a href="notices/detail/<%=notice.noticeNo%>"><%=notice.noticeTitle%></a></td>
+              </tr>
+              <%} }%>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <table class="table table-hover">
+            <thead class="dashboard_table_title">
+              <th>가맹점 공지</th>
+            </thead>
+            <tbody>
+              <% %>
+              <% for(var i=0; i<notices.length; i++){
+                var notice = notices[i];
+                if(notice.noticeOwnerYn == 1){
+              %>
+              <tr>
+                <td><a href="notices/detail/<%=notice.noticeNo%>"><%=notice.noticeTitle%></a></td>
+              </tr>
+              <%} }%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-  <div class="row dashboard_table_data">
-    <div class="col-sm-3">
-      예약일정
-    </div>
-    <div class="col-sm-4">
-      고객관리
-    </div>
-    <div class="col-sm-5">
-      공지사항
-    </div>
-  </div>
-
-  <!-- 데이터 테이블 -->
-  <!-- <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-3">
-        예약일정
+      <div class="col-md-6">
+
       </div>
-      <div class="col-sm-4">
-        고객관리
-      </div>
-      <div class="col-sm-5">
-        공지사항
+      <div class="col-md-6">
+
       </div>
     </div>
-  </div> -->
-</section>
-<% include ../templates/bottom.ejs %>
-<script>
-$(document).ready(function(){
+  </div>
 
-});
-</script>
-<script>
-$(document).ready(function(){
-  $('.sidebar .nav .active').removeClass('active');
-  var path = "dashboard" ;
-  $('#'+path).addClass('active');
-})
-</script>
+</section>
+
+<% include ../templates/bottom.ejs %>

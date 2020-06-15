@@ -4,7 +4,7 @@ let connection = common.initDatabase();
 
 // 공지사항 리스트
 exports.getNoticeList = function(req, res, next) {
-  let { page, userName, noticeNormalYn } = req.query; // 조건 작성
+  let { page, userName, noticeNormalYn, noticeNo } = req.query; // 조건 작성
   let query = "SELECT * FROM Notice "
 
   //조건 검색 예시
@@ -39,7 +39,7 @@ exports.getNoticeList = function(req, res, next) {
 }
 // 전체 공지사항 리스트
 exports.getNoticeNormalList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, noticeNo } = req.query; // 조건 작성
   let query = "SELECT * FROM Notice "
 
   query += " WHERE noticeNormalYn = 1 "
@@ -76,7 +76,7 @@ exports.getNoticeNormalList = function(req, res, next) {
 }
 // 가맹점 공지사항 리스트
 exports.getNoticeOwnerList = function(req, res, next) {
-  let { page, userName } = req.query; // 조건 작성
+  let { page, userName, noticeNo } = req.query; // 조건 작성
   let query = "SELECT * FROM Notice "
 
   query += " WHERE noticeOwnerYn = 1 "

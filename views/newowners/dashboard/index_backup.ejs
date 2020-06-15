@@ -1,0 +1,74 @@
+<% include ../templates/head.ejs %>
+<section>
+  <div class="container-fluid">
+    <p class="mb-3 subtitle">메인화면에서 전체정보를 빠르게 확인해 보세요</p>
+  </div>
+  <div class="container-fluid bg-white dashboard_box" >
+    <div class="row dashboard_box1">
+      <div class="col-sm-3">
+        신규예약
+      </div>
+      <div class="col-sm-3">
+        예약취소
+      </div>
+      <div class="col-sm-3">
+        당일예약
+      </div>
+      <div class="col-sm-3">
+        입장승인
+      </div>
+    </div>
+    <div class="row dashboard_box2">
+      <div class="col-sm-3">
+        <span class="dashboard_box_data"></span>건
+      </div>
+      <div class="col-sm-3">
+        <span class="dashboard_box_data">10</span>건
+      </div>
+      <div class="col-sm-3">
+        <span class="dashboard_box_data">10</span>건
+      </div>
+      <div class="col-sm-3">
+        <span class="dashboard_box_data">10</span>건
+      </div>
+    </div>
+  </div>
+
+  <div class="row dashboard_table_title">
+    <div class="col-sm-3">
+      예약일정
+    </div>
+    <div class="col-sm-4">
+      고객관리
+    </div>
+    <div class="col-sm-5">
+      공지사항
+    </div>
+  </div>
+
+  <div class="row dashboard_table_data">
+    <div class="col-sm-3">
+      예약일정
+    </div>
+    <div class="col-sm-4">
+      고객관리
+    </div>
+    <div class="col-sm-5">
+      공지사항
+    </div>
+  </div>
+
+</section>
+<% include ../templates/bottom.ejs %>
+<script>
+$(document).ready(function(){
+
+});
+</script>
+<script>
+$(document).ready(function(){
+  $('.sidebar .nav .active').removeClass('active');
+  var path = "dashboard" ;
+  $('#'+path).addClass('active');
+})
+</script>
