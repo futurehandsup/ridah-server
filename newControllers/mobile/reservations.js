@@ -110,3 +110,62 @@ exports.getReservationDetail = function(req, res, next) {
     }
   })
 }
+
+exports.createReservationCode = function(req, res, next) {
+  let reservation = req.body; //request의 내용을 가지고 옴.
+  let {reservationNo} = req.result;
+
+  let today = new Date();
+  var year = today.getFullYear();
+  year = year.toString().substring(2,4);
+  var month = (1 + today.getMonth());          //M
+  month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+  var day = today.getDate();                   //d
+  day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+
+  var { storeNo } = reservation ;
+  if(storeNo < 100){
+    if(storeNo < 10)
+      storeNo = '00'+ storeNo;
+    else
+      storeNo = '0'+ storeNo;
+  }
+
+  var newReservationNo = reservationNo.toString().slice(-3);
+
+  // if(newReservationNo.length == 1){
+  //   newReservationNo = '0'+ newReservationNo;
+  // }
+  // if(newReservationNo.length == 2){
+  //   newReservationNo = '0'+ newReservationNo;
+  // }
+
+  while(newReservationNo.length < 3){
+    newReservationNo = '0' + newReservationNo;
+  }
+
+  let reservationCode = `${year}${month}${day}${storeNo}${newReservationNo}`
+
+  let query = " UPDATE Reservation "
+  query += ` SET reservationCode = '${reservationCode}'`
+  query += ` WHERE reservationNo = ${reservationNo}`
+
+
+  console.log(query);
+
+
+  connection.query(query, function(err, sqlResult) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title: "예약 성공",
+        success: true,
+        message: '메시지',
+        reservationNo: reservationNo
+      }
+      common.setResult(req, result);
+      next();
+    }
+  })
+}

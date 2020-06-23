@@ -143,7 +143,7 @@ router.route('/store/getReviewList')
 // 예약하기	  C	  reservation/addReservation
 router.route('/reservation/addReservation')
 .all(function(req, res, next) {  next();})
-.post(reservations.addReservation, common.setResponse)
+.post(reservations.addReservation, reservations.createReservationCode, common.setResponse)
 
 // 예약 수정	U	 reservation/updateReservation
 router.route('/reservation/updateReservation')
