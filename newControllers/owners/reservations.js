@@ -270,3 +270,82 @@ exports.createReservationCode = function(req, res, next) {
     }
   })
 }
+
+exports.dashboardReservationToday = function(req, res, next){
+
+  let { storeNo } = req.body.params;
+  console.log("reservation", req.body.params);
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+
+    if(dd<10) {
+      dd='0'+dd
+      }
+    if(mm<10) {
+      mm='0'+mm
+      }
+
+  today = yyyy + '-' +mm + '-' +dd;
+
+  query = ` SELECT COUNT(Schedule.scheduleDate) AS reservationToday FROM Reservation`
+  query += ` LEFT JOIN Schedule ON Reservation.scheduleNo = Schedule.scheduleNo`
+  query += ` WHERE storeNo = ${storeNo} AND date_format(scheduleDate,'%Y-%m-%d') = '${today}'`
+
+  connection.query(query, function (err, results) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "오늘 이용예정인 예약",
+        success : true,
+        message : '메시지',
+        t_reservation : results[0]
+      }
+      console.log(result)
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
+
+exports.dashboardReservationCount = function(req, res, next){
+
+  let { storeNo } = req.body.params;
+  console.log("reservation", req.body.params);
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+
+    if(dd<10) {
+      dd='0'+dd
+      }
+    if(mm<10) {
+      mm='0'+mm
+      }
+
+  today = yyyy + '-' +mm + '-' +dd;
+
+  query = ` SELECT COUNT(Reservation.createDate) AS reservationCount FROM Reservation`
+  query += ` WHERE storeNo = ${storeNo} AND date_format(createDate,'%Y-%m-%d') = '${today}' `
+
+  connection.query(query, function (err, results) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "오늘 신규예약 개수",
+        success : true,
+        message : '메시지',
+        n_reservation : results[0]
+      }
+      console.log(result)
+      common.setResult(req, result);
+      next();
+    }
+  })
+}

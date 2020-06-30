@@ -718,10 +718,9 @@ table td{
   color: #2f2f2f;
 }
 .dashboard_box{
-  padding-bottom : 15px;
+  margin-bottom : 15px;
   width: 100%;
   box-shadow: 0px 2px 5.9px 0.1px rgba(0, 0, 0, 0.16);
-  background-color: #ffffff;
 }
 .dashboard_box0{
   background-color: #008d87;
@@ -769,14 +768,12 @@ table td{
   color: #008d87;
 }
 .dashboard_table_title{
-  padding: 0px 50px;
-  margin: 20px 0px;
+
   width: 100%;
-  box-shadow: 0px 2px 5.9px 0.1px rgba(0, 0, 0, 0.2);
   background-color: #d2d2d2;
   font-family: YDIYGO320;
   font-size: 16px;
-  font-weight: lighter;
+  font-weight: bold;
   line-height: 1.69;
   letter-spacing: normal;
   text-align: left;

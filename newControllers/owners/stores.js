@@ -45,7 +45,9 @@ exports.getStoreList = function(req, res, next) {
 
 // 가맹점 상세 불러오기
 exports.getStoreDetail = function(req, res, next) {
-  let { storeNo } = req.params;
+  let { storeNo } = req.body.params;
+  console.log("storeDetail", req.body.params);
+
   let query = ` SELECT * `;
 
   query += ` FROM Store `
