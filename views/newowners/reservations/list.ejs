@@ -29,10 +29,8 @@
            <div class="row" style="margin-bottom: 1.5%;">
             <div class="col-md-1">예약일</div>
             <div class="col-md-5 search_cal_group">
-              <i class="pe-7s-date"></i>
               <input type="date" name="createDateMin" class="search_calendar" value="<%=query.createDateMin%>">
               <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
-              <i class="pe-7s-date"></i>
               <input type="date" name="createDateMax" class="search_calendar" value="<%=(query.createDateMax == "")? today : query.createDateMax%>">
             </div>
           </div>
@@ -40,19 +38,15 @@
           <div class="row">
             <div class="col-md-1">이용예정일</div>
             <div class="col-md-5 search_cal_group">
-              <i class="pe-7s-date"></i>
               <input type="date" name="scheduleDateMin" class="search_calendar" value="<%=query.scheduleDateMin%>">
               <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
-              <i class="pe-7s-date"></i>
               <input type="date" name="scheduleDateMax" class="search_calendar" value="<%=(query.scheduleDateMax == "" || query.scheduleDateMax == null)? today : query.scheduleDateMax%>">
            </div>
 
            <div class="col-md-1">이용예정시간</div>
            <div class="col-md-5 search_cal_group">
-             <i class="pe-7s-clock"></i>
              <input type="time" name="scheduleTimeMin" class="search_calendar" value="<%=query.scheduleTimeMin%>">
              <span style="margin-right:5px; margin-left: 5px;">ㅡ</span>
-             <i class="pe-7s-clock"></i>
              <input type="time" name="scheduleTimeMax" class="search_calendar" value="<%=query.scheduleTimeMax%>">
            </div>
          </div>
