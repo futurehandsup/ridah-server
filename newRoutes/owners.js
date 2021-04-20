@@ -23,10 +23,14 @@ let zzims = require('../newControllers/owners/zzims');
 
 
 //로그인 대신 사용하는 라인
-router.all('*', function(req, res, next){
+router.use(function(req, res, next){
   // 데모용, 임시 페이지
-  if(req.params['storeNo'] == null){
-    req.params.storeNo = 1;
+  if(req.body['params'] == null ){
+    req.body.params = {}
+  }
+  if(req.body.params['storeNo'] == null){
+    req.body.params.storeNo = 1;
+    console.log("router", req.body.params);
   }
   next();
 }, stores.getStoreDetail);
@@ -36,7 +40,7 @@ router.get('/', stores.getStoreList, common.renderPage('newowners/index'));
 // 로그인 아직 덜 만듬
 router.get('/login', common.renderPage('newowners/login'));
 
-router.get('/dashboard', reservations.getReservationList, reviews.getReviewList, schedules.getSchedulesList, notices.getNoticeList, common.setTitle('대시보드'), common.renderPage('newowners/dashboard/index'));
+router.get('/dashboard', reservations.dashboardReservationToday, reservations.dashboardReservationCount, reviews.dashboardReview, schedules.dashboardSchedule, schedules.getSchedulesList, notices.getNoticeList, common.setTitle('대시보드'), common.renderPage('newowners/dashboard/index'));
 
 router.get('/reservations/list', reservations.getReservationList, common.setTitle('예약내역'), common.renderPage('newowners/reservations/list'));
 router.get('/reservations/detail/:reservationNo', reservations.getReservationDetail, common.setTitle('예약내역 상세'), common.renderPage('newowners/reservations/detail'));
@@ -48,7 +52,7 @@ router.get('/programs/add', common.setTitle('프로그램 추가'), common.rende
 router.get('/programs/detail/:programNo', programs.getProgramDetail, common.setTitle('프로그램 상세'), common.renderPage('newowners/programs/detail'));
 router.get('/programs/schedule', schedules.getSchedulesList, common.setTitle('스케줄'), common.renderPage('newowners/programs/schedule'));
 
-router.get('/stores/detail', stores.getStoreList, common.setTitle('승마장 정보 관리'), common.renderPage('newowners/stores/detail'));
+router.get('/stores/detail', /*stores.getStoreDetail, */common.setTitle('승마장 정보 관리'), common.renderPage('newowners/stores/detail'));
 
 router.get('/reviews/list', reviews.getReviewList, common.setTitle('이용후기 관리'), common.renderPage('newowners/reviews/list'));
 router.get('/reviews/detail/:reviewNo', reviews.getReviewDetail, common.setTitle('이용후기 상세'), common.renderPage('newowners/reviews/detail'));

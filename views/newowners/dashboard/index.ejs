@@ -21,83 +21,82 @@
     <p class="mb-3 subtitle">전체정보를 빠르게 확인해 보세요</p>
   </div>
 
-  <div class="card">
-    <div class="card-body">
-      <form action="" method="get">
-        <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
-        <div style="margin-left: 3%; margin-right: 3%; font-size: 80%; font-color: #434343;">
-          <div class="container-fluid bg-white dashboard_box" >
+  <div class="container-fluid">
 
-            <div class="row dashboard_box0">
-              <%=_today%>
+    <form action="" method="get">
+      <input type="hidden" name="storeId" value="<%=store._id%>"><!--필수-->
+      <div class="card  dashboard_box" >
+        <div class="card-header dashboard_box0">
+          <%=_today%>
+        </div>
+        <div class="card-body">
+          <div class="row dashboard_box1">
+            <div class="col-sm-3">
+              이용예정
             </div>
-
-            <div class="row dashboard_box1">
-              <div class="col-sm-3">
-                이용예정
-              </div>
-              <div class="col-sm-3">
-                신규예약
-              </div>
-              <div class="col-sm-3">
-                새로운 후기
-              </div>
-              <div class="col-sm-3">
-                예정 스케줄
-              </div>
+            <div class="col-sm-3">
+              신규예약
             </div>
-
-            <% %>
-            <%
-            var t_reservation = 0; // 오늘 이용예정 건수
-            var n_reservation = 0; // 오늘 추가된 건수
-            var n_review = 0; // 오늘 추가된 후기
-            var t_schedule = 0; // 오늘 스케줄 건수
-
-            for(var i = 0; i<reservations.length;i++){
-              if(moment(reservations[i].scheduleDate).format("YYYY-MM-DD") == today)
-                t_reservation++;
-              if(moment(reservations[i].createDate).format("YYYY-MM-DD") == today)
-                n_reservation++;
-            }
-
-            for(var i = 0; i<reviews.length;i++){
-              if(moment(reviews[i].createDate).format("YYYY-MM-DD") == today)
-                n_review++;
-            }
-
-            for(var i = 0; i<schedules.length;i++){
-              if(moment(schedules[i].scheduleDate).format("YYYY-MM-DD") == today)
-                t_schedule++;
-            }%>
-
-            <div class="row dashboard_box2">
-              <div class="col-sm-3">
-                <span class="dashboard_box_data"><%=t_reservation%></span>건
-              </div>
-              <div class="col-sm-3">
-                <span class="dashboard_box_data"><%=n_reservation%></span>건
-              </div>
-              <div class="col-sm-3">
-                <span class="dashboard_box_data"><%=n_review%></span>건
-              </div>
-              <div class="col-sm-3">
-                <span class="dashboard_box_data"><%=t_schedule%></span>건
-              </div>
+            <div class="col-sm-3">
+              새로운 후기
+            </div>
+            <div class="col-sm-3">
+              예정 스케줄
             </div>
           </div>
+
+          <% %>
+          <%
+          // var t_reservation = 0; // 오늘 이용예정 건수
+          // var n_reservation = 0; // 오늘 추가된 건수
+          // var n_review = 0; // 오늘 추가된 후기
+          // var t_schedule = 0; // 오늘 스케줄 건수
+
+          // for(var i = 0; i<reservations.length;i++){
+          //   if(moment(reservations[i].scheduleDate).format("YYYY-MM-DD") == today)
+          //     t_reservation++;
+          //   if(moment(reservations[i].createDate).format("YYYY-MM-DD") == today)
+          //     n_reservation++;
+          // }
+          //
+          // for(var i = 0; i<reviews.length;i++){
+          //   if(moment(reviews[i].createDate).format("YYYY-MM-DD") == today)
+          //     n_review++;
+          // }
+          //
+          // for(var i = 0; i<schedules.length;i++){
+          //   if(moment(schedules[i].scheduleDate).format("YYYY-MM-DD") == today)
+          //     t_schedule++;
+          // }
+          %>
+
+          <div class="row dashboard_box2">
+            <div class="col-sm-3">
+              <span class="dashboard_box_data"><%=t_reservation.reservationToday%></span>건
+            </div>
+            <div class="col-sm-3">
+              <span class="dashboard_box_data"><%=n_reservation.reservationCount%></span>건
+            </div>
+            <div class="col-sm-3">
+              <span class="dashboard_box_data"><%=n_review.reviewCount%></span>건
+            </div>
+            <div class="col-sm-3">
+              <span class="dashboard_box_data"><%=n_schedule.scheduleToday%></span>건
+            </div>
+          </div>
+
         </div>
-      </form>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom: 20px;">
-    <div class="container-fluid bg-white dashboard_box" >
-      <div class="row">
-        <div class="col-md-6">
+      </div>
+    </form>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card dashboard_box">
+          <div class="card-header dashboard_table_title">
+            일반공지
+          </div>
           <table class="table table-hover">
-            <thead class="dashboard_table_title">
-              <th>일반공지</th>
-            </thead>
             <tbody>
               <% %>
               <% for(var i=0; i<notices.length; i++){
@@ -111,11 +110,13 @@
             </tbody>
           </table>
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="col-md-6">
+        <div class="card dashboard_box">
+          <div class="card-header dashboard_table_title">
+            가맹점 공지
+          </div>
           <table class="table table-hover">
-            <thead class="dashboard_table_title">
-              <th>가맹점 공지</th>
-            </thead>
             <tbody>
               <% %>
               <% for(var i=0; i<notices.length; i++){
@@ -130,6 +131,14 @@
           </table>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!--gongji->
+
+  <div class="card" style="margin-bottom: 20px;">
+    <div class="container-fluid bg-white dashboard_box" >
+
     </div>
 
     <div class="row">

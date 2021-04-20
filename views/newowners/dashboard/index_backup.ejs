@@ -72,3 +72,63 @@ $(document).ready(function(){
   $('#'+path).addClass('active');
 })
 </script>
+
+
+
+  <div class="row dashboard_box0">
+    <%=_today%>
+  </div>
+
+  <div class="row dashboard_box1">
+    <div class="col-sm-3">
+      이용예정
+    </div>
+    <div class="col-sm-3">
+      신규예약
+    </div>
+    <div class="col-sm-3">
+      새로운 후기
+    </div>
+    <div class="col-sm-3">
+      예정 스케줄
+    </div>
+  </div>
+
+  <% %>
+  <%
+  var t_reservation = 0; // 오늘 이용예정 건수
+  var n_reservation = 0; // 오늘 추가된 건수
+  var n_review = 0; // 오늘 추가된 후기
+  var t_schedule = 0; // 오늘 스케줄 건수
+
+  for(var i = 0; i<reservations.length;i++){
+    if(moment(reservations[i].scheduleDate).format("YYYY-MM-DD") == today)
+      t_reservation++;
+    if(moment(reservations[i].createDate).format("YYYY-MM-DD") == today)
+      n_reservation++;
+  }
+
+  for(var i = 0; i<reviews.length;i++){
+    if(moment(reviews[i].createDate).format("YYYY-MM-DD") == today)
+      n_review++;
+  }
+
+  for(var i = 0; i<schedules.length;i++){
+    if(moment(schedules[i].scheduleDate).format("YYYY-MM-DD") == today)
+      t_schedule++;
+  }%>
+
+  <div class="row dashboard_box2">
+    <div class="col-sm-3">
+      <span class="dashboard_box_data"><%=t_reservation%></span>건
+    </div>
+    <div class="col-sm-3">
+      <span class="dashboard_box_data"><%=n_reservation%></span>건
+    </div>
+    <div class="col-sm-3">
+      <span class="dashboard_box_data"><%=n_review%></span>건
+    </div>
+    <div class="col-sm-3">
+      <span class="dashboard_box_data"><%=t_schedule%></span>건
+    </div>
+  </div>

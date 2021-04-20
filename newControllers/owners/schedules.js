@@ -183,3 +183,44 @@ exports.addSchedules = function(req, res, next) {
     }
   })
 }
+
+exports.dashboardSchedule = function(req, res, next){
+
+  let { storeNo } = req.body.params;
+  console.log("schedule", req.body.params);
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+
+    if(dd<10) {
+      dd='0'+dd
+      }
+    if(mm<10) {
+      mm='0'+mm
+      }
+
+  today = yyyy + '-' +mm + '-' +dd;
+
+  query = ` SELECT COUNT(Schedule.scheduleDate) AS scheduleToday FROM Schedule`
+  query += " LEFT JOIN Program ON Schedule.programNo = Program.programNo "
+
+  query += ` WHERE  storeNo = ${storeNo} AND date_format(scheduleDate,'%Y-%m-%d') = '${today}' `
+
+  connection.query(query, function (err, results) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "오늘 예정된 스케줄 개수",
+        success : true,
+        message : '메시지',
+        n_schedule : results[0]
+      }
+      console.log(result)
+      common.setResult(req, result);
+      next();
+    }
+  })
+}

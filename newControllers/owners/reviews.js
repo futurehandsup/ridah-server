@@ -195,3 +195,42 @@ exports.addReview = function(req, res, next) {
     }
   })
 }
+
+exports.dashboardReview = function(req, res, next){
+
+  let { storeNo } = req.body.params;
+  console.log("review", req.body.params);
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+
+    if(dd<10) {
+      dd='0'+dd
+      }
+    if(mm<10) {
+      mm='0'+mm
+      }
+
+  today = yyyy + '-' +mm + '-' +dd;
+
+  query = ` SELECT COUNT(Review.createDate) AS reviewCount FROM Review`
+  query += ` WHERE  storeNo = ${storeNo} AND date_format(createDate,'%Y-%m-%d') = '${today}' `
+
+  connection.query(query, function (err, results) {
+    if (err) {
+      return next(err);
+    } else {
+      var result = {
+        title : "오늘 새로운 리뷰 개수",
+        success : true,
+        message : '메시지',
+        n_review : results[0]
+      }
+      console.log(result)
+      common.setResult(req, result);
+      next();
+    }
+  })
+}
