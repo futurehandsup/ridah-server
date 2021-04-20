@@ -37,6 +37,7 @@ module.exports = function() {
     //     resave : true,                    //같은 세션정보라도 다시 저장할건지
     //     secret : config.sessionSecret     //비밀키 설정.
     // }));
+
     var MySQLStore = require('express-mysql-session')(session);
     var common = require('../newControllers/common')
     var connection = common.initDatabase(); // or mysql.createPool(options);
@@ -57,11 +58,10 @@ module.exports = function() {
     app.set('jwt-secret', config.sessionSecret);
     app.set('jwt-refresh-secret', config.refreshSecret);
 
-    app.use(flash());
-    app.use(passport.initialize());    // 추가
-    app.use(passport.session());       // 추가
+    // app.use(flash());
+    // app.use(passport.initialize());    // 추가
+    // app.use(passport.session());       // 추가
 
-    var common = require('../newControllers/common');
     app.use(common.setPage);
 
     app.locals.filterItems = require('./filterItems');
@@ -69,80 +69,81 @@ module.exports = function() {
     app.locals.moment.locale('ko')
     require('moment-timezone');
 
-    var index = require('../routes/index');
-    var users = require('../routes/users');
-    var stores = require('../routes/stores');
-    var reviews = require('../routes/reviews');
-    var qnas = require('../routes/qnas');
-    var programs = require('../routes/programs');
-    var reservations = require('../routes/reservations');
-    var coupons = require('../routes/coupons');
-    var couponPurchaseLogs = require('../routes/couponPurchaseLogs');
-    var carrotUsageLogs = require('../routes/carrotUsageLogs');
-    var notices = require('../routes/notices');
-    var noticeOwners = require('../routes/noticeOwners')
-    var headers = require('../routes/headers');
-    var recommends = require('../routes/recommends');
-    var events = require('../routes/events');
-    var apps = require('../routes/apps');
-    var faqs = require('../routes/faqs');
-    var publicDatas = require('../routes/publicDatas');
-    var calculations = require('../routes/calculations');
-    var calculationVats = require('../routes/calculationVats');
-    var calculationTaxs = require('../routes/calculationTaxs');
+    // var index = require('../routes/index');
+    // var users = require('../routes/users');
+    // var stores = require('../routes/stores');
+    // var reviews = require('../routes/reviews');
+    // var qnas = require('../routes/qnas');
+    // var programs = require('../routes/programs');
+    // var reservations = require('../routes/reservations');
+    // var coupons = require('../routes/coupons');
+    // var couponPurchaseLogs = require('../routes/couponPurchaseLogs');
+    // var carrotUsageLogs = require('../routes/carrotUsageLogs');
+    // var notices = require('../routes/notices');
+    // var noticeOwners = require('../routes/noticeOwners')
+    // var headers = require('../routes/headers');
+    // var recommends = require('../routes/recommends');
+    // var events = require('../routes/events');
+    // var apps = require('../routes/apps');
+    // var faqs = require('../routes/faqs');
+    // var publicDatas = require('../routes/publicDatas');
+    // var calculations = require('../routes/calculations');
+    // var calculationVats = require('../routes/calculationVats');
+    // var calculationTaxs = require('../routes/calculationTaxs');
 
     var webapi = require('../newRoutes/webapi');
     var adminapi = require('../newRoutes/adminapi');
     var mobileapi = require('../newRoutes/mobileapi');
 
-    var admin = require('../routes/admin'); // 관리자 페이지
-    var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
-    var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
+    // var admin = require('../routes/admin'); // 관리자 페이지
+    // var customers = require('../routes/customers'); // 사용자용 페이지 --> 테스트용
+    // var owners = require('../routes/owners'); // 업주용 페이지 -->개발 예정
 
     var newOwners = require('../newRoutes/owners'); // 업주용 페이지 -->개발 예정
     var newAdmin = require('../newRoutes/admin'); // 관리자 페이지 --> 개발 예정
 
     var modules = require('../routes/modules'); // 기타 기능 -- 파일 업로드 등
 
-    var authController = require('../controllers/auth')
+    // var authController = require('../controllers/auth')
 
     // 권한 체크 및 검증
-    app.use(['/users','/stores','/reviews','/qnas','/programs','/reservations','/coupons','/couponPurchaseLogs','/carrotUsageLogs','/notices','/headers','/recommends','/events', '/apps']
-            , authController.authenticate)
+    // app.use(['/users','/stores','/reviews','/qnas','/programs','/reservations','/coupons','/couponPurchaseLogs','/carrotUsageLogs','/notices','/headers','/recommends','/events', '/apps']
+    //         , authController.authenticate)
 
-    app.use('/', index);
+    // app.use('/', index);
     app.use('/apis/web', webapi);
     app.use('/apis/admin', adminapi);
     app.use('/apis/mobile', mobileapi);
 
     //API Route : view 없음.
-    app.use('/users', users);
-    app.use('/stores', stores);
-    app.use('/reviews', reviews);
-    app.use('/qnas', qnas);
-    app.use('/programs', programs);
-    app.use('/reservations', reservations);
-    app.use('/coupons', coupons);
-    app.use('/couponPurchaseLogs', couponPurchaseLogs);
-    app.use('/carrotUsageLogs', carrotUsageLogs);
-    app.use('/notices',notices);
-    app.use('/noticeOwners', noticeOwners);
-    app.use('/headers', headers);
-    app.use('/recommends', recommends);
-    app.use('/events', events);
-    app.use('/apps', apps);
-    app.use('/faqs', faqs);
-    app.use('/publicDatas', publicDatas);
-    app.use('/calculations', calculations);
-    app.use('/calculationVats', calculationVats);
-    app.use('/calculationTaxs', calculationTaxs);
+    // app.use('/users', users);
+    // app.use('/stores', stores);
+    // app.use('/reviews', reviews);
+    // app.use('/qnas', qnas);
+    // app.use('/programs', programs);
+    // app.use('/reservations', reservations);
+    // app.use('/coupons', coupons);
+    // app.use('/couponPurchaseLogs', couponPurchaseLogs);
+    // app.use('/carrotUsageLogs', carrotUsageLogs);
+    // app.use('/notices',notices);
+    // app.use('/noticeOwners', noticeOwners);
+    // app.use('/headers', headers);
+    // app.use('/recommends', recommends);
+    // app.use('/events', events);
+    // app.use('/apps', apps);
+    // app.use('/faqs', faqs);
+    // app.use('/publicDatas', publicDatas);
+    // app.use('/calculations', calculations);
+    // app.use('/calculationVats', calculationVats);
+    // app.use('/calculationTaxs', calculationTaxs);
 
     //admin Route : /views/admin/* view 사용
-    app.use('/admin', admin);
-    //customers Route : /views/customers/* view 사용
-    app.use('/customers', customers);
-    //owners Route : /views/customers/* view 사용
-    app.use('/owners', owners);
+    // app.use('/admin', admin);
+    // //customers Route : /views/customers/* view 사용
+    // app.use('/customers', customers);
+    // //owners Route : /views/customers/* view 사용
+    // app.use('/owners', owners);
+
     app.use('/newowners', newOwners);
     app.use('/newadmin', newAdmin);
 
