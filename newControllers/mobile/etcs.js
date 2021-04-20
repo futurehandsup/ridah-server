@@ -238,7 +238,7 @@ exports.uploadImage = function(req, res, next){
   else folder += "/";
 
   var s3_params = {
-    Bucket: 'ridahonhill',
+    Bucket: 'anymal-bucket',
     Key: "anymal/"+folder+(folder=='mobileUpload/'?date+"_":"")+fileObj.originalname, //// TODO: 폴더경로도 추가해줍시다.
     ACL: 'public-read',
     ContentType: fileObj.mimetype
